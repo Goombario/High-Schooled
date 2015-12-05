@@ -1,0 +1,13 @@
+syntax: glob
+*.obj
+*/Debug
+*/Release
+*.sdf
+*.suo
+*.user
+*/Schooled 2.0/Debug
+*.tlog
+*.idb
+*.pdb
+*.opensdf
+*.sav
