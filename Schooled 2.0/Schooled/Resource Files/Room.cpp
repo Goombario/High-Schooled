@@ -1,5 +1,6 @@
 #include "../Header Files/Room.h"
 #include "../Header Files/Actor.h"
+#include "../Header Files/Enemy.h"
 #include "../Header Files/Buffer.h"
 #include "../Header Files/Item.h"
 #include "../Header Files/Schooled.h"
@@ -248,7 +249,7 @@ void Room::removeActor(COORD c)
 }
 
 //Enemy AIs
-void Room::moveActors(COORD p, Actor& a)
+void Room::moveActors(COORD p, Enemy& a)
 {
 	if (a.getTile().tileInt == 13) // If Cat, move Cat
 	{
@@ -402,7 +403,7 @@ void Room::save(string fileName)
 	stream.close();
 }
 
-void Room::moveEnemy1(COORD playerPos, Actor& enemy)
+void Room::moveEnemy1(COORD playerPos, Enemy& enemy)
 {
 	// Initializing variables
 	int differenceX, differenceY, deltaX, deltaY;
@@ -466,7 +467,7 @@ void Room::moveEnemy1(COORD playerPos, Actor& enemy)
 }
 
 // Same as move enemy, but dumber (without the inRange effect, if it can't see you, you aren't there)
-void Room::moveCat(COORD playerPos, Actor& enemy)	
+void Room::moveCat(COORD playerPos, Enemy& enemy)	
 {
 	int differenceX, differenceY, deltaX, deltaY;
 	int enemyX = enemy.getX();
@@ -597,7 +598,7 @@ void Room::moveMinion(Actor& minion)
 	}
 }
 
-bool Room::lineOfSight(COORD playerPos, Actor& enemy)
+bool Room::lineOfSight(COORD playerPos, Enemy& enemy)
 {
 	bool isFound = false;
 	int counter = 1;

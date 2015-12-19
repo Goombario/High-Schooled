@@ -52,7 +52,7 @@ void PlayingState::Init()
 	log.clear();
 
 	// Setting the player
-	player = Actor({ '8', con::fgHiWhite }, { 12, 1, 3 });
+	player = Actor(Tile{ '8', con::fgHiWhite }, Stats{ 12, 1, 3 });
 	getStartLocation();
 	delta = { 0, 0 };
 	
@@ -534,7 +534,7 @@ void PlayingState::interact()
 			log.push_back(currentRoom.getActor(highlight).getMDefend(), con::fgLoCyan);
 
 			// Check if they're holding an item
-			if (currentRoom.getActor(highlight).holdItem())
+			if (currentRoom.getActor(highlight).holdsItem())
 			{
 				// Get their item type
 				int temp = currentRoom.getActor(highlight).dropItem();
