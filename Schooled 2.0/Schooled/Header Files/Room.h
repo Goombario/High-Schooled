@@ -6,6 +6,7 @@
 #include "Schooled.h"
 
 class Actor;
+class Enemy;
 class Room;
 class Buffer;
 class Item;
@@ -42,13 +43,13 @@ public:
 	Actor& getActor(COORD);	// Get Actor in actorList
 	Actor& getActor(int);
 	void removeActor(COORD); // Remove actor from actorList
-	void moveActors(COORD, Actor&);	// Move all actors in actorList
+	void moveActors(COORD, Enemy&);	// Move all actors in actorList
 	vector<Actor>& getActorList(); // Getting the entire actor list
-	void moveEnemy1(COORD, Actor&);	// Move an enemy towards player
-	void moveCat(COORD, Actor&);	// Move a cat towards player
+	void moveEnemy1(COORD, Enemy&);	// Move an enemy towards player
+	void moveCat(COORD, Enemy&);	// Move a cat towards player
 	void moveMinion(Actor&); //Moves the minion npc
 	bool isAdjacent(COORD, Actor&); //checks if enemy is adjacent to the player
-	bool lineOfSight(COORD, Actor&);	// Determines if actor can see coordinate
+	bool lineOfSight(COORD, Enemy&);	// Determines if actor can see coordinate
 
 	// Generates random number between 1 and messagesLog_length, or between 1 and messagesNPCHit_length
 	string randomLog(bool);
