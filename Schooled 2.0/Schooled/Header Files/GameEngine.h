@@ -11,7 +11,7 @@ class GameEngine
 {
 public:
 	// Initialize the engine
-	void Init();
+	int Init();
 
 	// Cleanup the engine before exiting
 	void Cleanup();
@@ -26,6 +26,7 @@ public:
 	void Update();
 	void Draw();
 
+	// Modify the state
 	bool Running() { return m_running; }
 	void Quit() { m_running = false; }
 

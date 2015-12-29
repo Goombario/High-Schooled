@@ -25,6 +25,12 @@
     <Filter Include="Resource Files\Classes">
       <UniqueIdentifier>{ffc96db1-fef4-44ab-a74c-0a36d7e288f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SDL">
+      <UniqueIdentifier>{420b1851-bcba-4fef-9ac8-d920eaf71509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\SDL">
+      <UniqueIdentifier>{e499763c-0445-4b1d-819f-0570596e33f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -68,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="Resource Files\WinState.cpp">
       <Filter>Resource Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource Files\SDL_util.cpp">
+      <Filter>Resource Files\SDL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +127,15 @@
     </ClInclude>
     <ClInclude Include="Header Files\WinState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\Res_Path.h">
+      <Filter>Header Files\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\Cleanup.h">
+      <Filter>Header Files\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\SDL_util.h">
+      <Filter>Header Files\SDL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

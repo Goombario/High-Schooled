@@ -1,11 +1,12 @@
-#include "../Header Files/PlayingState.h"
-#include "../Header Files/GameOverState.h"
-#include "../Header Files/WinState.h"
-#include "../Header Files/MenuState.h"
-#include "../Header Files/ShareState.h"
-#include "../Header Files/Item.h"
-#include "../Header Files/Console_color.h"
-#include "../Header Files/sound_effects.h"
+#include "PlayingState.h"
+#include "GameOverState.h"
+#include "WinState.h"
+#include "MenuState.h"
+#include "ShareState.h"
+#include "Item.h"
+#include "Console_color.h"
+#include "sound_effects.h"
+#include <SDL.h>
 
 #include <fstream>
 
@@ -86,72 +87,82 @@ void PlayingState::HandleEvents(GameEngine* game)
 {
 	if (!pTurn) return;	// If it isn't the player's turn, end
 	
-	// Get the keypress
-	KEYPRESS sKeyPress = console.WaitForKeypress();
-	switch (sKeyPress.eCode)
+	SDL_Event e;
+	while (SDL_PollEvent(&e))
 	{
-		// Move the highlight
-	case CONSOLE_KEY_DOWN:
-	case CONSOLE_KEY_LEFT:
-	case CONSOLE_KEY_RIGHT:
-	case CONSOLE_KEY_UP:
-	case CONSOLE_KEY_W:
-	case CONSOLE_KEY_A:
-	case CONSOLE_KEY_S:
-	case CONSOLE_KEY_D:
-		moveHighlight(sKeyPress.eCode);
-		break;
-
-		// Attack key pressed
-	case CONSOLE_KEY_X:
-	case CONSOLE_KEY_N:
-		// Check control schemes
-		if ((sKeyPress.eCode == CONSOLE_KEY_X &&
-			(scheme == "Classic" || scheme == "Double-Tap")) ||
-			sKeyPress.eCode == CONSOLE_KEY_N &&
-			(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty"))
+		if (e.type == SDL_QUIT)
 		{
-			tCount++;
-			increment = true;
-			attack();
+			game->Quit();
 		}
-
-		break;
-
-		//checks interactable
-	case CONSOLE_KEY_SPACE:
-		interact();
-		break;
-
-		// move key pressed
-	case CONSOLE_KEY_Z:
-	case CONSOLE_KEY_M:
-		// Check control schemes
-		if (sKeyPress.eCode == CONSOLE_KEY_Z && scheme == "Classic" ||
-			sKeyPress.eCode == CONSOLE_KEY_M && scheme == "Classic Lefty")
+		else if (e.type == SDL_KEYDOWN)
 		{
-			delta.X = (highlight.X - player.getX());
-			delta.Y = (highlight.Y - player.getY());
-
-			// Check if the player can move in specified direction
-			if (currentRoom.isPassable(highlight))
+			SDL_Scancode code = e.key.keysym.scancode;
+			switch (code)
 			{
-				// If allowed, move in specified direction
-				player.setLocation(highlight);
-				tCount++;
-				increment = true;
+			case SDL_SCANCODE_DOWN:
+			case SDL_SCANCODE_LEFT:
+			case SDL_SCANCODE_RIGHT:
+			case SDL_SCANCODE_UP:
+			case SDL_SCANCODE_W:
+			case SDL_SCANCODE_A:
+			case SDL_SCANCODE_S:
+			case SDL_SCANCODE_D:
+				moveHighlight(code);
+				break;
+
+
+				// Attack key pressed
+			case SDL_SCANCODE_X:
+			case SDL_SCANCODE_N:
+				// Check control schemes
+				if ((code == SDL_SCANCODE_X &&
+					(scheme == "Classic" || scheme == "Double-Tap")) ||
+					code == SDL_SCANCODE_N &&
+					(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty"))
+				{
+					tCount++;
+					increment = true;
+					attack();
+				}
+
+				break;
+
+				//checks interactable
+			case SDL_SCANCODE_SPACE:
+				interact();
+				break;
+
+				// move key pressed
+			case SDL_SCANCODE_Z:
+			case SDL_SCANCODE_M:
+				// Check control schemes
+				if (code == CONSOLE_KEY_Z && scheme == "Classic" ||
+					code == CONSOLE_KEY_M && scheme == "Classic Lefty")
+				{
+					delta.X = (highlight.X - player.getX());
+					delta.Y = (highlight.Y - player.getY());
+
+					// Check if the player can move in specified direction
+					if (currentRoom.isPassable(highlight))
+					{
+						// If allowed, move in specified direction
+						player.setLocation(highlight);
+						tCount++;
+						increment = true;
+					}
+				}
+				break;
+
+				// quit
+			case SDL_SCANCODE_ESCAPE:
+				currentRoom.save("Rooms/Room1.sav");
+				game->Quit();
+
+				// Ignore any other key
+			default:
+				break;
 			}
 		}
-		break;
-
-		// quit
-	case CONSOLE_KEY_ESCAPE:
-		currentRoom.save("Rooms/Room1.sav");
-		game->Quit();
-
-		// Ignore any other key
-	default:
-		break;
 	}
 }
 
@@ -738,42 +749,42 @@ void PlayingState::loadRooms()
 
 }
 
-void PlayingState::moveHighlight(KEYCODE eCode)
+void PlayingState::moveHighlight(SDL_Scancode scancode)
 {
-	switch (eCode)
+	switch (scancode)
 	{
 		// down selected
-	case CONSOLE_KEY_S:
-	case CONSOLE_KEY_DOWN:
+	case SDL_SCANCODE_S:
+	case SDL_SCANCODE_DOWN:
 		delta.X = 0;
 		delta.Y = 1;
 		break;
 
 		// left selected
-	case CONSOLE_KEY_A:
-	case CONSOLE_KEY_LEFT:
+	case SDL_SCANCODE_A:
+	case SDL_SCANCODE_LEFT:
 		delta.X = -1;
 		delta.Y = 0;
 		break;
 
 		// right selected
-	case CONSOLE_KEY_D:
-	case CONSOLE_KEY_RIGHT:
+	case SDL_SCANCODE_D:
+	case SDL_SCANCODE_RIGHT:
 		delta.X = 1;
 		delta.Y = 0;
 		break;
 
 		// up selected
-	case CONSOLE_KEY_W:
-	case CONSOLE_KEY_UP:
+	case SDL_SCANCODE_W:
+	case SDL_SCANCODE_UP:
 		delta.X = 0;
 		delta.Y = -1;
 		break;
 	}
 
 	// If the scheme is Double-Tap
-	if (eCode < 88 && scheme == "Double-Tap Lefty" ||
-		eCode > 49663 && scheme == "Double-Tap")
+	if (scancode < 27 && scheme == "Double-Tap Lefty" ||
+		scancode > 78 && scheme == "Double-Tap")
 	{
 		// Check if the player can move in specified direction
 		if (currentRoom.isPassable(highlight) && 
@@ -786,8 +797,8 @@ void PlayingState::moveHighlight(KEYCODE eCode)
 		}
 	}
 	// If the player presses the directional keys of the wrong scheme, don't move
-	else if ((scheme == "Classic" || scheme == "Double-Tap") && eCode < 88 ||
-		(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty") && eCode > 49663)
+	else if ((scheme == "Classic" || scheme == "Double-Tap") && scancode < 27 ||
+		(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty") && scancode > 78)
 	{
 		delta = { 0, 0 };
 	}
