@@ -8,6 +8,7 @@
 #include "Schooled.h"
 #include <Windows.h>
 #include <map>
+#include <SDL.h>
 
 class PlayingState : public GameState
 {
@@ -85,7 +86,7 @@ private:
 	void loadRooms();
 
 	// Move the highlight
-	void moveHighlight(KEYCODE);
+	void moveHighlight(SDL_Scancode);
 
 	// Transition to the next room
 	void transitionRoom();

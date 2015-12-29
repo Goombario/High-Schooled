@@ -13,7 +13,11 @@ int main()
 	GameEngine game;
 
 	// Initialize the game
-	game.Init();
+	int init = game.Init();
+	if (init != 0)
+	{
+		return init;
+	}
 
 	// Set the seed
 	srand((unsigned int)time(0));
