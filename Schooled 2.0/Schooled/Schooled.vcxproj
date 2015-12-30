@@ -41,8 +41,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Hg\Schooled\Schooled\Schooled\Console Library;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Hg\Schooled\Schooled\Schooled\Console Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -54,14 +52,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_mixer-2.0.0\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_ttf-2.0.12\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_image-2.0.0\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL\include;C:\Hg\schooled-2.0\Schooled 2.0\Schooled\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\Schooled\Console Library;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_mixer-2.0.0\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_ttf-2.0.12\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_image-2.0.0\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL\include;C:\Hg\schooled-2.0\Schooled 2.0\Schooled\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>console.lib;winmm.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcd.lib</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_ttf-2.0.12\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_mixer-2.0.0\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_image-2.0.0\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL\lib\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Hg\schooled-2.0\Schooled 2.0\Schooled\Console Library;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_ttf-2.0.12\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_mixer-2.0.0\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_image-2.0.0\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL\lib\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

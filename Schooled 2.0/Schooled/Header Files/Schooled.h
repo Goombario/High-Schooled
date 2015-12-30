@@ -14,6 +14,8 @@ namespace schooled
 	int const MAP_HEIGHT = 20;
 	int const SCREEN_WIDTH = 80;
 	int const SCREEN_HEIGHT = 25;
+	int const SCREEN_HEIGHT_PX = 480;
+	int const SCREEN_WIDTH_PX = 640;
 	int const FLOOR_WIDTH = 6;
 	int const FLOOR_HEIGHT = 8;
 	int const ITEM_INDEX_SIZE = 2;

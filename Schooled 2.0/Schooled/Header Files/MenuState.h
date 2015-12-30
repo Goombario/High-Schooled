@@ -4,9 +4,9 @@
 #include "GameState.h"
 #include <string>
 #include <vector>
+#include <SDL.h>
 using std::vector;
 using std::string;
-
 
 
 class MenuState : public GameState

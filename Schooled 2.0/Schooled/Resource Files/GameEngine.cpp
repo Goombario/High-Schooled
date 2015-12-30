@@ -1,6 +1,6 @@
 #include "GameEngine.h"
 #include "GameState.h"
-#include "Console.h"
+#include "Room.h"
 
 #include "res_path.h"
 #include "Cleanup.h"
@@ -13,6 +13,8 @@ using namespace SDL_util;
 
 int GameEngine::Init()
 {
+	int const SCREEN_WIDTH = 640;
+	int const SCREEN_HEIGHT = 480;
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_VIDEO) != 0){
 		logSDLError(std::cout, "SDL_Init");
@@ -33,6 +35,33 @@ int GameEngine::Init()
 		SDL_Quit();
 		return 1;
 	}
+
+	//Setup our window and renderer
+	window = SDL_CreateWindow("Schooled 2.0", SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window == nullptr){
+		logSDLError(std::cout, "CreateWindow");
+		TTF_Quit();
+		IMG_Quit();
+		SDL_Quit();
+		return 1;
+	}
+
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == nullptr){
+		logSDLError(std::cout, "CreateRenderer");
+		cleanup(window);
+		TTF_Quit();
+		IMG_Quit();
+		SDL_Quit();
+		return 1;
+	}
+
+	// Load the room indices
+	Room::loadTileIndex("tileIndex.txt");
+	Room::loadItemIndex("itemIndex.txt");
+	Room::loadActorIndex("actorIndex.txt");
+
 	return 0;
 }
 
