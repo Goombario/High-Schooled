@@ -1,7 +1,9 @@
-#include "../Header Files/WinState.h"
-#include "../Header Files/Console_color.h"
+#include "WinState.h"
+#include <SDL.h>
 #include <string>
 #include <fstream>
+#include "Console_color.h"
+
 using std::string;
 
 namespace con = JadedHoboConsole;
@@ -30,7 +32,15 @@ void WinState::Resume()
 
 void WinState::HandleEvents(GameEngine* game)
 {
-	KEYPRESS sKeyPress = console.WaitForKeypress();
+	bool finished = false;
+	SDL_Event event;
+	while (SDL_PollEvent(&event) && !finished)
+	{
+		if (event.type == SDL_KEYDOWN)
+		{
+			finished = true;
+		}
+	}
 	game->PopState();
 }
 

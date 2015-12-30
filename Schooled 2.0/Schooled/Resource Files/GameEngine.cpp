@@ -16,12 +16,14 @@ int GameEngine::Init()
 	int const SCREEN_WIDTH = 640;
 	int const SCREEN_HEIGHT = 480;
 	//Start up SDL and make sure it went ok
-	if (SDL_Init(SDL_INIT_VIDEO) != 0){
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	{
 		logSDLError(std::cout, "SDL_Init");
 		return 1;
 	}
-	//Also need to init SDL_ttf
-	if (TTF_Init() != 0){
+	//Also need to init SDL_ttf (for text)
+	if (TTF_Init() != 0)
+	{
 		logSDLError(std::cout, "TTF_Init");
 		SDL_Quit();
 		return 1;
@@ -39,7 +41,8 @@ int GameEngine::Init()
 	//Setup our window and renderer
 	window = SDL_CreateWindow("Schooled 2.0", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if (window == nullptr){
+	if (window == nullptr)
+	{
 		logSDLError(std::cout, "CreateWindow");
 		TTF_Quit();
 		IMG_Quit();
@@ -48,7 +51,8 @@ int GameEngine::Init()
 	}
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (renderer == nullptr){
+	if (renderer == nullptr)
+	{
 		logSDLError(std::cout, "CreateRenderer");
 		cleanup(window);
 		TTF_Quit();

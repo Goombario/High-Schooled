@@ -3,7 +3,6 @@
 #include <Windows.h>
 #include <cassert>
 
-#include "../Console Library/Console.h"
 #include "../Header Files/Console_color.h"
 #include "../Header Files/Buffer.h"
 #include "../Header Files/Schooled.h"
@@ -41,6 +40,7 @@ void Log::clear()
 }
 
 // UNUSED
+/*
 void Log::display(HANDLE hConsole)
 {
 	int max = (log.size() >= 3) ? (log.size() - 3) : 0;	// determines the number of lines to display
@@ -93,6 +93,7 @@ void Log::display(HANDLE hConsole)
 	}
 
 }
+*/
 
 void Log::display(Buffer& buffer, int row)
 {
