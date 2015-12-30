@@ -1,10 +1,10 @@
-#include "../Header Files/MenuState.h"
-#include "../Header Files/GameState.h"
-#include "../Header Files/PlayingState.h"
-#include "../Header Files/Console_color.h"
+#include "MenuState.h"
+#include "GameState.h"
+#include "PlayingState.h"
+#include "Console_color.h"
 #include "../Console Library/Console.h"
-#include "../Header Files/sound_effects.h"
-#include "../Header Files/ShareState.h"
+#include "sound_effects.h"
+#include "ShareState.h"
 
 #include <fstream>
 #include <stdio.h>
@@ -99,7 +99,6 @@ void MenuState::Resume()
 
 void MenuState::HandleEvents(GameEngine* game)
 {
-	KEYPRESS sKeyPress = console.WaitForKeypress();
 
 	// If the game is starting and the controls are being shown
 	if (startingGame)
@@ -118,94 +117,103 @@ void MenuState::HandleEvents(GameEngine* game)
 		return;
 	}
 
-	switch (sKeyPress.eCode)
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
 	{
-		//Escape key
-	case CONSOLE_KEY_ESCAPE:
-		// If not in submenu, quit
-		if (!selectingControl && !selectingLevel && !selectingCredits)	
-		{
+		if (event.type == SDL_QUIT){
 			game->Quit();
 		}
-		// No break so it can be used as a "back" key
+		else if (event.type == SDL_KEYDOWN){
+			switch (event.key.keysym.scancode)
+			{
+				//Escape key
+			case SDL_SCANCODE_ESCAPE:
+				// If not in submenu, quit
+				if (!selectingControl && !selectingLevel && !selectingCredits)
+				{
+					game->Quit();
+				}
+				// No break so it can be used as a "back" key
 
-	case CONSOLE_KEY_X:
-	case CONSOLE_KEY_N:
-		if (selectingControl)	// Controls menu
-		{
-			selectingControl = false;
-			changedSettings = false;
+			case SDL_SCANCODE_X:
+			case SDL_SCANCODE_N:
+				if (selectingControl)	// Controls menu
+				{
+					selectingControl = false;
+					changedSettings = false;
+				}
+				else if (selectingLevel)	// level select menu
+				{
+					selectingLevel = false;
+					lSelect = 0;
+					levelSelect = 0;
+				}
+				else if (selectingCredits)	// credits menu
+				{
+					selectingCredits = false;
+				}
+				break;
+
+				// Going up
+			case SDL_SCANCODE_W:
+			case SDL_SCANCODE_UP:
+				if (selectingControl) break; // Don't move if changing controls
+				//snd::menuHighlight->play();
+
+				if (selectingLevel)	// Choosing a level to play
+				{
+					// Change the level select highlight
+					levelSelect = (levelSelect > 0) ? levelSelect - 1 : levelSelections.size() - 1;
+					break;
+				}
+				// Change the main menu highlight
+				menuSelect = (menuSelect > 0) ? menuSelect - 1 : menuSelections.size() - 1;
+				break;
+
+				// Going down
+			case SDL_SCANCODE_DOWN:
+			case SDL_SCANCODE_S:
+				if (selectingControl) break; // Don't move if changing controls
+				//snd::menuHighlight->play();
+				if (selectingLevel)	// Choosing a level to play
+				{
+					// Change the level select highlight
+					levelSelect = (levelSelect < levelSelections.size() - 1) ? levelSelect + 1 : 0;
+					break;
+				}
+				// Change the main menu highlight
+				menuSelect = (menuSelect < menuSelections.size() - 1) ? menuSelect + 1 : 0;
+				break;
+
+				// Going left
+			case SDL_SCANCODE_LEFT:
+			case SDL_SCANCODE_A:
+				if (!selectingControl) break;	// If not selecting controls, break
+				//snd::menuHighlight->play();
+
+				selectedControl = (selectedControl > 0) ? selectedControl - 1 : controlOptions.size() - 1;
+				break;
+
+				// Going right
+			case SDL_SCANCODE_RIGHT:
+			case SDL_SCANCODE_D:
+				if (!selectingControl) break;	// If not selecting controls, break
+				//snd::menuHighlight->play();
+
+				selectedControl = (selectedControl < controlOptions.size() - 1) ? selectedControl + 1 : 0;
+				break;
+
+				// "Enter" key
+			case SDL_SCANCODE_RETURN:
+			case SDL_SCANCODE_Z:
+			case SDL_SCANCODE_M:
+			case SDL_SCANCODE_SPACE:
+				handleMenu(game);
+				break;
+			default:
+				break;
+			}
 		}
-		else if (selectingLevel)	// level select menu
-		{
-			selectingLevel = false;
-			lSelect = 0;
-			levelSelect = 0;
-		}
-		else if (selectingCredits)	// credits menu
-		{
-			selectingCredits = false;
-		}
-		break;
-		
-		// Going up
-	case CONSOLE_KEY_UP:
-	case CONSOLE_KEY_W:
-		if (selectingControl) break; // Don't move if changing controls
-		//snd::menuHighlight->play();
-
-		if (selectingLevel)	// Choosing a level to play
-		{
-			// Change the level select highlight
-			levelSelect = (levelSelect > 0) ? levelSelect - 1 : levelSelections.size() - 1;
-			break;
-		}
-		// Change the main menu highlight
-		menuSelect = (menuSelect > 0) ? menuSelect - 1 : menuSelections.size() - 1;
-		break;
-
-		// Going down
-	case CONSOLE_KEY_DOWN:
-	case CONSOLE_KEY_S:
-		if (selectingControl) break; // Don't move if changing controls
-		//snd::menuHighlight->play();
-		if (selectingLevel)	// Choosing a level to play
-		{
-			// Change the level select highlight
-			levelSelect = (levelSelect < levelSelections.size() - 1) ? levelSelect + 1 : 0;
-			break;
-		}
-		// Change the main menu highlight
-		menuSelect = (menuSelect < menuSelections.size() - 1) ? menuSelect + 1 : 0;
-		break;
-
-		// Going left
-	case CONSOLE_KEY_LEFT:
-	case CONSOLE_KEY_A:
-		if (!selectingControl) break;	// If not selecting controls, break
-		//snd::menuHighlight->play();
-
-		selectedControl = (selectedControl > 0) ? selectedControl - 1 : controlOptions.size() - 1;
-		break;
-
-	case CONSOLE_KEY_RIGHT:
-	case CONSOLE_KEY_D:
-		if (!selectingControl) break;	// If not selecting controls, break
-		//snd::menuHighlight->play();
-
-		selectedControl = (selectedControl < controlOptions.size() - 1) ? selectedControl + 1 : 0;
-		break;
-
-		// "Enter" key
-	case CONSOLE_KEY_RETURN:
-	case CONSOLE_KEY_Z:
-	case CONSOLE_KEY_M:
-	case CONSOLE_KEY_SPACE:
-		handleMenu(game);
-		break;
-
-	default:
-		break;
 	}
 }
 
@@ -223,7 +231,7 @@ void MenuState::Draw(GameEngine* game)
 {
 	// Get the current handle
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
+	
 	// Open the buffer for writing
 	buffer.open(hConsole);
 

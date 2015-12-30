@@ -1,14 +1,13 @@
-﻿//(C) Fissure Studios 2015
+﻿//(C) Fissure Studios 2016
 
-#include "Header Files\GameEngine.h"
-#include "Header Files\MenuState.h"
-#include "Header Files\Room.h"
+#include "GameEngine.h"
+#include "MenuState.h"
 #include <ctime>
 
 #define NDEBUG
 #define WIN32_LEAN_AND_MEAN
 
-int main()
+int main(int argc, char **argv)
 {
 	GameEngine game;
 
@@ -16,16 +15,12 @@ int main()
 	int init = game.Init();
 	if (init != 0)
 	{
+		game.Cleanup();
 		return init;
 	}
 
 	// Set the seed
 	srand((unsigned int)time(0));
-
-	// Load the indices
-	Room::loadTileIndex("tileIndex.txt");
-	Room::loadItemIndex("itemIndex.txt");
-	Room::loadActorIndex("actorIndex.txt");
 
 	// Load the main menu
 	game.ChangeState(MenuState::Instance());

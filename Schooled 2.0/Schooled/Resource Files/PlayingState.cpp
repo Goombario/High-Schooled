@@ -85,8 +85,7 @@ void PlayingState::Resume()
 
 void PlayingState::HandleEvents(GameEngine* game)
 {
-	if (!pTurn) return;	// If it isn't the player's turn, end
-	
+
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
@@ -94,7 +93,13 @@ void PlayingState::HandleEvents(GameEngine* game)
 		{
 			game->Quit();
 		}
-		else if (e.type == SDL_KEYDOWN)
+		else if (e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+		{
+			game->Quit();
+		}
+
+		// If it is a keypress and it is the player's turn
+		else if (e.type == SDL_KEYDOWN && pTurn)
 		{
 			SDL_Scancode code = e.key.keysym.scancode;
 			switch (code)

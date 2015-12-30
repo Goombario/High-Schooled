@@ -5,6 +5,9 @@
 #include "../Console Library/Console.h"
 using std::vector;
 
+struct SDL_Window;
+struct SDL_Renderer;
+
 class GameState;
 
 class GameEngine
@@ -30,11 +33,14 @@ public:
 	bool Running() { return m_running; }
 	void Quit() { m_running = false; }
 
-
+	SDL_Renderer* getRenderer() { return renderer; }
+	SDL_Window* getWindow() { return window; }
 private:
 	// The stack of states
 	vector <GameState*> states;
 	bool m_running;
+	SDL_Window *window;
+	SDL_Renderer *renderer;
 };
 
 
