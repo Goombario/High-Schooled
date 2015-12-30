@@ -1,5 +1,6 @@
-#include "../Header Files/GameOverState.h"
-#include "../Header Files/Console_color.h"
+#include "GameOverState.h"
+#include "Console_color.h"
+#include <SDL.h>
 #include <string>
 using std::string;
 
@@ -29,7 +30,15 @@ void GameOverState::Resume()
 
 void GameOverState::HandleEvents(GameEngine* game)
 {
-	KEYPRESS sKeyPress = console.WaitForKeypress();
+	bool finished = false;
+	SDL_Event event;
+	while (SDL_PollEvent(&event) && !finished)
+	{
+		if (event.type == SDL_KEYDOWN)
+		{
+			finished = true;
+		}
+	}
 	game->PopState();
 }
 

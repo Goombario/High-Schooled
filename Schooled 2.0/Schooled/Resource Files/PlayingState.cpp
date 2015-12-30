@@ -141,8 +141,8 @@ void PlayingState::HandleEvents(GameEngine* game)
 			case SDL_SCANCODE_Z:
 			case SDL_SCANCODE_M:
 				// Check control schemes
-				if (code == CONSOLE_KEY_Z && scheme == "Classic" ||
-					code == CONSOLE_KEY_M && scheme == "Classic Lefty")
+				if (code == SDL_SCANCODE_Z && scheme == "Classic" ||
+					code == SDL_SCANCODE_M && scheme == "Classic Lefty")
 				{
 					delta.X = (highlight.X - player.getX());
 					delta.Y = (highlight.Y - player.getY());
