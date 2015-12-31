@@ -2,6 +2,7 @@
 #define SCHOOLED_H
 
 #include <Windows.h>
+#include <SDL.h>
 #include <string>
 #include <vector>
 using std::string;
@@ -14,12 +15,15 @@ namespace schooled
 	int const MAP_HEIGHT = 20;
 	int const SCREEN_WIDTH = 80;
 	int const SCREEN_HEIGHT = 25;
-	int const SCREEN_HEIGHT_PX = 480;
-	int const SCREEN_WIDTH_PX = 640;
 	int const FLOOR_WIDTH = 6;
 	int const FLOOR_HEIGHT = 8;
 	int const ITEM_INDEX_SIZE = 2;
 	int const OFFSET = 1;
+
+	int const SCREEN_HEIGHT_PX = 480;
+	int const SCREEN_WIDTH_PX = 640;
+	int const TILE_SIZE = 16;
+
 	const vector<string> controlOptions = { "Classic", "Double-Tap", "Classic Lefty", "Double-Tap Lefty" };
 
 	// Return the setting that the key is attached to
@@ -29,10 +33,11 @@ namespace schooled
 // Structures
 struct Tile
 {
-	char character;
-	int colorCode;
+	SDL_Texture *texture;
 	bool isPassable;
 	int tileInt;
+	char character;
+	int colorCode;
 };
 
 struct Stats

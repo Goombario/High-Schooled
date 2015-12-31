@@ -1,6 +1,6 @@
-#include "../Header Files/Buffer.h"
-#include "../Header Files/Schooled.h"
-#include "../Header Files/Console_color.h"
+#include "Buffer.h"
+#include "Schooled.h"
+#include "Console_color.h"
 
 #include <Windows.h>
 

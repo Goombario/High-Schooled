@@ -1,11 +1,11 @@
-#include "../Header Files/Log.h"
+#include "Log.h"
 
 #include <Windows.h>
 #include <cassert>
 
-#include "../Header Files/Console_color.h"
-#include "../Header Files/Buffer.h"
-#include "../Header Files/Schooled.h"
+#include "Console_color.h"
+#include "Buffer.h"
+#include "Schooled.h"
 
 namespace con = JadedHoboConsole;	// Used for the color
 

@@ -1,4 +1,4 @@
-#include "../Header Files/ShareState.h"
+#include "ShareState.h"
 #include <fstream>
 #include <iostream>
 

@@ -11,6 +11,9 @@
 
 using namespace SDL_util;
 
+SDL_Renderer *GameEngine::renderer;
+SDL_Window *GameEngine::window;
+
 int GameEngine::Init()
 {
 	int const SCREEN_WIDTH = 640;
@@ -77,10 +80,11 @@ void GameEngine::Cleanup()
 		states.back()->Cleanup();
 		states.pop_back();
 	}
-
+	cleanup(renderer, window);
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
+
 }
 
 void GameEngine::ChangeState(GameState* state)

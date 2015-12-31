@@ -1,38 +1,25 @@
+#include "Actor.h"
+#include "Schooled.h"
+#include "Item.h"
+#include "Console_color.h"
+#include "Room.h"
+
 #include <fstream>
 #include <Windows.h>
 #include <string>
-#include "../Header Files/Schooled.h"
-#include "../Header Files/Actor.h"
-#include "../Header Files/Item.h"
-#include "../Header Files/Console_color.h"
-#include "../Header Files/Room.h"
+
 using std::string;
 
 // Colours
 namespace con = JadedHoboConsole;
 
-Actor::Actor(Tile t, Stats s, ItemPtr i, string atk, string def) : tile(t), stats(s), item(i) 
-{
-	m_attack = atk;
-	m_defend = def;
-}
-
 Actor::Actor(Tile t, Stats s, ItemPtr i) : tile(t), stats(s), item(i) {}
 
 Actor::Actor(Tile t, Stats s) : tile(t), stats(s) {}
 
-Actor::Actor() {}
-
-Actor::Actor(std::string filename)
+Actor::Actor() 
 {
-	// Load enemies from file
-	std::ifstream stream("Enemies/" + filename);
-	std::string line;
-
-	std::getline(stream, line);
-
-	stream.close();
-
+	// NEEDS FILLING IN
 }
 
 void Actor::attack(Actor& defender){
