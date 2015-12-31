@@ -2,9 +2,12 @@
 #include "GameState.h"
 #include "PlayingState.h"
 #include "Console_color.h"
-#include "../Console Library/Console.h"
 #include "sound_effects.h"
 #include "ShareState.h"
+
+//#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_util.h>
 
 #include <fstream>
 #include <stdio.h>
@@ -25,8 +28,10 @@ void MenuState::Init()
 	buffer.close(hConsole);
 
 	// Get the artwork and intro text
-	art = getTextBlock("title.txt");
-	introText = getTextBlock("intro.txt");
+	art = getTextBlock(SDL_util::getResourcePath("text") + "title.txt");
+	introText = getTextBlock(SDL_util::getResourcePath("text") + "intro.txt");
+
+
 
 	// Check if settings file exists.
 	if (!std::ifstream("Settings.txt"))
@@ -79,6 +84,7 @@ void MenuState::Cleanup()
 {
 	// Stop the main music
 	snd::title->stop();
+	//cleanup(logo);
 }
 
 void MenuState::Pause()
@@ -229,6 +235,11 @@ void MenuState::Update(GameEngine* game)
 
 void MenuState::Draw(GameEngine* game)
 {
+	SDL_Renderer *ren = game->getRenderer();
+	SDL_Window *win = game->getWindow();
+
+
+
 	// Get the current handle
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	

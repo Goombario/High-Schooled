@@ -1,4 +1,4 @@
-#include "../Header Files/Schooled.h"
+#include "Schooled.h"
 #include <fstream>
 #include <iostream>
 

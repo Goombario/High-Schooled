@@ -53,7 +53,7 @@ void PlayingState::Init()
 	log.clear();
 
 	// Setting the player
-	player = Actor({ '8', con::fgHiWhite }, { 12, 1, 3 });
+	player = Actor({ nullptr, false, -1, '8', con::fgHiWhite }, { 12, 1, 3});
 	getStartLocation();
 	delta = { 0, 0 };
 	

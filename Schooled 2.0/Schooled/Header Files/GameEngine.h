@@ -32,14 +32,14 @@ public:
 	bool Running() { return m_running; }
 	void Quit() { m_running = false; }
 
-	SDL_Renderer* getRenderer() { return renderer; }
-	SDL_Window* getWindow() { return window; }
+	static SDL_Renderer* getRenderer() { return renderer; }
+	static SDL_Window* getWindow() { return window; }
 private:
 	// The stack of states
 	vector <GameState*> states;
 	bool m_running;
-	SDL_Window *window;
-	SDL_Renderer *renderer;
+	static SDL_Window *window;
+	static SDL_Renderer *renderer;
 };
 
 

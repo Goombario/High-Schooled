@@ -1,4 +1,4 @@
-#include "../Header Files/Item.h"
+#include "Item.h"
 
 Item::Item(Tile t, Stats s) : tile(t), stats(s) {}
 

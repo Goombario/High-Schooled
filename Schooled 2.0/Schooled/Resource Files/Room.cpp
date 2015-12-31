@@ -1,12 +1,15 @@
-#include "../Header Files/Room.h"
-#include "../Header Files/Actor.h"
-#include "../Header Files/Buffer.h"
-#include "../Header Files/Item.h"
-#include "../Header Files/Schooled.h"
-#include "../Header Files/Console_color.h"
+#include "Room.h"
+#include "Actor.h"
+#include "Buffer.h"
+#include "Item.h"
+#include "Schooled.h"
+#include "Console_color.h"
 #include <fstream>
 #include <iostream>
 #include <cassert>
+
+#include <SDL.h>
+#include "SDL_util.h"
 
 namespace con = JadedHoboConsole;
 
@@ -18,11 +21,12 @@ vector<const Actor> Room::actorIndex;
 
 void Room::loadTileIndex(string filename)
 {
+	string resPath = SDL_util::getResourcePath("text");
 	string line;
-	std::ifstream stream(filename);
+	std::ifstream stream(resPath + filename);
 	if (stream.fail())
 	{
-		std::cout << "File open failed.\n";
+		std::cout << "File open failed. (TileIndex)\n";
 		exit(1);
 	}
 	while (!stream.eof())
@@ -39,7 +43,7 @@ void Room::loadTileIndex(string filename)
 		bool passable = ((line.substr(line.find(':') + 1)) == "true");
 
 		// Put the tile in the vector
-		Tile temp = { symbol, colour, passable, index };
+		Tile temp = { nullptr, passable, index, symbol, colour };
 		tileIndex.push_back(temp);
 		// If there are more lines, get the empty line
 		if (!stream.eof())
@@ -52,11 +56,12 @@ void Room::loadTileIndex(string filename)
 
 void Room::loadItemIndex(string filename)
 {
+	string resPath = SDL_util::getResourcePath("text");
 	string line;
-	std::ifstream stream(filename);
+	std::ifstream stream(resPath + filename);
 	if (stream.fail())
 	{
-		std::cout << "File open failed.\n";
+		std::cout << "File open failed. (ItemIndex)\n";
 		exit(1);
 	}
 	while (!stream.eof())
@@ -83,7 +88,8 @@ void Room::loadItemIndex(string filename)
 
 		// Put the item in the vector
 		Item temp;
-		temp.setTile({ symbol, colour, passable, index });
+	
+		temp.setTile({ nullptr, passable, index, symbol, colour });
 		temp.setStats({ HP, EN, STR });
 		temp.setMPickup(mPickup);
 		temp.setName(name);
@@ -100,11 +106,12 @@ void Room::loadItemIndex(string filename)
 
 void Room::loadActorIndex(string filename)
 {
+	string resPath = SDL_util::getResourcePath("text");
 	string line;
-	std::ifstream stream(filename);
+	std::ifstream stream(resPath + filename);
 	if (stream.fail())
 	{
-		std::cout << "File open failed.\n";
+		std::cout << "File open failed. (ActorIndex)\n";
 		exit(1);
 	}
 	actorIndex.push_back(Actor());
@@ -137,7 +144,7 @@ void Room::loadActorIndex(string filename)
 
 		// Put the actor in the vector
 		Actor temp;
-		temp.setTile({ symbol, colour, passable, index });
+		temp.setTile({ nullptr, passable, index, symbol, colour});
 		temp.setStats({ HP, EN, STR });
 		temp.setHeldItem(heldItem);
 		temp.setName(name);

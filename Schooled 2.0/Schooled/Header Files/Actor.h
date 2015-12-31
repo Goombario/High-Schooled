@@ -20,12 +20,6 @@ public:
 	// Create actor containing Tile, Stats, and a held Item
 	Actor(Tile, Stats, ItemPtr);
 
-	// Create actor containing Tile, Stats, held item and custom messages
-	Actor(Tile, Stats, ItemPtr, std::string, std::string);
-
-	// Create actor from file
-	Actor(std::string);
-
 	// Attack another Actor
 	void attack(Actor&);
 
@@ -82,6 +76,7 @@ private:
 	bool acted=false;
 	bool aggro = false;
 	WORD colour;
+	//SDL_Texture texture;
 };
 
 // Pointer to an Actor object

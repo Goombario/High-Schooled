@@ -57,6 +57,19 @@ namespace SDL_util
 	* @return An SDL_Texture containing the rendered message, or nullptr if something went wrong
 	*/
 	SDL_Texture* renderText(const std::string&, const std::string&, SDL_Color, int, SDL_Renderer *);
+
+	/*
+	* Get the resource path for resources located in res/subDir
+	* It's assumed the project directory is structured like:
+	* bin/
+	*  the executable
+	* res/
+	*  Lesson1/
+	*  Lesson2/
+	*
+	* Paths returned will be Lessons/res/subDir
+	*/
+	std::string getResourcePath(const std::string &subDir = "");
 }
 
 #endif

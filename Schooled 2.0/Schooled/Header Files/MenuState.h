@@ -4,10 +4,10 @@
 #include "GameState.h"
 #include <string>
 #include <vector>
-#include <SDL.h>
 using std::vector;
 using std::string;
 
+#include <SDL.h>
 
 class MenuState : public GameState
 {
@@ -46,6 +46,8 @@ private:
 		cScheme, dScheme, clScheme, dlScheme;
 	bool selectingControl, selectingLevel, selectingCredits, changedSettings, startingGame, showObjective;
 	static int lSelect;
+
+	SDL_Texture *logo;
 
 	void handleMenu(GameEngine* game);
 	void saveSetting(string, string);
