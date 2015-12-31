@@ -278,19 +278,27 @@ void PlayingState::Update(GameEngine* game)
 
 void PlayingState::Draw(GameEngine* game)
 {
+	SDL_Renderer *renderer = game->getRenderer();
+
+	//Rendering
+	SDL_RenderClear(renderer);
+
 	// Open the buffer for writing
 	buffer.open(hConsole);
 
 	// Clear the buffer
 	buffer.clear();
 
-	drawBase();
+	drawBase(renderer);
 
 	// Close the buffer
 	buffer.close(hConsole);
 
 	// Draw special effects
-	drawVFX(hConsole);
+	drawVFX(hConsole, renderer);
+
+	//Update the screen
+	SDL_RenderPresent(renderer);
 
 	// Reset the flags
 	pickupFlags["KEY"] = false;
@@ -369,10 +377,10 @@ void PlayingState::changeRoom(Room& cRoom, COORD change)
 	highlightColor = con::bgHiWhite;
 }
 
-void PlayingState::drawBase()
+void PlayingState::drawBase(SDL_Renderer *ren)
 {
 	// Draw the map
-	currentRoom.display(buffer);
+	currentRoom.display(buffer, ren);
 
 	// Display the character
 	buffer.draw('8', con::fgHiWhite, player.getY() + schooled::OFFSET, player.getX());
@@ -440,7 +448,7 @@ void PlayingState::drawBase()
 	log.display(buffer);
 }
 
-void PlayingState::drawVFX(HANDLE hConsole)
+void PlayingState::drawVFX(HANDLE hConsole, SDL_Renderer *ren)
 {
 	if (attack_animation)	// Open and close buffer to simulate flashing
 	{

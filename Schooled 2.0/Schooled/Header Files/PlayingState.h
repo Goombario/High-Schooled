@@ -62,10 +62,10 @@ private:
 	void changeRoom(Room&, COORD);
 
 	// Draw the unchanging base of the buffer
-	void drawBase();
+	void drawBase(SDL_Renderer *);
 
 	// Draw temporary effects upon the buffer
-	void drawVFX(HANDLE);
+	void drawVFX(HANDLE, SDL_Renderer *);
 
 	// Drop the master key
 	void dropMasterKey(ActorPtr);

@@ -20,9 +20,10 @@ namespace schooled
 	int const ITEM_INDEX_SIZE = 2;
 	int const OFFSET = 1;
 
-	int const SCREEN_HEIGHT_PX = 480;
-	int const SCREEN_WIDTH_PX = 640;
+	int const SCREEN_HEIGHT_PX = 400;
+	int const SCREEN_WIDTH_PX = 960;
 	int const TILE_SIZE = 16;
+	int const TILE_SIZE_CENTER = TILE_SIZE / 2;
 
 	const vector<string> controlOptions = { "Classic", "Double-Tap", "Classic Lefty", "Double-Tap Lefty" };
 
