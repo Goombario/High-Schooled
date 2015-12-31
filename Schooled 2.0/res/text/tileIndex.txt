@@ -16,7 +16,7 @@ symbol:' '
 colour:15U // black
 passable:true
 
-name:MAP_WALL_TOP
+name:MAP_WALL_SIDE
 index:3
 symbol:'|'
 colour:10U // hiGreen

@@ -109,7 +109,6 @@
     <ClInclude Include="Header Files\Log.h" />
     <ClInclude Include="Header Files\MenuState.h" />
     <ClInclude Include="Header Files\PlayingState.h" />
-    <ClInclude Include="Header Files\Res_Path.h" />
     <ClInclude Include="Header Files\Room.h" />
     <ClInclude Include="Header Files\Schooled.h" />
     <ClInclude Include="Header Files\SDL_util.h" />

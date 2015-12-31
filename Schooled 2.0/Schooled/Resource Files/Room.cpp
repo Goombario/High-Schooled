@@ -19,20 +19,23 @@ vector<const Tile> Room::tileIndex;
 vector<const Item> Room::itemIndex;
 vector<const Actor> Room::actorIndex;
 
-void Room::loadTileIndex(string filename)
+int Room::loadTileIndex(string filename, SDL_Renderer *ren)
 {
 	string resPath = SDL_util::getResourcePath("text");
 	string line;
 	std::ifstream stream(resPath + filename);
 	if (stream.fail())
 	{
-		std::cout << "File open failed. (TileIndex)\n";
-		exit(1);
+		std::cout << "ERROR: File open failed. (TileIndex)\n";
+		return 1;
 	}
+
+	resPath = SDL_util::getResourcePath("img");
 	while (!stream.eof())
 	{
 		// Get the information from the file
 		getline(stream, line);
+		string name = line.substr(line.find(':') + 1);
 		getline(stream, line);
 		int index = stoi(line.substr(line.find(':') + 1));
 		getline(stream, line);
@@ -42,8 +45,14 @@ void Room::loadTileIndex(string filename)
 		getline(stream, line);
 		bool passable = ((line.substr(line.find(':') + 1)) == "true");
 
+		SDL_Texture *tex = SDL_util::loadTexture(resPath + name + ".png", ren);
+		if (tex == nullptr)
+		{
+			//return 1;
+		}
+
 		// Put the tile in the vector
-		Tile temp = { nullptr, passable, index, symbol, colour };
+		Tile temp = { tex, passable, index, symbol, colour };
 		tileIndex.push_back(temp);
 		// If there are more lines, get the empty line
 		if (!stream.eof())
@@ -52,9 +61,10 @@ void Room::loadTileIndex(string filename)
 		}
 	}
 	stream.close();
+	return 0;
 }
 
-void Room::loadItemIndex(string filename)
+int Room::loadItemIndex(string filename, SDL_Renderer *ren)
 {
 	string resPath = SDL_util::getResourcePath("text");
 	string line;
@@ -62,8 +72,11 @@ void Room::loadItemIndex(string filename)
 	if (stream.fail())
 	{
 		std::cout << "File open failed. (ItemIndex)\n";
-		exit(1);
+		return 1;
 	}
+
+	resPath = SDL_util::getResourcePath("img");
+
 	while (!stream.eof())
 	{
 		// Get the information from the file
@@ -86,10 +99,16 @@ void Room::loadItemIndex(string filename)
 		getline(stream, line);
 		string mPickup = (line.substr(line.find(':') + 1));
 
+		SDL_Texture *tex = SDL_util::loadTexture(resPath + name + ".png", ren);
+		if (tex == nullptr)
+		{
+			//return 1;
+		}
+
 		// Put the item in the vector
 		Item temp;
 	
-		temp.setTile({ nullptr, passable, index, symbol, colour });
+		temp.setTile({ tex, passable, index, symbol, colour });
 		temp.setStats({ HP, EN, STR });
 		temp.setMPickup(mPickup);
 		temp.setName(name);
@@ -102,9 +121,10 @@ void Room::loadItemIndex(string filename)
 		}
 	}
 	stream.close();
+	return 0;
 }
 
-void Room::loadActorIndex(string filename)
+int Room::loadActorIndex(string filename, SDL_Renderer *ren)
 {
 	string resPath = SDL_util::getResourcePath("text");
 	string line;
@@ -112,8 +132,10 @@ void Room::loadActorIndex(string filename)
 	if (stream.fail())
 	{
 		std::cout << "File open failed. (ActorIndex)\n";
-		exit(1);
+		return 1;
 	}
+
+	resPath = SDL_util::getResourcePath("img");
 	actorIndex.push_back(Actor());
 	while (!stream.eof())
 	{
@@ -141,10 +163,15 @@ void Room::loadActorIndex(string filename)
 		getline(stream, line);
 		string m_defend = (line.substr(line.find(':') + 1));
 
+		SDL_Texture *tex = SDL_util::loadTexture(resPath + name + ".png", ren);
+		if (tex == nullptr)
+		{
+			//return 1;
+		}
 
 		// Put the actor in the vector
 		Actor temp;
-		temp.setTile({ nullptr, passable, index, symbol, colour});
+		temp.setTile({ tex, passable, index, symbol, colour});
 		temp.setStats({ HP, EN, STR });
 		temp.setHeldItem(heldItem);
 		temp.setName(name);
@@ -160,34 +187,53 @@ void Room::loadActorIndex(string filename)
 		}
 	}
 	stream.close();
+	return 0;
 }
 
-void Room::display(Buffer& buffer){
+void Room::display(Buffer& buffer, SDL_Renderer *ren){
 	int tile;
 	ActorPtr tempA;
 	ItemPtr tempI;
+	Tile *iTile;
+
 	for (int a = 0; a < schooled::MAP_HEIGHT; a++){
 		for (int b = 0; b < schooled::MAP_WIDTH; b++){
-			if (actorArray[a][b] > 0)		// If actor at position, draw
+
+			if (tileArray[a][b] > 0)	// Draw tile otherwise
 			{
-				tile = actorArray[a][b];
-				tempA = &getActor({ b, a });
-				buffer.draw(tempA->getTile().character, tempA->getTile().colorCode, a+ schooled::OFFSET, b);
+				tile = tileArray[a][b];
+				iTile = &tileIndex[tile];
+				buffer.draw(iTile->character, iTile->colorCode, a + schooled::OFFSET, b);
+
+				SDL_util::renderTexture(iTile->texture, ren,
+					b*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER,
+					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);
 			}
-			else if (itemArray[a][b] > 0)	// If item at position, draw
+			if (itemArray[a][b] > 0)	// If item at position, draw
 			{
 				tile = itemArray[a][b];
 				tempI = &itemIndex[tile];
 				buffer.draw(tempI->getTile().character, tempI->getTile().colorCode, a + schooled::OFFSET, b);
 
+				SDL_util::renderTexture(tempI->getTile().texture, ren,
+					b*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER,
+					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);
 			}
-			else	// Draw tile otherwise
+			if (actorArray[a][b] > 0)		// If actor at position, draw
 			{
-				tile = tileArray[a][b];
-				buffer.draw(tileIndex[tile].character, tileIndex[tile].colorCode, a + schooled::OFFSET, b);
+				tile = actorArray[a][b];
+				tempA = &getActor({ b, a });
+				buffer.draw(tempA->getTile().character, tempA->getTile().colorCode, a+ schooled::OFFSET, b);
+
+				SDL_util::renderTexture(tempA->getTile().texture, ren,
+					b*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER,
+					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);
 			}
+			
+			
 		}
 	}
+	
 }
 
 ItemPtr Room::getItemStats(int a)

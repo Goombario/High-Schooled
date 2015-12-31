@@ -3,11 +3,12 @@
 #include "Room.h"
 
 #include "res_path.h"
-#include "Cleanup.h"
 #include "SDL_util.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
+#include <Cleanup.h>
+#include <Schooled.h>
 
 using namespace SDL_util;
 
@@ -16,8 +17,6 @@ SDL_Window *GameEngine::window;
 
 int GameEngine::Init()
 {
-	int const SCREEN_WIDTH = 640;
-	int const SCREEN_HEIGHT = 480;
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
@@ -43,7 +42,8 @@ int GameEngine::Init()
 
 	//Setup our window and renderer
 	window = SDL_CreateWindow("Schooled 2.0", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		SDL_WINDOWPOS_CENTERED, schooled::SCREEN_WIDTH_PX, 
+		schooled::SCREEN_HEIGHT_PX, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 	{
 		logSDLError(std::cout, "CreateWindow");
@@ -65,9 +65,16 @@ int GameEngine::Init()
 	}
 
 	// Load the room indices
-	Room::loadTileIndex("tileIndex.txt");
-	Room::loadItemIndex("itemIndex.txt");
-	Room::loadActorIndex("actorIndex.txt");
+	if (Room::loadTileIndex("tileIndex.txt", renderer) != 0 ||
+		Room::loadItemIndex("itemIndex.txt", renderer) != 0 ||
+		Room::loadActorIndex("actorIndex.txt", renderer) != 0)
+	{
+		cleanup(window, renderer);
+		TTF_Quit();
+		IMG_Quit();
+		SDL_Quit();
+		return 1;
+	}
 
 	return 0;
 }

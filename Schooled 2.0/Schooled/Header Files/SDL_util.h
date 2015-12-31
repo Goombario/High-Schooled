@@ -2,8 +2,9 @@
 #define SDL_UTIL_H
 
 #include <iostream>
-#include <SDL.h>
+#include <utility>
 #include <string>
+#include <SDL.h>
 
 namespace SDL_util
 {
@@ -20,7 +21,7 @@ namespace SDL_util
 	* @param ren The renderer to load the texture onto
 	* @return the loaded texture, or nullptr if something went wrong.
 	*/
-	SDL_Texture* loadTexture(const std::string &, SDL_Renderer *);
+	SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren);
 
 	/**
 	* Draw an SDL_Texture to an SDL_Renderer at some destination rect
@@ -31,7 +32,7 @@ namespace SDL_util
 	* @param clip The sub-section of the texture to draw (clipping rect)
 	*		default of nullptr draws the entire texture
 	*/
-	void renderTexture(SDL_Texture *, SDL_Renderer *, SDL_Rect, SDL_Rect * = nullptr);
+	void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, SDL_Rect dst, SDL_Rect *clip = nullptr);
 
 	/**
 	* Draw an SDL_Texture to an SDL_Renderer at position x, y, preserving
@@ -45,7 +46,7 @@ namespace SDL_util
 	* @param clip The sub-section of the texture to draw (clipping rect)
 	*		default of nullptr draws the entire texture
 	*/
-	void renderTexture(SDL_Texture *, SDL_Renderer *, int, int, SDL_Rect * = nullptr);
+	void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, SDL_Rect *clip = nullptr);
 
 	/**
 	* Render the message we want to display to a texture for drawing
@@ -56,7 +57,7 @@ namespace SDL_util
 	* @param renderer The renderer to load the texture in
 	* @return An SDL_Texture containing the rendered message, or nullptr if something went wrong
 	*/
-	SDL_Texture* renderText(const std::string&, const std::string&, SDL_Color, int, SDL_Renderer *);
+	SDL_Texture* renderText(const std::string& message, const std::string& fontFile, SDL_Color color, int fontSize, SDL_Renderer *ren);
 
 	/*
 	* Get the resource path for resources located in res/subDir
@@ -70,6 +71,7 @@ namespace SDL_util
 	* Paths returned will be Lessons/res/subDir
 	*/
 	std::string getResourcePath(const std::string &subDir = "");
+
 }
 
 #endif
