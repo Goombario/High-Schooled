@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="Resource Files\Actor.cpp" />
     <ClCompile Include="Resource Files\Buffer.cpp" />
+    <ClCompile Include="Resource Files\Cleanup.cpp" />
     <ClCompile Include="Resource Files\GameEngine.cpp" />
     <ClCompile Include="Resource Files\GameOverState.cpp" />
     <ClCompile Include="Resource Files\Item.cpp" />

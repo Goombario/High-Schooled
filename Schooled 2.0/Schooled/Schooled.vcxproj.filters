@@ -78,6 +78,9 @@
     <ClCompile Include="Resource Files\SDL_util.cpp">
       <Filter>Resource Files\SDL</Filter>
     </ClCompile>
+    <ClCompile Include="Resource Files\Cleanup.cpp">
+      <Filter>Resource Files\SDL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\MenuState.h">
