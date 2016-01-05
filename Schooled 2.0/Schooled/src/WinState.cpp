@@ -82,7 +82,7 @@ string WinState::getTextBlock(string filename)
 	std::ifstream stream(filename);
 	if (!stream)
 	{
-		perror("File failed to load");
+		std::cerr << "File failed to load" << std::endl;
 		exit(1);
 	}
 

@@ -393,7 +393,7 @@ string MenuState::getTextBlock(string filename)
 	std::ifstream stream(filename);
 	if (!stream)
 	{
-		perror("File failed to load");
+		std::cerr << "File failed to load (GetTextBlock)" << std::endl;
 		exit(1);
 	}
 
@@ -475,7 +475,7 @@ void MenuState::saveSetting(string a_key, string change)
 	// If there is an error with the files, error
 	if (!inStream || !outStream)
 	{
-		std::cout << "File open failed.\n";
+		std::cerr << "File failed to load (SaveSetting)" << std::endl;
 		exit(1);
 	}
 
@@ -495,7 +495,7 @@ void MenuState::saveSetting(string a_key, string change)
 
 	// Error checking and renaming
 	if (remove("Settings.txt") != 0)
-		perror("Error deleting file");
+		std::cerr << "Error deleting file" << std::endl;
 	else
 		puts("File successfully deleted");
 
@@ -503,7 +503,7 @@ void MenuState::saveSetting(string a_key, string change)
 	if (result == 0)
 		puts("File successfully renamed");
 	else
-		perror("Error renaming file");
+		std::cerr << "Error renaming file" << std::endl;
 }
 
 void MenuState::initSettings()
@@ -512,7 +512,7 @@ void MenuState::initSettings()
 	std::ofstream stream("Settings.txt");
 	if (!stream)
 	{
-		std::cout << "File open failed.\n";
+		std::cerr << "File open failed (initSettings)." << std::endl;
 		exit(1);
 	}
 	stream << "ControlScheme: Double-Tap" << std::endl;

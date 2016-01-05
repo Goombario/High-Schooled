@@ -36,7 +36,7 @@ public:
 
 	bool isPassable(COORD);	// Checks if a tile is passable
 	void display(Buffer&, SDL_Renderer *);	// Display the room to the screen
-	void save(string); // Save room to a file
+	int save(string); // Save room to a file
 
 	int findActor(COORD); // Find Actor in actorList
 	Actor& getActor(COORD);	// Get Actor in actorList
