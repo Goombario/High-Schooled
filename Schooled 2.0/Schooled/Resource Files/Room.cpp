@@ -10,6 +10,7 @@
 
 #include <SDL.h>
 #include "SDL_util.h"
+#include "Cleanup.h"
 
 namespace con = JadedHoboConsole;
 
@@ -59,6 +60,9 @@ int Room::loadTileIndex(string filename, SDL_Renderer *ren)
 		{
 			getline(stream, line);
 		}
+		//cleanup(tex);
+		tex = nullptr;
+
 	}
 	stream.close();
 	return 0;
@@ -119,6 +123,8 @@ int Room::loadItemIndex(string filename, SDL_Renderer *ren)
 		{
 			getline(stream, line);
 		}
+		//cleanup(tex);
+		tex = nullptr;
 	}
 	stream.close();
 	return 0;
@@ -163,7 +169,7 @@ int Room::loadActorIndex(string filename, SDL_Renderer *ren)
 		getline(stream, line);
 		string m_defend = (line.substr(line.find(':') + 1));
 
-		SDL_Texture *tex = SDL_util::loadTexture(resPath + name + ".png", ren);
+		SDL_Texture *tex = SDL_util::loadTexture(resPath + "Person 1" + ".png", ren);
 		if (tex == nullptr)
 		{
 			//return 1;
@@ -185,6 +191,9 @@ int Room::loadActorIndex(string filename, SDL_Renderer *ren)
 		{
 			getline(stream, line);
 		}
+		//cleanup(tex);
+		tex = nullptr;
+
 	}
 	stream.close();
 	return 0;
