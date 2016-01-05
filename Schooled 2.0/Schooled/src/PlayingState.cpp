@@ -6,7 +6,9 @@
 #include "Item.h"
 #include "Console_color.h"
 #include "sound_effects.h"
+
 #include <SDL.h>
+#include "SDL_util.h"
 
 #include <fstream>
 
@@ -736,10 +738,10 @@ void PlayingState::loadRooms()
 	else
 	{	
 		// Load floor from the file
-		std::ifstream stream("Rooms/Floor_1.txt");
+		std::ifstream stream(SDL_util::getResourcePath("rooms") + "Floor_1.txt");
 		if (!stream)
 		{
-			std::cout << "File open failed.\n";
+			std::cerr << "File open failed. (PlayingState::loadRooms)" << std::endl;
 			exit(1);
 		}
 		string line;
@@ -749,7 +751,7 @@ void PlayingState::loadRooms()
 		while (stream.good())
 		{
 			stream >> line;
-			temp = Room("Rooms/" + line + ".txt");
+			temp = Room(line + ".txt");
 			stream >> tempCoord.X >> tempCoord.Y;
 			temp.setLocation(tempCoord);
 			roomArray[tempCoord.X][tempCoord.Y] = temp;

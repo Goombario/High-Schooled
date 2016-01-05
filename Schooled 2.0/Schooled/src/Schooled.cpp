@@ -33,7 +33,7 @@ string schooled::getSetting(string a_key)
 
 	if (!stream)
 	{
-		std::cout << "File open failed.\n";
+		std::cerr << "File open failed. (schooled::getSetting)" << std::endl;
 		exit(1);
 	}
 

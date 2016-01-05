@@ -27,7 +27,7 @@ int Room::loadTileIndex(string filename, SDL_Renderer *ren)
 	std::ifstream stream(resPath + filename);
 	if (stream.fail())
 	{
-		std::cout << "ERROR: File open failed. (TileIndex)\n";
+		std::cerr << "ERROR: File open failed. (TileIndex)" << std::endl;
 		return 1;
 	}
 
@@ -75,7 +75,7 @@ int Room::loadItemIndex(string filename, SDL_Renderer *ren)
 	std::ifstream stream(resPath + filename);
 	if (stream.fail())
 	{
-		std::cout << "File open failed. (ItemIndex)\n";
+		std::cerr << "File open failed. (ItemIndex)\n";
 		return 1;
 	}
 
@@ -137,7 +137,7 @@ int Room::loadActorIndex(string filename, SDL_Renderer *ren)
 	std::ifstream stream(resPath + filename);
 	if (stream.fail())
 	{
-		std::cout << "File open failed. (ActorIndex)\n";
+		std::cerr << "File open failed. (ActorIndex)\n";
 		return 1;
 	}
 
@@ -353,11 +353,11 @@ Room::Room(string fileName)
 {
 	// Open file for input
 	std::ifstream stream;
-	stream.open(fileName);
+	stream.open(SDL_util::getResourcePath("rooms") + (fileName));
 
 	if (stream.fail())
 	{
-		std::cout << "File open failed.\n";
+		std::cerr << "File open failed (Room)";
 		exit(1);
 	}
 
@@ -415,15 +415,15 @@ Room::Room(string fileName)
 
 string Room::getMessage() { return message; }
 
-void Room::save(string fileName)
+int Room::save(string fileName)
 {
 	std::ofstream stream;
-	stream.open(fileName);
+	stream.open(SDL_util::getResourcePath("rooms") + fileName);
 
 	if (stream.fail())
 	{
-		std::cout << "File open failed.\n";
-		exit(1);
+		std::cerr << "File open failed. (Room::save)" << std::endl;
+		return 1;
 	}
 
 	stream << message << endl << endl;
@@ -462,6 +462,7 @@ void Room::save(string fileName)
 	}
 	stream << std::flush;
 	stream.close();
+	return 0;
 }
 
 void Room::moveEnemy1(COORD playerPos, Actor& enemy)
