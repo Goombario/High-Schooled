@@ -52,14 +52,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_mixer-2.0.0\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_ttf-2.0.12\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_image-2.0.0\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL\include;C:\Hg\schooled-2.0\Schooled 2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\inc;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_mixer-2.0.0\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_ttf-2.0.12\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_image-2.0.0\include;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL\include;C:\Hg\schooled-2.0\Schooled 2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>winmm.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;fmodstudio_vc.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcd.lib</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_ttf-2.0.12\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_mixer-2.0.0\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_image-2.0.0\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL\lib\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_ttf-2.0.12\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_mixer-2.0.0\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL2_image-2.0.0\lib\x86;C:\Hg\schooled-2.0\Schooled 2.0\libraries\SDL\lib\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,6 +84,7 @@
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\Buffer.cpp" />
     <ClCompile Include="src\Cleanup.cpp" />
+    <ClCompile Include="src\FMOD_util.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameOverState.cpp" />
     <ClCompile Include="src\Item.cpp" />
@@ -101,6 +102,7 @@
     <ClInclude Include="..\include\Actor.h" />
     <ClInclude Include="..\include\Buffer.h" />
     <ClInclude Include="..\include\Cleanup.h" />
+    <ClInclude Include="..\include\FMOD_util.h" />
     <ClInclude Include="..\include\Console_color.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameOverState.h" />

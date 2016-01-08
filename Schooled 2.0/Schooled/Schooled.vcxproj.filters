@@ -31,6 +31,12 @@
     <Filter Include="Resource Files\SDL">
       <UniqueIdentifier>{e499763c-0445-4b1d-819f-0570596e33f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FMOD">
+      <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\FMOD">
+      <UniqueIdentifier>{5fab90d4-d241-4e2a-a8b6-ab165f8b9d2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Actor.cpp">
@@ -80,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="src\WinState.cpp">
       <Filter>Resource Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FMOD_util.cpp">
+      <Filter>Resource Files\FMOD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="..\include\sound_effects.h">
       <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FMOD_util.h">
+      <Filter>Header Files\FMOD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

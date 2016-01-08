@@ -1,6 +1,7 @@
 #include "GameEngine.h"
 #include "GameState.h"
 #include "Room.h"
+#include "Schooled.h"
 
 #include "res_path.h"
 #include "SDL_util.h"
@@ -8,14 +9,41 @@
 #include <SDL_ttf.h>
 #include <SDL_image.h>
 #include <Cleanup.h>
-#include <Schooled.h>
+
+#include "FMOD_util.h"
+#include "fmod_studio.hpp"
+#include "fmod.hpp"
 
 using namespace SDL_util;
+using namespace FMOD_util;
 
 SDL_Renderer *GameEngine::renderer;
 SDL_Window *GameEngine::window;
+FMOD::Studio::System *GameEngine::system = nullptr;
 
 int GameEngine::Init()
+{
+	if (Init_SDL() != 0 || Init_FMOD() != 0)
+	{
+		return 1;
+	}
+
+	// Load the room indices
+	if (Room::loadTileIndex("tileIndex.txt", renderer) != 0 ||
+		Room::loadItemIndex("itemIndex.txt", renderer) != 0 ||
+		Room::loadActorIndex("actorIndex.txt", renderer) != 0)
+	{
+		cleanup(window, renderer);
+		TTF_Quit();
+		IMG_Quit();
+		SDL_Quit();
+		return 1;
+	}
+
+	return 0;
+}
+
+int GameEngine::Init_SDL()
 {
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -42,7 +70,7 @@ int GameEngine::Init()
 
 	//Setup our window and renderer
 	window = SDL_CreateWindow("Schooled 2.0", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, schooled::SCREEN_WIDTH_PX, 
+		SDL_WINDOWPOS_CENTERED, schooled::SCREEN_WIDTH_PX,
 		schooled::SCREEN_HEIGHT_PX, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 	{
@@ -63,19 +91,19 @@ int GameEngine::Init()
 		SDL_Quit();
 		return 1;
 	}
+	return 0;
+}
 
-	// Load the room indices
-	if (Room::loadTileIndex("tileIndex.txt", renderer) != 0 ||
-		Room::loadItemIndex("itemIndex.txt", renderer) != 0 ||
-		Room::loadActorIndex("actorIndex.txt", renderer) != 0)
-	{
-		cleanup(window, renderer);
-		TTF_Quit();
-		IMG_Quit();
-		SDL_Quit();
-		return 1;
-	}
+int GameEngine::Init_FMOD()
+{
+	FMOD_RESULT result;
 
+	result = FMOD::Studio::System::create(&system); // Create the Studio System object.
+	FMODErrorCheck(result);
+
+	// Initialize FMOD Studio, which will also initialize FMOD Low Level
+	result = system->initialize(512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, 0);
+	FMODErrorCheck(result);
 	return 0;
 }
 
@@ -92,6 +120,7 @@ void GameEngine::Cleanup()
 	IMG_Quit();
 	SDL_Quit();
 
+	system->release();
 }
 
 void GameEngine::ChangeState(GameState* state)
