@@ -7,6 +7,14 @@ using std::vector;
 struct SDL_Window;
 struct SDL_Renderer;
 
+namespace FMOD
+{
+	namespace Studio
+	{
+		class System;
+	}
+}
+
 class GameState;
 
 class GameEngine
@@ -35,11 +43,14 @@ public:
 	static SDL_Renderer* getRenderer() { return renderer; }
 	static SDL_Window* getWindow() { return window; }
 private:
+	int Init_SDL();
+	int Init_FMOD();
 	// The stack of states
 	vector <GameState*> states;
 	bool m_running;
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
+	static FMOD::Studio::System *system;
 };
 
 
