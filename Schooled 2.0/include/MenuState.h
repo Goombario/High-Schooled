@@ -4,10 +4,19 @@
 #include "GameState.h"
 #include <string>
 #include <vector>
+
+namespace Sound
+{
+	class Instance;
+	class Description;
+};
+
+struct SDL_Texture{};
+
+// So we can forward declare FMOD objects
+
 using std::vector;
 using std::string;
-
-#include <SDL.h>
 
 class MenuState : public GameState
 {
@@ -47,6 +56,7 @@ private:
 	bool selectingControl, selectingLevel, selectingCredits, changedSettings, startingGame, showObjective;
 	static int lSelect;
 
+	// SDL resources
 	SDL_Texture *logo;
 
 	void handleMenu(GameEngine* game);
@@ -58,7 +68,15 @@ private:
 
 	// Sets up the scheme displays
 	void setSchemes();
+
+	
 };
 
+// FMOD resources
+namespace snd
+{
+	Sound::Description *title_desc = nullptr;
+	Sound::Instance *title = nullptr;
+}
 
 #endif

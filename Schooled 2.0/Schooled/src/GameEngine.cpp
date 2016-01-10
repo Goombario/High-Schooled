@@ -104,6 +104,21 @@ int GameEngine::Init_FMOD()
 	// Initialize FMOD Studio, which will also initialize FMOD Low Level
 	result = system->initialize(512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, 0);
 	FMODErrorCheck(result);
+
+	// Load the banks
+	string bankPath = SDL_util::getResourcePath() + "../FMOD_Schooled/Build/Desktop/";
+	FMOD::Studio::Bank *masterBank = nullptr;
+	FMODErrorCheck(system->loadBankFile((bankPath + "Master Bank.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &masterBank));
+
+	FMOD::Studio::Bank *stringsBank = nullptr;
+	FMODErrorCheck(system->loadBankFile((bankPath + "Master Bank.strings.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &stringsBank));
+
+	// Load additional banks
+	FMOD::Studio::Bank *SFXBank = nullptr;
+	FMODErrorCheck(system->loadBankFile((bankPath + "SFX.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &SFXBank));
+
+	FMOD::Studio::Bank *tracksBank = nullptr;
+	FMODErrorCheck(system->loadBankFile((bankPath + "Tracks.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &tracksBank));
 	return 0;
 }
 
@@ -115,10 +130,18 @@ void GameEngine::Cleanup()
 		states.back()->Cleanup();
 		states.pop_back();
 	}
+
+	// Cleanup SDL
 	cleanup(renderer, window);
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
+
+	// Cleanup FMOD
+	masterBank->unload();
+	stringsBank->unload();
+	SFXBank->unload();
+	tracksBank->unload();
 
 	system->release();
 }

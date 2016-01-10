@@ -5,9 +5,12 @@
 #include "sound_effects.h"
 #include "ShareState.h"
 
-//#include <SDL.h>
+#include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_util.h>
+
+#include "fmod_studio.hpp"
+#include "FMOD_util.h"
 
 #include <fstream>
 #include <stdio.h>
@@ -18,6 +21,14 @@ namespace con = JadedHoboConsole;
 
 MenuState MenuState::m_MenuState;
 int MenuState::lSelect = 0;
+
+namespace snd
+{
+
+	// Get the Title Screen Music
+	Sound::Description *title_desc = new Sound::Description("event:/Tracks/m_title");
+	Sound::Instance *title = new Sound::Instance(title_desc);
+}
 
 void MenuState::Init()
 {
@@ -31,8 +42,6 @@ void MenuState::Init()
 	art = getTextBlock(SDL_util::getResourcePath("text") + "title.txt");
 	introText = getTextBlock(SDL_util::getResourcePath("text") + "intro.txt");
 
-
-
 	// Check if settings file exists.
 	if (!std::ifstream("Settings.txt"))
 	{
@@ -40,7 +49,7 @@ void MenuState::Init()
 	}
 
 	//Play the music
-	snd::title->play();
+	snd::title->start();
 
 	// Set the default location of the selection to "Start Game"
 	menuSelect = 0;

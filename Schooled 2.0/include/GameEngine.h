@@ -12,6 +12,7 @@ namespace FMOD
 	namespace Studio
 	{
 		class System;
+		class Bank;
 	}
 }
 
@@ -42,6 +43,7 @@ public:
 
 	static SDL_Renderer* getRenderer() { return renderer; }
 	static SDL_Window* getWindow() { return window; }
+	static FMOD::Studio::System* getSoundSystem() { return system; }
 private:
 	int Init_SDL();
 	int Init_FMOD();
@@ -51,6 +53,12 @@ private:
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
 	static FMOD::Studio::System *system;
+
+	FMOD::Studio::Bank *masterBank = nullptr;
+	FMOD::Studio::Bank *stringsBank = nullptr;
+	FMOD::Studio::Bank *SFXBank = nullptr;
+	FMOD::Studio::Bank *tracksBank = nullptr;
+
 };
 
 
