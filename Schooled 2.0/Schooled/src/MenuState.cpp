@@ -25,21 +25,33 @@ int MenuState::lSelect = 0;
 // FMOD sounds
 namespace snd
 {
-	// Get the Title Screen Music
-	Sound::Description *m_title_desc = new Sound::Description("event:/Tracks/m_title");
-	Sound::Instance *m_title = new Sound::Instance(m_title_desc);
+	// Title Screen Music
+	Sound::Description *m_title_desc = nullptr;
+	Sound::Instance *m_title = nullptr;
 
-	// Get the Dungeon Music
-	Sound::Description *m_dungeon_desc = new Sound::Description("event:/Tracks/m_dungeon");
-	Sound::Instance *m_dungeon = new Sound::Instance(m_dungeon_desc);
+	// Dungeon Music
+	Sound::Description *m_dungeon_desc = nullptr;
+	Sound::Instance *m_dungeon = nullptr;
 
-	// Get the sound effects
-	Sound::Description *s_start_desc = new Sound::Description("event/SFX/s_start", true);
-	//Sound::Description *s_start_desc = new Sound::Description("event/SFX/s_start", true);
+	// Sound effects
+	Sound::Description *s_start_desc = nullptr;
+
 }
 
 void MenuState::Init()
 {
+	// Get the Title Screen Music
+	snd::m_title_desc = new Sound::Description("Tracks/m_title");
+	snd::m_title = new Sound::Instance(snd::m_title_desc);
+
+	// Get the Dungeon Music
+	snd::m_dungeon_desc = new Sound::Description("Tracks/m_dungeon");
+	snd::m_dungeon = new Sound::Instance(snd::m_dungeon_desc);
+
+	// Get the sound effects
+	snd::s_start_desc = new Sound::Description("SFX/s_start", true);
+
+
 	// Set and clear the buffer
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	buffer.open(hConsole);
