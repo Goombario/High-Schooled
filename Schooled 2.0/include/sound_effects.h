@@ -58,7 +58,7 @@ namespace Sound
 		/* Stop the sound event
 		* @param mode determines how the sound event stops.
 		*/
-		int stop(FMOD_STUDIO_STOP_MODE mode);
+		int stop(FMOD_STUDIO_STOP_MODE mode = FMOD_STUDIO_STOP_IMMEDIATE);
 
 		// release the event
 		int release();

@@ -72,11 +72,4 @@ private:
 	
 };
 
-// FMOD resources
-namespace snd
-{
-	Sound::Description *title_desc = nullptr;
-	Sound::Instance *title = nullptr;
-}
-
 #endif

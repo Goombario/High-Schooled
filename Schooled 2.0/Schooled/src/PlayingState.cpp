@@ -64,25 +64,25 @@ void PlayingState::Init()
 	
 	// Set the control scheme
 	scheme = schooled::getSetting("ControlScheme");
-	//snd::dungeonMusic->play();
+	////snd::dungeonMusic->play();
 }
 
 void PlayingState::Cleanup()
 {
-	snd::menuHighlight->stop();
+	//snd::menuHighlight->stop();
 	log.clear();
 }
 
 void PlayingState::Pause()
 {
-	snd::menuHighlight->stop();
-	snd::dungeonMusic->stop();
+	//snd::menuHighlight->stop();
+	//snd::dungeonMusic->stop();
 }
 
 void PlayingState::Resume()
 {
-	snd::menuHighlight->play();
-	snd::dungeonMusic->play();
+	//snd::menuHighlight->play();
+	//snd::dungeonMusic->play();
 }
 
 void PlayingState::HandleEvents(GameEngine* game)
@@ -185,7 +185,7 @@ void PlayingState::Update(GameEngine* game)
 	// If the player is dead, quit the game
 	if (player.getStats().HP <= 0 && running)
 	{
-		snd::playerDeath->play();
+		//snd::playerDeath->play();
 		Sleep(700);
 		Pause();
 		game->ChangeState(GameOverState::Instance());
@@ -322,12 +322,12 @@ void PlayingState::attack()
 		// If NPC, play their respective text and hit sound
 		if (currentRoom.getActor(highlight).getTile().tileInt >= 13)	
 		{
-			snd::attack1->play();
+			////snd::attack1->play();
 			log.push_back(messagesNPCHit[currentRoom.randomLog(true)], con::fgLoCyan);
 		}
 		else	// Play battle sound and text
 		{
-			snd::attack1->play();
+			////snd::attack1->play();
 			log.push_back(a->getMDefend() + " Deal " + 
 				to_string(player.getStats().STR) + " damage! Wow!", con::fgLoCyan);
 			attack_animation = true;
@@ -491,7 +491,7 @@ void PlayingState::enemyTurn(Actor& a)
 		if (currentRoom.isAdjacent(player.getLocation(), a) && a.getTile().tileInt != 13 && a.getTile().tileInt != 20)
 		{
 			// Play sound effect, attack, output message, play animation, and complete turn
-			snd::attack2->play();
+			////snd::attack2->play();
 			a.attack(player);
 			log.push_back(a.getMAttack() + " Take " + to_string(a.getStats().STR) + " damage! Ouch!", con::fgLoRed);
 			defend_animation = true;
@@ -592,7 +592,7 @@ void PlayingState::interact()
 		{
 			// KEY
 		case 1:
-			snd::key->play();
+			////snd::key->play();
 			log.push_back(messages["GET_KEY"]);
 			keyCount++;
 			pickupFlags["KEY"] = true;
@@ -601,7 +601,7 @@ void PlayingState::interact()
 
 			// ROOM_TRANSITION
 		case 2:
-			snd::nextRoom->play();
+			////snd::nextRoom->play();
 			transitionRoom();
 			break;
 
@@ -609,20 +609,20 @@ void PlayingState::interact()
 		case 3:
 			if (masterKey == true) // If you have the masterkey, you can open all the things
 			{
-				snd::nextRoom->play();
+				////snd::nextRoom->play();
 				log.push_back(messages["USE_MASTERKEY"]);
 				currentRoom.setItemInt(highlight, 0);
 			}
 			else if (keyCount > 0) // You know what this does, right? (Use a key)
 			{
-				snd::nextRoom->play();
+				//snd::nextRoom->play();
 				log.push_back(messages["USE_KEY"]);
 				keyCount--;
 				currentRoom.setItemInt(highlight, 0);
 			}
 			else // The door is locked and you have no keys. You are in a dark room. Suddenly, Shia Labeouf.
 			{
-				snd::lockedDoor->play();
+				//snd::lockedDoor->play();
 				log.push_back(messages["DOOR_LOCKED"]);
 			}
 			break;
@@ -636,7 +636,7 @@ void PlayingState::interact()
 			}
 			else
 			{
-				snd::lockedDoor->play();
+				//snd::lockedDoor->play();
 				log.push_back(messages["P_DOOR_LOCKED"]);
 			}
 			break;
