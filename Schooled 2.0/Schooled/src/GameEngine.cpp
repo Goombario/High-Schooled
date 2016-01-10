@@ -197,6 +197,7 @@ void GameEngine::HandleEvents()
 
 void GameEngine::Update()
 {
+	system->update();
 	// let the state update the game
 	states.back()->Update(this);
 }

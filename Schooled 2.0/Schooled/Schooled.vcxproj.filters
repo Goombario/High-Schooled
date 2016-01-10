@@ -31,11 +31,11 @@
     <Filter Include="Resource Files\SDL">
       <UniqueIdentifier>{e499763c-0445-4b1d-819f-0570596e33f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\FMOD">
-      <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\FMOD">
+    <Filter Include="Resource Files\sound">
       <UniqueIdentifier>{5fab90d4-d241-4e2a-a8b6-ab165f8b9d2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sound">
+      <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,9 +66,6 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\sound_effects.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameEngine.cpp">
       <Filter>Resource Files\States</Filter>
     </ClCompile>
@@ -88,7 +85,10 @@
       <Filter>Resource Files\States</Filter>
     </ClCompile>
     <ClCompile Include="src\FMOD_util.cpp">
-      <Filter>Resource Files\FMOD</Filter>
+      <Filter>Resource Files\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sound_effects.cpp">
+      <Filter>Resource Files\sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,11 +143,11 @@
     <ClInclude Include="..\include\Res_Path.h">
       <Filter>Header Files\SDL</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\sound_effects.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\FMOD_util.h">
-      <Filter>Header Files\FMOD</Filter>
+      <Filter>Header Files\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sound_effects.h">
+      <Filter>Header Files\sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
