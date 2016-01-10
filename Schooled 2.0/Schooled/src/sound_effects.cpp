@@ -1,38 +1,56 @@
 #include "sound_effects.h"
-#include <string>
+#include "fmod_studio.hpp"
+#include "FMOD_util.h"
+#include "GameEngine.h"
 
+using FMOD_util::FMODErrorCheck;
 
-Sound::Sound()
+namespace Sound
 {
-	fileLocation = NULL;
-}
+	Instance::Instance() {};
 
-Sound::Sound(LPCTSTR file, bool l, bool a)
-{
-	fileLocation = file;
-	loop = l;
-	async = a;
-}
-
-void Sound::play()
-{
-	if (loop && async)	// Looping and playing asynchronously 
+	Instance::Instance(Description *desc)
 	{
-		PlaySound(fileLocation, NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-	}
-	else if (async)		// Playing asynchronously 
-	{
-		PlaySound(fileLocation, NULL, SND_FILENAME | SND_ASYNC);
-	}
-	else
-	{
-		PlaySound(fileLocation, NULL, SND_FILENAME);
-	}
-}
+		FMODErrorCheck(desc->getDesc()->createInstance(&instance));
+	};
 
-void Sound::stop()
-{
-	// Play a null sound
-	PlaySound(NULL, 0, SND_ASYNC);
-}
+	Instance::~Instance() 
+	{
+		release();
+	};
 
+	int Instance::start()
+	{
+		return (FMODErrorCheck(instance->start()));
+	};
+
+	int Instance::stop(FMOD_STUDIO_STOP_MODE mode)
+	{
+		return (FMODErrorCheck(instance->stop(mode)));
+	};
+
+	int Instance::release()
+	{
+		return FMODErrorCheck(instance->release());
+	}
+
+
+	Description::Description() {};
+
+	Description::Description(std::string eventName, bool loadSample)
+	{
+		FMOD::Studio::System* system = GameEngine::getSoundSystem();
+		FMODErrorCheck(system->getEvent(("event:/" + eventName).c_str(), &description));
+
+		// Load sample data into memory
+		if (loadSample)
+		{
+			FMODErrorCheck(description->loadSampleData());
+		}
+	};
+
+	Description::~Description()
+	{
+		FMODErrorCheck(description->releaseAllInstances());
+	};
+}
