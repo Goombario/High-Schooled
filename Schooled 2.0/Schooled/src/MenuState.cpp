@@ -22,12 +22,20 @@ namespace con = JadedHoboConsole;
 MenuState MenuState::m_MenuState;
 int MenuState::lSelect = 0;
 
+// FMOD sounds
 namespace snd
 {
-
 	// Get the Title Screen Music
-	Sound::Description *title_desc = new Sound::Description("event:/Tracks/m_title");
-	Sound::Instance *title = new Sound::Instance(title_desc);
+	Sound::Description *m_title_desc = new Sound::Description("event:/Tracks/m_title");
+	Sound::Instance *m_title = new Sound::Instance(m_title_desc);
+
+	// Get the Dungeon Music
+	Sound::Description *m_dungeon_desc = new Sound::Description("event:/Tracks/m_dungeon");
+	Sound::Instance *m_dungeon = new Sound::Instance(m_dungeon_desc);
+
+	// Get the sound effects
+	Sound::Description *s_start_desc = new Sound::Description("event/SFX/s_start", true);
+	//Sound::Description *s_start_desc = new Sound::Description("event/SFX/s_start", true);
 }
 
 void MenuState::Init()
@@ -49,7 +57,7 @@ void MenuState::Init()
 	}
 
 	//Play the music
-	snd::title->start();
+	snd::m_title->start();
 
 	// Set the default location of the selection to "Start Game"
 	menuSelect = 0;
@@ -92,14 +100,14 @@ void MenuState::Init()
 void MenuState::Cleanup()
 {
 	// Stop the main music
-	snd::title->stop();
+	snd::m_title->stop(FMOD_STUDIO_STOP_IMMEDIATE);
 	//cleanup(logo);
 }
 
 void MenuState::Pause()
 {
 	// Stop the main music and if settings changed, save settings
-	snd::title->stop();
+	snd::m_title->stop();
 	if (changedSettings)
 	{
 		saveSetting("ControlScheme", controlOptions[selectedControl]);
@@ -109,7 +117,7 @@ void MenuState::Pause()
 void MenuState::Resume()
 {
 	// Play the main music
-	snd::title->play();
+	snd::m_title->start();
 }
 
 void MenuState::HandleEvents(GameEngine* game)
@@ -126,8 +134,10 @@ void MenuState::HandleEvents(GameEngine* game)
 	else if (showObjective)
 	{
 		showObjective = false;
-		//snd::title->stop();
-		snd::startGame->play();
+		snd::m_title->stop();
+
+		Sound::Instance s_start(snd::s_start_desc);
+		s_start.start();
 		game->PushState(PlayingState::Instance());
 		return;
 	}
@@ -236,8 +246,8 @@ void MenuState::Update(GameEngine* game)
 {
 	if (showObjective)
 	{
-		snd::title->stop();
-		snd::dungeonMusic->play();
+		snd::m_title->stop();
+		snd::m_dungeon->start();
 	}
 
 }
@@ -446,8 +456,9 @@ void MenuState::handleMenu(GameEngine* game)
 		else
 		{
 			lSelect = levelSelect+1;
-			snd::title->stop();
-			snd::startGame->play();
+			snd::m_title->stop();
+			Sound::Instance s_start(snd::s_start_desc);
+			s_start.start();
 			game->PushState(PlayingState::Instance());
 		}
 		break;
