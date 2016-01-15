@@ -25,12 +25,6 @@
     <Filter Include="Resource Files\Classes">
       <UniqueIdentifier>{ffc96db1-fef4-44ab-a74c-0a36d7e288f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SDL">
-      <UniqueIdentifier>{420b1851-bcba-4fef-9ac8-d920eaf71509}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\SDL">
-      <UniqueIdentifier>{e499763c-0445-4b1d-819f-0570596e33f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\sound">
       <UniqueIdentifier>{5fab90d4-d241-4e2a-a8b6-ab165f8b9d2f}</UniqueIdentifier>
     </Filter>
@@ -56,12 +50,6 @@
     </ClCompile>
     <ClCompile Include="src\Schooled.cpp">
       <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Cleanup.cpp">
-      <Filter>Resource Files\SDL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SDL_util.cpp">
-      <Filter>Resource Files\SDL</Filter>
     </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
@@ -98,12 +86,6 @@
     <ClInclude Include="..\include\Buffer.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Cleanup.h">
-      <Filter>Header Files\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\SDL_util.h">
-      <Filter>Header Files\SDL</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Console_color.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
@@ -139,9 +121,6 @@
     </ClInclude>
     <ClInclude Include="..\include\WinState.h">
       <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Res_Path.h">
-      <Filter>Header Files\SDL</Filter>
     </ClInclude>
     <ClInclude Include="..\include\FMOD_util.h">
       <Filter>Header Files\sound</Filter>

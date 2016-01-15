@@ -4,9 +4,6 @@
 #include <vector>
 using std::vector;
 
-struct SDL_Window;
-struct SDL_Renderer;
-
 namespace FMOD
 {
 	namespace Studio
@@ -41,19 +38,14 @@ public:
 	bool Running() { return m_running; }
 	void Quit() { m_running = false; }
 
-	static SDL_Renderer* getRenderer() { return renderer; }
-	static SDL_Window* getWindow() { return window; }
 	static FMOD::Studio::System* getSoundSystem() { return system; }
 private:
-	int Init_SDL();
 	int Init_FMOD();
 	// The stack of states
 	vector <GameState*> states;
 	bool m_running;
-	static SDL_Window *window;
-	static SDL_Renderer *renderer;
-	static FMOD::Studio::System *system;
 
+	static FMOD::Studio::System *system;
 	FMOD::Studio::Bank *masterBank = nullptr;
 	FMOD::Studio::Bank *stringsBank = nullptr;
 	FMOD::Studio::Bank *SFXBank = nullptr;

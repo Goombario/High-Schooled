@@ -8,7 +8,6 @@
 #include "Schooled.h"
 #include <Windows.h>
 #include <map>
-#include <SDL.h>
 
 class PlayingState : public GameState
 {
@@ -62,10 +61,10 @@ private:
 	void changeRoom(Room&, COORD);
 
 	// Draw the unchanging base of the buffer
-	void drawBase(SDL_Renderer *);
+	void drawBase();
 
 	// Draw temporary effects upon the buffer
-	void drawVFX(HANDLE, SDL_Renderer *);
+	void drawVFX(HANDLE);
 
 	// Drop the master key
 	void dropMasterKey(ActorPtr);
@@ -86,7 +85,7 @@ private:
 	void loadRooms();
 
 	// Move the highlight
-	void moveHighlight(SDL_Scancode);
+	void moveHighlight(int);
 
 	// Transition to the next room
 	void transitionRoom();

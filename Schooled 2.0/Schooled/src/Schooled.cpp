@@ -48,3 +48,8 @@ string schooled::getSetting(string a_key)
 
 	return "";
 }
+
+string schooled::getResourcePath(const string &subDir)
+{
+	return "../res/" + subDir;
+}

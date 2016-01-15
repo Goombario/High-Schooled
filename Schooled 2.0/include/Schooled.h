@@ -2,7 +2,6 @@
 #define SCHOOLED_H
 
 #include <Windows.h>
-#include <SDL.h>
 #include <string>
 #include <vector>
 using std::string;
@@ -29,12 +28,14 @@ namespace schooled
 
 	// Return the setting that the key is attached to
 	string getSetting(string);
+
+	// Get the path to the resources
+	std::string getResourcePath(const std::string &subDir = "");
 }
 
 // Structures
 struct Tile
 {
-	SDL_Texture *texture;
 	bool isPassable;
 	int tileInt;
 	char character;

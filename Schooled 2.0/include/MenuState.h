@@ -5,15 +5,12 @@
 #include <string>
 #include <vector>
 
+// So we can forward declare FMOD objects
 namespace Sound
 {
 	class Instance;
 	class Description;
 };
-
-struct SDL_Texture{};
-
-// So we can forward declare FMOD objects
 
 using std::vector;
 using std::string;
@@ -55,9 +52,6 @@ private:
 		cScheme, dScheme, clScheme, dlScheme;
 	bool selectingControl, selectingLevel, selectingCredits, changedSettings, startingGame, showObjective;
 	static int lSelect;
-
-	// SDL resources
-	SDL_Texture *logo;
 
 	void handleMenu(GameEngine* game);
 	void saveSetting(string, string);

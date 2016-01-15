@@ -1,7 +1,7 @@
 #include "GameOverState.h"
 #include "Console_color.h"
-#include <SDL.h>
 #include <string>
+#include "Fizzle\Fizzle.h"
 using std::string;
 
 namespace con = JadedHoboConsole;
@@ -31,10 +31,10 @@ void GameOverState::Resume()
 void GameOverState::HandleEvents(GameEngine* game)
 {
 	bool finished = false;
-	SDL_Event event;
-	while (SDL_PollEvent(&event) && !finished)
+	int key;
+	while (!finished)
 	{
-		if (event.type == SDL_KEYDOWN)
+		if (FzlGetKey(FzlKeyEscape))
 		{
 			finished = true;
 		}

@@ -1,5 +1,4 @@
 #include "WinState.h"
-#include <SDL.h>
 #include <string>
 #include <fstream>
 #include "Console_color.h"

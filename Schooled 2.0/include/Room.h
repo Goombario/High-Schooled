@@ -35,7 +35,7 @@ public:
 	COORD getWest() { return entrances[3]; }
 
 	bool isPassable(COORD);	// Checks if a tile is passable
-	void display(Buffer&, SDL_Renderer *);	// Display the room to the screen
+	void display(Buffer&);	// Display the room to the screen
 	int save(string); // Save room to a file
 
 	int findActor(COORD); // Find Actor in actorList
@@ -75,9 +75,9 @@ public:
 	static vector<const Actor> actorIndex;
 
 	//load static indicies from file
-	static int loadTileIndex(string, SDL_Renderer *);
-	static int loadItemIndex(string, SDL_Renderer *);
-	static int loadActorIndex(string, SDL_Renderer *);
+	static int loadTileIndex(string);
+	static int loadItemIndex(string);
+	static int loadActorIndex(string);
 	
 private:
 	//member variables
