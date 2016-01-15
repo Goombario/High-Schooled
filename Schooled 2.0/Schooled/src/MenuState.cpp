@@ -5,10 +5,6 @@
 #include "sound_effects.h"
 #include "ShareState.h"
 
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_util.h>
-
 #include "fmod_studio.hpp"
 #include "FMOD_util.h"
 
@@ -59,8 +55,8 @@ void MenuState::Init()
 	buffer.close(hConsole);
 
 	// Get the artwork and intro text
-	art = getTextBlock(SDL_util::getResourcePath("text") + "title.txt");
-	introText = getTextBlock(SDL_util::getResourcePath("text") + "intro.txt");
+	art = getTextBlock(schooled::getResourcePath("text") + "title.txt");
+	introText = getTextBlock(schooled::getResourcePath("text") + "intro.txt");
 
 	// Check if settings file exists.
 	if (!std::ifstream("Settings.txt"))
@@ -266,11 +262,6 @@ void MenuState::Update(GameEngine* game)
 
 void MenuState::Draw(GameEngine* game)
 {
-	SDL_Renderer *ren = game->getRenderer();
-	SDL_Window *win = game->getWindow();
-
-
-
 	// Get the current handle
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	

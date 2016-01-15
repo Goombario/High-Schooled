@@ -1,7 +1,7 @@
 #include "ShareState.h"
 #include <fstream>
 #include <iostream>
-#include "SDL_util.h"
+#include "Schooled.h"
 
 using std::ifstream;
 using std::to_string;
@@ -19,7 +19,7 @@ namespace shared
 		while (good)
 		{
 			filename = "Level_" + to_string(counter) + ".txt";
-			stream.open(SDL_util::getResourcePath("rooms") + filename);
+			stream.open(schooled::getResourcePath("rooms") + filename);
 			if (stream.good())
 			{
 				roomNameList.push_back(filename);

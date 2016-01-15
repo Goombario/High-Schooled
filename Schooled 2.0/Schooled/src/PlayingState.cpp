@@ -6,9 +6,7 @@
 #include "Item.h"
 #include "Console_color.h"
 #include "sound_effects.h"
-
-#include <SDL.h>
-#include "SDL_util.h"
+#include "Fizzle\Fizzle.h"
 
 #include <fstream>
 
@@ -55,7 +53,7 @@ void PlayingState::Init()
 	log.clear();
 
 	// Setting the player
-	player = Actor({ nullptr, false, -1, '8', con::fgHiWhite }, { 12, 1, 3});
+	player = Actor({ false, -1, '8', con::fgHiWhite }, { 12, 1, 3});
 	getStartLocation();
 	delta = { 0, 0 };
 	
@@ -87,89 +85,81 @@ void PlayingState::Resume()
 
 void PlayingState::HandleEvents(GameEngine* game)
 {
-
-	SDL_Event e;
-	while (SDL_PollEvent(&e))
+	if (FzlGetKey(FzlKeyEscape))
 	{
-		if (e.type == SDL_QUIT)
-		{
-			game->Quit();
-		}
-		else if (e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-		{
-			game->Quit();
-		}
+		game->Quit();
+		return;
+	}
 
-		// If it is a keypress and it is the player's turn
-		else if (e.type == SDL_KEYDOWN && pTurn)
+	// If it is the player's turn
+	if (!pTurn)
+	{
+		return;
+	}
+	else
+	{
+		if (FzlGetKey(FzlKeyDownArrow) ||
+			FzlGetKey(FzlKeyLeftArrow) ||
+			FzlGetKey(FzlKeyRightArrow) ||
+			FzlGetKey(FzlKeyUpArrow) ||
+			FzlGetKey(FzlKeyW) ||
+			FzlGetKey(FzlKeyA) ||
+			FzlGetKey(FzlKeyS) ||
+			FzlGetKey(FzlKeyD))
 		{
-			SDL_Scancode code = e.key.keysym.scancode;
-			switch (code)
+			moveHighlight();
+		}
+			// Attack key pressed
+		else if (FzlGetKey(FzlKeyX) || FzlGetKey(FzlKeyN))
+		{
+			// Check control schemes
+			if ((FzlGetKey(FzlKeyX) &&
+				(scheme == "Classic" || scheme == "Double-Tap")) ||
+				FzlGetKey(FzlKeyN) &&
+				(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty"))
 			{
-			case SDL_SCANCODE_DOWN:
-			case SDL_SCANCODE_LEFT:
-			case SDL_SCANCODE_RIGHT:
-			case SDL_SCANCODE_UP:
-			case SDL_SCANCODE_W:
-			case SDL_SCANCODE_A:
-			case SDL_SCANCODE_S:
-			case SDL_SCANCODE_D:
-				moveHighlight(code);
-				break;
-
-
-				// Attack key pressed
-			case SDL_SCANCODE_X:
-			case SDL_SCANCODE_N:
-				// Check control schemes
-				if ((code == SDL_SCANCODE_X &&
-					(scheme == "Classic" || scheme == "Double-Tap")) ||
-					code == SDL_SCANCODE_N &&
-					(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty"))
-				{
-					tCount++;
-					increment = true;
-					attack();
-				}
-
-				break;
-
-				//checks interactable
-			case SDL_SCANCODE_SPACE:
-				interact();
-				break;
-
-				// move key pressed
-			case SDL_SCANCODE_Z:
-			case SDL_SCANCODE_M:
-				// Check control schemes
-				if (code == SDL_SCANCODE_Z && scheme == "Classic" ||
-					code == SDL_SCANCODE_M && scheme == "Classic Lefty")
-				{
-					delta.X = (highlight.X - player.getX());
-					delta.Y = (highlight.Y - player.getY());
-
-					// Check if the player can move in specified direction
-					if (currentRoom.isPassable(highlight))
-					{
-						// If allowed, move in specified direction
-						player.setLocation(highlight);
-						tCount++;
-						increment = true;
-					}
-				}
-				break;
-
-				// quit
-			case SDL_SCANCODE_ESCAPE:
-				currentRoom.save("Rooms/Room1.sav");
-				game->Quit();
-
-				// Ignore any other key
-			default:
-				break;
+				tCount++;
+				increment = true;
+				attack();
 			}
 		}
+
+			//checks interactable
+		else if (FzlGetKey(FzlKeySpace))
+		{
+			interact();
+		}
+			// move key pressed
+		case SDL_SCANCODE_Z:
+		case SDL_SCANCODE_M:
+			// Check control schemes
+			if (code == SDL_SCANCODE_Z && scheme == "Classic" ||
+				code == SDL_SCANCODE_M && scheme == "Classic Lefty")
+			{
+				delta.X = (highlight.X - player.getX());
+				delta.Y = (highlight.Y - player.getY());
+
+				// Check if the player can move in specified direction
+				if (currentRoom.isPassable(highlight))
+				{
+					// If allowed, move in specified direction
+					player.setLocation(highlight);
+					tCount++;
+					increment = true;
+				}
+			}
+			break;
+
+			// quit
+		case SDL_SCANCODE_ESCAPE:
+			currentRoom.save("Rooms/Room1.sav");
+			game->Quit();
+
+			// Ignore any other key
+		default:
+			break;
+		}
+		
 	}
 }
 
@@ -280,10 +270,6 @@ void PlayingState::Update(GameEngine* game)
 
 void PlayingState::Draw(GameEngine* game)
 {
-	SDL_Renderer *renderer = game->getRenderer();
-
-	//Rendering
-	SDL_RenderClear(renderer);
 
 	// Open the buffer for writing
 	buffer.open(hConsole);
@@ -291,16 +277,13 @@ void PlayingState::Draw(GameEngine* game)
 	// Clear the buffer
 	buffer.clear();
 
-	drawBase(renderer);
+	drawBase();
 
 	// Close the buffer
 	buffer.close(hConsole);
 
 	// Draw special effects
-	drawVFX(hConsole, renderer);
-
-	//Update the screen
-	SDL_RenderPresent(renderer);
+	drawVFX(hConsole);
 
 	// Reset the flags
 	pickupFlags["KEY"] = false;
@@ -379,10 +362,10 @@ void PlayingState::changeRoom(Room& cRoom, COORD change)
 	highlightColor = con::bgHiWhite;
 }
 
-void PlayingState::drawBase(SDL_Renderer *ren)
+void PlayingState::drawBase()
 {
 	// Draw the map
-	currentRoom.display(buffer, ren);
+	currentRoom.display(buffer);
 
 	// Display the character
 	buffer.draw('8', con::fgHiWhite, player.getY() + schooled::OFFSET, player.getX());
@@ -450,7 +433,7 @@ void PlayingState::drawBase(SDL_Renderer *ren)
 	log.display(buffer);
 }
 
-void PlayingState::drawVFX(HANDLE hConsole, SDL_Renderer *ren)
+void PlayingState::drawVFX(HANDLE hConsole)
 {
 	if (attack_animation)	// Open and close buffer to simulate flashing
 	{
@@ -738,7 +721,7 @@ void PlayingState::loadRooms()
 	else
 	{	
 		// Load floor from the file
-		std::ifstream stream(SDL_util::getResourcePath("rooms") + "Floor_1.txt");
+		std::ifstream stream(schooled::getResourcePath("rooms") + "Floor_1.txt");
 		if (!stream)
 		{
 			std::cerr << "File open failed. (PlayingState::loadRooms)" << std::endl;
@@ -764,9 +747,9 @@ void PlayingState::loadRooms()
 
 }
 
-void PlayingState::moveHighlight(SDL_Scancode scancode)
+void PlayingState::moveHighlight(int key)
 {
-	switch (scancode)
+	switch (key)
 	{
 		// down selected
 	case SDL_SCANCODE_S:
