@@ -7,6 +7,8 @@
 #include "fmod_studio.hpp"
 #include "fmod.hpp"
 
+#include "Fizzle\Fizzle.h"
+
 using namespace FMOD_util;
 
 FMOD::Studio::System *GameEngine::system = nullptr;
@@ -17,6 +19,9 @@ int GameEngine::Init()
 	{
 		return 1;
 	}
+
+	FzlInit("Schooled 2.0", 640, 480, 0);
+	FzlSetFrameRate(60);
 
 	// Load the room indices
 	if (Room::loadTileIndex("tileIndex.txt") != 0 ||
@@ -73,6 +78,8 @@ void GameEngine::Cleanup()
 	tracksBank->unload();
 
 	system->release();
+
+	FzlDestroy();
 }
 
 void GameEngine::ChangeState(GameState* state)
@@ -131,10 +138,12 @@ void GameEngine::Update()
 
 	// Update FMOD
 	system->update();
+	
 }
 
 void GameEngine::Draw()
 {
 	// let the state draw the screen
 	states.back()->Draw(this);
+	FzlSwapBuffers();
 }

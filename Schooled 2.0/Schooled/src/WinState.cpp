@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include "Console_color.h"
+#include "Fizzle\Fizzle.h"
 
 using std::string;
 
@@ -11,6 +12,7 @@ WinState WinState::m_WinState;
 
 void WinState::Init()
 {
+	finished = false;
 	winText = getTextBlock("outro.txt");
 }
 
@@ -31,21 +33,18 @@ void WinState::Resume()
 
 void WinState::HandleEvents(GameEngine* game)
 {
-	bool finished = false;
-	SDL_Event event;
-	while (SDL_PollEvent(&event) && !finished)
+	if (FzlGetKey(FzlKeyEnter))
 	{
-		if (event.type == SDL_KEYDOWN)
-		{
-			finished = true;
-		}
+		finished = true;
 	}
-	game->PopState();
 }
 
 void WinState::Update(GameEngine* game)
 {
-
+	if (finished)
+	{
+		game->PopState();
+	}
 }
 
 void WinState::Draw(GameEngine* game)
@@ -59,13 +58,6 @@ void WinState::Draw(GameEngine* game)
 
 	// Draw congratulations text
 	buffer.draw(winText, con::fgHiWhite, 0, 0);
-
-	// Close the buffer
-	buffer.close(hConsole);
-	Sleep(2000);
-
-	// Draw return text
-	buffer.open(hConsole);
 	
 	string temp = "Press any key to return to menu";
 	int tempCol = 30 - temp.length() / 2;

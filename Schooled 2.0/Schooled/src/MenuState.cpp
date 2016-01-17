@@ -8,6 +8,8 @@
 #include "fmod_studio.hpp"
 #include "FMOD_util.h"
 
+#include "Fizzle\Fizzle.h"
+
 #include <fstream>
 #include <stdio.h>
 using schooled::getSetting;
@@ -130,7 +132,7 @@ void MenuState::Resume()
 
 void MenuState::HandleEvents(GameEngine* game)
 {
-
+	// SHOULD BE IN UPDATE
 	// If the game is starting and the controls are being shown
 	if (startingGame)
 	{
@@ -150,103 +152,89 @@ void MenuState::HandleEvents(GameEngine* game)
 		return;
 	}
 
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
+
+		//Escape key
+	if (FzlGetKey(FzlKeyEscape))
 	{
-		if (event.type == SDL_QUIT){
+		// If not in submenu, quit
+		if (!selectingControl && !selectingLevel && !selectingCredits)
+		{
 			game->Quit();
 		}
-		else if (event.type == SDL_KEYDOWN){
-			switch (event.key.keysym.scancode)
-			{
-				//Escape key
-			case SDL_SCANCODE_ESCAPE:
-				// If not in submenu, quit
-				if (!selectingControl && !selectingLevel && !selectingCredits)
-				{
-					game->Quit();
-				}
-				// No break so it can be used as a "back" key
-
-			case SDL_SCANCODE_X:
-			case SDL_SCANCODE_N:
-				if (selectingControl)	// Controls menu
-				{
-					selectingControl = false;
-					changedSettings = false;
-				}
-				else if (selectingLevel)	// level select menu
-				{
-					selectingLevel = false;
-					lSelect = 0;
-					levelSelect = 0;
-				}
-				else if (selectingCredits)	// credits menu
-				{
-					selectingCredits = false;
-				}
-				break;
-
-				// Going up
-			case SDL_SCANCODE_W:
-			case SDL_SCANCODE_UP:
-				if (selectingControl) break; // Don't move if changing controls
-				//snd::menuHighlight->play();
-
-				if (selectingLevel)	// Choosing a level to play
-				{
-					// Change the level select highlight
-					levelSelect = (levelSelect > 0) ? levelSelect - 1 : levelSelections.size() - 1;
-					break;
-				}
-				// Change the main menu highlight
-				menuSelect = (menuSelect > 0) ? menuSelect - 1 : menuSelections.size() - 1;
-				break;
-
-				// Going down
-			case SDL_SCANCODE_DOWN:
-			case SDL_SCANCODE_S:
-				if (selectingControl) break; // Don't move if changing controls
-				//snd::menuHighlight->play();
-				if (selectingLevel)	// Choosing a level to play
-				{
-					// Change the level select highlight
-					levelSelect = (levelSelect < levelSelections.size() - 1) ? levelSelect + 1 : 0;
-					break;
-				}
-				// Change the main menu highlight
-				menuSelect = (menuSelect < menuSelections.size() - 1) ? menuSelect + 1 : 0;
-				break;
-
-				// Going left
-			case SDL_SCANCODE_LEFT:
-			case SDL_SCANCODE_A:
-				if (!selectingControl) break;	// If not selecting controls, break
-				//snd::menuHighlight->play();
-
-				selectedControl = (selectedControl > 0) ? selectedControl - 1 : controlOptions.size() - 1;
-				break;
-
-				// Going right
-			case SDL_SCANCODE_RIGHT:
-			case SDL_SCANCODE_D:
-				if (!selectingControl) break;	// If not selecting controls, break
-				//snd::menuHighlight->play();
-
-				selectedControl = (selectedControl < controlOptions.size() - 1) ? selectedControl + 1 : 0;
-				break;
-
-				// "Enter" key
-			case SDL_SCANCODE_RETURN:
-			case SDL_SCANCODE_Z:
-			case SDL_SCANCODE_M:
-			case SDL_SCANCODE_SPACE:
-				handleMenu(game);
-				break;
-			default:
-				break;
-			}
+	}
+	else if (FzlGetKey(FzlKeyX) || FzlGetKey(FzlKeyN))
+	{
+		if (selectingControl)	// Controls menu
+		{
+			selectingControl = false;
+			changedSettings = false;
 		}
+		else if (selectingLevel)	// level select menu
+		{
+			selectingLevel = false;
+			lSelect = 0;
+			levelSelect = 0;
+		}
+		else if (selectingCredits)	// credits menu
+		{
+			selectingCredits = false;
+		}
+		return;
+	}
+		// Going up
+	else if (FzlGetKey(FzlKeyW) || FzlGetKey(FzlKeyUpArrow))
+	{
+		if (selectingControl) return; // Don't move if changing controls
+		//snd::menuHighlight->play();
+
+		if (selectingLevel)	// Choosing a level to play
+		{
+			// Change the level select highlight
+			levelSelect = (levelSelect > 0) ? levelSelect - 1 : levelSelections.size() - 1;
+			return;
+		}
+		// Change the main menu highlight
+		menuSelect = (menuSelect > 0) ? menuSelect - 1 : menuSelections.size() - 1;
+		return;
+	}
+
+		// Going down
+	else if (FzlGetKey(FzlKeyS) || FzlGetKey(FzlKeyDownArrow))
+	{
+		if (selectingControl) return; // Don't move if changing controls
+		//snd::menuHighlight->play();
+		if (selectingLevel)	// Choosing a level to play
+		{
+			// Change the level select highlight
+			levelSelect = (levelSelect < levelSelections.size() - 1) ? levelSelect + 1 : 0;
+			return;
+		}
+		// Change the main menu highlight
+		menuSelect = (menuSelect < menuSelections.size() - 1) ? menuSelect + 1 : 0;
+	}	
+		// Going left
+	else if (FzlGetKey(FzlKeyA) || FzlGetKey(FzlKeyLeftArrow))
+	{
+		if (!selectingControl) return;	// If not selecting controls, break
+		//snd::menuHighlight->play();
+
+		selectedControl = (selectedControl > 0) ? selectedControl - 1 : controlOptions.size() - 1;
+	}
+
+		// Going right
+	else if (FzlGetKey(FzlKeyD) || FzlGetKey(FzlKeyRightArrow))
+	{
+
+		if (!selectingControl) return;	// If not selecting controls, break
+		//snd::menuHighlight->play();
+
+		selectedControl = (selectedControl < controlOptions.size() - 1) ? selectedControl + 1 : 0;
+	}
+		// "Enter" key
+	else if (FzlGetKey(FzlKeyZ) || FzlGetKey(FzlKeyM) 
+		|| FzlGetKey(FzlKeyEnter) || FzlGetKey(FzlKeySpace))
+		{
+		handleMenu(game);
 	}
 }
 

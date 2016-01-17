@@ -46,6 +46,11 @@ void PlayingState::Init()
 		{ "STR", false },
 	};
 
+	controls = map<string, int>
+	{
+		{ "LEFT", FzlKeyA }
+	};
+
 	// Loading all the rooms
 	loadRooms();
 
@@ -98,7 +103,7 @@ void PlayingState::HandleEvents(GameEngine* game)
 	}
 	else
 	{
-		if (FzlGetKey(FzlKeyDownArrow) ||
+		if (FzlGetKey(static_cast<FzlKey>(controls["LEFT"])) ||
 			FzlGetKey(FzlKeyLeftArrow) ||
 			FzlGetKey(FzlKeyRightArrow) ||
 			FzlGetKey(FzlKeyUpArrow) ||
@@ -130,11 +135,11 @@ void PlayingState::HandleEvents(GameEngine* game)
 			interact();
 		}
 			// move key pressed
-		case SDL_SCANCODE_Z:
-		case SDL_SCANCODE_M:
+		else if (FzlGetKey(FzlKeyZ) || FzlGetKey(FzlKeyM))
+		{
 			// Check control schemes
-			if (code == SDL_SCANCODE_Z && scheme == "Classic" ||
-				code == SDL_SCANCODE_M && scheme == "Classic Lefty")
+			if (FzlGetKey(FzlKeyZ) && scheme == "Classic" ||
+				FzlGetKey(FzlKeyM) && scheme == "Classic Lefty")
 			{
 				delta.X = (highlight.X - player.getX());
 				delta.Y = (highlight.Y - player.getY());
@@ -148,18 +153,13 @@ void PlayingState::HandleEvents(GameEngine* game)
 					increment = true;
 				}
 			}
-			break;
-
+		}
 			// quit
-		case SDL_SCANCODE_ESCAPE:
+		else if (FzlGetKey(FzlKeyEscape))
+		{
 			currentRoom.save("Rooms/Room1.sav");
 			game->Quit();
-
-			// Ignore any other key
-		default:
-			break;
 		}
-		
 	}
 }
 
@@ -747,42 +747,44 @@ void PlayingState::loadRooms()
 
 }
 
-void PlayingState::moveHighlight(int key)
+void PlayingState::moveHighlight()
 {
-	switch (key)
-	{
+	int keyPressed = 0;
 		// down selected
-	case SDL_SCANCODE_S:
-	case SDL_SCANCODE_DOWN:
+	if (FzlGetKey(FzlKeyS) || FzlGetKey(FzlKeyDownArrow))
+	{
 		delta.X = 0;
 		delta.Y = 1;
-		break;
+		keyPressed = (FzlGetKey(FzlKeyS)) ? FzlKeyS : FzlKeyDownArrow;
+	}
 
 		// left selected
-	case SDL_SCANCODE_A:
-	case SDL_SCANCODE_LEFT:
+	if (FzlGetKey(FzlKeyA) || FzlGetKey(FzlKeyLeftArrow))
+	{
 		delta.X = -1;
 		delta.Y = 0;
-		break;
+		keyPressed = (FzlGetKey(FzlKeyA)) ? FzlKeyA : FzlKeyLeftArrow;
+	}
 
 		// right selected
-	case SDL_SCANCODE_D:
-	case SDL_SCANCODE_RIGHT:
+	if (FzlGetKey(FzlKeyD) || FzlGetKey(FzlKeyRightArrow))
+	{
 		delta.X = 1;
 		delta.Y = 0;
-		break;
+		keyPressed = (FzlGetKey(FzlKeyD)) ? FzlKeyD : FzlKeyRightArrow;
+	}
 
 		// up selected
-	case SDL_SCANCODE_W:
-	case SDL_SCANCODE_UP:
+	if (FzlGetKey(FzlKeyW) || FzlGetKey(FzlKeyUpArrow))
+	{
 		delta.X = 0;
 		delta.Y = -1;
-		break;
+		keyPressed = (FzlGetKey(FzlKeyW)) ? FzlKeyW : FzlKeyUpArrow;
 	}
 
 	// If the scheme is Double-Tap
-	if (scancode < 27 && scheme == "Double-Tap Lefty" ||
-		scancode > 78 && scheme == "Double-Tap")
+	if (keyPressed >= 54 && scheme == "Double-Tap Lefty" ||
+		keyPressed < 54 && scheme == "Double-Tap")
 	{
 		// Check if the player can move in specified direction
 		if (currentRoom.isPassable(highlight) && 
@@ -795,8 +797,8 @@ void PlayingState::moveHighlight(int key)
 		}
 	}
 	// If the player presses the directional keys of the wrong scheme, don't move
-	else if ((scheme == "Classic" || scheme == "Double-Tap") && scancode < 27 ||
-		(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty") && scancode > 78)
+	else if ((scheme == "Classic" || scheme == "Double-Tap") && keyPressed >= 54 ||
+		(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty") && keyPressed < 54)
 	{
 		delta = { 0, 0 };
 	}

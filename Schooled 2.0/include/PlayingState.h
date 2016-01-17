@@ -45,6 +45,7 @@ private:
 	bool pTurn, increment, running, winGame, masterKey, enemiesMoved;
 	bool attack_animation, defend_animation;
 	map<string, bool> pickupFlags;
+	map<string, int> controls;
 	WORD highlightColor;
 	string scheme;
 	Actor player;
@@ -85,7 +86,7 @@ private:
 	void loadRooms();
 
 	// Move the highlight
-	void moveHighlight(int);
+	void moveHighlight();
 
 	// Transition to the next room
 	void transitionRoom();
