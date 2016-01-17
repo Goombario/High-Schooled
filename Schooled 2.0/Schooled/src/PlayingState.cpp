@@ -783,8 +783,8 @@ void PlayingState::moveHighlight()
 	}
 
 	// If the scheme is Double-Tap
-	if (keyPressed >= 54 && scheme == "Double-Tap Lefty" ||
-		keyPressed < 54 && scheme == "Double-Tap")
+	if (keyPressed < 54 && scheme == "Double-Tap Lefty" ||
+		keyPressed >= 54 && scheme == "Double-Tap")
 	{
 		// Check if the player can move in specified direction
 		if (currentRoom.isPassable(highlight) && 
@@ -797,8 +797,8 @@ void PlayingState::moveHighlight()
 		}
 	}
 	// If the player presses the directional keys of the wrong scheme, don't move
-	else if ((scheme == "Classic" || scheme == "Double-Tap") && keyPressed >= 54 ||
-		(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty") && keyPressed < 54)
+	else if ((scheme == "Classic" || scheme == "Double-Tap") && keyPressed < 54 ||
+		(scheme == "Classic Lefty" || scheme == "Double-Tap Lefty") && keyPressed >= 54)
 	{
 		delta = { 0, 0 };
 	}
