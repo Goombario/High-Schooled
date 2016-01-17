@@ -8,10 +8,6 @@
 #include <iostream>
 #include <cassert>
 
-#include <SDL.h>
-#include "SDL_util.h"
-#include "Cleanup.h"
-
 namespace con = JadedHoboConsole;
 
 using std::endl;
@@ -20,9 +16,9 @@ vector<const Tile> Room::tileIndex;
 vector<const Item> Room::itemIndex;
 vector<const Actor> Room::actorIndex;
 
-int Room::loadTileIndex(string filename, SDL_Renderer *ren)
+int Room::loadTileIndex(string filename)
 {
-	string resPath = SDL_util::getResourcePath("text");
+	string resPath = schooled::getResourcePath("text");
 	string line;
 	std::ifstream stream(resPath + filename);
 	if (stream.fail())
@@ -31,7 +27,7 @@ int Room::loadTileIndex(string filename, SDL_Renderer *ren)
 		return 1;
 	}
 
-	resPath = SDL_util::getResourcePath("img");
+	resPath = schooled::getResourcePath("img");
 	while (!stream.eof())
 	{
 		// Get the information from the file
@@ -46,31 +42,24 @@ int Room::loadTileIndex(string filename, SDL_Renderer *ren)
 		getline(stream, line);
 		bool passable = ((line.substr(line.find(':') + 1)) == "true");
 
-		SDL_Texture *tex = SDL_util::loadTexture(resPath + name + ".png", ren);
-		if (tex == nullptr)
-		{
-			//return 1;
-		}
+		//SDL_Texture *tex = schooled::loadTexture(resPath + name + ".png", ren);
 
 		// Put the tile in the vector
-		Tile temp = { tex, passable, index, symbol, colour };
+		Tile temp = { passable, index, symbol, colour };
 		tileIndex.push_back(temp);
 		// If there are more lines, get the empty line
 		if (!stream.eof())
 		{
 			getline(stream, line);
 		}
-		//cleanup(tex);
-		tex = nullptr;
-
 	}
 	stream.close();
 	return 0;
 }
 
-int Room::loadItemIndex(string filename, SDL_Renderer *ren)
+int Room::loadItemIndex(string filename)
 {
-	string resPath = SDL_util::getResourcePath("text");
+	string resPath = schooled::getResourcePath("text");
 	string line;
 	std::ifstream stream(resPath + filename);
 	if (stream.fail())
@@ -79,7 +68,7 @@ int Room::loadItemIndex(string filename, SDL_Renderer *ren)
 		return 1;
 	}
 
-	resPath = SDL_util::getResourcePath("img");
+	resPath = schooled::getResourcePath("img");
 
 	while (!stream.eof())
 	{
@@ -103,16 +92,12 @@ int Room::loadItemIndex(string filename, SDL_Renderer *ren)
 		getline(stream, line);
 		string mPickup = (line.substr(line.find(':') + 1));
 
-		SDL_Texture *tex = SDL_util::loadTexture(resPath + name + ".png", ren);
-		if (tex == nullptr)
-		{
-			//return 1;
-		}
+		//SDL_Texture *tex = schooled::loadTexture(resPath + name + ".png", ren);
 
 		// Put the item in the vector
 		Item temp;
 	
-		temp.setTile({ tex, passable, index, symbol, colour });
+		temp.setTile({ passable, index, symbol, colour });
 		temp.setStats({ HP, EN, STR });
 		temp.setMPickup(mPickup);
 		temp.setName(name);
@@ -123,16 +108,14 @@ int Room::loadItemIndex(string filename, SDL_Renderer *ren)
 		{
 			getline(stream, line);
 		}
-		//cleanup(tex);
-		tex = nullptr;
 	}
 	stream.close();
 	return 0;
 }
 
-int Room::loadActorIndex(string filename, SDL_Renderer *ren)
+int Room::loadActorIndex(string filename)
 {
-	string resPath = SDL_util::getResourcePath("text");
+	string resPath = schooled::getResourcePath("text");
 	string line;
 	std::ifstream stream(resPath + filename);
 	if (stream.fail())
@@ -141,7 +124,7 @@ int Room::loadActorIndex(string filename, SDL_Renderer *ren)
 		return 1;
 	}
 
-	resPath = SDL_util::getResourcePath("img");
+	resPath = schooled::getResourcePath("img");
 	actorIndex.push_back(Actor());
 	while (!stream.eof())
 	{
@@ -169,15 +152,11 @@ int Room::loadActorIndex(string filename, SDL_Renderer *ren)
 		getline(stream, line);
 		string m_defend = (line.substr(line.find(':') + 1));
 
-		SDL_Texture *tex = SDL_util::loadTexture(resPath + "Person 1" + ".png", ren);
-		if (tex == nullptr)
-		{
-			//return 1;
-		}
+		//SDL_Texture *tex = schooled::loadTexture(resPath + "Person 1" + ".png", ren);
 
 		// Put the actor in the vector
 		Actor temp;
-		temp.setTile({ tex, passable, index, symbol, colour});
+		temp.setTile({ passable, index, symbol, colour});
 		temp.setStats({ HP, EN, STR });
 		temp.setHeldItem(heldItem);
 		temp.setName(name);
@@ -191,15 +170,12 @@ int Room::loadActorIndex(string filename, SDL_Renderer *ren)
 		{
 			getline(stream, line);
 		}
-		//cleanup(tex);
-		tex = nullptr;
-
 	}
 	stream.close();
 	return 0;
 }
 
-void Room::display(Buffer& buffer, SDL_Renderer *ren){
+void Room::display(Buffer& buffer){
 	int tile;
 	ActorPtr tempA;
 	ItemPtr tempI;
@@ -214,9 +190,9 @@ void Room::display(Buffer& buffer, SDL_Renderer *ren){
 				iTile = &tileIndex[tile];
 				buffer.draw(iTile->character, iTile->colorCode, a + schooled::OFFSET, b);
 
-				SDL_util::renderTexture(iTile->texture, ren,
+				/*schooled::renderTexture(iTile->texture, ren,
 					b*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER,
-					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);
+					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);*/
 			}
 			if (itemArray[a][b] > 0)	// If item at position, draw
 			{
@@ -224,9 +200,9 @@ void Room::display(Buffer& buffer, SDL_Renderer *ren){
 				tempI = &itemIndex[tile];
 				buffer.draw(tempI->getTile().character, tempI->getTile().colorCode, a + schooled::OFFSET, b);
 
-				SDL_util::renderTexture(tempI->getTile().texture, ren,
+				/*schooled::renderTexture(tempI->getTile().texture, ren,
 					b*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER,
-					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);
+					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);*/
 			}
 			if (actorArray[a][b] > 0)		// If actor at position, draw
 			{
@@ -234,9 +210,9 @@ void Room::display(Buffer& buffer, SDL_Renderer *ren){
 				tempA = &getActor({ b, a });
 				buffer.draw(tempA->getTile().character, tempA->getTile().colorCode, a+ schooled::OFFSET, b);
 
-				SDL_util::renderTexture(tempA->getTile().texture, ren,
+				/*schooled::renderTexture(tempA->getTile().texture, ren,
 					b*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER,
-					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);
+					a*schooled::TILE_SIZE + schooled::TILE_SIZE_CENTER);*/
 			}
 			
 			
@@ -353,7 +329,7 @@ Room::Room(string fileName)
 {
 	// Open file for input
 	std::ifstream stream;
-	stream.open(SDL_util::getResourcePath("rooms") + (fileName));
+	stream.open(schooled::getResourcePath("rooms") + (fileName));
 
 	if (stream.fail())
 	{
@@ -418,7 +394,7 @@ string Room::getMessage() { return message; }
 int Room::save(string fileName)
 {
 	std::ofstream stream;
-	stream.open(SDL_util::getResourcePath("rooms") + fileName);
+	stream.open(schooled::getResourcePath("rooms") + fileName);
 
 	if (stream.fail())
 	{
