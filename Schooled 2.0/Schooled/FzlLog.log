@@ -1,6 +1,6 @@
-2016-01-16 19:49:16, ..\Source\src\Wrapper\Fizzle.c, FzlInit (line 41) -
+2016-01-18 08:11:04, ..\Source\src\Wrapper\Fizzle.c, FzlInit (line 41) -
 	DEBUG: Initializing Fizzle, version 1.1, 01/12/2016
 
-2016-01-16 19:49:16, ..\Source\src\InternalRendering\FzlInternalRendering.c, FzlRenderingInit (line 52) -
+2016-01-18 08:11:04, ..\Source\src\InternalRendering\FzlInternalRendering.c, FzlRenderingInit (line 52) -
 	DEBUG: Initializing Fizzle Rendering. OpenGL version 4.3
 

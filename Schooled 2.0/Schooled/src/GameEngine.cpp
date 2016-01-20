@@ -21,7 +21,7 @@ int GameEngine::Init()
 	}
 
 	FzlInit("Schooled 2.0", 640, 480, 0);
-	FzlSetFrameRate(30);
+	FzlSetFrameRate(60);
 
 	// Load the room indices
 	if (Room::loadTileIndex("tileIndex.txt") != 0 ||
