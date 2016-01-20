@@ -20,52 +20,53 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef FIZZLE_H
-#define FIZZLE_H
-
-#include "Rendering\FizzleRendering.h"
-#include "Window\FizzleWindow.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * \mainpage
- * Fizzle is a simple sprite loading and rendering library
- * with windowing functionality. It is intended to provide
- * a bare-minimum set of tools so that programmers new to
- * video game development can worry less about the tools
- * they use to make games, and more on how to use them
- * to their full effectiveness.
+ * @file FzlAudio.h
+ * @brief Provides a simple interface for sound loading and playback.
  */
 
 /**
- * @file Fizzle.h
- * 
- * Check the header files above for the actual functionality. 
- * Below you'll find the two functions you _need_ to call at
- * the beginning/end of the program.
- */
-
-/**
- * Initializes all systems.
+ * Loads a WAV sound from a file.
  *
- * @param windowName Title of the window
- * @param windowWidth Width of the window, in pixels
- * @param windowHeight Height of the window, in pixels
- * @param fullscreen Toggle for fullscreen. 1 - Full, 0 - Windowed
+ * @param file The file to load the sound from.
+ * @param isLooping Should this sound loop when played?
+ * 
+ * @return A \p FzlSoundHandle to the sound.
  */
-void FzlInit(const char *windowName, int windowWidth, int windowHeight, int fullscreen);
+FzlSoundHandle FzlLoadSound(const char* file, int isLooping);
 
 /**
- * Destroys generated objects and shuts down Fizzle. Should be called
- * prior to termination of your program.
-*/
-void FzlDestroy();
+ * Deletes a sound at a given handle.
+ *
+ * @param handle The handle of the sound to delete.
+ */
+void FzlDeleteSound(FzlSoundHandle handle);
+
+/**
+ * Plays a sound at a given handle.
+ * 
+ * @param handle The handle of the sound to play.
+ */
+void FzlPlaySound(FzlSoundHandle handle);
+
+/**
+ * Pauses a sound at a given handle.
+ * 
+ * @param handle The handle of the sound to pause.
+ */
+void FzlPauseSound(FzlSoundHandle handle);
+
+/**
+ * Stops a sound at a given handle.
+ *
+ * @param handle The handle of the sound to stop.
+ */
+void FzlStopSound(FzlSoundHandle handle);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

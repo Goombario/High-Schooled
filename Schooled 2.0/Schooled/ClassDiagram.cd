@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FMOD::Studio::System" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\fmod soundsystem\fmod studio api windows\api\studio\inc\fmod_studio.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FMOD::Studio::Bank" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\fmod soundsystem\fmod studio api windows\api\studio\inc\fmod_studio.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FMOD::Studio::EventDescription" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\fmod soundsystem\fmod studio api windows\api\studio\inc\fmod_studio.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FMOD::Studio::EventInstance" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\program files (x86)\fmod soundsystem\fmod studio api windows\api\studio\inc\fmod_studio.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameEngine" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQBEIAAAAAABgCAAAQSAAACAAAAEAAMAAACAEAAIQA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\GameEngine.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameOverState" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAEAAAgAAAAAwAAAAAAAAAAAAQCACAEgAAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\GameOverState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameState" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAAAABgAAAAAQAAAAAAAAAAAAAABCAEgAIAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\GameState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuState" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQggIAAgAKAggACCgBRIQAAhAAAIAACUAAGAkgAZDA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\MenuState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayingState" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQgEAAIgQQGAgIAAAAQGCgBEAkKDCCBQABKQFoBwAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\PlayingState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinState" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <InheritanceLine Type="GameState" FixedFromPoint="true">
+      <Path>
+        <Point X="4.562" Y="1.062" />
+        <Point X="4.562" Y="1.375" />
+        <Point X="8" Y="1.375" />
+        <Point X="8" Y="1.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQggAAAAEAAAgAEggAQAAAEAAAAAAAAQAACAEgAAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\WinState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Actor" Collapsed="true">
+    <Position X="5.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>sDcRQwARgAAgoAQAAAQgAAACBSAEACDAAAEEcHUwAwA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Actor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buffer" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAAAAAAAAAAQAAACIAAAAAAAARAAAAAIBAAAAAQAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Buffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item" Collapsed="true">
+    <Position X="1.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAERAAAQACAAAAAAAAAAAAAEAAAEAAJAAAAGAAEQAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Item.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAgAAAAAAAAEACBAAIAkAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Log.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Room" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEIASAgBAQCIIAAAABAAQCAiAqWgBYpQACAAOmAgAyQ=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Room.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sound::Instance" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAggAAAAAAAAAABgAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\sound_effects.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sound::Description" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAIAAAQgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\sound_effects.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JadedHoboConsole::con_dev" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAQAAAAAAAAAAAIAEAAAAgAAABAIAg=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Console_color.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Tile" Collapsed="true">
+    <Position X="11.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAABAAAABAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Schooled.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Stats" Collapsed="true">
+    <Position X="9.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Schooled.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="ItemPtr" Collapsed="true">
+    <Position X="1.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Actor.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ActorPtr" Collapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Hg\schooled-2.0\Schooled 2.0\include\Actor.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
