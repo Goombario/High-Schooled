@@ -104,7 +104,7 @@ void PlayingState::HandleEvents(GameEngine* game)
 	else
 	{
 		if (FzlGetKey(static_cast<FzlKey>(controls["LEFT"])) ||
-			FzlGetKey(FzlKeyLeftArrow) ||
+			FzlGetKey(FzlKeyDownArrow) ||
 			FzlGetKey(FzlKeyRightArrow) ||
 			FzlGetKey(FzlKeyUpArrow) ||
 			FzlGetKey(FzlKeyW) ||
