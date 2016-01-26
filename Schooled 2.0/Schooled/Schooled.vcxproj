@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\Fizzle\include;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\inc;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Hg\schooled-2.0\Schooled 2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\include\Input;C:\Hg\schooled-2.0\Schooled 2.0\Fizzle\include;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\inc;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Hg\schooled-2.0\Schooled 2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -83,9 +83,14 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\Buffer.cpp" />
+    <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\FMOD_util.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameOverState.cpp" />
+    <ClCompile Include="src\input\InputContext.cpp" />
+    <ClCompile Include="src\input\InputMapper.cpp" />
+    <ClCompile Include="src\input\pch.cpp" />
+    <ClCompile Include="src\input\RangeConverter.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\MenuState.cpp" />
@@ -94,16 +99,26 @@
     <ClCompile Include="src\Schooled.cpp" />
     <ClCompile Include="src\ShareState.cpp" />
     <ClCompile Include="src\sound_effects.cpp" />
+    <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\WinState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Actor.h" />
     <ClInclude Include="..\include\Buffer.h" />
+    <ClInclude Include="..\include\Character.h" />
     <ClInclude Include="..\include\FMOD_util.h" />
     <ClInclude Include="..\include\Console_color.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameOverState.h" />
     <ClInclude Include="..\include\GameState.h" />
+    <ClInclude Include="..\include\Input\FileIO.h" />
+    <ClInclude Include="..\include\Input\InputConstants.h" />
+    <ClInclude Include="..\include\Input\InputContext.h" />
+    <ClInclude Include="..\include\Input\InputManager.h" />
+    <ClInclude Include="..\include\Input\InputMapper.h" />
+    <ClInclude Include="..\include\Input\pch.h" />
+    <ClInclude Include="..\include\Input\RangeConverter.h" />
+    <ClInclude Include="..\include\Input\RawInputConstants.h" />
     <ClInclude Include="..\include\Item.h" />
     <ClInclude Include="..\include\Log.h" />
     <ClInclude Include="..\include\MenuState.h" />
@@ -112,10 +127,14 @@
     <ClInclude Include="..\include\Schooled.h" />
     <ClInclude Include="..\include\ShareState.h" />
     <ClInclude Include="..\include\sound_effects.h" />
+    <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\WinState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\include\Input\License.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
