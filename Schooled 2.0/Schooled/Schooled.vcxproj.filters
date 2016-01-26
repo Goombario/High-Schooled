@@ -31,6 +31,9 @@
     <Filter Include="Header Files\sound">
       <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{67a35aa6-bc1c-46b6-969e-c76d9161b287}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Actor.cpp">
@@ -77,6 +80,24 @@
     </ClCompile>
     <ClCompile Include="src\sound_effects.cpp">
       <Filter>Resource Files\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\InputContext.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\InputMapper.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\pch.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\RangeConverter.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Character.cpp">
+      <Filter>Resource Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sprite.cpp">
+      <Filter>Resource Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,8 +149,43 @@
     <ClInclude Include="..\include\sound_effects.h">
       <Filter>Header Files\sound</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Input\FileIO.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\InputConstants.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\InputContext.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\InputManager.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\InputMapper.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\pch.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\RangeConverter.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\RawInputConstants.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Character.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Sprite.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\include\Input\License.txt">
+      <Filter>Input</Filter>
+    </Text>
   </ItemGroup>
 </Project>
