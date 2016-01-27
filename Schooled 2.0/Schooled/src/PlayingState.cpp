@@ -667,7 +667,7 @@ void PlayingState::getStartLocation()
 	COORD empty = { 0, 0 };
 
 	// Check which doors the player can spawn at.
-	if (MenuState::levelSelected() == 0)
+	if (MenuState::MenuState::levelSelected() == 0)
 	{
 		player.setLocation({ 29 , 12 });
 		highlight.Y = player.getY() - 1;
@@ -711,9 +711,9 @@ void PlayingState::loadRooms()
 	vector<string> roomFileList = shared::getRoomNames();
 	
 	// If the level selector has chosen a level
-	if (MenuState::levelSelected() != 0)
+	if (MenuState::MenuState::levelSelected() != 0)
 	{
-		temp = Room(roomFileList[MenuState::levelSelected() - 1]);
+		temp = Room(roomFileList[MenuState::MenuState::levelSelected() - 1]);
 		temp.setLocation({ 1, 1 });
 		roomArray[1][1] = temp;
 		currentRoom = roomArray[1][1];
@@ -807,7 +807,7 @@ void PlayingState::moveHighlight()
 void PlayingState::transitionRoom()
 {
 	// If you were playing a level from the level select, return to menu
-	if (MenuState::levelSelected() != 0)
+	if (MenuState::MenuState::levelSelected() != 0)
 	{
 		running = false;
 		return;

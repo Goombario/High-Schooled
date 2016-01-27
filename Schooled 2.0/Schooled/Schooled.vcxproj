@@ -81,54 +81,36 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="src\Actor.cpp" />
-    <ClCompile Include="src\Buffer.cpp" />
     <ClCompile Include="src\Character.cpp" />
-    <ClCompile Include="src\FMOD_util.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
-    <ClCompile Include="src\GameOverState.cpp" />
     <ClCompile Include="src\input\InputContext.cpp" />
     <ClCompile Include="src\input\InputMapper.cpp" />
     <ClCompile Include="src\input\pch.cpp" />
     <ClCompile Include="src\input\RangeConverter.cpp" />
     <ClCompile Include="src\Item.cpp" />
-    <ClCompile Include="src\Log.cpp" />
-    <ClCompile Include="src\MenuState.cpp" />
-    <ClCompile Include="src\PlayingState.cpp" />
-    <ClCompile Include="src\Room.cpp" />
     <ClCompile Include="src\Schooled.cpp" />
     <ClCompile Include="src\ShareState.cpp" />
-    <ClCompile Include="src\sound_effects.cpp" />
+    <ClCompile Include="src\sound.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
-    <ClCompile Include="src\WinState.cpp" />
+    <ClCompile Include="src\BattleState.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Actor.h" />
-    <ClInclude Include="..\include\Buffer.h" />
     <ClInclude Include="..\include\Character.h" />
-    <ClInclude Include="..\include\FMOD_util.h" />
-    <ClInclude Include="..\include\Console_color.h" />
     <ClInclude Include="..\include\GameEngine.h" />
-    <ClInclude Include="..\include\GameOverState.h" />
     <ClInclude Include="..\include\GameState.h" />
     <ClInclude Include="..\include\Input\FileIO.h" />
     <ClInclude Include="..\include\Input\InputConstants.h" />
     <ClInclude Include="..\include\Input\InputContext.h" />
-    <ClInclude Include="..\include\Input\InputManager.h" />
     <ClInclude Include="..\include\Input\InputMapper.h" />
     <ClInclude Include="..\include\Input\pch.h" />
     <ClInclude Include="..\include\Input\RangeConverter.h" />
     <ClInclude Include="..\include\Input\RawInputConstants.h" />
     <ClInclude Include="..\include\Item.h" />
-    <ClInclude Include="..\include\Log.h" />
-    <ClInclude Include="..\include\MenuState.h" />
-    <ClInclude Include="..\include\PlayingState.h" />
-    <ClInclude Include="..\include\Room.h" />
     <ClInclude Include="..\include\Schooled.h" />
     <ClInclude Include="..\include\ShareState.h" />
-    <ClInclude Include="..\include\sound_effects.h" />
+    <ClInclude Include="..\include\Sound.h" />
     <ClInclude Include="..\include\Sprite.h" />
-    <ClInclude Include="..\include\WinState.h" />
+    <ClInclude Include="..\include\BattleState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

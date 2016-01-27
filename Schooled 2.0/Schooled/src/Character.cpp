@@ -8,7 +8,7 @@ namespace Character
 		state = 0;
 	}
 
-	Character::Character(Sprite::AnimatedSprite &s) : sprite(s)
+	Character::Character(const Sprite::AnimatedSprite &s) : sprite(s)
 	{
 		state = 0;
 	}

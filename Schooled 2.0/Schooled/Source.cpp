@@ -1,11 +1,15 @@
-﻿//(C) Fissure Studios 2016
-
-#include "GameEngine.h"
-#include "MenuState.h"
-#include <ctime>
+﻿//Copyright Fissure Studios 2016
 
 #define NDEBUG
+#ifdef WIN32
+
 #define WIN32_LEAN_AND_MEAN
+
+#endif
+
+#include "GameEngine.h"
+#include "BattleState.h"
+
 
 int main(int argc, char **argv)
 {
@@ -19,18 +23,15 @@ int main(int argc, char **argv)
 		return init;
 	}
 
-	// Set the seed
-	srand((unsigned int)time(0));
-
-	// Load the main menu
-	game.ChangeState(MenuState::Instance());
+	// Load the first state
+	game.ChangeState(BattleState::BattleState::Instance());
 
 	// Main game loop
 	while (game.Running())
 	{
+		game.HandleEvents();
 		game.Update();
 		game.Draw();
-		game.HandleEvents();
 	}
 
 	// cleanup the engine

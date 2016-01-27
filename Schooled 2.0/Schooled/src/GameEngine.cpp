@@ -2,34 +2,36 @@
 #include "GameState.h"
 #include "Room.h"
 #include "Schooled.h"
+#include "Input\InputMapper.h"
 
-#include "FMOD_util.h"
 #include "fmod_studio.hpp"
 #include "fmod.hpp"
+#include "Sound.h"
 
 #include "Fizzle\Fizzle.h"
+
+#include <ctime>
 
 using namespace FMOD_util;
 
 FMOD::Studio::System *GameEngine::system = nullptr;
+InputMapping::InputMapper *GameEngine::mapper = nullptr;
 
 int GameEngine::Init()
 {
+	// Set the seed
+	srand((unsigned int)time(0));
+
+	// Initialize FMOD
 	if (Init_FMOD() != 0)
 	{
 		return 1;
 	}
 
+	// Initialize Fizzle
 	FzlInit("Schooled 2.0", 640, 480, 0);
-	FzlSetFrameRate(60);
 
-	// Load the room indices
-	if (Room::loadTileIndex("tileIndex.txt") != 0 ||
-		Room::loadItemIndex("itemIndex.txt") != 0 ||
-		Room::loadActorIndex("actorIndex.txt") != 0)
-	{
-		return 1;
-	}
+	mapper = new InputMapping::InputMapper();
 
 	return 0;
 }
@@ -77,8 +79,19 @@ void GameEngine::Cleanup()
 	SFXBank->unload();
 	tracksBank->unload();
 
-	system->release();
+	masterBank = nullptr;
+	stringsBank = nullptr;
+	SFXBank = nullptr;
+	tracksBank = nullptr;
 
+	system->release();
+	system = nullptr;
+
+	// Cleanup the input mapper
+	delete mapper;
+	mapper = nullptr;
+
+	// Cleanup Fizzle
 	FzlDestroy();
 }
 
@@ -129,6 +142,10 @@ void GameEngine::HandleEvents()
 {
 	// let the state handle events
 	states.back()->HandleEvents(this);
+
+	// push the handled inputs to the mapper
+	mapper->Dispatch();
+	mapper->Clear();
 }
 
 void GameEngine::Update()
@@ -145,5 +162,7 @@ void GameEngine::Draw()
 {
 	// let the state draw the screen
 	states.back()->Draw(this);
+
+	// Draw Fizzle
 	FzlSwapBuffers();
 }

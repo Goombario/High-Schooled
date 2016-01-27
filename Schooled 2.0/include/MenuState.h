@@ -12,58 +12,71 @@ namespace Sound
 	class Description;
 };
 
+namespace InputMapping
+{
+	struct MappedInput;
+}
+
 using std::vector;
 using std::string;
 
-class MenuState : public GameState
+namespace MenuState
 {
-public:
-	// Initialize the state
-	void Init();
 
-	// Cleanup the state before exiting
-	void Cleanup();
+	class MenuState : public GameState
+	{
+	public:
+		// Initialize the state
+		void Init();
 
-	// Pause or resume the state before/after changing
-	void Pause();
-	void Resume();
+		// Cleanup the state before exiting
+		void Cleanup();
 
-	// Operations done by the state, can call to the game engine
-	void HandleEvents(GameEngine* game);
-	void Update(GameEngine* game);
-	void Draw(GameEngine* game);
+		// Pause or resume the state before/after changing
+		void Pause();
+		void Resume();
 
-	// Return an instance of the object
-	static MenuState* Instance() {
-		return &m_MenuState;
-	}
+		// Operations done by the state, can call to the game engine
+		void HandleEvents(GameEngine* game);
+		void Update(GameEngine* game);
+		void Draw(GameEngine* game);
 
-	static int levelSelected() { return lSelect; }
+		// Return an instance of the object
+		static MenuState* Instance() {
+			return &m_MenuState;
+		}
 
-protected:
-	// Create an empty object
-	MenuState() { }
+		static int levelSelected() { return lSelect; }
 
-private:
-	static MenuState m_MenuState;
-	string art, introText;
-	int menuSelect, levelSelect, selectedControl;
-	vector<string> menuSelections, levelSelections, 
-		cScheme, dScheme, clScheme, dlScheme;
-	bool selectingControl, selectingLevel, selectingCredits, changedSettings, startingGame, showObjective;
-	static int lSelect;
+		friend void MenuCallback(InputMapping::MappedInput& inputs);
 
-	void handleMenu(GameEngine* game);
-	void saveSetting(string, string);
-	void initSettings();
+	protected:
+		// Create an empty object
+		MenuState() { }
 
-	//Gets a line with newline characters
-	string getTextBlock(string);
+	private:
+		static MenuState m_MenuState;
+		string art, introText;
+		int menuSelect, levelSelect, selectedControl;
+		vector<string> menuSelections, levelSelections,
+			cScheme, dScheme, clScheme, dlScheme;
+		bool selectingControl, selectingLevel, selectingCredits, changedSettings, startingGame, showObjective;
+		static int lSelect;
 
-	// Sets up the scheme displays
-	void setSchemes();
+		//vector<Sound::Description*> descriptions;
 
-	
-};
+		void handleMenu(GameEngine* game);
+		void saveSetting(string, string);
+		void initSettings();
+
+		//Gets a line with newline characters
+		string getTextBlock(string);
+
+		// Sets up the scheme displays
+		void setSchemes();
+
+		
+	};
+}
 
 #endif
