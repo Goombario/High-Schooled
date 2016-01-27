@@ -10,7 +10,7 @@ namespace Character
 	{
 	public:
 		Character();
-		Character(Sprite::AnimatedSprite&);
+		Character(const Sprite::AnimatedSprite&);
 
 		// Draws the character's sprite to the screen
 		void draw();

@@ -1,7 +1,23 @@
-#include "sound_effects.h"
+#include "Sound.h"
 #include "fmod_studio.hpp"
-#include "FMOD_util.h"
+#include "fmod.hpp"
+#include "fmod_errors.h"
 #include "GameEngine.h"
+#include <iostream>
+
+namespace FMOD_util
+{
+	int FMODErrorCheck(FMOD_RESULT result)
+	{
+		if (result != FMOD_OK)
+		{
+			std::cerr << "FMOD error! (" << result << ") " << FMOD_ErrorString(result) << std::endl;
+			exit(-1);
+			return -1;
+		}
+		return 0;
+	}
+}
 
 using FMOD_util::FMODErrorCheck;
 

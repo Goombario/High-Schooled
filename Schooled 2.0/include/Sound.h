@@ -1,5 +1,5 @@
-#ifndef SOUND_EFFECTS_H
-#define SOUND_EFFECTS_H
+#ifndef SOUND_H
+#define SOUND_H
 
 #include <string>
 #include "fmod_studio_common.h"
@@ -13,8 +13,13 @@ namespace FMOD
 	}
 }
 
+// Utility namespace
+namespace FMOD_util
+{
+	int FMODErrorCheck(FMOD_RESULT result);
+}
 
-// Manipulating sound
+// Manipulating sound classes
 namespace Sound
 {
 	// Contains the description of the sound event

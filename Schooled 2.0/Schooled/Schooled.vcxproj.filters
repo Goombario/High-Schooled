@@ -36,19 +36,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Actor.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Buffer.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Item.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Log.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Room.cpp">
       <Filter>Resource Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="src\Schooled.cpp">
@@ -60,26 +48,8 @@
     <ClCompile Include="src\GameEngine.cpp">
       <Filter>Resource Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameOverState.cpp">
-      <Filter>Resource Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MenuState.cpp">
-      <Filter>Resource Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PlayingState.cpp">
-      <Filter>Resource Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="src\ShareState.cpp">
       <Filter>Resource Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="src\WinState.cpp">
-      <Filter>Resource Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="src\FMOD_util.cpp">
-      <Filter>Resource Files\sound</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sound_effects.cpp">
-      <Filter>Resource Files\sound</Filter>
     </ClCompile>
     <ClCompile Include="src\input\InputContext.cpp">
       <Filter>Input</Filter>
@@ -99,24 +69,15 @@
     <ClCompile Include="src\Sprite.cpp">
       <Filter>Resource Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="src\BattleState.cpp">
+      <Filter>Resource Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sound.cpp">
+      <Filter>Resource Files\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Actor.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Buffer.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Console_color.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Item.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Log.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Room.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Schooled.h">
@@ -125,29 +86,11 @@
     <ClInclude Include="..\include\GameEngine.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\GameOverState.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\GameState.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\MenuState.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\PlayingState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ShareState.h">
       <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\WinState.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\FMOD_util.h">
-      <Filter>Header Files\sound</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\sound_effects.h">
-      <Filter>Header Files\sound</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\FileIO.h">
       <Filter>Input</Filter>
@@ -156,9 +99,6 @@
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\InputContext.h">
-      <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Input\InputManager.h">
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\InputMapper.h">
@@ -178,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="..\include\Sprite.h">
       <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BattleState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Sound.h">
+      <Filter>Header Files\sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,6 @@
 #define GAMESTATE_H
 
 #include "GameEngine.h"
-#include "Buffer.h"
 
 // Abstract class for the states
 class GameState
@@ -29,7 +28,6 @@ public:
 
 protected:
 	GameState() { }
-	Buffer buffer;
 };
 
 
