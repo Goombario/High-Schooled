@@ -2,6 +2,9 @@
 #define BATTLE_STATE_H
 
 #include "GameState.h"
+#include "Fizzle\DataTypes\FizzleDataTypes.h"
+#include <map>
+#include <vector>
 
 // Forward Declaration
 namespace InputMapping
@@ -43,6 +46,8 @@ namespace BattleState
 
 	private:
 		static BattleState m_BattleState;
+		std::vector<FzlKey> validKeys;
+		std::map<FzlKey, bool> previouslyPressed;
 	};
 }
 

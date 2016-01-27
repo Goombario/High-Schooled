@@ -31,4 +31,22 @@ namespace shared
 		}
 		return roomNameList;
 	}
+
+	void initValidKeys(std::vector<FzlKey>& validKeys)
+	{
+		validKeys.push_back(FzlKeyA);
+		validKeys.push_back(FzlKeyW);
+		validKeys.push_back(FzlKeyD);
+		validKeys.push_back(FzlKeyS);
+		validKeys.push_back(FzlKeySpace);
+		validKeys.push_back(FzlKeyEscape);
+	}
+
+	void initPreviouslyPressed(std::map<FzlKey, bool>& previouslyPressed, const std::vector<FzlKey>& validKeys)
+	{
+		for (FzlKey key : validKeys)
+		{
+			previouslyPressed[key] = false;
+		}
+	}
 }
