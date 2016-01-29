@@ -86,6 +86,40 @@ void FzlDrawSprite(FzlSpriteHandle handle, float x, float y, float angle);
 void FzlDrawAnimatedSprite(FzlSpriteHandle handle, int anim, int frame, float x, float y, float angle);
 
 /**
+ * Draws a sprite at a particular position with a rotation and scale.
+ * This function is suitable for rendering sprites that have no animation.
+ * It will render the entire sprite image, not individual frames.
+ *
+ * @param handle The handle of the sprite to draw.
+ * @param x The position in pixels on the X-axis at which to draw the sprite.
+ * @param y The position in pixels on the Y-axis at which to draw the sprite.
+ * @param angle An angle in _degrees_ to rotate the sprite.
+ * @param scaleX The scale factor of the sprite in the x-axis.
+ * @param scaleY The scale factor of the sprite in the y-axis.
+ *
+ */
+
+void FzlDrawSpriteScaled(FzlSpriteHandle handle, float x, float y, float angle, float scaleX, float scaleY);
+
+/**
+ *	Draws a sprite at a particular animation and frame, in addition to drawing
+ *	with a specific position, rotation, and scale. Assuming your animations are all in one row
+ *	and there is one animation per row, the 'animation' parameter will be one of any
+ *	number of rows moving _down_ the sheet (since the top-left is 0,0), and the 'frame'
+ *	parameter will be the particular sprite moving _along_ the specified row.
+ *
+ *	@param handle The handle of the sprite to draw.
+ *	@param anim The animation to draw (which row in the image).
+ *	@param frame The specific frame in that animation to draw (which frame in that row).
+ *	@param x The position in pixels on the X-axis to draw the sprite
+ *	@param y The position in pixels on the Y-axis to draw the sprite.
+ *	@param angle An angle in DEGREES to rotate the sprite.
+ *	@param scaleX The scale factor of the sprite in the x-axis.
+ *	@param scaleY The scale factor of the srptie in the y-axis.
+ */
+void FzlDrawAnimatedSpriteScaled(FzlSpriteHandle handle, int anim, int frame, float x, float y, float angle, float scaleX, float scaleY);
+
+/**
  * Every time the window is told to swap the buffer, it will clear 
  * everything behind the scenes to ensure a clean canvas for the new frame. 
  * This function lets you control what colour it paints this canvas.

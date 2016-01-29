@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Fizzle: include/Window/FizzleWindow.h File Reference</title>
+<title>Fizzle: Window/FizzleWindow.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,6 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fizzle
    </div>
-   <div id="projectbrief">A simple sprite rendering library</div>
   </td>
  </tr>
  </tbody>
@@ -80,7 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_c5a66d7c7c2bb6ed666f4b7645cc7f8c.html">Window</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_7cf6de273bacbb83ea929e60009d025f.html">Window</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -103,8 +102,14 @@ Functions</h2></td></tr>
 <tr class="separator:ae392f2232caaed294d681e2623c7eabd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01efdeebdeefc2db692fbd13985e181a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_window_8h.html#a01efdeebdeefc2db692fbd13985e181a">FzlGetMouseButton</a> (enum <a class="el" href="_fizzle_data_types_8h.html#a77a163472ea6acdae24b246b289834bc">FzlMouseButton</a> button)</td></tr>
 <tr class="separator:a01efdeebdeefc2db692fbd13985e181a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f8e2a2b4a19b8a87f77ec6b65f63190"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_window_8h.html#a8f8e2a2b4a19b8a87f77ec6b65f63190">FzlGetMousePos</a> (double *x, double *y)</td></tr>
-<tr class="separator:a8f8e2a2b4a19b8a87f77ec6b65f63190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd8f6c67297d4fa9e2915759825c7f1d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_window_8h.html#abd8f6c67297d4fa9e2915759825c7f1d">FzlGetMouseX</a> ()</td></tr>
+<tr class="separator:abd8f6c67297d4fa9e2915759825c7f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b6c22963af1e73775b54d8a5b3f1bec"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_window_8h.html#a8b6c22963af1e73775b54d8a5b3f1bec">FzlGetMouseY</a> ()</td></tr>
+<tr class="separator:a8b6c22963af1e73775b54d8a5b3f1bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6146d9f6e0e7b9c97bed4f08b950ba0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_window_8h.html#af6146d9f6e0e7b9c97bed4f08b950ba0">FzlGetWindowWidth</a> ()</td></tr>
+<tr class="separator:af6146d9f6e0e7b9c97bed4f08b950ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c989b81ce6db8499378d1ccd7094244"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_window_8h.html#a7c989b81ce6db8499378d1ccd7094244">FzlGetWindowHeight</a> ()</td></tr>
+<tr class="separator:a7c989b81ce6db8499378d1ccd7094244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca456420ee26d74cde1b7ebf83be5cda"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_window_8h.html#aca456420ee26d74cde1b7ebf83be5cda">FzlGetTimeSinceStart</a> ()</td></tr>
 <tr class="separator:aca456420ee26d74cde1b7ebf83be5cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c515c4f728bc43cd9fd2e7052d35dc0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_window_8h.html#a7c515c4f728bc43cd9fd2e7052d35dc0">FzlGetDeltaTime</a> ()</td></tr>
@@ -182,37 +187,35 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8f8e2a2b4a19b8a87f77ec6b65f63190"></a>
+<a class="anchor" id="abd8f6c67297d4fa9e2915759825c7f1d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FzlGetMousePos </td>
+          <td class="memname">float FzlGetMouseX </td>
           <td>(</td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retrieves the current mouse position in the screen. NOTE: In Windows, the <em>TOP LEFT</em> of the screen is considered 0, 0. Therefore, a cursor at the bottom of the window will return the height of the window in pixels.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>Pointer to a double variable to store the value of the mouse position in the X axis. </td></tr>
-    <tr><td class="paramname">y</td><td>Pointer to a double variable to store the value of the mouse position in the Y axis. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Retrieves the current mouse position in the X-axis. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8b6c22963af1e73775b54d8a5b3f1bec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float FzlGetMouseY </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retrieves the current mouse position in the Y-axis. </p>
 
 </div>
 </div>
@@ -230,6 +233,38 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the time in seconds since Fizzle started.</p>
 <dl class="section return"><dt>Returns</dt><dd>A double representing the time in seconds since Fizzle started. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7c989b81ce6db8499378d1ccd7094244"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int FzlGetWindowHeight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retrieves the height of the window. </p>
+
+</div>
+</div>
+<a class="anchor" id="af6146d9f6e0e7b9c97bed4f08b950ba0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int FzlGetWindowWidth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retrieves the width of the window. </p>
 
 </div>
 </div>
