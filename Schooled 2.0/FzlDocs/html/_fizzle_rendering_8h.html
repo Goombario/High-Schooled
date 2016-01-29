@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Fizzle: include/Rendering/FizzleRendering.h File Reference</title>
+<title>Fizzle: Rendering/FizzleRendering.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,6 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fizzle
    </div>
-   <div id="projectbrief">A simple sprite rendering library</div>
   </td>
  </tr>
  </tbody>
@@ -80,7 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_a4707f8f85ce7a80afd7fc353854a536.html">Rendering</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_1b0e926a0431d9f734411ceeac6bd06a.html">Rendering</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -107,6 +106,10 @@ Functions</h2></td></tr>
 <tr class="separator:ad28987188b1cf5f7cc90c0597e2196c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65fb27e3f59ac9933792c5a6e7cadf31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_rendering_8h.html#a65fb27e3f59ac9933792c5a6e7cadf31">FzlDrawAnimatedSprite</a> (<a class="el" href="_fizzle_data_types_8h.html#a8364ced66e2fc54145836adddba008c5">FzlSpriteHandle</a> handle, int anim, int frame, float x, float y, float angle)</td></tr>
 <tr class="separator:a65fb27e3f59ac9933792c5a6e7cadf31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54be75d7008a707f2dbf2e7611bc4631"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_rendering_8h.html#a54be75d7008a707f2dbf2e7611bc4631">FzlDrawSpriteScaled</a> (<a class="el" href="_fizzle_data_types_8h.html#a8364ced66e2fc54145836adddba008c5">FzlSpriteHandle</a> handle, float x, float y, float angle, float scaleX, float scaleY)</td></tr>
+<tr class="separator:a54be75d7008a707f2dbf2e7611bc4631"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c1304a6befa4c1a42890ec8e6c030db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_rendering_8h.html#a2c1304a6befa4c1a42890ec8e6c030db">FzlDrawAnimatedSpriteScaled</a> (<a class="el" href="_fizzle_data_types_8h.html#a8364ced66e2fc54145836adddba008c5">FzlSpriteHandle</a> handle, int anim, int frame, float x, float y, float angle, float scaleX, float scaleY)</td></tr>
+<tr class="separator:a2c1304a6befa4c1a42890ec8e6c030db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac90ba878f59bf30e5740d729db6111b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fizzle_rendering_8h.html#ac90ba878f59bf30e5740d729db6111b2">FzlSetClearColor</a> (float r, float g, float b, float a)</td></tr>
 <tr class="separator:ac90ba878f59bf30e5740d729db6111b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -198,6 +201,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2c1304a6befa4c1a42890ec8e6c030db"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FzlDrawAnimatedSpriteScaled </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_fizzle_data_types_8h.html#a8364ced66e2fc54145836adddba008c5">FzlSpriteHandle</a>&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scaleX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scaleY</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Draws a sprite at a particular animation and frame, in addition to drawing with a specific position, rotation, and scale. Assuming your animations are all in one row and there is one animation per row, the 'animation' parameter will be one of any number of rows moving <em>down</em> the sheet (since the top-left is 0,0), and the 'frame' parameter will be the particular sprite moving <em>along</em> the specified row.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>The handle of the sprite to draw. </td></tr>
+    <tr><td class="paramname">anim</td><td>The animation to draw (which row in the image). </td></tr>
+    <tr><td class="paramname">frame</td><td>The specific frame in that animation to draw (which frame in that row). </td></tr>
+    <tr><td class="paramname">x</td><td>The position in pixels on the X-axis to draw the sprite </td></tr>
+    <tr><td class="paramname">y</td><td>The position in pixels on the Y-axis to draw the sprite. </td></tr>
+    <tr><td class="paramname">angle</td><td>An angle in DEGREES to rotate the sprite. </td></tr>
+    <tr><td class="paramname">scaleX</td><td>The scale factor of the sprite in the x-axis. </td></tr>
+    <tr><td class="paramname">scaleY</td><td>The scale factor of the srptie in the y-axis. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="ad28987188b1cf5f7cc90c0597e2196c4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -240,6 +319,68 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x</td><td>The position in pixels on the X-axis at which to draw the sprite. </td></tr>
     <tr><td class="paramname">y</td><td>The position in pixels on the Y-axis at which to draw the sprite. </td></tr>
     <tr><td class="paramname">angle</td><td>An angle in <em>degrees</em> to rotate the sprite. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a54be75d7008a707f2dbf2e7611bc4631"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FzlDrawSpriteScaled </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_fizzle_data_types_8h.html#a8364ced66e2fc54145836adddba008c5">FzlSpriteHandle</a>&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scaleX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scaleY</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Draws a sprite at a particular position with a rotation and scale. This function is suitable for rendering sprites that have no animation. It will render the entire sprite image, not individual frames.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>The handle of the sprite to draw. </td></tr>
+    <tr><td class="paramname">x</td><td>The position in pixels on the X-axis at which to draw the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The position in pixels on the Y-axis at which to draw the sprite. </td></tr>
+    <tr><td class="paramname">angle</td><td>An angle in <em>degrees</em> to rotate the sprite. </td></tr>
+    <tr><td class="paramname">scaleX</td><td>The scale factor of the sprite in the x-axis. </td></tr>
+    <tr><td class="paramname">scaleY</td><td>The scale factor of the sprite in the y-axis. </td></tr>
   </table>
   </dd>
 </dl>

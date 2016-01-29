@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Fizzle: include/Utils/FzlLogging.h File Reference</title>
+<title>Fizzle: Utils/FzlLogging.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,6 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fizzle
    </div>
-   <div id="projectbrief">A simple sprite rendering library</div>
   </td>
  </tr>
  </tbody>
@@ -80,7 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_2d1d991c66e7a032b2ab80c11328e79c.html">Utils</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0a824aa1f70ce3b829ef378253b085da.html">Utils</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -105,16 +104,16 @@ Macros</h2></td></tr>
 <tr class="separator:a6d7d53d8e427c92117eca38f7934c320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acea7cbf26d96964967f36d5b0190e23b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#acea7cbf26d96964967f36d5b0190e23b">FzlLogError</a>(msg)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeError, FZL_LOG_MSG_INFO, (msg))</td></tr>
 <tr class="separator:acea7cbf26d96964967f36d5b0190e23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6141f23f72ffbe303a6f00f3890eaf8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#a6141f23f72ffbe303a6f00f3890eaf8a">FzlLogErrorFmt</a>(fmt,  args)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeError, FZL_LOG_MSG_INFO, (fmt), (args))</td></tr>
-<tr class="separator:a6141f23f72ffbe303a6f00f3890eaf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7314a0783e200add420379f5a15c714"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#af7314a0783e200add420379f5a15c714">FzlLogErrorFmt</a>(fmt, ...)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeError, FZL_LOG_MSG_INFO, (fmt), __VA_ARGS__)</td></tr>
+<tr class="separator:af7314a0783e200add420379f5a15c714"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53fc46c788ab14790c9c602b440074dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#a53fc46c788ab14790c9c602b440074dc">FzlLogWarning</a>(msg)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeWarning, FZL_LOG_MSG_INFO, (msg));</td></tr>
 <tr class="separator:a53fc46c788ab14790c9c602b440074dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add27342aac6f0a0c0d49803f00b30b1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#add27342aac6f0a0c0d49803f00b30b1c">FzlLogWarningFmt</a>(fmt,  args)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeWarning, FZL_LOG_MSG_INFO, (fmt), (args))</td></tr>
-<tr class="separator:add27342aac6f0a0c0d49803f00b30b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29fb05b1b56911910575af14c114982"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#aa29fb05b1b56911910575af14c114982">FzlLogWarningFmt</a>(fmt, ...)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeWarning, FZL_LOG_MSG_INFO, (fmt), __VA_ARGS__)</td></tr>
+<tr class="separator:aa29fb05b1b56911910575af14c114982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77807da4ecf65cfe9fce586c88cf5ab9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#a77807da4ecf65cfe9fce586c88cf5ab9">FzlLogDebug</a>(msg)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeDebug, FZL_LOG_MSG_INFO, (msg))</td></tr>
 <tr class="separator:a77807da4ecf65cfe9fce586c88cf5ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0258722aa021f1a599d31b4a205246e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#a0258722aa021f1a599d31b4a205246e7">FzlLogDebugFmt</a>(fmt,  args)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeDebug, FZL_LOG_MSG_INFO, (fmt), (args))</td></tr>
-<tr class="separator:a0258722aa021f1a599d31b4a205246e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec97e0faf78614c9d2d6e33913efde64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fzl_logging_8h.html#aec97e0faf78614c9d2d6e33913efde64">FzlLogDebugFmt</a>(fmt, ...)&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeDebug, FZL_LOG_MSG_INFO, (fmt), __VA_ARGS__)</td></tr>
+<tr class="separator:aec97e0faf78614c9d2d6e33913efde64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -155,7 +154,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0258722aa021f1a599d31b4a205246e7"></a>
+<a class="anchor" id="aec97e0faf78614c9d2d6e33913efde64"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -169,12 +168,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">args&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeDebug, FZL_LOG_MSG_INFO, (fmt), (args))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeDebug, FZL_LOG_MSG_INFO, (fmt), __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -210,7 +209,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6141f23f72ffbe303a6f00f3890eaf8a"></a>
+<a class="anchor" id="af7314a0783e200add420379f5a15c714"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -224,12 +223,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">args&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeError, FZL_LOG_MSG_INFO, (fmt), (args))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeError, FZL_LOG_MSG_INFO, (fmt), __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -265,7 +264,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="add27342aac6f0a0c0d49803f00b30b1c"></a>
+<a class="anchor" id="aa29fb05b1b56911910575af14c114982"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -279,12 +278,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">args&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeWarning, FZL_LOG_MSG_INFO, (fmt), (args))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="_fzl_logging_8h.html#aeecb6655bf77c837e0befaf1cc70e4b5">FzlLogWrite</a>(FzlLogMsgTypeWarning, FZL_LOG_MSG_INFO, (fmt), __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
