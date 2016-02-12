@@ -1,3 +1,5 @@
-2
-mainContext MainContext.txt
+4
 menuContext MenuContext.txt
+battleContext BattleContext.txt
+exploreContext ExploreContext.txt
+globalContext GlobalContext.txt

@@ -75,6 +75,9 @@
     <ClCompile Include="src\sound.cpp">
       <Filter>Resource Files\sound</Filter>
     </ClCompile>
+    <ClCompile Include="src\ExploreState.cpp">
+      <Filter>Resource Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Item.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Sound.h">
       <Filter>Header Files\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ExploreState.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
