@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="src\base64.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\ExploreState.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
@@ -94,12 +95,16 @@
     <ClCompile Include="src\sound.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\BattleState.cpp" />
+    <ClCompile Include="src\tinyxml2.cpp" />
+    <ClCompile Include="src\tmxparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\base64.h" />
     <ClInclude Include="..\include\Character.h" />
     <ClInclude Include="..\include\ExploreState.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameState.h" />
+    <ClInclude Include="..\include\Image.h" />
     <ClInclude Include="..\include\Input\FileIO.h" />
     <ClInclude Include="..\include\Input\InputConstants.h" />
     <ClInclude Include="..\include\Input\InputContext.h" />
@@ -108,17 +113,23 @@
     <ClInclude Include="..\include\Input\RangeConverter.h" />
     <ClInclude Include="..\include\Input\RawInputConstants.h" />
     <ClInclude Include="..\include\Item.h" />
+    <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Schooled.h" />
     <ClInclude Include="..\include\ShareState.h" />
     <ClInclude Include="..\include\Sound.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\BattleState.h" />
+    <ClInclude Include="..\include\tinyxml2.h" />
+    <ClInclude Include="..\include\tmxparser.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\include\Input\License.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="ImageList.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,7 +12,7 @@ namespace Sprite
 
 		width = 0;
 		height = 0;
-		handle = 0;
+		handle = -1;
 	}
 
 	Sprite::Sprite(FzlSpriteHandle sHandle, int w, int h) :
@@ -20,18 +20,6 @@ namespace Sprite
 		width(w),
 		height(h)
 	{
-		posX = 0.0f;
-		posY = 0.0f;
-		angle = 0.0f;
-	}
-
-	Sprite::Sprite(std::string path, int w, int h) :
-		width(w),
-		height(h)
-	{
-		// Load the sprite handle
-		handle = FzlLoadSprite(path.c_str(), w, h);
-
 		posX = 0.0f;
 		posY = 0.0f;
 		angle = 0.0f;
@@ -84,13 +72,6 @@ namespace Sprite
 	}
 	AnimatedSprite::AnimatedSprite(int spriteHandle, int width, int height, int mxFr)
 		: Sprite(spriteHandle, width, height), maxFrame(mxFr) 
-	{
-		animation = 0;
-		frame = 0;
-	}
-
-	AnimatedSprite::AnimatedSprite(std::string path, int width, int height, int mxFr)
-		: Sprite(path, width, height), maxFrame(mxFr) 
 	{
 		animation = 0;
 		frame = 0;
