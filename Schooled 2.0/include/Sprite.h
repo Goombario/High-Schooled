@@ -12,7 +12,6 @@ namespace Sprite
 	public:
 		Sprite();
 		Sprite(FzlSpriteHandle spriteHandle, int width, int height);
-		Sprite(std::string path, int width, int height);
 
 		/* Shift the sprite by x pixels right and y pixels down
 		* @param float x - A float representing the number of pixels to be moved along the x axis
@@ -37,6 +36,8 @@ namespace Sprite
 		// Draw the sprite to the screen.
 		void draw();	
 
+		inline void setSpriteHandle(int newHandle) { handle = newHandle; }
+
 		// GETTERS
 		float getX() const { return posX; }
 		float getY() const { return posY; }
@@ -53,7 +54,6 @@ namespace Sprite
 	public:
 		AnimatedSprite();
 		AnimatedSprite(int spriteHandle, int width, int height, int maxFrame);
-		AnimatedSprite(std::string path, int width, int height, int maxFrame);
 
 		// Draw the sprite to the screen.
 		void draw();
