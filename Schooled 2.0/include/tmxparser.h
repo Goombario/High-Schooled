@@ -27,6 +27,7 @@ THE SOFTWARE.
 
 
 #include <string>
+#include "Fizzle\DataTypes\FizzleDataTypes.h"
 
 #if defined __GXX_EXPERIMENTAL_CXX0X__ || (_MSC_VER >= 1800)
 #include <unordered_map>
@@ -181,6 +182,7 @@ typedef struct
 	std::string transparentColor;
 	unsigned int width;
 	unsigned int height;
+	FzlSpriteHandle handle;	// Modified
 } TmxImage;
 
 

@@ -2,21 +2,17 @@
 #define IMAGE_H
 
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
+#include "tmxparser.h"
 #include <string>
 #include <vector>
 
+namespace Level
+{
+	class Level;
+}
+
 namespace Image
 {
-	struct Image
-	{
-		std::string name;
-		std::string source;
-		int width;
-		int height;
-		int tileWidth;
-		int tileHeight;
-		FzlSpriteHandle handle;
-	};
 
 	class ImageManager
 	{
@@ -24,14 +20,14 @@ namespace Image
 		ImageManager();
 		~ImageManager();
 
-		Image getImage(std::string name);
-		int const push(Image const&);
+		tmxparser::TmxImage getImage(std::string name);
+		int const push(tmxparser::TmxImage const&);
 		int const pop(std::string name);
 		int const load(std::string name);
 		int const unload(std::string name);
 
 	private:
-		std::vector<Image> imageList;
+		std::vector<tmxparser::TmxImage> imageList;
 	};
 }
 
