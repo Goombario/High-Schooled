@@ -87,6 +87,9 @@
     <ClCompile Include="src\base64.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Resource Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Item.h">
@@ -163,8 +166,5 @@
     <Text Include="..\include\Input\License.txt">
       <Filter>Input</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="ImageList.xml" />
   </ItemGroup>
 </Project>
