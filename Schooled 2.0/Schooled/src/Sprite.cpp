@@ -68,10 +68,11 @@ namespace Sprite
 	{
 		animation = 0;
 		frame = 0;
-		maxFrame = 0;
+		numCol = 0;
+		numRow = 0;
 	}
-	AnimatedSprite::AnimatedSprite(int spriteHandle, int width, int height, int mxFr)
-		: Sprite(spriteHandle, width, height), maxFrame(mxFr) 
+	AnimatedSprite::AnimatedSprite(int spriteHandle, int width, int height, int col, int row)
+		: Sprite(spriteHandle, width, height), numCol(col), numRow(row)
 	{
 		animation = 0;
 		frame = 0;
@@ -85,7 +86,7 @@ namespace Sprite
 	void AnimatedSprite::update(int state)
 	{
 		// If the frame has exceeded the limit, return to zero.
-		if (frame < maxFrame)
+		if (frame < numCol)
 		{
 			frame++;
 		}

@@ -364,6 +364,7 @@ TmxReturn _parseTilesetNode(tinyxml2::XMLElement* element, TmxTileset* outTilese
 		outTileset->name = element->Attribute("name");
 		CHECK_AND_RETRIEVE_REQ_ATTRIBUTE(element->QueryUnsignedAttribute, "tilewidth", &outTileset->tileWidth);
 		CHECK_AND_RETRIEVE_REQ_ATTRIBUTE(element->QueryUnsignedAttribute, "tileheight", &outTileset->tileHeight);
+		CHECK_AND_RETRIEVE_REQ_ATTRIBUTE(element->QueryUnsignedAttribute, "columns", &outTileset->colCount);
 		outTileset->tileSpacingInImage = element->UnsignedAttribute("spacing");
 		outTileset->tileMarginInImage = element->UnsignedAttribute("margin");
 
@@ -408,7 +409,7 @@ TmxReturn _parseTilesetNode(tinyxml2::XMLElement* element, TmxTileset* outTilese
 
 		// derive row/col count, calculate tile indices
 		// TODO - this is why we do not accept tilesets without image tag atm
-		outTileset->colCount = (outTileset->image.width - outTileset->tileMarginInImage) / (outTileset->tileWidth + outTileset->tileSpacingInImage);
+		//outTileset->colCount = (outTileset->image.width - outTileset->tileMarginInImage) / (outTileset->tileWidth + outTileset->tileSpacingInImage);
 		outTileset->rowCount = (outTileset->image.height - outTileset->tileMarginInImage) / (outTileset->tileHeight + outTileset->tileSpacingInImage);
 	}
 
@@ -830,7 +831,15 @@ tmxparser::TmxReturn _parseImageLayerNode(tinyxml2::XMLElement* element, TmxImag
 	TmxReturn error = TmxReturn::kSuccess;
 
 	CHECK_AND_RETRIEVE_REQ_ATTRIBUTE_STRING(element, "name", outImageLayer->name);
-	
+
+	// offsetx : optional, default 0
+	if (element->QueryIntAttribute("offsetx", &outImageLayer->offsetx) == tinyxml2::XML_NO_ATTRIBUTE)
+		outImageLayer->offsetx = 0;
+
+	// offsety : optional, default 0
+	if (element->QueryIntAttribute("offsety", &outImageLayer->offsety) == tinyxml2::XML_NO_ATTRIBUTE)
+		outImageLayer->offsety = 0;
+
 	// x : optional , default 0
 	if (element->QueryUnsignedAttribute("x", &outImageLayer->x) == tinyxml2::XML_NO_ATTRIBUTE)
 		outImageLayer->x = 0U;

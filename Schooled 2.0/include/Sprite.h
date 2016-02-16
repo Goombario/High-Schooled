@@ -53,7 +53,7 @@ namespace Sprite
 	{
 	public:
 		AnimatedSprite();
-		AnimatedSprite(int spriteHandle, int width, int height, int maxFrame);
+		AnimatedSprite(int spriteHandle, int width, int height, int numCol, int numRow);
 
 		// Draw the sprite to the screen.
 		void draw();
@@ -70,10 +70,11 @@ namespace Sprite
 		// GETTERS
 		int getFrame() { return frame; }
 		int getAnimation() { return animation; }
-		int getMaxFrame() { return maxFrame; }
+		//int getMaxFrame() { return maxFrame; }
 
 	private:
-		int animation, frame, maxFrame;
+		int animation, frame;
+		int numCol, numRow;
 	};
 }
 

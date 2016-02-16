@@ -28,7 +28,7 @@ namespace ExploreState
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
 
 		string resPath = schooled::getResourcePath("levels");
-		Level::Level testLevel(resPath + "Level1.tmx", resPath + "Level1.xml");
+		testLevel = Level::Level(resPath + "Level1.tmx", resPath + "Level1.xml");
 	}
 
 	void ExploreState::Cleanup()
@@ -79,7 +79,7 @@ namespace ExploreState
 
 	void ExploreState::Draw(GameEngine* game)
 	{
-
+		testLevel.draw();
 		// Fizzle swaps buffer automatically at end
 	}
 }
