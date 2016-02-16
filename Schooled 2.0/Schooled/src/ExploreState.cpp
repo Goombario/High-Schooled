@@ -3,6 +3,8 @@
 #include "ShareState.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
+#include "Level.h"
+#include "Schooled.h"
 
 using std::string;
 
@@ -24,6 +26,9 @@ namespace ExploreState
 
 		// Hold pressed keys
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
+
+		string resPath = schooled::getResourcePath("levels");
+		Level::Level testLevel(resPath + "Level1.tmx", resPath + "Level1.xml");
 	}
 
 	void ExploreState::Cleanup()

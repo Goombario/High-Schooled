@@ -24,7 +24,8 @@ namespace Level
 	class Level
 	{
 	public:
-		Level(std::string mapFile);
+		Level();
+		Level(std::string const& mapFile, std::string const& dataFile);
 		~Level();
 
 		void draw();

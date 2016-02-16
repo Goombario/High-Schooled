@@ -36,6 +36,7 @@ distribution.
 #   include <cstdio>
 #   include <cstdlib>
 #   include <cstring>
+#include <iostream>
 #endif
 
 /*
@@ -2090,13 +2091,18 @@ private:
     bool _restrictedEntityFlag[ENTITY_RANGE];
 
     DynArray< char, 20 > _buffer;
+
 };
 
+// MODIFIED BY GRAHAM WATSON
+// Helper function that checks XML results
+tinyxml2::XMLError CheckXMLResult(tinyxml2::XMLError result);
 
 }	// tinyxml2
 
 #if defined(_MSC_VER)
 #   pragma warning(pop)
 #endif
+
 
 #endif // TINYXML2_INCLUDED
