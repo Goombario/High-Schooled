@@ -167,4 +167,7 @@
       <Filter>Input</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\res\levels\level1.xml" />
+  </ItemGroup>
 </Project>

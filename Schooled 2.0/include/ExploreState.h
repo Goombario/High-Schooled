@@ -3,6 +3,7 @@
 
 #include "GameState.h"
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
+#include "Level.h"
 #include <map>
 #include <vector>
 
@@ -11,6 +12,7 @@ namespace InputMapping
 {
 	struct MappedInput;
 }
+
 
 namespace ExploreState
 {
@@ -48,6 +50,8 @@ namespace ExploreState
 		static ExploreState m_ExploreState;
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
+
+		Level::Level testLevel;
 	};
 }
 

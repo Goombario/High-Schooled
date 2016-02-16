@@ -2463,5 +2463,15 @@ bool XMLPrinter::Visit( const XMLUnknown& unknown )
     return true;
 }
 
+// MODIFIED BY GRAHAM WATSON
+tinyxml2::XMLError CheckXMLResult(tinyxml2::XMLError result)
+{
+	if (result != tinyxml2::XML_SUCCESS)
+	{
+		std::cerr << "ERROR: " << result << std::endl;
+	}
+	return result;
+}
+
 }   // namespace tinyxml2
 
