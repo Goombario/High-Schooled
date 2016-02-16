@@ -189,6 +189,8 @@ typedef struct
 typedef struct
 {
 	std::string name;
+	int offsetx;
+	int offsety;
 	unsigned int x;
 	unsigned int y;
 	unsigned int widthInTiles;

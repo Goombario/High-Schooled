@@ -98,6 +98,7 @@
     <ClCompile Include="src\BattleState.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\tmxparser.cpp" />
+    <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\base64.h" />
@@ -122,9 +123,10 @@
     <ClInclude Include="..\include\BattleState.h" />
     <ClInclude Include="..\include\tinyxml2.h" />
     <ClInclude Include="..\include\tmxparser.h" />
+    <ClInclude Include="..\include\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <None Include="..\include\Vector2.inl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\include\Input\License.txt" />

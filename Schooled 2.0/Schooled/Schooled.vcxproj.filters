@@ -13,43 +13,28 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\States">
-      <UniqueIdentifier>{b0a217b9-446c-411d-95e7-bae48d7db7fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Classes">
-      <UniqueIdentifier>{c8b19e04-2083-4d38-a589-cd3bce97e3c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\States">
-      <UniqueIdentifier>{ce97604b-35fc-48f7-aae0-08a3634671ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Classes">
-      <UniqueIdentifier>{ffc96db1-fef4-44ab-a74c-0a36d7e288f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\sound">
-      <UniqueIdentifier>{5fab90d4-d241-4e2a-a8b6-ab165f8b9d2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\sound">
-      <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{67a35aa6-bc1c-46b6-969e-c76d9161b287}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vector">
+      <UniqueIdentifier>{ab4e0f8d-5ec3-405c-9145-279859c3c8dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{c8b19e04-2083-4d38-a589-cd3bce97e3c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sound">
+      <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{b0a217b9-446c-411d-95e7-bae48d7db7fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels">
+      <UniqueIdentifier>{c3289da7-8eb8-4771-992d-a3a955793e67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Item.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Schooled.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameEngine.cpp">
-      <Filter>Resource Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShareState.cpp">
-      <Filter>Resource Files\States</Filter>
     </ClCompile>
     <ClCompile Include="src\input\InputContext.cpp">
       <Filter>Input</Filter>
@@ -63,21 +48,6 @@
     <ClCompile Include="src\input\RangeConverter.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="src\Character.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sprite.cpp">
-      <Filter>Resource Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BattleState.cpp">
-      <Filter>Resource Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sound.cpp">
-      <Filter>Resource Files\sound</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ExploreState.cpp">
-      <Filter>Resource Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="src\tinyxml2.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
@@ -87,25 +57,55 @@
     <ClCompile Include="src\base64.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Character.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Item.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
     <ClCompile Include="Level.cpp">
-      <Filter>Resource Files\Classes</Filter>
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Schooled.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sprite.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sound.cpp">
+      <Filter>sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShareState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExploreState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BattleState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vector2.cpp">
+      <Filter>Vector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Item.h">
-      <Filter>Header Files\Classes</Filter>
+      <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Schooled.h">
-      <Filter>Header Files\Classes</Filter>
+      <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GameEngine.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GameState.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ShareState.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\FileIO.h">
       <Filter>Input</Filter>
@@ -129,28 +129,28 @@
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Character.h">
-      <Filter>Header Files\Classes</Filter>
+      <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Sprite.h">
-      <Filter>Header Files\Classes</Filter>
+      <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\BattleState.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Sound.h">
-      <Filter>Header Files\sound</Filter>
+      <Filter>sound</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ExploreState.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="..\include\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Image.h">
-      <Filter>Header Files\Classes</Filter>
+      <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Level.h">
-      <Filter>Header Files\Classes</Filter>
+      <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\base64.h">
       <Filter>Header Files</Filter>
@@ -158,9 +158,14 @@
     <ClInclude Include="..\include\tmxparser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Vector2.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <None Include="..\include\Vector2.inl">
+      <Filter>Vector</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\include\Input\License.txt">
@@ -168,6 +173,8 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\res\levels\level1.xml" />
+    <Xml Include="..\res\levels\level1.xml">
+      <Filter>Levels</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

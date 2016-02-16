@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <level>
-  <imageData name="Background" width="340" height="480">
-  </imageData>
+  <imageData name="Background" width="528" height="448"/>
+  <imageData name="Background 2" width="528" height="448"/>
 </level>

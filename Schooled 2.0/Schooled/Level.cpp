@@ -15,9 +15,11 @@ namespace Level
 	{
 
 	}
+
 	Level::Level(std::string const& mapFile, std::string const& dataFile)
 	{
-		if (tmxparser::parseFromFile(mapFile, &map, schooled::getResourcePath("textures")) != tmxparser::kSuccess)
+		std::string resPath = schooled::getResourcePath("textures");
+		if (tmxparser::parseFromFile(mapFile, &map, resPath) != tmxparser::kSuccess)
 		{
 			std::cerr << "Error: tmxparser::parseFromFile in Level::Level()" << std::endl;
 			exit(-1);
@@ -27,7 +29,7 @@ namespace Level
 		// Initialize Tilesets
 		for (auto it = map.tilesetCollection.begin(); it != map.tilesetCollection.end(); ++it)
 		{
-			(*it).image.handle = FzlLoadSprite(((*it).image.source).c_str(),
+			(*it).image.handle = FzlLoadSprite((resPath + (*it).image.source).c_str(),
 				(*it).tileWidth, 
 				(*it).tileHeight);
 		}
@@ -45,18 +47,15 @@ namespace Level
 
 		// Choose the first image data
 		XMLElement *imageData;
-		if (map.imageLayerCollection.begin() != map.imageLayerCollection.end())
+		imageData = pRoot->FirstChildElement("imageData");
+
+		for (auto it = map.imageLayerCollection.begin(); it != map.imageLayerCollection.end(); ++it)
 		{
-			imageData = pRoot->FirstChildElement();
 			if (imageData == nullptr)
 			{
 				std::cerr << "ERROR: Loading imageData: " << XML_ERROR_FILE_READ_ERROR << std::endl;
 				exit(-1);
 			}
-		}
-
-		for (auto it = map.imageLayerCollection.begin(); it != map.imageLayerCollection.end(); ++it)
-		{
 			const char * name = nullptr;
 			int width, height;
 
@@ -69,28 +68,78 @@ namespace Level
 				exit(-1);
 			}
 
+			if ((*it).image.source == resPath + "/")
+			{
+				std::cerr << "Error: image has no source" << std::endl;
+				exit(-1);
+			}
+
 			CheckXMLResult(imageData->QueryIntAttribute("width", &width));
 			CheckXMLResult(imageData->QueryIntAttribute("height", &height));
-			(*it).image.handle = FzlLoadSprite((*it).image.source.c_str(), width, height);
+			(*it).image.handle = FzlLoadSprite((resPath + (*it).image.source).c_str(), width, height);
+			(*it).image.width = width;
+			(*it).image.height = height;
+			std::cout << (*it).image.handle << std::endl;
 
-			//delete name;	// POSSIBLE MEMORY LEAK
+			LayerInfo temp;
+			temp.index = it - map.imageLayerCollection.begin();
+			temp.type = "imageLayer";
+			if ((*it).propertyMap.find("z") != (*it).propertyMap.end())
+			{
+				temp.order = stoi((*it).propertyMap["z"]);
+			}
+			else temp.order = 0;
+
+			if ((*it).propertyMap.find("parallax") != (*it).propertyMap.end())
+			{
+				temp.parallax = stod((*it).propertyMap["parallax"]);
+			}
+			else temp.parallax = 1.0;
+			
+			info[temp.order] = temp;
+
 			name = nullptr;
 
-			imageData = pRoot->NextSiblingElement("imageData");
+			imageData = imageData->NextSiblingElement("imageData");
 		}
+
+		std::cout << "Constructor called" << std::endl;
+	}
+
+	Level::Level(Level const& copy)
+	{
+		this->map = copy.map;
+		this->info = copy.info;
+		this->encounterList = copy.encounterList;
 	}
 
 	Level::~Level()
 	{
-		// Delete all used sprites
-		for (auto it = map.tilesetCollection.begin(); it != map.tilesetCollection.end(); ++it)
+		//// Delete all used sprites
+		//for (auto it = map.tilesetCollection.begin(); it != map.tilesetCollection.end(); ++it)
+		//{
+		//	FzlDeleteSprite((*it).image.handle);
+		//}
+		//for (auto it = map.imageLayerCollection.begin(); it != map.imageLayerCollection.end(); ++it)
+		//{
+		//	FzlDeleteSprite((*it).image.handle);
+		//}
+
+		std::cout << "Destructor called" << std::endl;
+	}
+
+	void Level::draw()
+	{
+		for (auto it = info.begin(); it != info.end(); it++)
 		{
-			FzlDeleteSprite((*it).image.handle);
+			std::cout << "z: " << (*it).second.order << std::endl;
+			if ((*it).second.type == "imageLayer")
+			{
+				tmxparser::TmxImageLayer * temp = &map.imageLayerCollection[(*it).second.index];
+				FzlDrawSprite(temp->image.handle, static_cast<float>(temp->x + temp->offsetx * (*it).second.parallax), static_cast<float>(temp->y + temp->offsety), 0.0f);
+			}
 		}
-		for (auto it = map.imageLayerCollection.begin(); it != map.imageLayerCollection.end(); ++it)
-		{
-			FzlDeleteSprite((*it).image.handle);
-		}
+
 	}
 
 
