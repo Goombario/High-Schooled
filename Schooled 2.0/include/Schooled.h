@@ -18,6 +18,8 @@ namespace schooled
 	int const FLOOR_HEIGHT = 8;
 	int const ITEM_INDEX_SIZE = 2;
 	int const OFFSET = 1;
+	double const CAMERA_SPEED = 3;
+	float const CAMERA_MAX_ACCELERATION = 2;
 
 	int const SCREEN_HEIGHT_PX = 400;
 	int const SCREEN_WIDTH_PX = 960;
