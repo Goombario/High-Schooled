@@ -13,6 +13,10 @@ namespace InputMapping
 	struct MappedInput;
 }
 
+namespace Character
+{
+	class Character;
+}
 
 namespace ExploreState
 {
@@ -50,6 +54,7 @@ namespace ExploreState
 		static ExploreState m_ExploreState;
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
+		Character::Character player;
 
 		Level::Level testLevel;
 	};

@@ -3,13 +3,13 @@
 
 namespace InputMapping
 {
-	enum Action
+	enum class Action
 	{
 		ATTACK,
 		EXIT_GAME,
 	};
 
-	enum State
+	enum class State
 	{
 		MOVE_LEFT,
 		MOVE_RIGHT,
@@ -17,10 +17,16 @@ namespace InputMapping
 		MOVE_DOWN,
 	};
 
-	enum Range
+	enum class Range
 	{
 		RANGE_ONE,
 		RANGE_TWO,
+	};
+
+	enum class RawInputAxis
+	{
+		RAW_INPUT_AXIS_MOUSE_X,
+		RAW_INPUT_AXIS_MOUSE_Y,
 	};
 }
 

@@ -125,9 +125,6 @@
     <ClInclude Include="..\include\Input\RangeConverter.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Input\RawInputConstants.h">
-      <Filter>Input</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Character.h">
       <Filter>Classes</Filter>
     </ClInclude>
@@ -160,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Vector2.h">
       <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\RawInputConstants.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

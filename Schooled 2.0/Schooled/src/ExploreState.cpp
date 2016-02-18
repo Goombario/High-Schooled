@@ -5,6 +5,7 @@
 #include "Input\InputMapper.h"
 #include "Level.h"
 #include "Schooled.h"
+#include "Character.h"
 
 using std::string;
 
@@ -29,6 +30,10 @@ namespace ExploreState
 
 		string resPath = schooled::getResourcePath("levels");
 		testLevel = Level::Level(resPath + "Level1.tmx", resPath + "Level1.xml");
+
+		FzlSpriteHandle playerHandle = FzlLoadSprite("C:/Hg/schooled-2.0/Schooled 2.0/res/img/battle_idle_spritesheet.png", 64, 64);
+		Sprite::AnimatedSprite playerS(playerHandle, 64, 64, 1, 1);
+		player = Character::Character(playerS);
 	}
 
 	void ExploreState::Cleanup()
@@ -80,6 +85,7 @@ namespace ExploreState
 	void ExploreState::Draw(GameEngine* game)
 	{
 		testLevel.draw();
+		player.draw();
 		// Fizzle swaps buffer automatically at end
 	}
 }
