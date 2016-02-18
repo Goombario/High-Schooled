@@ -9,6 +9,8 @@ namespace Sprite
 		posX = 0.0f;
 		posY = 0.0f;
 		angle = 0.0f;
+		scaleX = 0.0f;
+		scaleY = 0.0f;
 
 		width = 0;
 		height = 0;
@@ -23,6 +25,8 @@ namespace Sprite
 		posX = 0.0f;
 		posY = 0.0f;
 		angle = 0.0f;
+		scaleX = 0.0f;
+		scaleY = 0.0f;
 	}
 
 	void Sprite::shift(float x, float y)
@@ -45,7 +49,14 @@ namespace Sprite
 
 	void Sprite::draw()
 	{
-		FzlDrawSprite(handle, posX, posY, angle);
+		if (scaleX != 0 || scaleY != 0)
+		{
+			FzlDrawSpriteScaled(handle, posX, posY, angle, scaleX, scaleY);
+		}
+		else
+		{
+			FzlDrawSprite(handle, posX, posY, angle);
+		}
 	}
 
 	void Sprite::setAngle(float a)
@@ -80,7 +91,14 @@ namespace Sprite
 
 	void AnimatedSprite::draw()
 	{
-		FzlDrawAnimatedSprite(handle, animation, frame, posX, posY, angle);
+		if (scaleX != 0 || scaleY != 0)
+		{
+			FzlDrawAnimatedSpriteScaled(handle, animation, frame, posX, posY, angle, scaleX, scaleY);
+		}
+		else
+		{
+			FzlDrawAnimatedSprite(handle, animation, frame, posX, posY, angle);
+		}
 	}
 
 	void AnimatedSprite::update(int state)

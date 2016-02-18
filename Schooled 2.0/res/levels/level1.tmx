@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="legend_of_zelda_one_overworld_tiles" tilewidth="32" tileheight="32" tilecount="45" columns="9">
   <image source="../textures/legend_of_zelda_one_overworld_tiles.png" width="307" height="163"/>
  </tileset>
- <imagelayer name="Background" offsetx="0" offsety="448">
+ <imagelayer name="Background" offsetx="576" offsety="0">
   <image source="../textures/super_mario_one_tileset.png"/>
   <properties>
    <property name="z" value="-2"/>

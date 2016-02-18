@@ -33,6 +33,10 @@ namespace Sprite
 		// Increase the rotation of the angle by the given float.
 		void rotate(float angle);
 
+		// Set the current scale
+		inline void setScaleX(float newX) { scaleX = newX; }
+		inline void setScaleY(float newY) { scaleY = newY; }
+
 		// Draw the sprite to the screen.
 		void draw();	
 
@@ -46,6 +50,7 @@ namespace Sprite
 	protected:
 		float posX, posY, angle;
 		int width, height;
+		float scaleX, scaleY;
 		FzlSpriteHandle handle;
 	};
 
