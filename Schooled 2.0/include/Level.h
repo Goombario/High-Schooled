@@ -37,6 +37,30 @@ namespace Level
 		int index; // Index in the type collection
 	};
 
+	class Camera
+	{
+	public:
+		Camera();
+		~Camera();
+
+		// Set the camera's current position
+		inline void setCurrentPos(Vector::Vector3 const& newPos) { currentPos = newPos; }
+		
+		// Set the camera's destination for it to move to
+		inline void setDestination(Vector::Vector3 const& newDestination) { destination = newDestination; }
+
+		// Move the camera towards the destination (with acceleration?)
+		void update();
+
+		// Get the current camera position
+		inline Vector::Vector3 const& getCurrentPos() const { return currentPos; }
+
+	private:
+		Vector::Vector3 currentPos;
+		Vector::Vector3 destination;
+		Vector::Vector3 transformation;
+	};
+
 	class Level
 	{
 	public:
@@ -47,7 +71,9 @@ namespace Level
 
 		const tmxparser::TmxMap* getMap() const { return &map; }
 
+		// Draws the map
 		void draw();
+
 		//bool isColliding(Character::Character const&);
 
 	private:
