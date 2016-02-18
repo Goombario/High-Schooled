@@ -11,6 +11,32 @@ using namespace tinyxml2;
 
 namespace Level
 {
+	Camera::Camera()
+	{
+
+	}
+
+	Camera::Camera(Vector::Vector3 const& newPos)
+	{
+		setCurrentPos(newPos);
+	}
+
+	Camera::~Camera()
+	{
+
+	}
+
+	void Camera::update()
+	{
+		// Move the current position towards the destination
+
+	}
+	void Camera::setDestination(Vector::Vector3 const& newDestination)
+	{ 
+		destination = newDestination; 
+		transformation = newDestination - currentPos;
+	}
+
 	Level::Level()
 	{
 

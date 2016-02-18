@@ -1,4 +1,5 @@
 #include "Vector2.h"
+#include "Schooled.h"
 #include <math.h>
 #include <iostream>
 
@@ -6,7 +7,9 @@ namespace Vector
 {
 	Vector3::Vector3()
 	{
-
+		x = 0;
+		y = 0;
+		z = 0;
 	}
 	
 	Vector3::Vector3(const Vector3& b)

@@ -41,13 +41,14 @@ namespace Level
 	{
 	public:
 		Camera();
+		Camera(Vector::Vector3 const&);
 		~Camera();
 
 		// Set the camera's current position
 		inline void setCurrentPos(Vector::Vector3 const& newPos) { currentPos = newPos; }
 		
 		// Set the camera's destination for it to move to
-		inline void setDestination(Vector::Vector3 const& newDestination) { destination = newDestination; }
+		void setDestination(Vector::Vector3 const& newDestination);
 
 		// Move the camera towards the destination (with acceleration?)
 		void update();
@@ -59,6 +60,7 @@ namespace Level
 		Vector::Vector3 currentPos;
 		Vector::Vector3 destination;
 		Vector::Vector3 transformation;
+		float acceleration;
 	};
 
 	class Level
