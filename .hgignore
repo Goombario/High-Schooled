@@ -11,3 +11,4 @@ syntax: glob
 *.pdb
 *.opensdf
 *.sav
+*.log
