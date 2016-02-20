@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "Schooled.h"
 #include "Input\InputMapper.h"
+#include "Image.h"
 
 #include "fmod_studio.hpp"
 #include "fmod.hpp"
@@ -15,7 +16,8 @@
 using namespace FMOD_util;
 
 FMOD::Studio::System *GameEngine::system = nullptr;
-InputMapping::InputMapper *GameEngine::mapper = nullptr;
+InputMapping::InputMapper GameEngine::mapper;
+Image::ImageManager imageManager;
 
 int GameEngine::Init()
 {
@@ -30,8 +32,6 @@ int GameEngine::Init()
 
 	// Initialize Fizzle
 	FzlInit("Schooled 2.0", 640, 480, 0);
-
-	mapper = new InputMapping::InputMapper();
 
 	return 0;
 }
@@ -87,10 +87,6 @@ void GameEngine::Cleanup()
 	system->release();
 	system = nullptr;
 
-	// Cleanup the input mapper
-	delete mapper;
-	mapper = nullptr;
-
 	// Cleanup Fizzle
 	FzlDestroy();
 }
@@ -144,8 +140,8 @@ void GameEngine::HandleEvents()
 	states.back()->HandleEvents(this);
 
 	// push the handled inputs to the mapper
-	mapper->Dispatch();
-	mapper->Clear();
+	mapper.Dispatch();
+	mapper.Clear();
 }
 
 void GameEngine::Update()

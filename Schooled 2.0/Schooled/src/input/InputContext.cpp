@@ -67,7 +67,18 @@ InputContext::InputContext(const std::string& contextName)
 	{
 		// Gets the action name
 		std::string actionName = contextElement->GetText();	// Gets the name of the action from the context
-		Action action = ActionLookup.at(actionName);	// Gets the high level Action ID
+
+		// Gets the high level Action ID
+		Action action;
+		if (ActionLookup.find(actionName) != ActionLookup.end())
+		{
+			action = ActionLookup.at(actionName);	
+		}
+		else
+		{
+			std::cerr << "Error: Action " << actionName << " not found in lookup." << std::endl;
+			exit(-1);
+		}
 		
 		// Checks to make sure the correct action is selected in the input map
 		if (inputElement->FirstChildElement("Input")->GetText() != actionName)
@@ -103,7 +114,18 @@ InputContext::InputContext(const std::string& contextName)
 	{
 		// Gets the state name
 		std::string stateName = contextElement->GetText();	// Gets the name of the state from the context
-		State state = StateLookup.at(stateName);	// Gets the high level State ID
+
+		// Gets the high level State ID
+		State state;
+		if (StateLookup.find(stateName) != StateLookup.end())
+		{
+			state = StateLookup.at(stateName);
+		}
+		else
+		{
+			std::cerr << "Error: State " << stateName << " not found in lookup." << std::endl;
+			exit(-1);
+		}
 
 		// Checks to make sure the correct state is selected in the input map
 		if (inputElement->FirstChildElement("Input")->GetText() != stateName)
@@ -139,7 +161,19 @@ InputContext::InputContext(const std::string& contextName)
 	{
 		// Gets the range name
 		std::string rangeName = contextElement->GetText();	// Gets the name of the range from the context
-		Range range = RangeLookup.at(rangeName);	// Gets the high level Range ID
+
+		// Gets the high level Range ID
+		Range range;
+		if (RangeLookup.find(rangeName) != RangeLookup.end())
+		{
+			range = RangeLookup.at(rangeName);
+		}
+		else
+		{
+			std::cerr << "Error: Range " << rangeName << " not found in lookup." << std::endl;
+			exit(-1);
+		}
+
 
 		// Checks to make sure the correct range is selected in the input map
 		if (inputElement->FirstChildElement("Input")->GetText() != rangeName)

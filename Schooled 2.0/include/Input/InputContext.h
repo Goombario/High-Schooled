@@ -10,8 +10,8 @@
 
 
 // Dependencies
-#include "RawInputConstants.h"
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
+#include "RawInputConstants.h"
 #include "InputConstants.h"
 #include "RangeConverter.h"
 #include <map>

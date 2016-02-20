@@ -93,6 +93,9 @@
     <ClCompile Include="src\Vector2.cpp">
       <Filter>Vector</Filter>
     </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Item.h">
