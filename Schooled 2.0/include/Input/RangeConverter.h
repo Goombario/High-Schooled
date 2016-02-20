@@ -12,6 +12,7 @@
 // Dependencies
 #include <map>
 #include "InputConstants.h"
+#include "tinyxml2.h"
 
 
 namespace InputMapping
@@ -49,7 +50,7 @@ namespace InputMapping
 
 	// Construction
 	public:
-		explicit RangeConverter(std::wifstream& infile);
+		explicit RangeConverter(tinyxml2::XMLNode *);
 
 	// Conversion interface
 	public:

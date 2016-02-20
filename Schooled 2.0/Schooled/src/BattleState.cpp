@@ -6,6 +6,11 @@
 
 using std::string;
 
+namespace Rules
+{
+	bool const REMOVING_TOKENS = false;
+}
+
 namespace BattleState
 {
 	BattleState BattleState::m_BattleState;
@@ -14,7 +19,7 @@ namespace BattleState
 	{
 		// Initialize the mapper context
 		// Tells the mapper to map a specific set of keys to a specific set of actions
-		GameEngine::getMapper()->PushContext(L"mainContext");
+		GameEngine::getMapper()->PushContext("globalContext");
 
 		// Tells the mapper to call the given function after the contexts have been mapped.
 		GameEngine::getMapper()->AddCallback(mainCallback, 0);

@@ -12,7 +12,7 @@
 
 // Dependencies
 #include "Fizzle/DataTypes/FizzleDataTypes.h"
-//#include "RawInputConstants.h"
+#include "RawInputConstants.h"
 #include "InputConstants.h"
 
 #include <map>
@@ -74,7 +74,7 @@ namespace InputMapping
 
 		// Context management interface
 	public:
-		void PushContext(const std::wstring& name);
+		void PushContext(const std::string& name);
 		void PopContext();
 
 		// Internal helpers
@@ -85,7 +85,7 @@ namespace InputMapping
 
 		// Internal tracking
 	private:
-		std::map<std::wstring, InputContext*> InputContexts;
+		std::map<std::string, InputContext*> InputContexts;
 		std::list<InputContext*> ActiveContexts;
 
 		std::multimap<int, InputCallback> CallbackTable;

@@ -5,6 +5,7 @@
 //
 // Wrapper class for mapping inputs
 //
+// Modified by Graham Watson
 
 #include "pch.h"
 
@@ -12,7 +13,7 @@
 #include "InputContext.h"
 
 #include "FileIO.h"
-
+#include "tinyxml2.h"
 #include <fstream>
 
 
@@ -24,15 +25,17 @@ using namespace InputMapping;
 //
 InputMapper::InputMapper()
 {
-	unsigned count;
-	std::wifstream infile(L"ContextList.txt");
-	if(!(infile >> count))
-		throw std::exception("Failed to read ContextList.txt");
-	for(unsigned i = 0; i < count; ++i)
+	tinyxml2::XMLDocument contextList;
+	tinyxml2::CheckXMLResult(contextList.LoadFile("Contexts.xml"));
+	tinyxml2::XMLNode *contextRoot = contextList.RootElement();
+	tinyxml2::XMLElement *contextElement;
+
+	contextElement = contextRoot->FirstChildElement();
+	while (contextElement != nullptr)
 	{
-		std::wstring name = AttemptRead<std::wstring>(infile);
-		std::wstring file = AttemptRead<std::wstring>(infile);
-		InputContexts[name] = new InputContext(file);
+		std::string name = contextElement->Attribute("name");
+		InputContexts[name] = new InputContext(name);
+		contextElement = contextElement->NextSiblingElement();
 	}
 }
 
@@ -41,7 +44,7 @@ InputMapper::InputMapper()
 //
 InputMapper::~InputMapper()
 {
-	for(std::map<std::wstring, InputContext*>::iterator iter = InputContexts.begin(); iter != InputContexts.end(); ++iter)
+	for(std::map<std::string, InputContext*>::iterator iter = InputContexts.begin(); iter != InputContexts.end(); ++iter)
 		delete iter->second;
 }
 
@@ -128,9 +131,9 @@ void InputMapper::AddCallback(InputCallback callback, int priority)
 //
 // Push an active input context onto the stack
 //
-void InputMapper::PushContext(const std::wstring& name)
+void InputMapper::PushContext(const std::string& name)
 {
-	std::map<std::wstring, InputContext*>::iterator iter = InputContexts.find(name);
+	std::map<std::string, InputContext*>::iterator iter = InputContexts.find(name);
 	if(iter == InputContexts.end())
 		throw std::exception("Invalid input context pushed");
 
