@@ -48,8 +48,20 @@ RangeConverter::RangeConverter(tinyxml2::XMLNode * contextRoot)
 			}
 		}
 
-		std::string rangeName = contextElement->GetText();	// Gets the name of the range from the context
-		Range range = RangeLookup.at(rangeName);	// Gets the high level Range ID
+		// Gets the name of the range from the context
+		std::string rangeName = contextElement->GetText();
+
+		// Gets the high level Range ID
+		Range range;
+		if (RangeLookup.find(rangeName) != RangeLookup.end())
+		{
+			range = RangeLookup.at(rangeName);
+		}
+		else
+		{
+			std::cerr << "Error: Range " << rangeName << " not found in lookup." << std::endl;
+			exit(-1);
+		}
 
 		Converter converter;
 		tinyxml2::CheckXMLResult(rangesElement->FirstChildElement("MinimumInput")->QueryDoubleText(&converter.MinimumInput));

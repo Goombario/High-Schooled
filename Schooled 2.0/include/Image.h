@@ -2,18 +2,11 @@
 #define IMAGE_H
 
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
-#include "tmxparser.h"
 #include <string>
 #include <map>
 
-namespace Level
-{
-	class Level;
-}
-
 namespace Image
 {
-
 	class ImageManager
 	{
 	public:
@@ -23,7 +16,7 @@ namespace Image
 		/* Get the handle based on the given filepath. If it doesn't exist, returns -1.
 		* @param string filePath - the path to the image
 		*/
-		FzlSpriteHandle const& getHandle(std::string const& filePath) const;
+		FzlSpriteHandle getHandle(std::string const& filePath) const;
 		
 		/* Loads the image into memory. If it exists already, nothing happens.
 		* @param string filePath - the path to the image

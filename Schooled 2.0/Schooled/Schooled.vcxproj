@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\base64.cpp" />

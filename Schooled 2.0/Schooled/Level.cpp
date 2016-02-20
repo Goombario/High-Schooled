@@ -9,6 +9,7 @@
 
 using namespace tinyxml2;
 
+// Camera
 namespace Level
 {
 	Camera::Camera()
@@ -32,11 +33,15 @@ namespace Level
 
 	}
 	void Camera::setDestination(Vector::Vector3 const& newDestination)
-	{ 
-		destination = newDestination; 
+	{
+		destination = newDestination;
 		transformation = newDestination - currentPos;
 	}
+}
 
+// Level
+namespace Level
+{
 	Level::Level()
 	{
 
