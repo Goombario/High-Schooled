@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Contexts>
+  
+  <Context name="globalContext">
+    <!-- All Actions -->
+    <Action>
+      <Input>ATTACK</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+    <Action>
+      <Input>EXIT_GAME</Input>
+      <Raw>FzlKeyEscape</Raw>
+    </Action>
+
+    <!-- All States -->
+    <State>
+      <Input>MOVE_LEFT</Input>
+      <Raw>FzlKeyLeftArrow</Raw>
+    </State>
+    <State>
+      <Input>MOVE_RIGHT</Input>
+      <Raw>FzlKeyRightArrow</Raw>
+    </State>
+
+    <!-- All Ranges -->
+    <Range>
+      <Input>RANGE_ONE</Input>
+      <Raw>RAW_INPUT_AXIS_MOUSE_X</Raw>
+      <Sensitivity>50</Sensitivity>
+    </Range>
+  </Context>
+  
+</Contexts>

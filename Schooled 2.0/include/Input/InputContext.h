@@ -10,7 +10,7 @@
 
 
 // Dependencies
-//#include "RawInputConstants.h"
+#include "RawInputConstants.h"
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
 #include "InputConstants.h"
 #include "RangeConverter.h"
@@ -24,7 +24,7 @@ namespace InputMapping
 	{
 		// Construction and destruction
 	public:
-		explicit InputContext(const std::wstring& contextfilename);
+		explicit InputContext(const std::string& contextfilename);
 		~InputContext();
 
 		// Mapping interface

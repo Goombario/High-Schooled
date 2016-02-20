@@ -135,6 +135,9 @@
     <Xml Include="..\res\levels\level1.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Contexts.xml" />
+    <Xml Include="InputMap.xml" />
+    <Xml Include="InputRanges.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

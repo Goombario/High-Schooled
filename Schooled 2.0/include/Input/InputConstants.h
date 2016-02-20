@@ -1,15 +1,18 @@
 #ifndef INPUT_CONSTANTS_H
 #define INPUT_CONSTANTS_H
 
+#include <map>
+#include <string>
+
 namespace InputMapping
 {
-	enum class Action
+	enum Action
 	{
 		ATTACK,
 		EXIT_GAME,
 	};
 
-	enum class State
+	enum State
 	{
 		MOVE_LEFT,
 		MOVE_RIGHT,
@@ -17,17 +20,32 @@ namespace InputMapping
 		MOVE_DOWN,
 	};
 
-	enum class Range
+	enum Range
 	{
 		RANGE_ONE,
 		RANGE_TWO,
 	};
 
-	enum class RawInputAxis
+	const std::map<std::string, Range> RangeLookup
 	{
-		RAW_INPUT_AXIS_MOUSE_X,
-		RAW_INPUT_AXIS_MOUSE_Y,
+		{ "RANGE_ONE", RANGE_ONE },
+		{ "RANGE_TWO", RANGE_TWO },
 	};
+
+	const std::map<std::string, Action> ActionLookup
+	{
+		{ "ATTACK", ATTACK },
+		{ "EXIT_GAME", EXIT_GAME },
+	};
+
+	const std::map<std::string, State> StateLookup
+	{
+		{ "MOVE_LEFT", MOVE_LEFT },
+		{ "MOVE_RIGHT", MOVE_RIGHT },
+		{ "MOVE_UP", MOVE_UP },
+		{ "MOVE_DOWN", MOVE_DOWN },
+	};
+
 }
 
 #endif

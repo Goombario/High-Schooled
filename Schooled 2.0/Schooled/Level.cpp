@@ -44,6 +44,7 @@ namespace Level
 
 	Level::Level(std::string const& mapFile, std::string const& dataFile)
 	{
+		// Load the Tiled level
 		std::string resPath = schooled::getResourcePath("textures");
 		if (tmxparser::parseFromFile(mapFile, &map, resPath) != tmxparser::kSuccess)
 		{
@@ -129,7 +130,7 @@ namespace Level
 			imageData = imageData->NextSiblingElement("imageData");
 		}
 
-		std::cout << "Constructor called" << std::endl;
+		//std::cout << "Constructor called" << std::endl;
 	}
 
 	Level::Level(Level const& copy)
@@ -151,14 +152,14 @@ namespace Level
 		//	FzlDeleteSprite((*it).image.handle);
 		//}
 
-		std::cout << "Destructor called" << std::endl;
+		//std::cout << "Destructor called" << std::endl;
 	}
 
 	void Level::draw()
 	{
 		for (auto it = info.begin(); it != info.end(); it++)
 		{
-			std::cout << "z: " << (*it).second.order << std::endl;
+			//std::cout << "z: " << (*it).second.order << std::endl;
 			if ((*it).second.type == "imageLayer")
 			{
 				tmxparser::TmxImageLayer * temp = &map.imageLayerCollection[(*it).second.index];

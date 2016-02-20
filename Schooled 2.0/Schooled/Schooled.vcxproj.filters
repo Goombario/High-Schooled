@@ -31,6 +31,9 @@
     <Filter Include="Levels">
       <UniqueIdentifier>{c3289da7-8eb8-4771-992d-a3a955793e67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input\Data">
+      <UniqueIdentifier>{bdb61fcd-2f45-48c3-a556-bab6222dbbe9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -175,6 +178,15 @@
   <ItemGroup>
     <Xml Include="..\res\levels\level1.xml">
       <Filter>Levels</Filter>
+    </Xml>
+    <Xml Include="Contexts.xml">
+      <Filter>Input\Data</Filter>
+    </Xml>
+    <Xml Include="InputMap.xml">
+      <Filter>Input\Data</Filter>
+    </Xml>
+    <Xml Include="InputRanges.xml">
+      <Filter>Input\Data</Filter>
     </Xml>
   </ItemGroup>
 </Project>
