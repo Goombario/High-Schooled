@@ -51,8 +51,8 @@ public:
 	void Quit() { m_running = false; }
 
 	// Return the input mapper for input mapping
-	inline static InputMapping::InputMapper& getMapper() { return mapper; }
-	inline static Image::ImageManager& getImageManager() { return imageManager; }
+	inline static InputMapping::InputMapper* getMapper() { return mapper; }
+	inline static Image::ImageManager* getImageManager() { return imageManager; }
 	inline static FMOD::Studio::System* getSoundSystem() { return system; }
 private:
 	// Private function that initializes FMOD
@@ -72,8 +72,8 @@ private:
 	FMOD::Studio::Bank *tracksBank = nullptr;
 
 	// Input Mapper
-	static InputMapping::InputMapper mapper;
-	static Image::ImageManager imageManager;
+	static InputMapping::InputMapper *mapper;
+	static Image::ImageManager *imageManager;
 };
 
 

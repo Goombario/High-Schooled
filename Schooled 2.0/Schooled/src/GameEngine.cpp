@@ -16,8 +16,8 @@
 using namespace FMOD_util;
 
 FMOD::Studio::System *GameEngine::system = nullptr;
-InputMapping::InputMapper GameEngine::mapper;
-Image::ImageManager imageManager;
+InputMapping::InputMapper *GameEngine::mapper = nullptr;
+Image::ImageManager *GameEngine::imageManager = nullptr;
 
 int GameEngine::Init()
 {
@@ -32,6 +32,10 @@ int GameEngine::Init()
 
 	// Initialize Fizzle
 	FzlInit("Schooled 2.0", 640, 480, 0);
+
+	// Initialize classes
+	mapper = new InputMapping::InputMapper();
+	imageManager = new Image::ImageManager();
 
 	return 0;
 }
@@ -87,6 +91,12 @@ void GameEngine::Cleanup()
 	system->release();
 	system = nullptr;
 
+	// Delete classes
+	delete mapper;
+	mapper = nullptr;
+	delete imageManager;
+	imageManager = nullptr;
+
 	// Cleanup Fizzle
 	FzlDestroy();
 }
@@ -140,8 +150,8 @@ void GameEngine::HandleEvents()
 	states.back()->HandleEvents(this);
 
 	// push the handled inputs to the mapper
-	mapper.Dispatch();
-	mapper.Clear();
+	mapper->Dispatch();
+	mapper->Clear();
 }
 
 void GameEngine::Update()

@@ -80,18 +80,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\base64.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\ExploreState.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
+    <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\input\InputContext.cpp" />
     <ClCompile Include="src\input\InputMapper.cpp" />
     <ClCompile Include="src\input\pch.cpp" />
     <ClCompile Include="src\input\RangeConverter.cpp" />
     <ClCompile Include="src\Item.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\Schooled.cpp" />
     <ClCompile Include="src\ShareState.cpp" />
     <ClCompile Include="src\sound.cpp" />
