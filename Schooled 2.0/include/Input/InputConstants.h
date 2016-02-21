@@ -26,19 +26,19 @@ namespace InputMapping
 		RANGE_TWO,
 	};
 
-	const std::map<std::string, Range> RangeLookup
+	static const std::map<std::string, Range> RangeLookup
 	{
 		{ "RANGE_ONE", RANGE_ONE },
 		{ "RANGE_TWO", RANGE_TWO },
 	};
 
-	const std::map<std::string, Action> ActionLookup
+	static const std::map<std::string, Action> ActionLookup
 	{
 		{ "ATTACK", ATTACK },
 		{ "EXIT_GAME", EXIT_GAME },
 	};
 
-	const std::map<std::string, State> StateLookup
+	static const std::map<std::string, State> StateLookup
 	{
 		{ "MOVE_LEFT", MOVE_LEFT },
 		{ "MOVE_RIGHT", MOVE_RIGHT },
