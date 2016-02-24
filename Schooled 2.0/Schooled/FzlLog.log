@@ -1,9 +1,9 @@
-2016-02-20 19:14:17, ..\Source\src\Wrapper\Fizzle.c, FzlInit (line 41) -
+2016-02-24 18:33:32, ..\Source\src\Wrapper\Fizzle.c, FzlInit (line 41) -
 	DEBUG: Initializing Fizzle, version 1.4, released 01/27/2016
 
-2016-02-20 19:14:34, ..\Source\src\InternalRendering\FzlInternalRendering.c, FzlRenderingInit (line 52) -
+2016-02-24 18:33:32, ..\Source\src\InternalRendering\FzlInternalRendering.c, FzlRenderingInit (line 52) -
 	DEBUG: Initializing Fizzle Rendering. OpenGL version 4.5
 
-2016-02-20 19:14:34, ..\Source\src\InternalSound\FzlInternalAudio.c, FzlAudioInit (line 44) -
+2016-02-24 18:33:32, ..\Source\src\InternalSound\FzlInternalAudio.c, FzlAudioInit (line 44) -
 	DEBUG: Initializing Fizzle Audio.
 

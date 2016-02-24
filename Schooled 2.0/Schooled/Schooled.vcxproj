@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\base64.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\ExploreState.cpp" />
@@ -102,6 +103,8 @@
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Animation.h" />
+    <ClInclude Include="..\include\AnimationConstants.h" />
     <ClInclude Include="..\include\base64.h" />
     <ClInclude Include="..\include\Character.h" />
     <ClInclude Include="..\include\ExploreState.h" />
@@ -139,6 +142,7 @@
     <Xml Include="Contexts.xml" />
     <Xml Include="InputMap.xml" />
     <Xml Include="InputRanges.xml" />
+    <Xml Include="PlayerAnimation.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

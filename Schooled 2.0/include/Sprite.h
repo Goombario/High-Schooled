@@ -1,6 +1,8 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+#include "Image.h"
+#include "Animation.h"
 #include <string>
 
 namespace Sprite
@@ -11,7 +13,10 @@ namespace Sprite
 	{
 	public:
 		Sprite();
-		Sprite(FzlSpriteHandle spriteHandle, int width, int height);
+		Sprite(Image::Image const&);
+		Sprite(Sprite const&);
+
+		inline Sprite& operator=(Sprite const&);
 
 		/* Shift the sprite by x pixels right and y pixels down
 		* @param float x - A float representing the number of pixels to be moved along the x axis
@@ -40,8 +45,6 @@ namespace Sprite
 		// Draw the sprite to the screen.
 		void draw();	
 
-		inline void setSpriteHandle(int newHandle) { handle = newHandle; }
-
 		// GETTERS
 		float getX() const { return posX; }
 		float getY() const { return posY; }
@@ -49,38 +52,72 @@ namespace Sprite
 
 	protected:
 		float posX, posY, angle;
-		int width, height;
 		float scaleX, scaleY;
-		FzlSpriteHandle handle;
+		Image::Image image;
 	};
 
 	class AnimatedSprite : public Sprite
 	{
 	public:
 		AnimatedSprite();
-		AnimatedSprite(int spriteHandle, int width, int height, int numCol, int numRow);
+		AnimatedSprite(Image::Image const&, Animation::AnimationData const&);
+		AnimatedSprite(AnimatedSprite const&);
+		~AnimatedSprite();
+
+		inline AnimatedSprite& operator=(AnimatedSprite const&);
 
 		// Draw the sprite to the screen.
 		void draw();
 
 		/* 
-		* Advance the frame. If the frame reaches the end, repeat. 
-		*If the state has changed, change the animation to given state.
+		* Advance the frame. If the frame reaches the end, repeat.
 		*/
-		void update(int state);	
+		void update();
 
-		// Change the animation to the given animation and frame.
-		void changeAnimation(int a, int f = 0);	
+		// Change the animation to the given animation.
+		void changeAnimation(Animation::AnimationEnum a);
 
-		// GETTERS
-		int getFrame() { return frame; }
-		int getAnimation() { return animation; }
-		//int getMaxFrame() { return maxFrame; }
+		// Add an animation to the list
+		void pushAnimation(Animation::AnimationEnum a);
+
 
 	private:
-		int animation, frame;
-		int numCol, numRow;
+		std::vector<Animation::Animation> animationList;
+		Animation::AnimationData data;
+		unsigned int row, col;	// One animation per row
+		unsigned int numCol;		// The maximum number of columns
+		double time;
 	};
+
+	Sprite& Sprite::operator=(Sprite const& source)
+	{
+		if (&source == this)
+		{
+			return (*this);
+		}
+
+		this->posX = source.posX;
+		this->posY = source.posY;
+		this->angle = source.angle;
+		this->scaleX = source.scaleX;
+		this->scaleY = source.scaleY;
+		this->image = source.image;
+		return (*this);
+	}
+
+	AnimatedSprite& AnimatedSprite::operator = (AnimatedSprite const& source)
+	{
+		if (&source == this)
+		{
+			return (*this);
+		}
+
+		Sprite::operator=(source);
+		this->numCol = source.numCol;
+		this->data = source.data;
+		this->animationList = source.animationList;
+		return (*this);
+	}
 }
 
 #endif

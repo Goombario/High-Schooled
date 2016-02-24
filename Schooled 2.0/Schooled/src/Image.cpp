@@ -12,28 +12,26 @@ namespace Image
 	{
 		for (auto it = imageMap.begin(); it != imageMap.end(); it++)
 		{
-			FzlDeleteSprite((*it).second);
+			FzlDeleteSprite((*it).second.handle);
 		}
+		imageMap.clear();
 	}
 
-	FzlSpriteHandle ImageManager::getHandle(std::string const& filepath) const
-	{
-		return imageMap.at(filepath);
-	}
-
-	void ImageManager::loadHandle(std::string const& filePath, int const& frameWidth, int const& frameHeight)
+	Image const& ImageManager::loadImage(std::string const& filePath, int const& frameWidth, int const& frameHeight)
 	{
 		// If can't find the filepath in the map, add it.
 		if (imageMap.find(filePath) == imageMap.end())
 		{
 			FzlSpriteHandle newHandle = FzlLoadSprite(filePath.c_str(), frameWidth, frameHeight);
-			imageMap[filePath] = newHandle;
+			Image newImage = { newHandle, frameWidth, frameHeight };
+			imageMap[filePath] = newImage;
 		}
+		return getImage(filePath);
 	}
 
-	void ImageManager::deleteHandle(std::string const& filepath)
+	void ImageManager::deleteImage(std::string const& filepath)
 	{
-		FzlDeleteSprite(imageMap[filepath]);
+		FzlDeleteSprite(imageMap[filepath].handle);
 		imageMap.erase(filepath);
 	}
 

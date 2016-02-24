@@ -12,6 +12,8 @@ namespace Character
 		Character();
 		Character(const Sprite::AnimatedSprite&);
 
+		inline Character& operator=(Character const&);
+
 		// Draws the character's sprite to the screen
 		void draw();
 
@@ -48,6 +50,19 @@ namespace Character
 		int state;	// 0 standing, 1 walking, 2 attacking...
 		Sprite::AnimatedSprite sprite;
 	};
+
+	Character& Character::operator=(Character const& source)
+	{
+		if (this == &source)
+		{
+			return *this;
+		}
+
+		this->state = source.state;
+		this->sprite = source.sprite;
+
+		return *this;
+	}
 }
 
 #endif

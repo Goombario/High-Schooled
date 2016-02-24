@@ -3,6 +3,7 @@
 #include "ShareState.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
+#include "Image.h"
 #include "Level.h"
 #include "Schooled.h"
 #include "Character.h"
@@ -31,9 +32,14 @@ namespace ExploreState
 		string resPath = schooled::getResourcePath("levels");
 		testLevel = Level::Level(resPath + "Level1.tmx", resPath + "Level1.xml");
 
-		FzlSpriteHandle playerHandle = FzlLoadSprite("C:/Hg/schooled-2.0/Schooled 2.0/res/img/battle_idle_spritesheet.png", 64, 64);
-		Sprite::AnimatedSprite playerS(playerHandle, 64, 64, 1, 1);
+		// Set up the player character
+		Image::Image playerImage = GameEngine::getImageManager()->
+			loadImage("C:/Hg/schooled-2.0/Schooled 2.0/res/img/battle_base_spritesheet.png", 64, 64);
+		Animation::AnimationData playerSheet("PlayerAnimation.xml", 6);
+		Sprite::AnimatedSprite playerS(playerImage, playerSheet);
+		playerS.pushAnimation(Animation::IDLE);
 		player = Character::Character(playerS);
+		player.moveSprite(300, 300);
 	}
 
 	void ExploreState::Cleanup()
@@ -78,7 +84,7 @@ namespace ExploreState
 
 	void ExploreState::Update(GameEngine* game)
 	{
-
+		player.update();
 		// FMOD updates automatically at end
 	}
 

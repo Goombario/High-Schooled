@@ -3,7 +3,7 @@
 
 namespace Character
 {
-	Character::Character() 
+	Character::Character()
 	{
 		state = 0;
 	}
@@ -20,7 +20,7 @@ namespace Character
 
 	void Character::update()
 	{
-		sprite.update(state);
+		sprite.update();
 	}
 
 	void Character::changeState(int newState)

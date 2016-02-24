@@ -182,7 +182,6 @@ typedef struct
 	std::string transparentColor;
 	unsigned int width;
 	unsigned int height;
-	FzlSpriteHandle handle;	// Modified
 } TmxImage;
 
 
