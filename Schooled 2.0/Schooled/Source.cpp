@@ -11,7 +11,6 @@
 #include "BattleState.h"
 #include "ExploreState.h"
 
-
 int main(int argc, char **argv)
 {
 	GameEngine game;

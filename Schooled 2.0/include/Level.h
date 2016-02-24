@@ -18,7 +18,7 @@ namespace Level
 {
 	struct Encounter
 	{
-		Character::Character enemy;
+		//Character::Character enemy;
 
 	};
 
@@ -80,7 +80,7 @@ namespace Level
 
 	private:
 		tmxparser::TmxMap map;
-		std::map<int, LayerInfo> info;
+		std::map<int, LayerInfo> layers;
 		std::vector<Encounter> encounterList;
 	};
 

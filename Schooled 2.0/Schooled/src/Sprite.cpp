@@ -11,22 +11,27 @@ namespace Sprite
 		angle = 0.0f;
 		scaleX = 0.0f;
 		scaleY = 0.0f;
-
-		width = 0;
-		height = 0;
-		handle = -1;
 	}
 
-	Sprite::Sprite(FzlSpriteHandle sHandle, int w, int h) :
-		handle(sHandle),
-		width(w),
-		height(h)
+	Sprite::Sprite(Image::Image const& i) :
+		image(i)
 	{
 		posX = 0.0f;
 		posY = 0.0f;
 		angle = 0.0f;
 		scaleX = 0.0f;
 		scaleY = 0.0f;
+	}
+
+	Sprite::Sprite(Sprite const& source) :
+		posX(source.posX),
+		posY(source.posY),
+		angle(source.angle),
+		scaleX(source.scaleX),
+		scaleY(source.scaleY),
+		image(source.image)
+	{
+
 	}
 
 	void Sprite::shift(float x, float y)
@@ -42,8 +47,8 @@ namespace Sprite
 
 		if (!centered)
 		{
-			posX = posX + (width / 2);
-			posY = posY + (height / 2);
+			posX = posX + (image.frameWidth / 2);
+			posY = posY + (image.frameHeight / 2);
 		}
 	}
 
@@ -51,11 +56,11 @@ namespace Sprite
 	{
 		if (scaleX != 0 || scaleY != 0)
 		{
-			FzlDrawSpriteScaled(handle, posX, posY, angle, scaleX, scaleY);
+			FzlDrawSpriteScaled(image.handle, posX, posY, angle, scaleX, scaleY);
 		}
 		else
 		{
-			FzlDrawSprite(handle, posX, posY, angle);
+			FzlDrawSprite(image.handle, posX, posY, angle);
 		}
 	}
 
@@ -75,54 +80,99 @@ namespace Sprite
 namespace Sprite
 {
 
-	AnimatedSprite::AnimatedSprite()
+	AnimatedSprite::AnimatedSprite() : Sprite()
 	{
-		animation = 0;
-		frame = 0;
+		col = 0;
+		row = 0;
 		numCol = 0;
-		numRow = 0;
+		time = 0.0;
 	}
-	AnimatedSprite::AnimatedSprite(int spriteHandle, int width, int height, int col, int row)
-		: Sprite(spriteHandle, width, height), numCol(col), numRow(row)
+
+	AnimatedSprite::AnimatedSprite(Image::Image const& i, Animation::AnimationData const& sheet)
+		: Sprite(i), data(sheet)
 	{
-		animation = 0;
-		frame = 0;
+		col = 0;
+		row = 0;
+		time = 0.0;
+		numCol = data.getNumCol();
+	}
+
+	AnimatedSprite::AnimatedSprite(AnimatedSprite const& source) :
+		Sprite(source),
+		animationList(source.animationList),
+		data(source.data),
+		row(source.row),
+		col(source.col),
+		numCol(source.numCol),
+		time(source.time)
+	{
+
+	}
+
+	AnimatedSprite::~AnimatedSprite()
+	{
+		animationList.clear();
 	}
 
 	void AnimatedSprite::draw()
 	{
 		if (scaleX != 0 || scaleY != 0)
 		{
-			FzlDrawAnimatedSpriteScaled(handle, animation, frame, posX, posY, angle, scaleX, scaleY);
+			FzlDrawAnimatedSpriteScaled(image.handle, row, col, posX, posY, angle, scaleX, scaleY);
 		}
 		else
 		{
-			FzlDrawAnimatedSprite(handle, animation, frame, posX, posY, angle);
+			FzlDrawAnimatedSprite(image.handle, row, col, posX, posY, angle);
 		}
 	}
 
-	void AnimatedSprite::update(int state)
+	void AnimatedSprite::update()
 	{
-		// If the frame has exceeded the limit, return to zero.
-		if (frame < numCol)
+		time += FzlGetDeltaTime();
+
+		// On the first frame deltaTime returns negative
+		if (time < 0)
 		{
-			frame++;
-		}
-		else
-		{
-			frame = 0;
+			time = 0;
 		}
 
-		// If the state has changed
-		if (state != animation)
+		//std::cout << "Time: " << time << " delta: " << FzlGetDeltaTime() << std::endl;
+		if (animationList.back().frames[col].duration <= time)
 		{
-			changeAnimation(state, frame);
+			time -= animationList.back().frames[col].duration;
+			col++;
 		}
+
+		// If at the end of the animation
+		if (col >= animationList.back().frames.size())
+		{
+			if (animationList.back().loop)
+			{
+				col = 0;
+			}
+			else
+			{
+				animationList.pop_back();
+				if (animationList.size() == 0)
+				{
+					pushAnimation(Animation::IDLE);
+				}
+			}
+		}
+
 	}
 
-	void AnimatedSprite::changeAnimation(int a, int f)
+	void AnimatedSprite::pushAnimation(Animation::AnimationEnum a)
 	{
-		animation = a;
-		frame = f;
+		Animation::Animation tempA = data.getAnimation(a);
+		row = (tempA.firstFrame % numCol);
+		col = (tempA.firstFrame / numCol);
+		animationList.push_back(tempA);
+	}
+
+	void AnimatedSprite::changeAnimation(Animation::AnimationEnum a)
+	{
+		animationList.clear();
+		pushAnimation(a);
 	}
 }

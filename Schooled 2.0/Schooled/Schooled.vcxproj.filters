@@ -34,6 +34,9 @@
     <Filter Include="Input\Data">
       <UniqueIdentifier>{bdb61fcd-2f45-48c3-a556-bab6222dbbe9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Draw">
+      <UniqueIdentifier>{1c45ee76-59cb-443a-bf29-0489cc32fa07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -69,9 +72,6 @@
     <ClCompile Include="src\Schooled.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="src\Sprite.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\sound.cpp">
       <Filter>sound</Filter>
     </ClCompile>
@@ -90,11 +90,17 @@
     <ClCompile Include="src\Vector2.cpp">
       <Filter>Vector</Filter>
     </ClCompile>
-    <ClCompile Include="src\Image.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Level.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Image.cpp">
+      <Filter>Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sprite.cpp">
+      <Filter>Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation.cpp">
+      <Filter>Draw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,9 +140,6 @@
     <ClInclude Include="..\include\Character.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Sprite.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\BattleState.h">
       <Filter>States</Filter>
     </ClInclude>
@@ -148,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="..\include\tinyxml2.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Image.h">
-      <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Level.h">
       <Filter>Classes</Filter>
@@ -166,6 +166,18 @@
     </ClInclude>
     <ClInclude Include="..\include\Input\RawInputConstants.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Image.h">
+      <Filter>Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Sprite.h">
+      <Filter>Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Animation.h">
+      <Filter>Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AnimationConstants.h">
+      <Filter>Draw</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +202,9 @@
     </Xml>
     <Xml Include="InputRanges.xml">
       <Filter>Input\Data</Filter>
+    </Xml>
+    <Xml Include="PlayerAnimation.xml">
+      <Filter>Draw</Filter>
     </Xml>
   </ItemGroup>
 </Project>

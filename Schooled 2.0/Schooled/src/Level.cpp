@@ -5,6 +5,7 @@
 #include "Schooled.h"
 #include "tinyxml2.h"
 #include "Fizzle\Fizzle.h"
+#include "GameEngine.h"
 #include <iostream>
 
 using namespace tinyxml2;
@@ -49,6 +50,8 @@ namespace Level
 
 	Level::Level(std::string const& mapFile, std::string const& dataFile)
 	{
+		Image::ImageManager *iManager = GameEngine::getImageManager();
+
 		// Load the Tiled level
 		std::string resPath = schooled::getResourcePath("textures");
 		if (tmxparser::parseFromFile(mapFile, &map, resPath) != tmxparser::kSuccess)
@@ -61,9 +64,7 @@ namespace Level
 		// Initialize Tilesets
 		for (auto it = map.tilesetCollection.begin(); it != map.tilesetCollection.end(); ++it)
 		{
-			(*it).image.handle = FzlLoadSprite((resPath + (*it).image.source).c_str(),
-				(*it).tileWidth, 
-				(*it).tileHeight);
+			iManager->loadImage((resPath + (*it).image.source), (*it).tileWidth, (*it).tileHeight);
 		}
 
 		// Initialize Image layers
@@ -89,7 +90,6 @@ namespace Level
 				exit(-1);
 			}
 			const char * name = nullptr;
-			int width, height;
 
 			// Check if the names match
 			name = imageData->Attribute("name");
@@ -106,12 +106,9 @@ namespace Level
 				exit(-1);
 			}
 
-			CheckXMLResult(imageData->QueryIntAttribute("width", &width));
-			CheckXMLResult(imageData->QueryIntAttribute("height", &height));
-			(*it).image.handle = FzlLoadSprite((resPath + (*it).image.source).c_str(), width, height);
-			(*it).image.width = width;
-			(*it).image.height = height;
-			std::cout << (*it).image.handle << std::endl;
+			CheckXMLResult(imageData->QueryUnsignedAttribute("width", &(*it).image.width));
+			CheckXMLResult(imageData->QueryUnsignedAttribute("height", &(*it).image.height));
+			iManager->loadImage(resPath + (*it).image.source, (*it).image.width, (*it).image.height);
 
 			LayerInfo temp;
 			temp.index = it - map.imageLayerCollection.begin();
@@ -128,47 +125,41 @@ namespace Level
 			}
 			else temp.parallax = 1.0;
 			
-			info[temp.order] = temp;
+			layers[temp.order] = temp;
 
 			name = nullptr;
 
 			imageData = imageData->NextSiblingElement("imageData");
 		}
 
-		//std::cout << "Constructor called" << std::endl;
+		iManager = nullptr;
 	}
 
 	Level::Level(Level const& copy)
 	{
 		this->map = copy.map;
-		this->info = copy.info;
+		this->layers = copy.layers;
 		this->encounterList = copy.encounterList;
 	}
 
 	Level::~Level()
 	{
-		//// Delete all used sprites
-		//for (auto it = map.tilesetCollection.begin(); it != map.tilesetCollection.end(); ++it)
-		//{
-		//	FzlDeleteSprite((*it).image.handle);
-		//}
-		//for (auto it = map.imageLayerCollection.begin(); it != map.imageLayerCollection.end(); ++it)
-		//{
-		//	FzlDeleteSprite((*it).image.handle);
-		//}
 
-		//std::cout << "Destructor called" << std::endl;
 	}
 
 	void Level::draw()
 	{
-		for (auto it = info.begin(); it != info.end(); it++)
+		std::string resPath = schooled::getResourcePath("textures");
+		Image::ImageManager *iManager = GameEngine::getImageManager();
+		for (auto it = layers.begin(); it != layers.end(); it++)
 		{
-			//std::cout << "z: " << (*it).second.order << std::endl;
 			if ((*it).second.type == "imageLayer")
 			{
 				tmxparser::TmxImageLayer * temp = &map.imageLayerCollection[(*it).second.index];
-				FzlDrawSprite(temp->image.handle, static_cast<float>(temp->x + temp->offsetx * (*it).second.parallax), static_cast<float>(temp->y + temp->offsety), 0.0f);
+				FzlDrawSprite(
+					iManager->getImage(resPath + temp->image.source).handle, 
+					static_cast<float>(temp->x + temp->offsetx * (*it).second.parallax), 
+					static_cast<float>(temp->y + temp->offsety), 0.0f);
 			}
 		}
 
