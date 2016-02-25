@@ -32,7 +32,10 @@ int GameEngine::Init()
 
 	// Initialize Fizzle
 	FzlInit("Schooled 2.0", 640, 480, 0);
-	FzlSetFrameRate(60);
+	FzlSetFrameRate(schooled::FRAMERATE);
+
+	// Swaps buffers to set delta time between frames
+	FzlSwapBuffers();
 
 	// Initialize classes
 	mapper = new InputMapping::InputMapper();

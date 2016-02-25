@@ -20,6 +20,7 @@ namespace schooled
 	int const OFFSET = 1;
 	double const CAMERA_SPEED = 3;
 	float const CAMERA_MAX_ACCELERATION = 2;
+	int const FRAMERATE = 60;
 
 	int const SCREEN_HEIGHT_PX = 400;
 	int const SCREEN_WIDTH_PX = 960;
