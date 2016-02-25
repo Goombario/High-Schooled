@@ -14,9 +14,7 @@ namespace Sprite
 	public:
 		Sprite();
 		Sprite(Image::Image const&);
-		Sprite(Sprite const&);
 
-		inline Sprite& operator=(Sprite const&);
 
 		/* Shift the sprite by x pixels right and y pixels down
 		* @param float x - A float representing the number of pixels to be moved along the x axis
@@ -61,10 +59,8 @@ namespace Sprite
 	public:
 		AnimatedSprite();
 		AnimatedSprite(Image::Image const&, Animation::AnimationData const&);
-		AnimatedSprite(AnimatedSprite const&);
 		~AnimatedSprite();
 
-		inline AnimatedSprite& operator=(AnimatedSprite const&);
 
 		// Draw the sprite to the screen.
 		void draw();
@@ -88,36 +84,6 @@ namespace Sprite
 		unsigned int numCol;		// The maximum number of columns
 		double time;
 	};
-
-	Sprite& Sprite::operator=(Sprite const& source)
-	{
-		if (&source == this)
-		{
-			return (*this);
-		}
-
-		this->posX = source.posX;
-		this->posY = source.posY;
-		this->angle = source.angle;
-		this->scaleX = source.scaleX;
-		this->scaleY = source.scaleY;
-		this->image = source.image;
-		return (*this);
-	}
-
-	AnimatedSprite& AnimatedSprite::operator = (AnimatedSprite const& source)
-	{
-		if (&source == this)
-		{
-			return (*this);
-		}
-
-		Sprite::operator=(source);
-		this->numCol = source.numCol;
-		this->data = source.data;
-		this->animationList = source.animationList;
-		return (*this);
-	}
 }
 
 #endif

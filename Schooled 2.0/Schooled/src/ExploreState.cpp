@@ -37,7 +37,7 @@ namespace ExploreState
 			loadImage("C:/Hg/schooled-2.0/Schooled 2.0/res/img/battle_base_spritesheet.png", 64, 64);
 		Animation::AnimationData playerSheet("PlayerAnimation.xml", 6);
 		Sprite::AnimatedSprite playerS(playerImage, playerSheet);
-		playerS.pushAnimation(Animation::IDLE);
+		playerS.pushAnimation(Animation::ATTACK_1);
 		player = Character::Character(playerS);
 		player.moveSprite(300, 300);
 	}
