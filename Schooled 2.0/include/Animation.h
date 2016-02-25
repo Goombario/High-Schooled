@@ -32,6 +32,7 @@ namespace Animation
 
 		// Get the animation from the identifier
 		inline Animation const& getAnimation(AnimationEnum const&) const;
+		//inline Animation const& getAnimation(int const&) const;
 		
 		// Get the numbers of columns
 		inline int const getNumCol() const { return numCol; }

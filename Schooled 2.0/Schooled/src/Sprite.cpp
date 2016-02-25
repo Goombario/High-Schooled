@@ -24,17 +24,6 @@ namespace Sprite
 		scaleY = 0.0f;
 	}
 
-	Sprite::Sprite(Sprite const& source) :
-		posX(source.posX),
-		posY(source.posY),
-		angle(source.angle),
-		scaleX(source.scaleX),
-		scaleY(source.scaleY),
-		image(source.image)
-	{
-
-	}
-
 	void Sprite::shift(float x, float y)
 	{
 		posX += x;
@@ -98,21 +87,9 @@ namespace Sprite
 		numCol = data.getNumCol();
 	}
 
-	AnimatedSprite::AnimatedSprite(AnimatedSprite const& source) :
-		Sprite(source),
-		animationList(source.animationList),
-		data(source.data),
-		row(source.row),
-		col(source.col),
-		numCol(source.numCol),
-		time(source.time)
-	{
-
-	}
-
 	AnimatedSprite::~AnimatedSprite()
 	{
-		animationList.clear();
+
 	}
 
 	void AnimatedSprite::draw()
@@ -132,7 +109,7 @@ namespace Sprite
 		//time += FzlGetDeltaTime();	//Broken currently
 		time += (1.0 / schooled::FRAMERATE);	// Locked framerate
 
-		std::cout << "Time: " << time << std::endl;
+		//std::cout << "Time: " << time << std::endl;
 		while (animationList.back().frames[col].duration <= time)
 		{
 			time -= animationList.back().frames[col].duration;
@@ -160,8 +137,8 @@ namespace Sprite
 	void AnimatedSprite::pushAnimation(Animation::AnimationEnum a)
 	{
 		Animation::Animation tempA = data.getAnimation(a);
-		row = (tempA.firstFrame % numCol);
-		col = (tempA.firstFrame / numCol);
+		row = (tempA.firstFrame / numCol);
+		col = (tempA.firstFrame % numCol);
 		animationList.push_back(tempA);
 	}
 
