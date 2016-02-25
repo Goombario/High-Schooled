@@ -1,5 +1,6 @@
 #include "Sprite.h"
 #include "Fizzle\Fizzle.h"
+#include "Schooled.h"
 
 // Sprite
 namespace Sprite
@@ -128,38 +129,32 @@ namespace Sprite
 
 	void AnimatedSprite::update()
 	{
-		time += FzlGetDeltaTime();
+		//time += FzlGetDeltaTime();	//Broken currently
+		time += (1.0 / schooled::FRAMERATE);	// Locked framerate
 
-		// On the first frame deltaTime returns negative
-		if (time < 0)
-		{
-			time = 0;
-		}
-
-		//std::cout << "Time: " << time << " delta: " << FzlGetDeltaTime() << std::endl;
-		if (animationList.back().frames[col].duration <= time)
+		std::cout << "Time: " << time << std::endl;
+		while (animationList.back().frames[col].duration <= time)
 		{
 			time -= animationList.back().frames[col].duration;
 			col++;
-		}
 
-		// If at the end of the animation
-		if (col >= animationList.back().frames.size())
-		{
-			if (animationList.back().loop)
+			// If at the end of the animation
+			if (col >= animationList.back().frames.size())
 			{
-				col = 0;
-			}
-			else
-			{
-				animationList.pop_back();
-				if (animationList.size() == 0)
+				if (animationList.back().loop)
 				{
-					pushAnimation(Animation::IDLE);
+					col = 0;
+				}
+				else
+				{
+					animationList.pop_back();
+					if (animationList.size() == 0)
+					{
+						pushAnimation(Animation::IDLE);
+					}
 				}
 			}
 		}
-
 	}
 
 	void AnimatedSprite::pushAnimation(Animation::AnimationEnum a)
