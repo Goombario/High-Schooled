@@ -10,11 +10,11 @@ namespace Image
 
 	ImageManager::~ImageManager()
 	{
+		// Delete all sprites within the manager
 		for (auto it = imageMap.begin(); it != imageMap.end(); it++)
 		{
 			FzlDeleteSprite((*it).second.handle);
 		}
-		imageMap.clear();
 	}
 
 	Image const& ImageManager::loadImage(std::string const& filePath, int const& frameWidth, int const& frameHeight)

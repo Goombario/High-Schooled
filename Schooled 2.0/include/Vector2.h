@@ -5,6 +5,13 @@
 
 namespace Vector
 {
+	enum class Axes
+	{
+		X_AXIS,
+		Y_AXIS,
+		Z_AXIS,
+	};
+
 	class Vector3
 	{
 	public:
@@ -19,7 +26,7 @@ namespace Vector
 		inline double const getMagnitude() const;
 		inline Vector3 const getNormalizedVector() const;
 		inline Vector3 const getProjection(Vector3 const& b) const;
-		inline Vector3 const rotate(Vector3 const& rotationVector) const;
+		inline Vector3 const rotate(Vector3 const& rotationVector) const;	// INCOMPLETE
 
 		// Setters
 		inline void setX(double const& newX) { x = newX; }
@@ -42,7 +49,7 @@ namespace Vector
 		inline friend Vector3 const operator *(const double&, Vector3 const&);
 
 	private:
-		bool const getRotationInformation(Vector3 const&, double&, int&);
+		bool const getRotationInformation(Vector3 const&, double&, Axes&);
 		double x, y, z;
 
 	};
@@ -59,7 +66,7 @@ namespace Vector
 		inline double const getMagnitude() const;
 		inline Vector2 const getNormalizedVector() const;
 		inline Vector2 const getProjection(Vector2 const& b) const;
-		inline Vector2 const rotate(Vector2 const& rotationVector) const;
+		inline Vector2 const rotate(Vector2 const& rotationVector) const;	// INCOMPLETE
 
 		// Setters
 		inline void setX(const double& newX) { x = newX; }
@@ -82,15 +89,7 @@ namespace Vector
 	private:
 		double x, y;
 	};
-
-	enum Axes
-	{
-		X_AXIS,
-		Y_AXIS,
-		Z_AXIS,
-	};
 }
-
 
 #include "Vector2.inl"
 

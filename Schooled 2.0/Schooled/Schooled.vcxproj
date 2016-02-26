@@ -91,7 +91,6 @@
     <ClCompile Include="src\input\InputMapper.cpp" />
     <ClCompile Include="src\input\pch.cpp" />
     <ClCompile Include="src\input\RangeConverter.cpp" />
-    <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\Schooled.cpp" />
     <ClCompile Include="src\ShareState.cpp" />
@@ -118,7 +117,6 @@
     <ClInclude Include="..\include\Input\pch.h" />
     <ClInclude Include="..\include\Input\RangeConverter.h" />
     <ClInclude Include="..\include\Input\RawInputConstants.h" />
-    <ClInclude Include="..\include\Item.h" />
     <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Schooled.h" />
     <ClInclude Include="..\include\ShareState.h" />
@@ -142,7 +140,9 @@
     <Xml Include="Contexts.xml" />
     <Xml Include="InputMap.xml" />
     <Xml Include="InputRanges.xml" />
-    <Xml Include="PlayerAnimation.xml" />
+    <Xml Include="PlayerAnimation.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

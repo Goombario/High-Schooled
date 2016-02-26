@@ -1,11 +1,7 @@
 #ifndef SCHOOLED_H
 #define SCHOOLED_H
 
-#include <Windows.h>
 #include <string>
-#include <vector>
-using std::string;
-using std::vector;
 
 namespace schooled
 {
@@ -27,35 +23,11 @@ namespace schooled
 	int const TILE_SIZE = 16;
 	int const TILE_SIZE_CENTER = TILE_SIZE / 2;
 
-	const vector<string> controlOptions = { "Classic", "Double-Tap", "Classic Lefty", "Double-Tap Lefty" };
-
 	// Return the setting that the key is attached to
-	string getSetting(string);
+	std::string getSetting(std::string);
 
 	// Get the path to the resources
-	std::string getResourcePath(const std::string &subDir = "");
+	std::string getResourcePath(std::string const& subDir = "");
 }
-
-// Structures
-struct Tile
-{
-	bool isPassable;
-	int tileInt;
-	char character;
-	int colorCode;
-};
-
-struct Stats
-{
-	int HP; //hit points
-	int EN;	//endurance
-	int STR; //strength
-};
-
-// Operators for manipulating COORDS
-bool operator ==(COORD a, COORD b);
-bool operator !=(COORD a, COORD b);
-COORD operator +(COORD a, COORD b);
-COORD operator -(COORD a, COORD b);
 
 #endif

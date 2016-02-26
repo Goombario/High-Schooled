@@ -47,22 +47,22 @@ namespace Vector
 		}
 
 		double rotateValue = 0;
-		int axis;
+		Axes axis;
 		//getRotationInformation(rotationVector, rotateValue, axis);
 		if (rotationVector.x != 0)
 		{
 			rotateValue = rotationVector.x;
-			axis = X_AXIS;
+			axis = Axes::X_AXIS;
 		}
 		else if (rotationVector.y != 0)
 		{
 			rotateValue = rotationVector.y;
-			axis = Y_AXIS;
+			axis = Axes::Y_AXIS;
 		}
 		else if (rotationVector.z != 0)
 		{
 			rotateValue = rotationVector.z;
-			axis = Z_AXIS;
+			axis = Axes::Z_AXIS;
 		}
 
 
@@ -157,8 +157,6 @@ namespace Vector
 	{
 		return Vector2(this->x*s, this->y*s);
 	}
-
-
 
 	inline Vector2 const operator *(const double& s, Vector2 const& a)
 	{

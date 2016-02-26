@@ -1,6 +1,5 @@
 #include "GameEngine.h"
 #include "GameState.h"
-#include "Room.h"
 #include "Schooled.h"
 #include "Input\InputMapper.h"
 #include "Image.h"
@@ -56,7 +55,7 @@ int GameEngine::Init_FMOD()
 	FMODErrorCheck(result);
 
 	// Load the banks
-	string bankPath = schooled::getResourcePath() + "../FMOD_Schooled/Build/Desktop/";
+	std::string bankPath = schooled::getResourcePath() + "../FMOD_Schooled/Build/Desktop/";
 	FMOD::Studio::Bank *masterBank = nullptr;
 	FMODErrorCheck(system->loadBankFile((bankPath + "Master Bank.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &masterBank));
 

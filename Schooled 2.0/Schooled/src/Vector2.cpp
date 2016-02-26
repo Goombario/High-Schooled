@@ -38,22 +38,22 @@ namespace Vector
 	}
 
 	bool const Vector3::getRotationInformation(const Vector3& rotationVector,
-		double& rotateValue, int& axis)
+		double& rotateValue, Axes& axis)
 	{
 		if (rotationVector.x != 0)
 		{
 			rotateValue = rotationVector.x;
-			axis = X_AXIS;
+			axis = Axes::X_AXIS;
 		}
 		else if (rotationVector.y != 0)
 		{
 			rotateValue = rotationVector.y;
-			axis = Y_AXIS;
+			axis = Axes::Y_AXIS;
 		}
 		else if (rotationVector.z != 0)
 		{
 			rotateValue = rotationVector.z;
-			axis = Z_AXIS;
+			axis = Axes::Z_AXIS;
 		}
 
 		if (rotateValue != 0)

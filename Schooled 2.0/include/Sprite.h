@@ -3,7 +3,6 @@
 
 #include "Image.h"
 #include "Animation.h"
-#include <string>
 
 namespace Sprite
 {
@@ -59,23 +58,21 @@ namespace Sprite
 	public:
 		AnimatedSprite();
 		AnimatedSprite(Image::Image const&, Animation::AnimationData const&);
-		~AnimatedSprite();
-
 
 		// Draw the sprite to the screen.
 		void draw();
-
-		/* 
-		* Advance the frame. If the frame reaches the end, repeat.
-		*/
+		 
+		// Updates the animation.
 		void update();
 
-		// Change the animation to the given animation.
+		// Change the current animation to the given animation.
 		void changeAnimation(Animation::AnimationEnum a);
 
 		// Add an animation to the list
 		void pushAnimation(Animation::AnimationEnum a);
 
+		// Stop the current animation and remove it from the list
+		void popAnimation();
 
 	private:
 		std::vector<Animation::Animation> animationList;

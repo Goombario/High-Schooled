@@ -7,13 +7,16 @@
 #include <iostream>
 #include "AnimationConstants.h"
 
+// The structures and classes required for animation
 namespace Animation
 {
+	// Frame structure holds the duration of the frame
 	struct Frame
 	{
 		double duration;
 	};
 
+	// Animation structure holds the data for a single animation
 	struct Animation
 	{
 		std::string name;
@@ -22,6 +25,7 @@ namespace Animation
 		std::vector<Frame> frames;
 	};
 
+	// AnimationData class holds multiple animation data read from a data file (XML)
 	class AnimationData
 	{
 	public:
@@ -32,15 +36,18 @@ namespace Animation
 
 		// Get the animation from the identifier
 		inline Animation const& getAnimation(AnimationEnum const&) const;
-		//inline Animation const& getAnimation(int const&) const;
 		
-		// Get the numbers of columns
+		// Get the numbers of columns given in the sprite sheet
 		inline int const getNumCol() const { return numCol; }
 	private:
 		std::map<AnimationEnum, Animation> animationMap;
 		int numCol;
 	};
+}
 
+// Inline member functions
+namespace Animation
+{
 	Animation const& AnimationData::getAnimation(AnimationEnum const& a) const
 	{
 		if (animationMap.find(a) != animationMap.end())
