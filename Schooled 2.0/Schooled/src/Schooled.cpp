@@ -2,34 +2,13 @@
 #include <fstream>
 #include <iostream>
 
-///////////////////////////////////////////////////////////////////////////////
-// Operators
 
-bool operator ==(COORD a, COORD b)
-{
-	return (a.X == b.X && a.Y == b.Y);
-}
 
-bool operator !=(COORD a, COORD b)
-{
-	return(a.X != b.X || a.Y != b.Y);
-}
-
-COORD operator +(COORD a, COORD b)
-{
-	return{ a.X + b.X, a.Y + b.Y };
-}
-
-COORD operator -(COORD a, COORD b)
-{
-	return{ a.X - b.X, a.Y - b.Y };
-}
-
-string schooled::getSetting(string a_key)
+std::string schooled::getSetting(std::string a_key)
 {
 	// Load settings from the file
 	std::ifstream stream("Settings.txt");
-	string line;
+	std::string line;
 
 	if (!stream)
 	{
@@ -49,7 +28,7 @@ string schooled::getSetting(string a_key)
 	return "";
 }
 
-string schooled::getResourcePath(const string &subDir)
+std::string schooled::getResourcePath(const std::string &subDir)
 {
 	return "../res/" + subDir + "/";
 }

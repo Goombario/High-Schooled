@@ -2,7 +2,6 @@
 #define GAMEENGINE_H
 
 #include <vector>
-using std::vector;
 
 // Forward Declarations
 namespace FMOD
@@ -59,7 +58,7 @@ private:
 	int Init_FMOD();
 
 	// The stack of states
-	vector <GameState*> states;
+	std::vector <GameState*> states;
 
 	// Represents if the program is running or not
 	bool m_running;

@@ -44,6 +44,7 @@ namespace Sprite
 
 	void Sprite::draw()
 	{
+		// If the scales have been tipped, draw the sprite scaled
 		if (scaleX != 0 || scaleY != 0)
 		{
 			FzlDrawSpriteScaled(image.handle, posX, posY, angle, scaleX, scaleY);
@@ -83,18 +84,14 @@ namespace Sprite
 	{
 		col = 0;
 		row = 0;
-		time = 0.0;
 		numCol = data.getNumCol();
-	}
-
-	AnimatedSprite::~AnimatedSprite()
-	{
-
+		time = 0.0;
 	}
 
 	void AnimatedSprite::draw()
 	{
-		if (scaleX != 0 || scaleY != 0)
+		// If the scales have tipped, draw the sprite scaled.
+		if (scaleX != 0.0f || scaleY != 0.0f)
 		{
 			FzlDrawAnimatedSpriteScaled(image.handle, row, col, posX, posY, angle, scaleX, scaleY);
 		}
@@ -109,7 +106,10 @@ namespace Sprite
 		//time += FzlGetDeltaTime();	//Broken currently
 		time += (1.0 / schooled::FRAMERATE);	// Locked framerate
 
-		//std::cout << "Time: " << time << std::endl;
+		//std::cout << "Time: " << time << std::endl;	// For testing purposes
+
+		// Checks if the time elapsed since the last frame drawn is large enough to advance
+		// To the next frame
 		while (animationList.back().frames[col].duration <= time)
 		{
 			time -= animationList.back().frames[col].duration;
@@ -118,6 +118,7 @@ namespace Sprite
 			// If at the end of the animation
 			if (col >= animationList.back().frames.size())
 			{
+				// If the animation loops
 				if (animationList.back().loop)
 				{
 					col = 0;
@@ -127,7 +128,7 @@ namespace Sprite
 					animationList.pop_back();
 					if (animationList.size() == 0)
 					{
-						pushAnimation(Animation::IDLE);
+						pushAnimation(Animation::AnimationEnum::IDLE);
 					}
 				}
 			}
@@ -137,14 +138,19 @@ namespace Sprite
 	void AnimatedSprite::pushAnimation(Animation::AnimationEnum a)
 	{
 		Animation::Animation tempA = data.getAnimation(a);
-		row = (tempA.firstFrame / numCol);
-		col = (tempA.firstFrame % numCol);
+		row = (tempA.firstFrame / numCol);	// Gets the row based on the first frame position
+		col = (tempA.firstFrame % numCol);	// Gets the column based on the first frame postion	(Mostly for debug)
 		animationList.push_back(tempA);
+	}
+
+	void AnimatedSprite::popAnimation()
+	{
+		animationList.pop_back();
 	}
 
 	void AnimatedSprite::changeAnimation(Animation::AnimationEnum a)
 	{
-		animationList.clear();
+		popAnimation();
 		pushAnimation(a);
 	}
 }

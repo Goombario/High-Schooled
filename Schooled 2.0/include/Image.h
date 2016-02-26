@@ -6,8 +6,10 @@
 #include <iostream>
 #include <map>
 
+// Image management structures and classes
 namespace Image
 {
+	// Structure that holds data for a single image
 	struct Image
 	{
 		FzlSpriteHandle handle;
@@ -15,6 +17,7 @@ namespace Image
 		int frameHeight;
 	};
 
+	// Class that manages image loading and deleting
 	class ImageManager
 	{
 	public:
@@ -22,17 +25,19 @@ namespace Image
 		~ImageManager();
 
 		/* Get the image based on the given filepath. If it doesn't exist, returns -1.
-		* @param string filePath - the path to the image
+		* @param string filePath - the path to the image file
 		*/
 		inline Image const& getImage(std::string const& filePath) const;
 		
 		/* Loads the image into memory. If it exists already, nothing happens.
-		* @param string filePath - the path to the image
+		* @param string const& filePath - the path to the image
+		* @param int const& frameWidth - the width of the image
+		* @param int const& frameHeight - the height of the image
 		*/
 		Image const& loadImage(std::string const& filePath, int const& frameWidth, int const& frameHeight);
 		
 		/* Deletes the image from memory, and removes it from the map.
-		* @param string filePath - the path to the image
+		* @param string filePath - the path to the image file
 		*/
 		void deleteImage(std::string const& filePath);
 

@@ -66,9 +66,6 @@
     <ClCompile Include="src\Character.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="src\Item.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Schooled.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -104,9 +101,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Item.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Schooled.h">
       <Filter>Classes</Filter>
     </ClInclude>

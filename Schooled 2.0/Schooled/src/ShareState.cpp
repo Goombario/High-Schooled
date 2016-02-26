@@ -1,19 +1,19 @@
 #include "ShareState.h"
 #include <fstream>
-#include <iostream>
 #include "Schooled.h"
+#include "RawInputConstants.h"
 
 using std::ifstream;
 using std::to_string;
 
 namespace shared
 {
-	vector<string> getRoomNames()
+	std::vector<std::string> getRoomNames()
 	{
-		vector<string> roomNameList;
+		std::vector<std::string> roomNameList;
 		int counter = 1;
 		ifstream stream;
-		string filename;
+		std::string filename;
 		bool good = true;
 
 		while (good)
@@ -34,15 +34,14 @@ namespace shared
 
 	void initValidKeys(std::vector<FzlKey>& validKeys)
 	{
-		validKeys.push_back(FzlKeyA);
-		validKeys.push_back(FzlKeyW);
-		validKeys.push_back(FzlKeyD);
-		validKeys.push_back(FzlKeyS);
-		validKeys.push_back(FzlKeySpace);
-		validKeys.push_back(FzlKeyEscape);
+		// Add all keys to the valid key list
+		for (auto it = InputMapping::FzlMap.begin(); it != InputMapping::FzlMap.end(); it++)
+		{
+			validKeys.push_back((*it).second);
+		}
 	}
 
-	void initPreviouslyPressed(std::map<FzlKey, bool>& previouslyPressed, const std::vector<FzlKey>& validKeys)
+	void initPreviouslyPressed(std::map<FzlKey, bool>& previouslyPressed, std::vector<FzlKey> const& validKeys)
 	{
 		for (FzlKey key : validKeys)
 		{

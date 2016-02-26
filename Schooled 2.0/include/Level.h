@@ -8,7 +8,7 @@
 #include <map>
 #include <string>
 
-
+// Forward declaration
 namespace Image
 {
 	class ImageManager;
@@ -16,12 +16,7 @@ namespace Image
 
 namespace Level
 {
-	struct Encounter
-	{
-		//Character::Character enemy;
-
-	};
-
+	// Helper class that holds the sprites for a layer (UNUSED)
 	struct SpriteLayer
 	{
 		std::vector<Sprite::AnimatedSprite> spriteList;
@@ -29,14 +24,44 @@ namespace Level
 		int depth;
 	};
 
+	// Helper struct that holds layer drawing details
 	struct LayerInfo
 	{
-		int order;
+		int zValue;
 		double parallax;
 		std::string type;
 		int index; // Index in the type collection
 	};
 
+	class Level
+	{
+	public:
+		Level();
+
+		/* Constructor that loads the data for a level and its images
+		* @param string const& mapFile - the name of the TMX file
+		* @param string const& dataFile - the name of the XML file that holds image data
+		*/
+		Level(std::string const& mapFile, std::string const& dataFile);
+
+		// Returns the map structure
+		const tmxparser::TmxMap* getMap() const { return &map; }
+
+		// Draws all layers of the map
+		void draw();
+
+		//bool isColliding(Character::Character const&);
+
+	private:
+		tmxparser::TmxMap map;
+		std::map<int, LayerInfo> layers;	// Holds all layer info in order of drawing
+	};
+}
+
+// Camera
+namespace Level
+{
+	// Class that manipulates the player's viewpoint (camera)
 	class Camera
 	{
 	public:
@@ -46,7 +71,7 @@ namespace Level
 
 		// Set the camera's current position
 		inline void setCurrentPos(Vector::Vector3 const& newPos) { currentPos = newPos; }
-		
+
 		// Set the camera's destination for it to move to
 		void setDestination(Vector::Vector3 const& newDestination);
 
@@ -62,38 +87,6 @@ namespace Level
 		Vector::Vector3 transformation;
 		float acceleration;
 	};
-
-	class Level
-	{
-	public:
-		Level();
-		Level(Level const&);
-		Level(std::string const& mapFile, std::string const& dataFile);
-		~Level();
-
-		const tmxparser::TmxMap* getMap() const { return &map; }
-
-		// Draws the map
-		void draw();
-
-		//bool isColliding(Character::Character const&);
-
-	private:
-		tmxparser::TmxMap map;
-		std::map<int, LayerInfo> layers;
-		std::vector<Encounter> encounterList;
-	};
-
-	//class LevelManager
-	//{
-	//public:
-	//	LevelManager();
-	//	~LevelManager();
-
-	//	int loadLevel(std::string mapFile);
-	//private:
-	//	std::vector<Level> levelList;
-	//};
 }
 
 

@@ -10,36 +10,6 @@
 
 using namespace tinyxml2;
 
-// Camera
-namespace Level
-{
-	Camera::Camera()
-	{
-
-	}
-
-	Camera::Camera(Vector::Vector3 const& newPos)
-	{
-		setCurrentPos(newPos);
-	}
-
-	Camera::~Camera()
-	{
-
-	}
-
-	void Camera::update()
-	{
-		// Move the current position towards the destination
-
-	}
-	void Camera::setDestination(Vector::Vector3 const& newDestination)
-	{
-		destination = newDestination;
-		transformation = newDestination - currentPos;
-	}
-}
-
 // Level
 namespace Level
 {
@@ -115,9 +85,9 @@ namespace Level
 			temp.type = "imageLayer";
 			if ((*it).propertyMap.find("z") != (*it).propertyMap.end())
 			{
-				temp.order = stoi((*it).propertyMap["z"]);
+				temp.zValue = stoi((*it).propertyMap["z"]);
 			}
-			else temp.order = 0;
+			else temp.zValue = 0;
 
 			if ((*it).propertyMap.find("parallax") != (*it).propertyMap.end())
 			{
@@ -125,7 +95,7 @@ namespace Level
 			}
 			else temp.parallax = 1.0;
 			
-			layers[temp.order] = temp;
+			layers[temp.zValue] = temp;
 
 			name = nullptr;
 
@@ -135,35 +105,52 @@ namespace Level
 		iManager = nullptr;
 	}
 
-	Level::Level(Level const& copy)
-	{
-		this->map = copy.map;
-		this->layers = copy.layers;
-		this->encounterList = copy.encounterList;
-	}
-
-	Level::~Level()
-	{
-
-	}
-
 	void Level::draw()
 	{
 		std::string resPath = schooled::getResourcePath("textures");
 		Image::ImageManager *iManager = GameEngine::getImageManager();
+
+		// Draws all layers in order of z value from the background to the character start
 		for (auto it = layers.begin(); it != layers.end(); it++)
 		{
 			if ((*it).second.type == "imageLayer")
 			{
-				tmxparser::TmxImageLayer * temp = &map.imageLayerCollection[(*it).second.index];
+				tmxparser::TmxImageLayer *temp = &map.imageLayerCollection[(*it).second.index];
 				FzlDrawSprite(
 					iManager->getImage(resPath + temp->image.source).handle, 
 					static_cast<float>(temp->x + temp->offsetx * (*it).second.parallax), 
 					static_cast<float>(temp->y + temp->offsety), 0.0f);
 			}
 		}
+	}
+}
+
+// Camera
+namespace Level
+{
+	Camera::Camera()
+	{
 
 	}
 
+	Camera::Camera(Vector::Vector3 const& newPos)
+	{
+		setCurrentPos(newPos);
+	}
 
+	Camera::~Camera()
+	{
+
+	}
+
+	void Camera::update()
+	{
+		// Move the current position towards the destination
+
+	}
+	void Camera::setDestination(Vector::Vector3 const& newDestination)
+	{
+		destination = newDestination;
+		transformation = newDestination - currentPos;
+	}
 }

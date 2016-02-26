@@ -3,6 +3,7 @@
 #include "ShareState.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
+
 #include "Image.h"
 #include "Level.h"
 #include "Schooled.h"
@@ -29,6 +30,7 @@ namespace ExploreState
 		// Hold pressed keys
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
 
+		// Load a level
 		string resPath = schooled::getResourcePath("levels");
 		testLevel = Level::Level(resPath + "Level1.tmx", resPath + "Level1.xml");
 
@@ -37,7 +39,7 @@ namespace ExploreState
 			loadImage("C:/Hg/schooled-2.0/Schooled 2.0/res/img/battle_base_spritesheet.png", 64, 64);
 		Animation::AnimationData playerSheet("PlayerAnimation.xml", 6);
 		Sprite::AnimatedSprite playerS(playerImage, playerSheet);
-		playerS.pushAnimation(Animation::ATTACK_1);
+		playerS.pushAnimation(Animation::AnimationEnum::ATTACK_1);
 		player = Character::Character(playerS);
 		player.moveSprite(300, 300);
 	}
@@ -80,6 +82,8 @@ namespace ExploreState
 	void mainCallback(InputMapping::MappedInput& inputs)
 	{
 		ExploreState *self = ExploreState::Instance();
+
+		self = nullptr;
 	}
 
 	void ExploreState::Update(GameEngine* game)

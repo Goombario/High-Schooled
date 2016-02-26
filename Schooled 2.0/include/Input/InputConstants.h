@@ -6,13 +6,13 @@
 
 namespace InputMapping
 {
-	enum Action
+	enum class Action
 	{
 		ATTACK,
 		EXIT_GAME,
 	};
 
-	enum State
+	enum class State
 	{
 		MOVE_LEFT,
 		MOVE_RIGHT,
@@ -20,7 +20,7 @@ namespace InputMapping
 		MOVE_DOWN,
 	};
 
-	enum Range
+	enum class Range
 	{
 		RANGE_ONE,
 		RANGE_TWO,
@@ -28,22 +28,22 @@ namespace InputMapping
 
 	static const std::map<std::string, Range> RangeLookup
 	{
-		{ "RANGE_ONE", RANGE_ONE },
-		{ "RANGE_TWO", RANGE_TWO },
+		{ "RANGE_ONE", Range::RANGE_ONE },
+		{ "RANGE_TWO", Range::RANGE_TWO },
 	};
 
 	static const std::map<std::string, Action> ActionLookup
 	{
-		{ "ATTACK", ATTACK },
-		{ "EXIT_GAME", EXIT_GAME },
+		{ "ATTACK", Action::ATTACK },
+		{ "EXIT_GAME", Action::EXIT_GAME },
 	};
 
 	static const std::map<std::string, State> StateLookup
 	{
-		{ "MOVE_LEFT", MOVE_LEFT },
-		{ "MOVE_RIGHT", MOVE_RIGHT },
-		{ "MOVE_UP", MOVE_UP },
-		{ "MOVE_DOWN", MOVE_DOWN },
+		{ "MOVE_LEFT", State::MOVE_LEFT },
+		{ "MOVE_RIGHT", State::MOVE_RIGHT },
+		{ "MOVE_UP", State::MOVE_UP },
+		{ "MOVE_DOWN", State::MOVE_DOWN },
 	};
 
 }

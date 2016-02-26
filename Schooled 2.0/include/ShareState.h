@@ -5,13 +5,12 @@
 #include <vector>
 #include <string>
 #include <map>
-using std::string;
-using std::vector;
 
+// Functions used by multiple states
 namespace shared
 {
 	// Get the list of room filenames
-	vector<string> getRoomNames();
+	std::vector<std::string> getRoomNames();
 
 	// Initializes a vector of available keys
 	void initValidKeys(std::vector<FzlKey>& validKeys);

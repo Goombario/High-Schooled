@@ -16,6 +16,7 @@ namespace FMOD
 // Utility namespace
 namespace FMOD_util
 {
+	// Checks for errors. Returns -1 if failed.
 	int FMODErrorCheck(FMOD_RESULT result);
 }
 
@@ -45,6 +46,7 @@ namespace Sound
 		FMOD::Studio::EventDescription *description = nullptr;
 	};
 
+	// Contains an instance of a sound event
 	class Instance
 	{
 	public:
@@ -71,9 +73,6 @@ namespace Sound
 	private:
 		FMOD::Studio::EventInstance *instance = nullptr;
 	};
-
-	//// Pointer to Sound object
-	//typedef Sound* SndPtr;
 }
 
 

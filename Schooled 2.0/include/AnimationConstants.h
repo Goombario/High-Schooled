@@ -6,7 +6,7 @@
 
 namespace Animation
 {
-	enum AnimationEnum
+	enum class AnimationEnum
 	{
 		ATTACK_1,
 		ATTACK_2,
@@ -17,11 +17,11 @@ namespace Animation
 
 	static const std::map<std::string, AnimationEnum> AnimationLookup
 	{
-		{ "ATTACK_1", ATTACK_1 },
-		{ "ATTACK_2", ATTACK_2 },
-		{ "ATTACK_3", ATTACK_3 },
-		{ "WALK_LEFT", WALK_LEFT },
-		{ "IDLE", IDLE }
+		{ "ATTACK_1", AnimationEnum::ATTACK_1 },
+		{ "ATTACK_2", AnimationEnum::ATTACK_2 },
+		{ "ATTACK_3", AnimationEnum::ATTACK_3 },
+		{ "WALK_LEFT", AnimationEnum::WALK_LEFT },
+		{ "IDLE", AnimationEnum::IDLE }
 	};
 }
 
