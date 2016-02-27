@@ -4,6 +4,10 @@
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
 
+#include "Player.h"
+#include "Stage.h"
+#include "Board.h"
+
 using std::string;
 
 namespace Rules
@@ -33,7 +37,7 @@ namespace BattleState
 
 	void BattleState::Cleanup()
 	{
-		// Cleanup all pointers
+		// Cleanup
 	}
 
 	void BattleState::Pause()

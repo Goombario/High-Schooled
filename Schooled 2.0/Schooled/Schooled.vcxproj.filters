@@ -28,14 +28,20 @@
     <Filter Include="States">
       <UniqueIdentifier>{b0a217b9-446c-411d-95e7-bae48d7db7fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Levels">
-      <UniqueIdentifier>{c3289da7-8eb8-4771-992d-a3a955793e67}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Input\Data">
       <UniqueIdentifier>{bdb61fcd-2f45-48c3-a556-bab6222dbbe9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Draw">
       <UniqueIdentifier>{1c45ee76-59cb-443a-bf29-0489cc32fa07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Battle Classes">
+      <UniqueIdentifier>{3ef7af3d-1869-430d-a842-c18529c336f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Explore Classes">
+      <UniqueIdentifier>{05efeffe-3947-4e9c-b465-b9cc6fc4662f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Explore Classes\Levels">
+      <UniqueIdentifier>{c3289da7-8eb8-4771-992d-a3a955793e67}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +69,6 @@
     <ClCompile Include="src\base64.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Character.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Schooled.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -87,9 +90,6 @@
     <ClCompile Include="src\Vector2.cpp">
       <Filter>Vector</Filter>
     </ClCompile>
-    <ClCompile Include="src\Level.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Image.cpp">
       <Filter>Draw</Filter>
     </ClCompile>
@@ -98,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="src\Animation.cpp">
       <Filter>Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Character.cpp">
+      <Filter>Explore Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Level.cpp">
+      <Filter>Explore Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +137,6 @@
     <ClInclude Include="..\include\Input\RangeConverter.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Character.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\BattleState.h">
       <Filter>States</Filter>
     </ClInclude>
@@ -145,9 +148,6 @@
     </ClInclude>
     <ClInclude Include="..\include\tinyxml2.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Level.h">
-      <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\base64.h">
       <Filter>Header Files</Filter>
@@ -173,6 +173,21 @@
     <ClInclude Include="..\include\AnimationConstants.h">
       <Filter>Draw</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Stage.h">
+      <Filter>Battle Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Player.h">
+      <Filter>Battle Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Board.h">
+      <Filter>Battle Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Character.h">
+      <Filter>Explore Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Level.h">
+      <Filter>Explore Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Vector2.inl">
@@ -186,7 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\res\levels\level1.xml">
-      <Filter>Levels</Filter>
+      <Filter>Explore Classes\Levels</Filter>
     </Xml>
     <Xml Include="Contexts.xml">
       <Filter>Input\Data</Filter>

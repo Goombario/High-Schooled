@@ -105,6 +105,7 @@
     <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\AnimationConstants.h" />
     <ClInclude Include="..\include\base64.h" />
+    <ClInclude Include="..\include\Board.h" />
     <ClInclude Include="..\include\Character.h" />
     <ClInclude Include="..\include\ExploreState.h" />
     <ClInclude Include="..\include\GameEngine.h" />
@@ -118,11 +119,13 @@
     <ClInclude Include="..\include\Input\RangeConverter.h" />
     <ClInclude Include="..\include\Input\RawInputConstants.h" />
     <ClInclude Include="..\include\Level.h" />
+    <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Schooled.h" />
     <ClInclude Include="..\include\ShareState.h" />
     <ClInclude Include="..\include\Sound.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\BattleState.h" />
+    <ClInclude Include="..\include\Stage.h" />
     <ClInclude Include="..\include\tinyxml2.h" />
     <ClInclude Include="..\include\tmxparser.h" />
     <ClInclude Include="..\include\Vector2.h" />

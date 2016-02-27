@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	}
 
 	// Load the first state
-	game.ChangeState(ExploreState::ExploreState::Instance());
+	game.ChangeState(BattleState::BattleState::Instance());
 
 	// Main game loop
 	while (game.Running())
