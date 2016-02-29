@@ -83,6 +83,7 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\base64.cpp" />
+    <ClCompile Include="src\Board.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\ExploreState.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="..\include\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\include\Board.inl" />
     <None Include="..\include\Vector2.inl" />
   </ItemGroup>
   <ItemGroup>

@@ -105,6 +105,9 @@
     <ClCompile Include="src\Level.cpp">
       <Filter>Explore Classes</Filter>
     </ClCompile>
+    <ClCompile Include="src\Board.cpp">
+      <Filter>Battle Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Schooled.h">
@@ -192,6 +195,9 @@
   <ItemGroup>
     <None Include="..\include\Vector2.inl">
       <Filter>Vector</Filter>
+    </None>
+    <None Include="..\include\Board.inl">
+      <Filter>Battle Classes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
