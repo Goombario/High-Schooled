@@ -8,6 +8,7 @@
 #include "Stage.h"
 #include "Board.h"
 
+#include <iostream>
 using std::string;
 
 namespace Rules
@@ -33,6 +34,18 @@ namespace BattleState
 
 		// Hold pressed keys
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
+
+		// Place tokens onto a board, and check for matches (DEBUG)
+		Board::Board testBoard;
+		testBoard.placeToken(0);
+		testBoard.placeToken(1);
+		testBoard.placeToken(2);
+		testBoard.placeToken(3);
+		testBoard.print();
+
+		std::cout << testBoard.checkMatches() << std::endl;
+		testBoard.print();
+
 	}
 
 	void BattleState::Cleanup()
