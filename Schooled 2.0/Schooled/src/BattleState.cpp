@@ -35,6 +35,11 @@ namespace BattleState
 		// Hold pressed keys
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
 
+		player1 = new Player::Player();
+		player2 = new Player::Player();
+		board1 = new Board::Board();
+		board2 = new Board::Board();
+
 		// Place tokens onto a board, and check for matches (DEBUG)
 		Board::Board testBoard;
 		testBoard.placeToken(0);
@@ -51,6 +56,15 @@ namespace BattleState
 	void BattleState::Cleanup()
 	{
 		// Cleanup
+		delete player1;
+		delete player2;
+		delete board1;
+		delete board2;
+
+		player1 = nullptr;
+		player2 = nullptr;
+		board1 = nullptr;
+		board2 = nullptr;
 	}
 
 	void BattleState::Pause()

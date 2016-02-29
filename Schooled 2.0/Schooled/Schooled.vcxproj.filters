@@ -13,35 +13,35 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{67a35aa6-bc1c-46b6-969e-c76d9161b287}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vector">
-      <UniqueIdentifier>{ab4e0f8d-5ec3-405c-9145-279859c3c8dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Classes">
-      <UniqueIdentifier>{c8b19e04-2083-4d38-a589-cd3bce97e3c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sound">
-      <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
-    </Filter>
     <Filter Include="States">
       <UniqueIdentifier>{b0a217b9-446c-411d-95e7-bae48d7db7fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Input\Data">
-      <UniqueIdentifier>{bdb61fcd-2f45-48c3-a556-bab6222dbbe9}</UniqueIdentifier>
+    <Filter Include="Battle">
+      <UniqueIdentifier>{705f4d81-5dbd-4986-b4e8-c4632a6e4e12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Draw">
-      <UniqueIdentifier>{1c45ee76-59cb-443a-bf29-0489cc32fa07}</UniqueIdentifier>
+    <Filter Include="Battle\Battle Data">
+      <UniqueIdentifier>{32dec29d-1b07-4f10-b96a-3eda0842262b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Battle Classes">
+    <Filter Include="Battle\Battle Classes">
       <UniqueIdentifier>{3ef7af3d-1869-430d-a842-c18529c336f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Explore Classes">
-      <UniqueIdentifier>{05efeffe-3947-4e9c-b465-b9cc6fc4662f}</UniqueIdentifier>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{f6ee1f2e-0eed-4876-ac1e-dd98eb76468f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Explore Classes\Levels">
-      <UniqueIdentifier>{c3289da7-8eb8-4771-992d-a3a955793e67}</UniqueIdentifier>
+    <Filter Include="Engine\Draw">
+      <UniqueIdentifier>{1c45ee76-59cb-443a-bf29-0489cc32fa07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{67a35aa6-bc1c-46b6-969e-c76d9161b287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input\Data">
+      <UniqueIdentifier>{bdb61fcd-2f45-48c3-a556-bab6222dbbe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Sound">
+      <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Vector">
+      <UniqueIdentifier>{ab4e0f8d-5ec3-405c-9145-279859c3c8dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,177 +49,150 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\input\InputContext.cpp">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\input\InputMapper.cpp">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\input\pch.cpp">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\input\RangeConverter.cpp">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\tinyxml2.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\tmxparser.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base64.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Schooled.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\sound.cpp">
-      <Filter>sound</Filter>
+      <Filter>Engine\Sound</Filter>
     </ClCompile>
     <ClCompile Include="src\ShareState.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="src\ExploreState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameEngine.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BattleState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
     <ClCompile Include="src\Vector2.cpp">
-      <Filter>Vector</Filter>
+      <Filter>Engine\Vector</Filter>
     </ClCompile>
     <ClCompile Include="src\Image.cpp">
-      <Filter>Draw</Filter>
+      <Filter>Engine\Draw</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite.cpp">
-      <Filter>Draw</Filter>
+      <Filter>Engine\Draw</Filter>
     </ClCompile>
     <ClCompile Include="src\Animation.cpp">
-      <Filter>Draw</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Character.cpp">
-      <Filter>Explore Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Level.cpp">
-      <Filter>Explore Classes</Filter>
+      <Filter>Engine\Draw</Filter>
     </ClCompile>
     <ClCompile Include="src\Board.cpp">
-      <Filter>Battle Classes</Filter>
+      <Filter>Battle\Battle Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>Battle\Battle Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BattleState.cpp">
+      <Filter>Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Schooled.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Schooled.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\GameEngine.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\GameState.h">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\ShareState.h">
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\FileIO.h">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\InputConstants.h">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\InputContext.h">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\InputMapper.h">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\pch.h">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\RangeConverter.h">
-      <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\BattleState.h">
-      <Filter>States</Filter>
+      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Sound.h">
-      <Filter>sound</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ExploreState.h">
-      <Filter>States</Filter>
+      <Filter>Engine\Sound</Filter>
     </ClInclude>
     <ClInclude Include="..\include\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\base64.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\tmxparser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Vector2.h">
-      <Filter>Vector</Filter>
+      <Filter>Engine\Vector</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Input\RawInputConstants.h">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Image.h">
-      <Filter>Draw</Filter>
+      <Filter>Engine\Draw</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Sprite.h">
-      <Filter>Draw</Filter>
+      <Filter>Engine\Draw</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Animation.h">
-      <Filter>Draw</Filter>
+      <Filter>Engine\Draw</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AnimationConstants.h">
-      <Filter>Draw</Filter>
+      <Filter>Engine\Draw</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Stage.h">
-      <Filter>Battle Classes</Filter>
+      <Filter>Battle\Battle Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Player.h">
-      <Filter>Battle Classes</Filter>
+      <Filter>Battle\Battle Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Board.h">
-      <Filter>Battle Classes</Filter>
+      <Filter>Battle\Battle Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Character.h">
-      <Filter>Explore Classes</Filter>
+    <ClInclude Include="..\include\BattleState.h">
+      <Filter>Battle</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Level.h">
-      <Filter>Explore Classes</Filter>
+    <ClInclude Include="..\include\GameEngine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameState.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Schooled.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Vector2.inl">
-      <Filter>Vector</Filter>
+      <Filter>Engine\Vector</Filter>
     </None>
     <None Include="..\include\Board.inl">
-      <Filter>Battle Classes</Filter>
+      <Filter>Battle\Battle Classes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\include\Input\License.txt">
-      <Filter>Input</Filter>
+      <Filter>Engine\Input</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\res\levels\level1.xml">
-      <Filter>Explore Classes\Levels</Filter>
-    </Xml>
     <Xml Include="Contexts.xml">
-      <Filter>Input\Data</Filter>
+      <Filter>Engine\Input\Data</Filter>
     </Xml>
     <Xml Include="InputMap.xml">
-      <Filter>Input\Data</Filter>
+      <Filter>Engine\Input\Data</Filter>
     </Xml>
     <Xml Include="InputRanges.xml">
-      <Filter>Input\Data</Filter>
+      <Filter>Engine\Input\Data</Filter>
     </Xml>
     <Xml Include="PlayerAnimation.xml">
-      <Filter>Draw</Filter>
+      <Filter>Engine\Draw</Filter>
+    </Xml>
+    <Xml Include="PlayerTemplate.xml">
+      <Filter>Battle\Battle Data</Filter>
     </Xml>
   </ItemGroup>
 </Project>

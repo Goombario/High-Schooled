@@ -12,6 +12,16 @@ namespace InputMapping
 	struct MappedInput;
 }
 
+namespace Board
+{
+	class Board;
+}
+
+namespace Player
+{
+	class Player;
+}
+
 namespace BattleState
 {
 	class BattleState : public GameState
@@ -48,6 +58,10 @@ namespace BattleState
 		static BattleState m_BattleState;
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
+		Player::Player* player1;
+		Player::Player* player2;
+		Board::Board* board1;
+		Board::Board* board2;
 	};
 }
 

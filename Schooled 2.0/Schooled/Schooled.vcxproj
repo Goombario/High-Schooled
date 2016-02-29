@@ -82,33 +82,26 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\Animation.cpp" />
-    <ClCompile Include="src\base64.cpp" />
     <ClCompile Include="src\Board.cpp" />
-    <ClCompile Include="src\Character.cpp" />
-    <ClCompile Include="src\ExploreState.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\input\InputContext.cpp" />
     <ClCompile Include="src\input\InputMapper.cpp" />
     <ClCompile Include="src\input\pch.cpp" />
     <ClCompile Include="src\input\RangeConverter.cpp" />
-    <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Schooled.cpp" />
     <ClCompile Include="src\ShareState.cpp" />
     <ClCompile Include="src\sound.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\BattleState.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
-    <ClCompile Include="src\tmxparser.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\AnimationConstants.h" />
-    <ClInclude Include="..\include\base64.h" />
     <ClInclude Include="..\include\Board.h" />
-    <ClInclude Include="..\include\Character.h" />
-    <ClInclude Include="..\include\ExploreState.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameState.h" />
     <ClInclude Include="..\include\Image.h" />
@@ -119,7 +112,6 @@
     <ClInclude Include="..\include\Input\pch.h" />
     <ClInclude Include="..\include\Input\RangeConverter.h" />
     <ClInclude Include="..\include\Input\RawInputConstants.h" />
-    <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Schooled.h" />
     <ClInclude Include="..\include\ShareState.h" />
@@ -128,7 +120,6 @@
     <ClInclude Include="..\include\BattleState.h" />
     <ClInclude Include="..\include\Stage.h" />
     <ClInclude Include="..\include\tinyxml2.h" />
-    <ClInclude Include="..\include\tmxparser.h" />
     <ClInclude Include="..\include\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -139,15 +130,13 @@
     <Text Include="..\include\Input\License.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\res\levels\level1.xml">
-      <SubType>Designer</SubType>
-    </Xml>
     <Xml Include="Contexts.xml" />
     <Xml Include="InputMap.xml" />
     <Xml Include="InputRanges.xml" />
     <Xml Include="PlayerAnimation.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="PlayerTemplate.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
