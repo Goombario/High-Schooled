@@ -1,0 +1,19 @@
+name=SQUARE
+damage=1
+cooldown=1
+numRows=3
+set=0
+range=
+0 0 1
+0 0 1
+0 0 1
+
+name=TRIANGLE
+damage=1
+cooldown=1
+numRows=3
+range=
+1 1 1
+0 0 0
+0 0 0
+

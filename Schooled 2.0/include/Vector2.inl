@@ -1,4 +1,5 @@
 // Implementation of Vector3
+/*
 namespace Vector
 {
 	inline double const Vector3::dot(Vector3 const& b) const
@@ -101,6 +102,7 @@ namespace Vector
 		return Vector3(a.x*s, a.y*s, a.z*s);
 	}
 }
+*/
 
 // Implementation of Vector2
 namespace Vector
@@ -143,9 +145,16 @@ namespace Vector
 		return (this->x == b.x && this->y == b.y);
 	}
 
+	inline Vector2& Vector2::operator +=(Vector2 const& b)
+	{
+		this->x += b.x;
+		this->y += b.y;
+		return (*this);
+	}
+
 	inline Vector2 const Vector2::operator +(Vector2 const& b) const
 	{
-		return Vector2(this->x + b.x, this->y + b.y);
+		return (Vector2(*this) += b);
 	}
 
 	inline Vector2 const Vector2::operator -(Vector2 const& b) const

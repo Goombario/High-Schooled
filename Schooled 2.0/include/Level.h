@@ -66,25 +66,25 @@ namespace Level
 	{
 	public:
 		Camera();
-		Camera(Vector::Vector3 const&);
+		Camera(Vector::Vector2 const&);
 		~Camera();
 
 		// Set the camera's current position
-		inline void setCurrentPos(Vector::Vector3 const& newPos) { currentPos = newPos; }
+		inline void setCurrentPos(Vector::Vector2 const& newPos) { currentPos = newPos; }
 
 		// Set the camera's destination for it to move to
-		void setDestination(Vector::Vector3 const& newDestination);
+		void setDestination(Vector::Vector2 const& newDestination);
 
 		// Move the camera towards the destination (with acceleration?)
 		void update();
 
 		// Get the current camera position
-		inline Vector::Vector3 const& getCurrentPos() const { return currentPos; }
+		inline Vector::Vector2 const& getCurrentPos() const { return currentPos; }
 
 	private:
-		Vector::Vector3 currentPos;
-		Vector::Vector3 destination;
-		Vector::Vector3 transformation;
+		Vector::Vector2 currentPos;
+		Vector::Vector2 destination;
+		Vector::Vector2 transformation;
 		float acceleration;
 	};
 }

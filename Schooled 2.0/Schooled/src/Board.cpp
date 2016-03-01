@@ -8,6 +8,8 @@ namespace Board
 	Board::Board()
 	{
 		playerLocation = 0;
+		firstPos = 0;
+
 		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 		{
 			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
@@ -23,6 +25,17 @@ namespace Board
 	{
 		boardTiles[location / Stage::BOARD_WIDTH]
 		[location % Stage::BOARD_HEIGHT].hasToken = true;	// UNSURE OF MATH
+	}
+
+	void Board::clearTokens()
+	{
+		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		{
+			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			{
+				boardTiles[w][h].hasToken = false;
+			}
+		}
 	}
 
 	int Board::checkMatches()
