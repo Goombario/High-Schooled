@@ -78,7 +78,8 @@ namespace Player
 
 		// Load the animation data
 		std::string animationName = spriteData->NextSiblingElement()->Attribute("name");
-		Animation::AnimationData animationData(schooled::getResourcePath("img") + "Image_Data/" + animationName);
+		Animation::AnimationData animationData
+			(schooled::getResourcePath("img") + "Image_Data/" + animationName);
 
 		// Set up the sprite
 		(*this).sprite = new Sprite::AnimatedSprite(spriteImage, animationData);
@@ -123,6 +124,20 @@ namespace Player
 				->QueryIntText(&tempAttack.damage));
 
 			// RANGE
+			std::string rangeString;
+			rangeString = attackData->FirstChildElement("Range")->GetText();
+			int rangeCounter = 0;
+
+			// Go through the range string, and determine where the ranges go
+			for (int it = 0; it != rangeString.size(); it++)
+			{
+				if (rangeString[it] != ' ' && rangeString[it] != '\n')
+				{
+					tempAttack.range[rangeCounter / Stage::BOARD_WIDTH]
+						[rangeCounter % Stage::BOARD_HEIGHT] = (rangeString[it] == '1');
+					rangeCounter++;
+				}
+			}
 
 			(*this).attacks.push_back(tempAttack);
 			(*this).numAttacks++;
