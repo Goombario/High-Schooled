@@ -132,13 +132,11 @@
     <Text Include="..\include\Input\License.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\res\img\Image_Data\GymTeacher.xml" />
     <Xml Include="Contexts.xml" />
     <Xml Include="InputMap.xml" />
     <Xml Include="InputRanges.xml" />
     <Xml Include="PlayerData.xml" />
-    <Xml Include="PlayerAnimation.xml">
-      <SubType>Designer</SubType>
-    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

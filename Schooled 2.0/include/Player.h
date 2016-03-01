@@ -13,7 +13,7 @@ namespace Board
 
 namespace Sprite
 {
-	class Sprite;
+	class AnimatedSprite;
 }
 
 namespace Player
@@ -21,11 +21,11 @@ namespace Player
 	// Helper struct holds stats for a player
 	struct Stats
 	{
-		int maxHP;
+		int maxHP;	// Health points
 		int currentHP;
-		int maxSP;
+		int maxSP;	// Special points
 		int currentSP;
-		int maxAP;
+		int maxAP;	// Action points
 		int currentAP;
 	};
 
@@ -34,9 +34,9 @@ namespace Player
 	{
 		std::string name;
 		bool range[Stage::BOARD_WIDTH][Stage::BOARD_HEIGHT];
-		bool isStatic;
+		bool isStatic;	// If the range moves with the player
 		int damage;
-		int cooldown;
+		int cooldown;	// Number of turns before move can be used again
 		int currentCooldown;
 	};
 
@@ -47,9 +47,8 @@ namespace Player
 		bool removesAllTokens;	
 		bool removesEnemyTokens;	// Both options for testing purposes
 		bool resetCooldowns;
-		//bool setPosition;	// ???
-		int heal;
-		int damage;
+		int heal;	// How much the player is healed
+		int damage;	// How much the enemy player is damaged
 	};
 
 	// Player class holds a player's data and tools to manipulate it.
@@ -62,8 +61,8 @@ namespace Player
 		Player(const char* playerName, Board::Board*);
 
 		// Rule of three
-		Player(Player const&);
-		Player& operator=(Player const&);
+		Player(Player const&);		// NEED UPDATE
+		Player& operator=(Player const&);		// NEED UPDATE
 		~Player();
 
 		// Changes health of enemy player, tokens on enemy board
@@ -86,6 +85,9 @@ namespace Player
 		// Resets cooldowns
 		void startTurn();
 
+		// Update the player's animations
+		void update();
+
 		// Draw the player to the screen
 		void draw();
 
@@ -94,7 +96,7 @@ namespace Player
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		SpecialAbility ability;
-		Sprite::Sprite *sprite;
+		Sprite::AnimatedSprite *sprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
 	};
 

@@ -78,10 +78,7 @@ namespace Player
 
 		// Load the animation data
 		std::string animationName = spriteData->NextSiblingElement()->Attribute("name");
-		int numCol;
-		CheckXMLResult(spriteData->NextSiblingElement()
-			->QueryIntAttribute("numCol", &numCol));
-		Animation::AnimationData animationData(schooled::getResourcePath("img") + "/Image_Data/" + animationName, numCol);
+		Animation::AnimationData animationData(schooled::getResourcePath("img") + "Image_Data/" + animationName);
 
 		// Set up the sprite
 		(*this).sprite = new Sprite::AnimatedSprite(spriteImage, animationData);
@@ -160,6 +157,13 @@ namespace Player
 		this->boardPtr = source.boardPtr;
 	}
 
+	Player& Player::operator=(Player const& source)
+	{
+		this->sprite = source.sprite;	// Unknown if good
+		this->boardPtr = source.boardPtr;
+		return (*this);
+	}
+
 	Player::~Player()
 	{
 		delete sprite;
@@ -178,25 +182,36 @@ namespace Player
 			{
 				if (currentAttack->range[w][h])
 				{
-					int modifiedPos = boardPtr->getPlayerlocation()
-						+ currentAttack->range[w][h];
-
-					// If the modified value is greater than the size of the board, wrap
-					if (modifiedPos >= Stage::BOARD_HEIGHT 
-						* Stage::BOARD_WIDTH)
+					int pos;
+					// If the attack changes with player position,
+					if (!currentAttack->isStatic)
 					{
-						modifiedPos = (Stage::BOARD_HEIGHT * Stage::BOARD_WIDTH)
-							- modifiedPos;
-					}
+						pos = boardPtr->getPlayerlocation()
+							+ currentAttack->range[w][h];
 
-					// If the player is at that position
-					if (enemy.boardPtr->getPlayerlocation() == modifiedPos)
+						// If the modified value is greater 
+						// than the size of the board, wrap
+						if (pos >= Stage::BOARD_HEIGHT
+							* Stage::BOARD_WIDTH)
+						{
+							pos = (Stage::BOARD_HEIGHT 
+								* Stage::BOARD_WIDTH)- pos;
+						}
+					}
+					else
+					{	// The attack pattern doesn't change
+						pos = currentAttack->range[w][h];
+					}
+					
+					// If the player is at that position, deal damage
+					// Else, place a token.
+					if (enemy.boardPtr->getPlayerlocation() == pos)
 					{
 						enemy.changeHealth(currentAttack->damage);
 					}
 					else
-					{
-						enemy.boardPtr->placeToken(modifiedPos);
+					{	
+						enemy.boardPtr->placeToken(pos);
 					}
 				}
 			}
@@ -254,9 +269,28 @@ namespace Player
 			}
 		}
 
-		//if (ability.setPosition)
-		//{
-		//	// ???
-		//}
+		// Decrease the special meter
+		(*this).stats.currentSP -= (*this).stats.maxSP;
+	}
+
+	void Player::startTurn()
+	{
+		for (auto it = attacks.begin(); it != attacks.end(); it++)
+		{
+			if ((*it).currentCooldown > 0)
+				(*it).currentCooldown--;
+		}
+
+		stats.currentAP = stats.maxAP;
+	}
+
+	void Player::update()
+	{
+		sprite->update();
+	}
+
+	void Player::draw()
+	{
+		sprite->draw();
 	}
 }

@@ -31,7 +31,7 @@ namespace Animation
 	public:
 		// Loads the data from the given file
 		AnimationData();
-		AnimationData(std::string const& dataPath, int const& numCol);
+		AnimationData(std::string const& dataPath);
 		~AnimationData();
 
 		// Get the animation from the identifier

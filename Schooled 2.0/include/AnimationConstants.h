@@ -12,7 +12,8 @@ namespace Animation
 		ATTACK_2,
 		ATTACK_3,
 		WALK_LEFT,
-		IDLE
+		IDLE,
+		IDLE_BORED,
 	};
 
 	static const std::map<std::string, AnimationEnum> AnimationLookup
@@ -21,7 +22,8 @@ namespace Animation
 		{ "ATTACK_2", AnimationEnum::ATTACK_2 },
 		{ "ATTACK_3", AnimationEnum::ATTACK_3 },
 		{ "WALK_LEFT", AnimationEnum::WALK_LEFT },
-		{ "IDLE", AnimationEnum::IDLE }
+		{ "IDLE", AnimationEnum::IDLE },
+		{ "IDLE_BORED", AnimationEnum::IDLE_BORED },
 	};
 }
 

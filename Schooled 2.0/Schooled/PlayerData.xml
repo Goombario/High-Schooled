@@ -52,8 +52,8 @@
 
   <Player name="Gym Teacher">
     <!--Sprite Data-->
-    <Sprite name="GymTeacher.png" frameWidth="32" frameHeight="32"/>
-    <Animation name="GymTeacher.xml" numCol="6"/>
+    <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
+    <Animation name="GymTeacher.xml"/>
 
     <!--Statistics-->
     <Stats>

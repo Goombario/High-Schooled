@@ -104,13 +104,15 @@ namespace BattleState
 
 	void BattleState::Update(GameEngine* game)
 	{
-
+		player1->update();
+		player2->update();
 		// FMOD updates automatically at end
 	}
 
 	void BattleState::Draw(GameEngine* game)
 	{
-
+		player1->draw();
+		player2->draw();
 		// Fizzle swaps buffer automatically at end
 	}
 }
