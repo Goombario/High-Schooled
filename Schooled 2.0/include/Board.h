@@ -45,15 +45,21 @@ namespace Board
 		// Draw the board tiles to the screen
 		void draw();
 
-		// Print the tile properties to the console (DEBUG)
+		// Removes all tokens from the board
+		void clearTokens();
+
+		// Print the token properties to the console (DEBUG)
 		void print();
 
 		// Set the player location
 		inline void setPlayerLocation(unsigned int newLocation) { playerLocation = newLocation; }
+		inline unsigned int getPlayerlocation() { return playerLocation; }
 
 	private:
 		Tile boardTiles[Stage::BOARD_WIDTH][Stage::BOARD_HEIGHT];
 		unsigned int playerLocation;
+		unsigned int firstPos;	// The position at beginning of turn
+
 	};
 }
 

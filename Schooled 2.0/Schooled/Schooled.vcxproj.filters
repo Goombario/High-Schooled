@@ -96,6 +96,9 @@
     <ClCompile Include="src\Schooled.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\ShareState.h">
@@ -164,6 +167,9 @@
     <ClInclude Include="..\include\Schooled.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\GameObject.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Vector2.inl">
@@ -188,10 +194,10 @@
     <Xml Include="InputRanges.xml">
       <Filter>Engine\Input\Data</Filter>
     </Xml>
-    <Xml Include="PlayerAnimation.xml">
-      <Filter>Engine\Draw</Filter>
+    <Xml Include="PlayerData.xml">
+      <Filter>Battle\Battle Data</Filter>
     </Xml>
-    <Xml Include="PlayerTemplate.xml">
+    <Xml Include="PlayerAnimation.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
   </ItemGroup>

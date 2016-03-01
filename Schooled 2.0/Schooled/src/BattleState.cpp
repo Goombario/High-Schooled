@@ -35,10 +35,10 @@ namespace BattleState
 		// Hold pressed keys
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
 
-		player1 = new Player::Player();
-		player2 = new Player::Player();
 		board1 = new Board::Board();
 		board2 = new Board::Board();
+		player1 = new Player::Player("Gym Teacher", board1);
+		player2 = new Player::Player("Gym Teacher", board2);
 
 		// Place tokens onto a board, and check for matches (DEBUG)
 		Board::Board testBoard;
