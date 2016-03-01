@@ -32,6 +32,9 @@ namespace Sprite
 		// Set the current angle.
 		void setAngle(float angle);
 
+		// Set the image
+		inline void setImage(Image::Image const& newImage) { image = newImage; }
+
 		// Increase the rotation of the angle by the given float.
 		void rotate(float angle);
 
@@ -56,7 +59,6 @@ namespace Sprite
 	class AnimatedSprite : public Sprite
 	{
 	public:
-		AnimatedSprite();
 		AnimatedSprite(Image::Image const&, Animation::AnimationData const&);
 
 		// Draw the sprite to the screen.

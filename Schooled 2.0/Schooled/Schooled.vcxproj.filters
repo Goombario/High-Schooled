@@ -197,7 +197,7 @@
     <Xml Include="PlayerData.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
-    <Xml Include="PlayerAnimation.xml">
+    <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
   </ItemGroup>

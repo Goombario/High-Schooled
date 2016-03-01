@@ -12,6 +12,9 @@ namespace Sprite
 		angle = 0.0f;
 		scaleX = 0.0f;
 		scaleY = 0.0f;
+		image.handle = 0;
+		image.frameHeight = 0;
+		image.frameWidth = 0;
 	}
 
 	Sprite::Sprite(Image::Image const& i) :
@@ -71,14 +74,6 @@ namespace Sprite
 namespace Sprite
 {
 
-	AnimatedSprite::AnimatedSprite() : Sprite()
-	{
-		col = 0;
-		row = 0;
-		numCol = 0;
-		time = 0.0;
-	}
-
 	AnimatedSprite::AnimatedSprite(Image::Image const& i, Animation::AnimationData const& sheet)
 		: Sprite(i), data(sheet)
 	{
@@ -86,6 +81,8 @@ namespace Sprite
 		row = 0;
 		numCol = data.getNumCol();
 		time = 0.0;
+
+		pushAnimation(Animation::AnimationEnum::IDLE);
 	}
 
 	void AnimatedSprite::draw()

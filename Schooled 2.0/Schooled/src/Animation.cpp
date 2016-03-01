@@ -9,8 +9,7 @@ namespace Animation
 	{
 		numCol = 0;
 	}
-	AnimationData::AnimationData(std::string const& dataPath, int const& c)
-		: numCol(c)
+	AnimationData::AnimationData(std::string const& dataPath)
 	{
 		// Open the XML Document
 		XMLDocument data;
@@ -23,6 +22,7 @@ namespace Animation
 			std::cerr << "ERROR: Loading animation data file: " << std::endl << XML_ERROR_FILE_READ_ERROR << std::endl;
 			exit(-1);
 		}
+		CheckXMLResult(root->ToElement()->QueryIntAttribute("numCol", &numCol));
 
 		// Retrieve the animations
 		XMLElement *animElement;
