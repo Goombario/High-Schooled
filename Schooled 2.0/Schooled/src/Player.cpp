@@ -24,7 +24,7 @@ namespace Player
 		boardPtr = nullptr;
 	}
 
-	Player::Player(const char* playerName, Board::Board* playerBoard)
+	Player::Player(const char* playerName, Board::Board* playerBoard, Side s)
 	{
 		boardPtr = playerBoard;
 
@@ -83,6 +83,8 @@ namespace Player
 
 		// Set up the sprite
 		(*this).sprite = new Sprite::AnimatedSprite(spriteImage, animationData);
+		side = s;
+		moveSpriteToSide(side);
 
 		// Load statistics
 		XMLElement *statsData = playerData->FirstChildElement("Stats");
@@ -189,6 +191,12 @@ namespace Player
 	{
 		Attack *currentAttack = &attacks.at(attackNum);
 
+		// Don't attack if the cooldown is still in effect
+		if (currentAttack->cooldown != 0)
+		{
+			return;
+		}
+
 		// Check each space if it is being attacked,
 		// And change the player and board accordingly
 		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
@@ -288,6 +296,57 @@ namespace Player
 		(*this).stats.currentSP -= (*this).stats.maxSP;
 	}
 
+	void Player::move(Direction d)
+	{
+		// Determine the value to change by
+		int change = 0;
+		switch (d)
+		{
+		case Direction::UP:
+			change = -3;
+			break;
+		case Direction::DOWN:
+			change = 3;
+			break;
+		case Direction::FORWARD:
+			change = 1;
+			break;
+		case Direction::BACKWARD:
+			change = -1;
+			break;
+		}
+
+		int boardSize = Stage::BOARD_HEIGHT * Stage::BOARD_WIDTH;
+
+		// If the movement is outside of the grid, don't move
+		if (static_cast<int>(boardPtr->getPlayerlocation()) + change >= boardSize ||
+			static_cast<int>(boardPtr->getPlayerlocation() + change) < 0)
+		{
+			return;
+		}
+
+		// If trying to go forward or backward when at a relative edge, deny
+		if (d == Direction::FORWARD && static_cast<int>(boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH + 1) == Stage::BOARD_WIDTH ||
+			d == Direction::BACKWARD && static_cast<int>(boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH) == 0)
+		{
+			return;
+		}
+
+		// Move the character on the grid
+		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
+		moveSpriteToSide(side);
+	}
+
+	void Player::moveSpriteToSide(Side s)
+	{
+		float centerX = schooled::SCREEN_WIDTH_PX / 2;
+		int orientation = (s == Side::LEFT) ? 1 : -1;
+		float initX = (s == Side::LEFT) ? OFFSET_X : centerX + OFFSET_X;
+		sprite->move(initX + ((boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH) * 40 * orientation)
+			+ (boardPtr->getPlayerlocation() / Stage::BOARD_HEIGHT) * 20,
+			OFFSET_Y - ((boardPtr->getPlayerlocation() / Stage::BOARD_HEIGHT) * 35 * orientation));
+	}
+
 	void Player::startTurn()
 	{
 		for (auto it = attacks.begin(); it != attacks.end(); it++)
@@ -304,7 +363,7 @@ namespace Player
 		sprite->update();
 	}
 
-	void Player::draw()
+	void Player::draw() const
 	{
 		sprite->draw();
 	}

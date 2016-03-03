@@ -24,7 +24,23 @@ namespace Board
 	void Board::placeToken(int location)
 	{
 		boardTiles[location / Stage::BOARD_WIDTH]
-		[location % Stage::BOARD_HEIGHT].hasToken = true;	// UNSURE OF MATH
+		[location % Stage::BOARD_HEIGHT].hasToken = true;
+	}
+
+	void Board::placeToken(int w, int h)
+	{
+		boardTiles[w][h].hasToken = true;
+	}
+
+	void Board::removeToken(int location)
+	{
+		boardTiles[location / Stage::BOARD_WIDTH]
+			[location % Stage::BOARD_HEIGHT].hasToken = false;
+	}
+
+	void Board::removeToken(int w, int h)
+	{
+		boardTiles[w][h].hasToken = false;
 	}
 
 	void Board::clearTokens()
@@ -33,7 +49,7 @@ namespace Board
 		{
 			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 			{
-				boardTiles[w][h].hasToken = false;
+				removeToken(w, h);
 			}
 		}
 	}
@@ -61,7 +77,7 @@ namespace Board
 				// Add the completed row to the temporary board
 				for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 				{
-					tempBoard.boardTiles[w][h].hasToken = true;
+					tempBoard.placeToken(w, h);
 				}
 			}
 		}
@@ -83,7 +99,7 @@ namespace Board
 				// Add the completed column to the temporary board
 				for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 				{
-					tempBoard.boardTiles[w][h].hasToken = true;
+					tempBoard.placeToken(w, h);
 				}
 			}
 		}

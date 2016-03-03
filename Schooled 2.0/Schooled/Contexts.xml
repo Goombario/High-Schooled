@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Contexts>
+
+  <Context name="player1Action">
+    <Action>BOARD_UP</Action>
+    <Action>BOARD_DOWN</Action>
+    <Action>BOARD_FORWARD</Action>
+    <Action>BOARD_BACKWARD</Action>
+    <Action>ATTACK_1</Action>
+    <Action>ATTACK_2</Action>
+    <Action>ATTACK_3</Action>
+  </Context>
+
+  <Context name="player2Action">
+    <Action>BOARD_UP</Action>
+    <Action>BOARD_DOWN</Action>
+    <Action>BOARD_FORWARD</Action>
+    <Action>BOARD_BACKWARD</Action>
+    <Action>ATTACK_1</Action>
+    <Action>ATTACK_2</Action>
+    <Action>ATTACK_3</Action>
+  </Context>
   
   <Context name="globalContext">
-    <Action>ATTACK</Action>
     <Action>EXIT_GAME</Action>
-    <State>MOVE_LEFT</State>
-    <State>MOVE_RIGHT</State>
-    <Range>RANGE_ONE</Range>
   </Context>
   
 </Contexts>

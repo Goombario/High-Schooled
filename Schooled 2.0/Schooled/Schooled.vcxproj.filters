@@ -99,6 +99,9 @@
     <ClCompile Include="src\GameObject.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Stage.cpp">
+      <Filter>Battle\Battle Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\ShareState.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="..\include\GameObject.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BattleConstants.h">
+      <Filter>Battle\Battle Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

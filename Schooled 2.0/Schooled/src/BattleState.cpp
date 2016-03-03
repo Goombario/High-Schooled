@@ -23,11 +23,12 @@ namespace BattleState
 	void BattleState::Init()
 	{
 		// Initialize the mapper context
-		// Tells the mapper to map a specific set of keys to a specific set of actions
-		GameEngine::getMapper()->PushContext("globalContext");
-
 		// Tells the mapper to call the given function after the contexts have been mapped.
 		GameEngine::getMapper()->AddCallback(mainCallback, 0);
+
+		// Tells the mapper to map a specific set of keys to a specific set of actions
+		GameEngine::getMapper()->PushContext("globalContext");
+		GameEngine::getMapper()->PushContext("player1Action");
 
 		// Hold valid keys
 		shared::initValidKeys(validKeys);
@@ -37,20 +38,13 @@ namespace BattleState
 
 		board1 = new Board::Board();
 		board2 = new Board::Board();
-		player1 = new Player::Player("Gym Teacher", board1);
-		player2 = new Player::Player("Gym Teacher", board2);
+		player1 = new Player::Player("Gym Teacher", board1, Side::LEFT);
+		player2 = new Player::Player("Gym Teacher", board2, Side::RIGHT);
+		stage = new Stage::Stage("Battle_background.png", 384, 182, *player1, *player2);
 
-		// Place tokens onto a board, and check for matches (DEBUG)
-		Board::Board testBoard;
-		testBoard.placeToken(0);
-		testBoard.placeToken(1);
-		testBoard.placeToken(2);
-		testBoard.placeToken(3);
-		testBoard.print();
+		playerTurn = Side::LEFT;
 
-		std::cout << testBoard.checkMatches() << std::endl;
-		testBoard.print();
-
+		isEnd = false;
 	}
 
 	void BattleState::Cleanup()
@@ -58,13 +52,13 @@ namespace BattleState
 		// Cleanup
 		delete player1;
 		delete player2;
-		delete board1;
-		delete board2;
+		delete stage;
 
 		player1 = nullptr;
 		player2 = nullptr;
 		board1 = nullptr;
 		board2 = nullptr;
+		stage = nullptr;
 	}
 
 	void BattleState::Pause()
@@ -100,20 +94,91 @@ namespace BattleState
 	void mainCallback(InputMapping::MappedInput& inputs)
 	{
 		BattleState *self = BattleState::Instance();
+		if (inputs.Actions.find(InputMapping::Action::BOARD_UP) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->move(Direction::UP);
+			inputs.EatAction(InputMapping::Action::BOARD_UP);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::BOARD_DOWN) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->move(Direction::DOWN);
+			inputs.EatAction(InputMapping::Action::BOARD_DOWN);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::BOARD_FORWARD) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->move(Direction::FORWARD);
+			inputs.EatAction(InputMapping::Action::BOARD_FORWARD);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::BOARD_BACKWARD) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->move(Direction::BACKWARD);
+			inputs.EatAction(InputMapping::Action::BOARD_BACKWARD);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::ATTACK_1) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 0);
+			inputs.EatAction(InputMapping::Action::ATTACK_1);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::ATTACK_2) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 1);
+			inputs.EatAction(InputMapping::Action::ATTACK_2);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::ATTACK_3) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 2);
+			inputs.EatAction(InputMapping::Action::ATTACK_3);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::EXIT_GAME) != inputs.Actions.end())
+		{
+			self->isEnd = true;
+			inputs.EatAction(InputMapping::Action::EXIT_GAME);
+		}
 	}
 
 	void BattleState::Update(GameEngine* game)
 	{
+		if (isEnd) game->Quit();
 		player1->update();
 		player2->update();
+		stage->update();
 		// FMOD updates automatically at end
 	}
 
 	void BattleState::Draw(GameEngine* game)
 	{
+		stage->drawBackground();
 		player1->draw();
 		player2->draw();
+		stage->drawHUD();
 		// Fizzle swaps buffer automatically at end
+	}
+
+	void BattleState::swapCurrentPlayer()
+	{
+		playerTurn = (playerTurn == Side::LEFT) ? Side::RIGHT : Side::LEFT;
+		getCurrentPlayer()->startTurn();
+	}
+
+	Player::Player* BattleState::getCurrentPlayer()
+	{
+		if (playerTurn == Side::LEFT)
+			return player1;
+		return player2;
+	}
+
+	Player::Player* BattleState::getOtherPlayer()
+	{
+		if (playerTurn == Side::LEFT)
+			return player2;
+		return player1;
 	}
 }
 
