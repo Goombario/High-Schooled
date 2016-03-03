@@ -1,55 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Players>
-  <Player name="Template">
-    <!--Sprite Data-->
-    <Sprite name="" frameWidth="" frameHeight=""/>
-    <Animation name="" numCol=""/>
-
-    <!--Statistics-->
-    <Stats>
-      <MaxHP></MaxHP>
-      <MaxSP></MaxSP>
-      <MaxAP></MaxAP>
-    </Stats>
-
-    <!--List of attacks and attack properties-->
-    <Attacks>
-      <Attack name="">
-        <Cooldown></Cooldown>
-        <Static></Static>
-        <Damage></Damage>
-        <Range>
-          
-        </Range>
-      </Attack>
-      <Attack name="">
-        <Cooldown></Cooldown>
-        <Static></Static>
-        <Damage></Damage>
-        <Range>
-
-        </Range>
-      </Attack>
-      <Attack name="">
-        <Cooldown></Cooldown>
-        <Static></Static>
-        <Damage></Damage>
-        <Range>
-
-        </Range>
-      </Attack>
-    </Attacks>
-
-    <!--Special ability properties-->
-    <Special>
-      <RemoveAllTokens></RemoveAllTokens>
-      <RemoveEnemyTokens></RemoveEnemyTokens>
-      <ResetCooldowns></ResetCooldowns>
-      <Heal></Heal>
-      <Damage></Damage>
-    </Special>
-  </Player>
-
   <Player name="Gym Teacher">
     <!--Sprite Data-->
     <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
@@ -103,6 +53,56 @@
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
+    </Special>
+  </Player>
+  
+    <Player name="Template">
+    <!--Sprite Data-->
+    <Sprite name="" frameWidth="" frameHeight=""/>
+    <Animation name="" numCol=""/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP></MaxHP>
+      <MaxSP></MaxSP>
+      <MaxAP></MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+          
+        </Range>
+      </Attack>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+
+        </Range>
+      </Attack>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+
+        </Range>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special>
+      <RemoveAllTokens></RemoveAllTokens>
+      <RemoveEnemyTokens></RemoveEnemyTokens>
+      <ResetCooldowns></ResetCooldowns>
+      <Heal></Heal>
+      <Damage></Damage>
     </Special>
   </Player>
 </Players>

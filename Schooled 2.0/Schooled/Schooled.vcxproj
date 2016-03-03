@@ -96,12 +96,14 @@
     <ClCompile Include="src\sound.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\BattleState.cpp" />
+    <ClCompile Include="src\Stage.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\AnimationConstants.h" />
+    <ClInclude Include="..\include\BattleConstants.h" />
     <ClInclude Include="..\include\Board.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameObject.h" />
@@ -134,7 +136,9 @@
   <ItemGroup>
     <Xml Include="..\res\img\Image_Data\GymTeacher.xml" />
     <Xml Include="Contexts.xml" />
-    <Xml Include="InputMap.xml" />
+    <Xml Include="InputMap.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="InputRanges.xml" />
     <Xml Include="PlayerData.xml" />
   </ItemGroup>

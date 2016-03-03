@@ -8,8 +8,15 @@ namespace InputMapping
 {
 	enum class Action
 	{
-		ATTACK,
+		BOARD_FORWARD,
+		BOARD_BACKWARD,
+		BOARD_UP,
+		BOARD_DOWN,
+		ATTACK_1,
+		ATTACK_2,
+		ATTACK_3,
 		EXIT_GAME,
+
 	};
 
 	enum class State
@@ -34,7 +41,13 @@ namespace InputMapping
 
 	static const std::map<std::string, Action> ActionLookup
 	{
-		{ "ATTACK", Action::ATTACK },
+		{ "BOARD_FORWARD", Action::BOARD_FORWARD },
+		{ "BOARD_BACKWARD", Action::BOARD_BACKWARD },
+		{ "BOARD_UP", Action::BOARD_UP },
+		{ "BOARD_DOWN", Action::BOARD_DOWN },
+		{ "ATTACK_1", Action::ATTACK_1 },
+		{ "ATTACK_2", Action::ATTACK_2 },
+		{ "ATTACK_3", Action::ATTACK_3 },
 		{ "EXIT_GAME", Action::EXIT_GAME },
 	};
 

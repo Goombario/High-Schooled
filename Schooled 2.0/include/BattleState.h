@@ -2,6 +2,7 @@
 #define BATTLE_STATE_H
 
 #include "GameState.h"
+#include "BattleConstants.h"
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
 #include <map>
 #include <vector>
@@ -20,6 +21,11 @@ namespace Board
 namespace Player
 {
 	class Player;
+}
+
+namespace Stage
+{
+	class Stage;
 }
 
 namespace BattleState
@@ -56,12 +62,27 @@ namespace BattleState
 
 	private:
 		static BattleState m_BattleState;
+
+		// Change the turn to the other player
+		void swapCurrentPlayer();
+
+		// Get the current player and other player
+		Player::Player* getCurrentPlayer();
+		Player::Player* getOtherPlayer();
+
+		// Event handling helpers
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
+
+		// Battle objects
 		Player::Player* player1;
 		Player::Player* player2;
 		Board::Board* board1;
 		Board::Board* board2;
+		Stage::Stage* stage;
+
+		bool isEnd;
+		Side playerTurn;
 	};
 }
 

@@ -1,7 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include "Stage.h"
+#include "BattleConstants.h"
 
 namespace Player
 {
@@ -29,6 +29,11 @@ namespace Board
 
 		// Place a single token on the board at given location
 		void placeToken(int location);
+		void placeToken(int w, int h);
+
+		// Remove a token from given location
+		void removeToken(int location);
+		void removeToken(int w, int h);
 
 		// Adds tokens onto the board
 		inline Board& operator+=(Board const&);
@@ -42,14 +47,17 @@ namespace Board
 		// Returns the distance
 		int updatePath(int first);
 
-		// Draw the board tiles to the screen
-		void draw();
-
 		// Removes all tokens from the board
 		void clearTokens();
 
 		// Print the token properties to the console (DEBUG)
 		void print();
+
+		// Draw the board and tiles to the screen
+		void draw();
+
+		// Update board animations
+		void update();
 
 		// Set the player location
 		inline void setPlayerLocation(unsigned int newLocation) { playerLocation = newLocation; }

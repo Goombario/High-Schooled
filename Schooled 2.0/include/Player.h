@@ -1,9 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Stage.h"
+#include "BattleConstants.h"
 #include <string>
 #include <vector>
+#include "Schooled.h"
 
 // Forward Declaration
 namespace Board
@@ -18,6 +19,9 @@ namespace Sprite
 
 namespace Player
 {
+	float const OFFSET_X = 35;
+	float const OFFSET_Y = 120;
+
 	// Helper struct holds stats for a player
 	struct Stats
 	{
@@ -58,16 +62,22 @@ namespace Player
 		Player();
 
 		// Constructor that takes in a player name and loads the data
-		Player(const char* playerName, Board::Board*);
+		Player(const char* playerName, Board::Board*, Side);
 
 		// Rule of three
 		Player(Player const&);		// NEED UPDATE
 		Player& operator=(Player const&);		// NEED UPDATE
 		~Player();
 
+		// Getters
+		inline Side getSide() const { return side; }
+		inline int getCurrentHP() const { return stats.currentHP; }
+		inline int getCurrentAP() const { return stats.currentAP; }
+		inline int getCurrentSP() const { return stats.currentSP; }
+
 		// Changes health of enemy player, tokens on enemy board
 		// And changes your cooldown and current AP
-		void attack(Player&, int);
+		void attack(Player& enemy, int attackNum);
 
 		// Modifies the player's current health
 		void changeHealth(int);
@@ -77,7 +87,7 @@ namespace Player
 
 		// Move the character on the board.
 		// Sets AP to the path of least resistance. (Board updatePath)
-		void move();
+		void move(Direction);
 
 		// Choose to end your turn.
 		void passTurn();
@@ -89,13 +99,17 @@ namespace Player
 		void update();
 
 		// Draw the player to the screen
-		void draw();
+		void draw() const;
 
 	private:
+		// Move sprite to relative postion
+		void moveSpriteToSide(Side);
+
 		Stats stats;
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		SpecialAbility ability;
+		Side side;
 		Sprite::AnimatedSprite *sprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
 	};

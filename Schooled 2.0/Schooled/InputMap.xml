@@ -1,34 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Contexts>
-  
-  <Context name="globalContext">
+
+  <Context name="player1Action">
     <!-- All Actions -->
     <Action>
-      <Input>ATTACK</Input>
+      <Input>BOARD_UP</Input>
+      <Raw>FzlKeyUpArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_DOWN</Input>
+      <Raw>FzlKeyDownArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_FORWARD</Input>
+      <Raw>FzlKeyRightArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_BACKWARD</Input>
+      <Raw>FzlKeyLeftArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>ATTACK_1</Input>
       <Raw>FzlKeyZ</Raw>
     </Action>
+
+    <Action>
+      <Input>ATTACK_2</Input>
+      <Raw>FzlKeyX</Raw>
+    </Action>
+
+    <Action>
+      <Input>ATTACK_3</Input>
+      <Raw>FzlKeyC</Raw>
+    </Action>
+  </Context>
+
+  <Context name="player2Action">
+    <!-- All Actions -->
+    <Action>
+      <Input>BOARD_UP</Input>
+      <Raw>FzlKeyUpArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_DOWN</Input>
+      <Raw>FzlKeyDownArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_FORWARD</Input>
+      <Raw>FzlKeyLeftArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_BACKWARD</Input>
+      <Raw>FzlKeyRightArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>ATTACK_1</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+
+    <Action>
+      <Input>ATTACK_2</Input>
+      <Raw>FzlKeyX</Raw>
+    </Action>
+
+    <Action>
+      <Input>ATTACK_3</Input>
+      <Raw>FzlKeyC</Raw>
+    </Action>
+  </Context>
+
+  <Context name="globalContext">
+    <!-- All Actions -->
     <Action>
       <Input>EXIT_GAME</Input>
       <Raw>FzlKeyEscape</Raw>
     </Action>
+  </Context>
+
+
+  <Context name="template">
+    <!-- All Actions -->
+    <Action>
+      <Input></Input>
+      <Raw></Raw>
+    </Action>
 
     <!-- All States -->
     <State>
-      <Input>MOVE_LEFT</Input>
-      <Raw>FzlKeyLeftArrow</Raw>
-    </State>
-    <State>
-      <Input>MOVE_RIGHT</Input>
-      <Raw>FzlKeyRightArrow</Raw>
+      <Input></Input>
+      <Raw></Raw>
     </State>
 
     <!-- All Ranges -->
     <Range>
-      <Input>RANGE_ONE</Input>
-      <Raw>RAW_INPUT_AXIS_MOUSE_X</Raw>
-      <Sensitivity>50</Sensitivity>
+      <Input></Input>
+      <Raw></Raw>
+      <Sensitivity></Sensitivity>
     </Range>
   </Context>
-  
 </Contexts>

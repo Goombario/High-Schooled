@@ -10,8 +10,8 @@ namespace Sprite
 		posX = 0.0f;
 		posY = 0.0f;
 		angle = 0.0f;
-		scaleX = 0.0f;
-		scaleY = 0.0f;
+		scaleX = 1.0f;
+		scaleY = 1.0f;
 		image.handle = 0;
 		image.frameHeight = 0;
 		image.frameWidth = 0;
@@ -23,8 +23,8 @@ namespace Sprite
 		posX = 0.0f;
 		posY = 0.0f;
 		angle = 0.0f;
-		scaleX = 0.0f;
-		scaleY = 0.0f;
+		scaleX = 1.0f;
+		scaleY = 1.0f;
 	}
 
 	void Sprite::shift(float x, float y)
@@ -48,9 +48,10 @@ namespace Sprite
 	void Sprite::draw()
 	{
 		// If the scales have been tipped, draw the sprite scaled
-		if (scaleX != 0 || scaleY != 0)
+		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
 		{
-			FzlDrawSpriteScaled(image.handle, posX, posY, angle, scaleX, scaleY);
+			FzlDrawSpriteScaled(image.handle, posX, posY, angle, 
+				scaleX + schooled::SCALE, scaleY + schooled::SCALE);
 		}
 		else
 		{
@@ -88,9 +89,10 @@ namespace Sprite
 	void AnimatedSprite::draw()
 	{
 		// If the scales have tipped, draw the sprite scaled.
-		if (scaleX != 0.0f || scaleY != 0.0f)
+		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
 		{
-			FzlDrawAnimatedSpriteScaled(image.handle, row, col, posX, posY, angle, scaleX, scaleY);
+			FzlDrawAnimatedSpriteScaled(image.handle, row, col, posX, posY, angle,
+				scaleX + schooled::SCALE, scaleY + schooled::SCALE);
 		}
 		else
 		{

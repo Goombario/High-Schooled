@@ -7,9 +7,9 @@ namespace Board
 		{
 			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 			{
+				// Bitwise OR
 				this->boardTiles[w][h].hasToken = 
 					(this->boardTiles[w][h].hasToken | a.boardTiles[w][h].hasToken);
-				//this->boardTiles[w][h].isPassable += a.boardTiles[w][h].isPassable;
 			}
 		}
 		return (*this);
@@ -27,9 +27,9 @@ namespace Board
 		{
 			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 			{
+				// Bitwise XOR
 				this->boardTiles[w][h].hasToken = 
 					(this->boardTiles[w][h].hasToken ^ a.boardTiles[w][h].hasToken);
-				//this->boardTiles[w][h].isPassable -= a.boardTiles[w][h].isPassable;
 			}
 		}
 		return (*this);
