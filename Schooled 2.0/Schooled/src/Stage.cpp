@@ -6,7 +6,10 @@
 
 namespace Stage
 {
-	Stage::Stage(const char* backgroundPath, int frameWidth, int frameHeight, Player::Player const& player1, Player::Player const& player2)
+	Stage::Stage(const char* backgroundPath, int frameWidth, int frameHeight, 
+		Player::Player const* p1, Player::Player const* p2) :
+		player1(p1),
+		player2(p2)
 	{
 		Image::Image tempImage = GameEngine::getImageManager()->loadImage(
 			schooled::getResourcePath("img") + backgroundPath, 
@@ -28,7 +31,7 @@ namespace Stage
 
 	void Stage::drawHUD()
 	{
-
+		
 	}
 
 	void Stage::update()

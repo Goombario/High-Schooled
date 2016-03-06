@@ -18,7 +18,7 @@ namespace Stage
 	{
 	public:
 		Stage(const char* backgroundPath, int frameWidth, int frameHeight, 
-			Player::Player const&, Player::Player const&);
+			Player::Player const*, Player::Player const*);
 		~Stage();
 
 		// Draw functions
@@ -30,6 +30,7 @@ namespace Stage
 
 	private:
 		Sprite::Sprite *background;
+		const Player::Player *player1, *player2;
 	};
 }
 

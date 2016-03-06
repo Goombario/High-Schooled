@@ -100,6 +100,7 @@ namespace Player
 		stats.currentHP = stats.maxHP;
 		stats.currentSP = 0;
 		stats.currentAP = 0;
+		stats.lockedAP = 0;
 		
 		// Load all attacks
 		XMLElement *allAttackData = playerData->FirstChildElement("Attacks");
@@ -192,7 +193,7 @@ namespace Player
 		Attack *currentAttack = &attacks.at(attackNum);
 
 		// Don't attack if the cooldown is still in effect
-		if (currentAttack->cooldown != 0)
+		if (currentAttack->currentCooldown != 0)
 		{
 			return;
 		}
@@ -247,13 +248,24 @@ namespace Player
 			(*this).useSpecial(enemy);
 		}
 		
-		(*this).stats.currentAP--;
+		// Update player stats
+		currentAttack->currentCooldown = currentAttack->cooldown;
+		(*this).sprite->changeAnimation(static_cast<Animation::AnimationEnum>(attackNum));
+		(*this).stats.lockedAP++;
+		(*this).boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
+		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 		currentAttack = nullptr;
+		std::cout << "Current AP: " << stats.currentAP << std::endl;
 	}
 
 	void Player::changeHealth(int difference)
 	{
 		stats.currentHP += difference;
+	}
+
+	void Player::passTurn()
+	{
+
 	}
 
 	void Player::useSpecial(Player& enemy)
@@ -335,16 +347,32 @@ namespace Player
 		// Move the character on the grid
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		moveSpriteToSide(side);
+		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
+
+		std::cout << "Current AP: " << stats.currentAP << std::endl;
 	}
 
 	void Player::moveSpriteToSide(Side s)
 	{
 		float centerX = schooled::SCREEN_WIDTH_PX / 2;
-		int orientation = (s == Side::LEFT) ? 1 : -1;
-		float initX = (s == Side::LEFT) ? OFFSET_X : centerX + OFFSET_X;
-		sprite->move(initX + ((boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH) * 40 * orientation)
-			+ (boardPtr->getPlayerlocation() / Stage::BOARD_HEIGHT) * 20,
-			OFFSET_Y - ((boardPtr->getPlayerlocation() / Stage::BOARD_HEIGHT) * 35 * orientation));
+		float initX;
+		float colPos;
+		if (s == Side::LEFT)
+		{
+			colPos = static_cast<float>(boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH);
+			initX = OFFSET_X;
+		}
+		else
+		{
+			int offsetRight = Stage::BOARD_WIDTH - 1;
+			colPos = static_cast<float>(offsetRight - boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH);
+			initX = centerX + OFFSET_X;
+		}
+		float rowPos = static_cast<float>(boardPtr->getPlayerlocation() / Stage::BOARD_HEIGHT);
+		sprite->move((initX + 
+			(colPos * ROW_WIDTH) +	// The width of the column times the number of columns to move
+			(rowPos * ROW_OFFSET)) * schooled::SCALE,	// The row offset due to the perspective
+			(OFFSET_Y - (rowPos * ROW_HEIGHT)) * schooled::SCALE);
 	}
 
 	void Player::startTurn()
@@ -355,7 +383,10 @@ namespace Player
 				(*it).currentCooldown--;
 		}
 
+		boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
+
 		stats.currentAP = stats.maxAP;
+		stats.lockedAP = 0;
 	}
 
 	void Player::update()

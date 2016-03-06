@@ -30,7 +30,8 @@ int GameEngine::Init()
 	}
 
 	// Initialize Fizzle
-	FzlInit("Schooled 2.0", schooled::SCREEN_WIDTH_PX, schooled::SCREEN_HEIGHT_PX, 0);
+	FzlInit("Schooled 2.0", schooled::SCREEN_WIDTH_PX * static_cast<int>(schooled::SCALE),
+		schooled::SCREEN_HEIGHT_PX * static_cast<int>(schooled::SCALE), 0);
 	FzlSetFrameRate(schooled::FRAMERATE);
 
 	// Swaps buffers to set delta time between frames

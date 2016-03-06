@@ -10,11 +10,16 @@ namespace GameObject
 	{
 	public:
 		GameObject();
-		void firstOrder(Vector2 const& velocity);
+		void firstOrder();
+		void secondOrder();
+
+		void impulse(Vector2 const& force);
 
 	private:
 		double mass;
 		Vector2 position;
+		Vector2 velocity;
+		Vector2 acceleration;
 	};
 }
 

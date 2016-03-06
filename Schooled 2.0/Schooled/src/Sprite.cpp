@@ -50,8 +50,11 @@ namespace Sprite
 		// If the scales have been tipped, draw the sprite scaled
 		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
 		{
-			FzlDrawSpriteScaled(image.handle, posX, posY, angle, 
-				scaleX + schooled::SCALE, scaleY + schooled::SCALE);
+			FzlDrawSpriteScaled(image.handle, 
+				(posX * scaleX * schooled::SCALE),
+				(posY * scaleY * schooled::SCALE), 
+				angle, 
+				scaleX * schooled::SCALE, scaleY * schooled::SCALE);
 		}
 		else
 		{
