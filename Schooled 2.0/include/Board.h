@@ -45,7 +45,8 @@ namespace Board
 
 		// Takes players current and first position and draws the path of least resistance.
 		// Returns the distance
-		int updatePath(int first);
+		int updatePath();
+		void clearPath();
 
 		// Removes all tokens from the board
 		void clearTokens();
@@ -61,9 +62,17 @@ namespace Board
 
 		// Set the player location
 		inline void setPlayerLocation(unsigned int newLocation) { playerLocation = newLocation; }
+		inline void setPlayerFirstPos(unsigned int newLocation) { firstPos = newLocation; }
 		inline unsigned int getPlayerlocation() { return playerLocation; }
 
 	private:
+		// Helper function returns tile at number position
+		inline Tile& getTile(int i)
+		{
+			return boardTiles[i / Stage::BOARD_WIDTH]
+				[i % Stage::BOARD_HEIGHT];
+		};
+
 		Tile boardTiles[Stage::BOARD_WIDTH][Stage::BOARD_HEIGHT];
 		unsigned int playerLocation;
 		unsigned int firstPos;	// The position at beginning of turn

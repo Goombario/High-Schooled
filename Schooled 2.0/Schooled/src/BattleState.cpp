@@ -40,9 +40,10 @@ namespace BattleState
 		board2 = new Board::Board();
 		player1 = new Player::Player("Gym Teacher", board1, Side::LEFT);
 		player2 = new Player::Player("Gym Teacher", board2, Side::RIGHT);
-		stage = new Stage::Stage("Battle_background.png", 384, 182, *player1, *player2);
+		stage = new Stage::Stage("Battle_background.png", 384, 182, player1, player2);
 
 		playerTurn = Side::LEFT;
+		player1->startTurn();
 
 		isEnd = false;
 	}
@@ -149,6 +150,11 @@ namespace BattleState
 		player1->update();
 		player2->update();
 		stage->update();
+
+		if (getCurrentPlayer()->getCurrentAP() == 0)
+		{
+			swapCurrentPlayer();
+		}
 		// FMOD updates automatically at end
 	}
 
@@ -163,7 +169,19 @@ namespace BattleState
 
 	void BattleState::swapCurrentPlayer()
 	{
-		playerTurn = (playerTurn == Side::LEFT) ? Side::RIGHT : Side::LEFT;
+		getCurrentPlayer()->passTurn();
+
+		if (playerTurn == Side::LEFT)
+		{
+			playerTurn = Side::RIGHT;
+			GameEngine::getMapper()->PushContext("player2Action");
+		}
+		else
+		{
+			playerTurn = Side::LEFT;
+			GameEngine::getMapper()->PopContext();
+		}
+
 		getCurrentPlayer()->startTurn();
 	}
 

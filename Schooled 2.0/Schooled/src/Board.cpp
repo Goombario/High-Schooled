@@ -119,4 +119,37 @@ namespace Board
 			std::cout << std::endl;
 		}
 	}
+
+	void Board::clearPath()
+	{
+		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		{
+			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			{
+				boardTiles[w][h].isPath = false;
+			}
+		}
+	}
+
+	int Board::updatePath()
+	{
+		clearPath();
+		getTile(firstPos).isPath = true;
+
+		// Create the path to the current pos from the first pos
+		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		{
+			if (getPlayerlocation() / Stage::BOARD_WIDTH < firstPos / Stage::BOARD_WIDTH ||
+				getPlayerlocation() / Stage::BOARD_WIDTH)
+			{
+
+			}
+			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			{
+				boardTiles[w][h].isPath = false;
+			}
+		}
+
+		return 0;
+	}
 }
