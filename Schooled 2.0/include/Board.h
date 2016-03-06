@@ -18,6 +18,12 @@ namespace Board
 		bool isPath;
 	};
 
+	struct WaveMap
+	{
+		int wMap[Stage::BOARD_WIDTH][Stage::BOARD_HEIGHT];	// For pathing
+		bool foundTarget;
+	};
+
 	class Board
 	{
 	public:
@@ -46,7 +52,6 @@ namespace Board
 		// Takes players current and first position and draws the path of least resistance.
 		// Returns the distance
 		int updatePath();
-		void clearPath();
 
 		// Removes all tokens from the board
 		void clearTokens();
@@ -69,11 +74,26 @@ namespace Board
 		// Helper function returns tile at number position
 		inline Tile& getTile(int i)
 		{
-			return boardTiles[i / Stage::BOARD_WIDTH]
-				[i % Stage::BOARD_HEIGHT];
+			return boardTiles[i % Stage::BOARD_WIDTH]
+				[i / Stage::BOARD_HEIGHT];
 		};
+		inline Tile& getTile(int w, int h)
+		{
+			return boardTiles[w][h];
+		}
+
+		// Helper function that checks if position is in bounds
+		bool inBounds(int, int);
+
+		// Helper functions create a path from one point to another (Lee's Formula)
+		void clearPath();
+		int getLeePath(int i);
+		void clearLeePath();
+		void setNeighbours(int w, int h, int i);	// Sets all invalid spaces around coordinate to i+1
+		void tracePath(int w, int h);
 
 		Tile boardTiles[Stage::BOARD_WIDTH][Stage::BOARD_HEIGHT];
+		WaveMap waveMap;
 		unsigned int playerLocation;
 		unsigned int firstPos;	// The position at beginning of turn
 
