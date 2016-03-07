@@ -122,6 +122,23 @@ namespace Board
 		}
 	}
 
+	bool Board::inBounds(int w, int h)
+	{
+		if (w < Stage::BOARD_WIDTH && w >= 0 &&
+			h < Stage::BOARD_HEIGHT && h >= 0)
+			return true;
+		return false;
+	}
+
+	void Board::draw()
+	{
+
+	}
+}
+
+// Pathing
+namespace Board
+{
 	void Board::clearPath()
 	{
 		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
@@ -136,13 +153,13 @@ namespace Board
 	int Board::updatePath()
 	{
 		clearPath();
-		
+
 		clearLeePath();
 		waveMap.wMap[firstPos % Stage::BOARD_WIDTH][firstPos / Stage::BOARD_HEIGHT] = 0;
 
 		// Set up the waveMap
 		int distance = getLeePath(0);
-		
+
 		tracePath(getPlayerlocation() % Stage::BOARD_WIDTH, getPlayerlocation() / Stage::BOARD_HEIGHT);
 
 		std::cout << "Distance :" << distance << std::endl;
@@ -199,14 +216,6 @@ namespace Board
 			}
 		}
 		waveMap.foundTarget = false;
-	}
-
-	bool Board::inBounds(int w, int h)
-	{
-		if (w < Stage::BOARD_WIDTH && w >= 0 &&
-			h < Stage::BOARD_HEIGHT && h >= 0)
-			return true;
-		return false;
 	}
 
 	void Board::setNeighbours(int w, int h, int i)

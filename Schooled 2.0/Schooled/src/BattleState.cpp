@@ -42,6 +42,9 @@ namespace BattleState
 		player2 = new Player::Player("Gym Teacher", board2, Side::RIGHT);
 		stage = new Stage::Stage("Battle_background.png", 384, 182, player1, player2);
 
+		board1->setTokenSprite(stage->getSprite());
+		board2->setTokenSprite(stage->getSprite());
+
 		playerTurn = Side::LEFT;
 		player1->startTurn();
 
@@ -161,9 +164,11 @@ namespace BattleState
 	void BattleState::Draw(GameEngine* game)
 	{
 		stage->drawBackground();
+		board1->draw();
+		board2->draw();
 		player1->draw();
 		player2->draw();
-		stage->drawHUD();
+		//stage->drawHUD();
 		// Fizzle swaps buffer automatically at end
 	}
 
