@@ -18,7 +18,7 @@ namespace Stage
 	{
 	public:
 		// FUTURE: Load data from file for images
-		Stage(const char* backgroundPath, int frameWidth, int frameHeight, 
+		Stage(const char* stageName, 
 			Player::Player const*, Player::Player const*);
 		~Stage();
 
