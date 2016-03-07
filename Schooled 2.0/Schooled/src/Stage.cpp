@@ -16,12 +16,20 @@ namespace Stage
 			frameWidth, frameHeight);
 		background = new Sprite::Sprite(tempImage);
 		background->move(0, 0, false);
+
+		token = nullptr;
+		HUD = nullptr;
 	}
 
 	Stage::~Stage()
 	{
 		delete background;
+		delete token;
+		delete HUD;
+
 		background = nullptr;
+		token = nullptr;
+		HUD = nullptr;
 	}
 
 	void Stage::drawBackground()
@@ -31,7 +39,7 @@ namespace Stage
 
 	void Stage::drawHUD()
 	{
-		
+		HUD->draw();
 	}
 
 	void Stage::update()

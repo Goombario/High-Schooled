@@ -8,6 +8,11 @@ namespace Player
 	class Player;
 }
 
+namespace Sprite
+{
+	class Sprite;
+}
+
 namespace Board
 {
 
@@ -48,6 +53,9 @@ namespace Board
 		// Subtract tokens from the board
 		inline Board& operator-=(Board const&);
 		inline Board const operator-(Board const&) const;
+
+		// Set the token sprite
+		inline void setTokenSprite(Sprite::Sprite &spritePtr) { tokenSprite = &spritePtr; }
 
 		// Takes players current and first position and draws the path of least resistance.
 		// Returns the distance
@@ -92,11 +100,12 @@ namespace Board
 		void setNeighbours(int w, int h, int i);	// Sets all invalid spaces around coordinate to i+1
 		void tracePath(int w, int h);
 
+	private:
 		Tile boardTiles[Stage::BOARD_WIDTH][Stage::BOARD_HEIGHT];
 		WaveMap waveMap;
 		unsigned int playerLocation;
 		unsigned int firstPos;	// The position at beginning of turn
-
+		Sprite::Sprite *tokenSprite;
 	};
 }
 
