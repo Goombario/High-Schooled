@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AnimationList numCol="10">
+  <Animation name="IDLE" loop="true">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.7</Frame>
+    <Frame>0.7</Frame>
+  </Animation>
+  <Animation name="IDLE_BORED" loop="false">
+    <FirstFrame>10</FirstFrame>
+    <Frame>0.2</Frame>
+    <Frame>0.5</Frame>
+    <Frame>0.7</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.5</Frame>
+    <Frame>0.04</Frame>
+    <Frame>0.06</Frame>
+    <Frame>0.7</Frame>
+  </Animation>
+  <Animation name="ATTACK_1" loop="false">
+    <FirstFrame>20</FirstFrame>
+    <Frame>0.7</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.7</Frame>
+  </Animation>
+  <Animation name="ATTACK_2" loop="false">
+    <FirstFrame>30</FirstFrame>
+    <Frame>0.7</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+  </Animation>
+  <Animation name="ATTACK_3" loop="false">
+    <FirstFrame>40</FirstFrame>
+    <Frame>0.7</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.7</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.7</Frame>
+  </Animation>
+  <Animation name="ATTACK_SPECIAL" loop="false">
+    <FirstFrame>50</FirstFrame>
+    <Frame>0.7</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.5</Frame>
+    <Frame>0.5</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+  </Animation>
+</AnimationList>
