@@ -40,7 +40,7 @@ namespace BattleState
 		board2 = new Board::Board();
 		player1 = new Player::Player("Gym Teacher", board1, Side::LEFT);
 		player2 = new Player::Player("Gym Teacher", board2, Side::RIGHT);
-		stage = new Stage::Stage("Battle_background.png", 384, 182, player1, player2);
+		stage = new Stage::Stage("Default", player1, player2);
 
 		board1->setTokenSprite(stage->getSprite());
 		board2->setTokenSprite(stage->getSprite());

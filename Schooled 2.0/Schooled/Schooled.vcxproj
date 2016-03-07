@@ -143,7 +143,9 @@
     <Xml Include="PlayerData.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="StageData.xml" />
+    <Xml Include="StageData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
