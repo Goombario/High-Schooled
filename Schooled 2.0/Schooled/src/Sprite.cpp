@@ -108,12 +108,13 @@ namespace Sprite
 		//time += FzlGetDeltaTime();	//Broken currently
 		time += (1.0 / schooled::FRAMERATE);	// Locked framerate
 
-		//std::cout << "Time: " << time << std::endl;	// For testing purposes
+		
 
 		// Checks if the time elapsed since the last frame drawn is large enough to advance
 		// To the next frame
-		while (animationList.back().frames[col].duration <= time)
+		if (animationList.back().frames[col].duration <= time)
 		{
+			std::cout << "Time: " << time << std::endl;	// For testing purposes
 			time -= animationList.back().frames[col].duration;
 			col++;
 
@@ -154,5 +155,6 @@ namespace Sprite
 	{
 		popAnimation();
 		pushAnimation(a);
+		time = 0.0;
 	}
 }

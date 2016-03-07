@@ -38,7 +38,7 @@ namespace BattleState
 
 		board1 = new Board::Board();
 		board2 = new Board::Board();
-		player1 = new Player::Player("Gym Teacher", board1, Side::LEFT);
+		player1 = new Player::Player("Nate", board1, Side::LEFT);
 		player2 = new Player::Player("Gym Teacher", board2, Side::RIGHT);
 		stage = new Stage::Stage("Battle_background.png", 384, 182, player1, player2);
 
@@ -148,7 +148,7 @@ namespace BattleState
 	{
 		if (isEnd) game->Quit();
 		player1->update();
-		player2->update();
+		//player2->update();
 		stage->update();
 
 		if (getCurrentPlayer()->getCurrentAP() == 0)

@@ -206,5 +206,8 @@
     <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\Nate.xml">
+      <Filter>Battle\Battle Data</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

@@ -134,7 +134,10 @@
     <Text Include="..\include\Input\License.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\res\img\Image_Data\GymTeacher.xml" />
+    <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Nate.xml" />
     <Xml Include="Contexts.xml" />
     <Xml Include="InputMap.xml">
       <SubType>Designer</SubType>
