@@ -17,7 +17,8 @@ namespace Stage
 	class Stage
 	{
 	public:
-		Stage(const char* backgroundPath, int frameWidth, int frameHeight, 
+		// FUTURE: Load data from file for images
+		Stage(const char* stageName, 
 			Player::Player const*, Player::Player const*);
 		~Stage();
 
@@ -28,8 +29,13 @@ namespace Stage
 		// Update the HUD 
 		void update();
 
+		// Get the token sprite
+		Sprite::Sprite& getSprite() { return *token; }
+
 	private:
 		Sprite::Sprite *background;
+		Sprite::Sprite *token;
+		Sprite::Sprite *HUD;
 		const Player::Player *player1, *player2;
 	};
 }

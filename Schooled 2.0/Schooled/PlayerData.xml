@@ -14,7 +14,7 @@
 
     <!--List of attack names-->
     <Attacks>
-      <Attack name="DODGEBALL_1">
+      <Attack name="DODGEBALL_A">
         <Cooldown>2</Cooldown>
         <Static>0</Static>
         <Damage>1</Damage>
