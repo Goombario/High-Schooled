@@ -5,7 +5,12 @@ namespace GameObject
 {
 	GameObject::GameObject()
 	{
-
+		mass = 0.0;
+		position = Vector2::Vector2(0, 0);
+		velocity = Vector2::Vector2(0, 0);
+		acceleration = Vector2::Vector2(0, 0);
+		prevVelocity = Vector2::Vector2(0, 0);
+		prevAcceleration = Vector2::Vector2(0, 0);
 	}
 
 	void GameObject::firstOrder()
@@ -15,7 +20,20 @@ namespace GameObject
 
 	void GameObject::secondOrder()
 	{
-		position = position + (acceleration * (1 / schooled::FRAMERATE) * (1 / schooled::FRAMERATE));
+		double dt = (1 / schooled::FRAMERATE);
+		position += prevVelocity * dt + prevAcceleration * (dt * dt);
+	}
+
+	void GameObject::euler()
+	{
+		double dt = (1 / schooled::FRAMERATE);
+		position += getVelocity() * dt + 0.5 * getAcceleration() * (dt * dt);
+	}
+
+	void GameObject::adamsBashford()
+	{
+		double dt = (1 / schooled::FRAMERATE);
+		position += 0.5 * (3 * (getVelocity() + getAcceleration() * dt) - getPrevVelocity()) * dt;
 	}
 
 	void GameObject::impulse(Vector2 const& force)
