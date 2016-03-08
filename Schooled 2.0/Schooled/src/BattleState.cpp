@@ -168,7 +168,7 @@ namespace BattleState
 		board2->draw(Side::RIGHT);
 		player1->draw();
 		player2->draw();
-		//stage->drawHUD();
+		stage->drawHUD();
 		// Fizzle swaps buffer automatically at end
 	}
 
