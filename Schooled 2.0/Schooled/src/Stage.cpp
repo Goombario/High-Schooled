@@ -19,22 +19,29 @@ namespace Stage
 		float offsetX;
 		int frameWidth = 96;
 		int frameHeight = 32;
+		int HPOffsetX;
+		int HPOffsetY = schooled::SCREEN_HEIGHT_PX - 11;
 		if (player->getSide() == Side::LEFT)
 		{
 			path = schooled::getResourcePath("img") + "HUD_Left.png";
 			offsetX = 0.0f;
+			HPOffsetX = 34;
 		}
 		else
 		{
 			path = schooled::getResourcePath("img") + "HUD_Right.png";
 			offsetX = static_cast<float>(schooled::SCREEN_WIDTH_PX - frameWidth);
+			HPOffsetX = schooled::SCREEN_WIDTH_PX - 34 - 50;
 		}
 
 		tempImage = GameEngine::getImageManager()->loadImage(path, frameWidth, frameHeight);
 		display = new Sprite::Sprite(tempImage);
 		display->move(offsetX, static_cast<float>(schooled::SCREEN_HEIGHT_PX - frameHeight), 0);
 
-		HPBar = nullptr;
+		tempImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "HPBar.png", 50, 5);
+		HPBar = new Sprite::Sprite(tempImage);
+		HPBar->move(static_cast<float>(HPOffsetX), static_cast<float>(HPOffsetY), false);
+
 		SPBar = nullptr;
 	}
 
@@ -51,12 +58,14 @@ namespace Stage
 
 	void HUD::draw()
 	{
-
+		HPBar->draw();
+		//SPBar->draw();
+		display->draw();
 	}
 
 	void HUD::update()
 	{
-
+		
 	}
 	
 }

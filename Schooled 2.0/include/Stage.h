@@ -27,7 +27,7 @@ namespace Stage
 	private:
 		const Player::Player *player;
 		Sprite::Sprite *display;
-		Sprite::AnimatedSprite *HPBar;
+		Sprite::Sprite *HPBar;
 		Sprite::Sprite *SPBar;
 		float offsetX;
 		float offsetY;
