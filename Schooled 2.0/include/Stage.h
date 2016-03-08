@@ -4,6 +4,7 @@
 namespace Sprite
 {
 	class Sprite;
+	class AnimatedSprite;
 }
 
 namespace Player
@@ -13,6 +14,25 @@ namespace Player
 
 namespace Stage
 {
+	class HUD
+	{
+	public:
+		HUD(Player::Player const&);
+		~HUD();
+
+		void draw();
+
+		void update();
+
+	private:
+		const Player::Player *player;
+		Sprite::Sprite *display;
+		Sprite::AnimatedSprite *HPBar;
+		Sprite::Sprite *SPBar;
+		float offsetX;
+		float offsetY;
+	};
+
 	// Holds the stage elements ex. music, background elements, HUD
 	class Stage
 	{
@@ -35,8 +55,8 @@ namespace Stage
 	private:
 		Sprite::Sprite *background;
 		Sprite::Sprite *token;
-		Sprite::Sprite *HUD;
 		const Player::Player *player1, *player2;
+		HUD p1HUD, p2HUD;
 	};
 }
 

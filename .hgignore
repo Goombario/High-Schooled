@@ -12,3 +12,5 @@ syntax: glob
 *.opensdf
 *.sav
 *.log
+Schooled 2.0/Schooled/FzlLog.log.orig
+Schooled 2.0/Schooled/Schooled.vcxproj.filters.orig

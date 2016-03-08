@@ -7,13 +7,73 @@
 #include "tinyxml2.h"
 using namespace tinyxml2;
 
+// HUD class
+namespace Stage
+{
+
+	HUD::HUD(Player::Player const& p)
+		: player(&p)
+	{
+		Image::Image tempImage;
+		std::string path;
+		float offsetX;
+		int frameWidth = 96;
+		int frameHeight = 32;
+		if (player->getSide() == Side::LEFT)
+		{
+			path = schooled::getResourcePath("img") + "HUD_Left.png";
+			offsetX = 0.0f;
+		}
+		else
+		{
+			path = schooled::getResourcePath("img") + "HUD_Right.png";
+			offsetX = static_cast<float>(schooled::SCREEN_WIDTH_PX - frameWidth);
+		}
+
+		tempImage = GameEngine::getImageManager()->loadImage(path, frameWidth, frameHeight);
+		display = new Sprite::Sprite(tempImage);
+		display->move(offsetX, static_cast<float>(schooled::SCREEN_HEIGHT_PX - frameHeight), 0);
+
+		HPBar = nullptr;
+		SPBar = nullptr;
+	}
+
+	HUD::~HUD()
+	{
+		delete display;
+		delete HPBar;
+		delete SPBar;
+
+		display = nullptr;
+		HPBar = nullptr;
+		SPBar = nullptr;
+	}
+
+	void HUD::draw()
+	{
+
+	}
+
+	void HUD::update()
+	{
+
+	}
+	
+}
+
+// Stage class
 namespace Stage
 {
 	Stage::Stage(const char* stageName, 
 		Player::Player const* p1, Player::Player const* p2) :
 		player1(p1),
-		player2(p2)
+		player2(p2),
+		p1HUD(*player1),
+		p2HUD(*player2)
 	{
+		
+		Image::Image tempImage;
+
 		// Load player data from player file
 		XMLDocument data;
 		CheckXMLResult(data.LoadFile("../Schooled/StageData.xml"));
@@ -53,7 +113,6 @@ namespace Stage
 		std::string imageName;
 		unsigned int frameWidth;
 		unsigned int frameHeight;
-		Image::Image tempImage;
 		imageName = stageElement->Attribute("name");
 		CheckXMLResult(stageElement->QueryUnsignedAttribute("width", &frameWidth));
 		CheckXMLResult(stageElement->QueryUnsignedAttribute("height", &frameHeight));
@@ -79,19 +138,15 @@ namespace Stage
 			frameWidth, frameHeight);
 		token = new Sprite::Sprite(tempImage);
 		token->move(0, 0, false);
-
-		HUD = nullptr;
 	}
 
 	Stage::~Stage()
 	{
 		delete background;
 		delete token;
-		delete HUD;
 
 		background = nullptr;
 		token = nullptr;
-		HUD = nullptr;
 	}
 
 	void Stage::drawBackground()
@@ -101,11 +156,13 @@ namespace Stage
 
 	void Stage::drawHUD()
 	{
-		HUD->draw();
+		p1HUD.draw();
+		p2HUD.draw();
 	}
 
 	void Stage::update()
 	{
-
+		p1HUD.update();
+		p2HUD.update();
 	}
 }
