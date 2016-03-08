@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include "BattleConstants.h"
+#include "Schooled.h"
 
 namespace Player
 {
@@ -15,6 +16,12 @@ namespace Sprite
 
 namespace Board
 {
+	float const OFFSET_X = 55;
+	float const OFFSET_Y = 130;
+	float const CENTER_X = schooled::SCREEN_WIDTH_PX / 2;
+	int const ROW_WIDTH = 42;
+	int const ROW_HEIGHT = 31;
+	int const ROW_OFFSET = 20;
 
 	struct Tile
 	{
@@ -68,7 +75,7 @@ namespace Board
 		void print();
 
 		// Draw the board and tiles to the screen
-		void draw();
+		void draw(Side);
 
 		// Update board animations
 		void update();

@@ -149,9 +149,9 @@ namespace BattleState
 
 	void BattleState::Update(GameEngine* game)
 	{
-		if (isEnd) game->Quit();
+		if (isEnd || player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) game->Quit();
 		player1->update();
-		//player2->update();
+		player2->update();
 		stage->update();
 
 		if (getCurrentPlayer()->getCurrentAP() == 0)
@@ -164,8 +164,8 @@ namespace BattleState
 	void BattleState::Draw(GameEngine* game)
 	{
 		stage->drawBackground();
-		board1->draw();
-		board2->draw();
+		board1->draw(Side::LEFT);
+		board2->draw(Side::RIGHT);
 		player1->draw();
 		player2->draw();
 		//stage->drawHUD();

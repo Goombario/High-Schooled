@@ -62,6 +62,23 @@ namespace Sprite
 		}
 	}
 
+	void Sprite::drawAt(float x, float y)
+	{
+		// If the scales have been tipped, draw the sprite scaled
+		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
+		{
+			FzlDrawSpriteScaled(image.handle,
+				(x * scaleX * schooled::SCALE),
+				(y * scaleY * schooled::SCALE),
+				angle,
+				scaleX * schooled::SCALE, scaleY * schooled::SCALE);
+		}
+		else
+		{
+			FzlDrawSprite(image.handle, x, y, angle);
+		}
+	}
+
 	void Sprite::setAngle(float a)
 	{
 		angle = a;
@@ -103,6 +120,20 @@ namespace Sprite
 		}
 	}
 
+	void AnimatedSprite::drawAt(float x, float y)
+	{
+		// If the scales have tipped, draw the sprite scaled.
+		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
+		{
+			FzlDrawAnimatedSpriteScaled(image.handle, row, col, x, y, angle,
+				scaleX + schooled::SCALE, scaleY + schooled::SCALE);
+		}
+		else
+		{
+			FzlDrawAnimatedSprite(image.handle, row, col, x, y, angle);
+		}
+	}
+
 	void AnimatedSprite::update()
 	{
 		//time += FzlGetDeltaTime();	//Broken currently
@@ -114,7 +145,7 @@ namespace Sprite
 		// To the next frame
 		if (animationList.back().frames[col].duration <= time)
 		{
-			std::cout << "Time: " << time << std::endl;	// For testing purposes
+			//std::cout << "Time: " << time << std::endl;	// For testing purposes
 			time -= animationList.back().frames[col].duration;
 			col++;
 

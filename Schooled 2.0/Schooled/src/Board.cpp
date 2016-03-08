@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Player.h"
+#include "Sprite.h"
 
 #include <iostream>
 
@@ -21,12 +22,13 @@ namespace Board
 		}
 
 		clearLeePath();
+		tokenSprite = nullptr;
 	}
 
 	void Board::placeToken(int location)
 	{
-		boardTiles[location % Stage::BOARD_WIDTH]
-		[location / Stage::BOARD_HEIGHT].hasToken = true;
+		boardTiles[location / Stage::BOARD_WIDTH]
+		[location % Stage::BOARD_HEIGHT].hasToken = true;
 	}
 
 	void Board::placeToken(int w, int h)
@@ -36,8 +38,8 @@ namespace Board
 
 	void Board::removeToken(int location)
 	{
-		boardTiles[location % Stage::BOARD_WIDTH]
-			[location / Stage::BOARD_HEIGHT].hasToken = false;
+		boardTiles[location / Stage::BOARD_WIDTH]
+			[location % Stage::BOARD_HEIGHT].hasToken = false;
 	}
 
 	void Board::removeToken(int w, int h)
@@ -107,6 +109,7 @@ namespace Board
 		}
 
 		(*this) -= tempBoard;
+		print();
 		return numCompleted;
 	}
 
@@ -130,9 +133,26 @@ namespace Board
 		return false;
 	}
 
-	void Board::draw()
+	void Board::draw(Side s)
 	{
+		float initX = (s == Side::LEFT) ? OFFSET_X : CENTER_X + OFFSET_X;
+		int offsetRight = Stage::BOARD_WIDTH - 1;
 
+		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		{
+			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			{
+				if (boardTiles[w][h].hasToken)
+				{
+					int wPos = w;
+					if (s == Side::RIGHT) wPos = Stage::BOARD_WIDTH - 1 - wPos;
+					tokenSprite->drawAt((initX + 
+						(wPos * ROW_WIDTH) +
+						(h * ROW_OFFSET)) * schooled::SCALE,
+						(OFFSET_Y - (h * ROW_HEIGHT)) * schooled::SCALE);
+				}
+			}
+		}
 	}
 }
 
@@ -162,7 +182,7 @@ namespace Board
 
 		tracePath(getPlayerlocation() % Stage::BOARD_WIDTH, getPlayerlocation() / Stage::BOARD_HEIGHT);
 
-		std::cout << "Distance :" << distance << std::endl;
+		/*std::cout << "Distance :" << distance << std::endl;
 		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 		{
 			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
@@ -170,16 +190,16 @@ namespace Board
 				std::cout << waveMap.wMap[w][h];
 			}
 			std::cout << std::endl;
-		}
+		}*/
 
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		/*for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 		{
 			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 			{
 				std::cout << boardTiles[w][h].isPath;
 			}
 			std::cout << std::endl;
-		}
+		}*/
 		return distance;
 	}
 

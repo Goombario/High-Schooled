@@ -10,8 +10,8 @@ namespace schooled
 	float const CAMERA_MAX_ACCELERATION = 2;
 	int const FRAMERATE = 60;
 	float const SCALE = 1.0f;
-	int const SCREEN_HEIGHT_PX = 182;
-	int const SCREEN_WIDTH_PX = 384;
+	int const SCREEN_HEIGHT_PX = 288;
+	int const SCREEN_WIDTH_PX = 512;
 
 	// Return the setting that the key is attached to
 	std::string getSetting(std::string);

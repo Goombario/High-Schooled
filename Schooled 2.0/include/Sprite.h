@@ -44,6 +44,7 @@ namespace Sprite
 
 		// Draw the sprite to the screen.
 		void draw();	
+		void drawAt(float x, float y);
 
 		// GETTERS
 		float getX() const { return posX; }
@@ -63,6 +64,7 @@ namespace Sprite
 
 		// Draw the sprite to the screen.
 		void draw();
+		void drawAt(float x, float y);
 		 
 		// Updates the animation.
 		void update();

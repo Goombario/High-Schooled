@@ -209,5 +209,8 @@
     <Xml Include="..\res\img\Image_Data\Nate.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
+    <Xml Include="StageData.xml">
+      <Filter>Battle\Battle Data</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
