@@ -19,11 +19,6 @@ namespace Sprite
 
 namespace Player
 {
-	float const OFFSET_X = 35;
-	float const OFFSET_Y = 120;
-	int const ROW_WIDTH = 40;
-	int const ROW_HEIGHT = 31;
-	int const ROW_OFFSET = 20;
 
 	// Helper struct holds stats for a player
 	struct Stats

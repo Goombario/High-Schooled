@@ -211,20 +211,20 @@ namespace Player
 					if (!currentAttack->isStatic)
 					{
 						pos = boardPtr->getPlayerlocation()
-							+ currentAttack->range[w][h];
+							+ w + h * Stage::BOARD_HEIGHT;
 
 						// If the modified value is greater 
 						// than the size of the board, wrap
 						if (pos >= Stage::BOARD_HEIGHT
 							* Stage::BOARD_WIDTH)
 						{
-							pos = (Stage::BOARD_HEIGHT 
-								* Stage::BOARD_WIDTH)- pos;
+							pos -= (Stage::BOARD_HEIGHT 
+								* Stage::BOARD_WIDTH);
 						}
 					}
 					else
 					{	// The attack pattern doesn't change
-						pos = currentAttack->range[w][h];
+						pos = w + h * Stage::BOARD_HEIGHT;
 					}
 					
 					// If the player is at that position, deal damage
@@ -315,16 +315,16 @@ namespace Player
 		switch (d)
 		{
 		case Direction::UP:
-			change = -3;
+			change = -1;
 			break;
 		case Direction::DOWN:
-			change = 3;
-			break;
-		case Direction::FORWARD:
 			change = 1;
 			break;
+		case Direction::FORWARD:
+			change = 3;
+			break;
 		case Direction::BACKWARD:
-			change = -1;
+			change = -3;
 			break;
 		}
 
@@ -338,14 +338,15 @@ namespace Player
 		}
 
 		// If trying to go forward or backward when at a relative edge, deny
-		if (d == Direction::FORWARD && static_cast<int>(boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH + 1) == Stage::BOARD_WIDTH ||
-			d == Direction::BACKWARD && static_cast<int>(boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH) == 0)
+		if (d == Direction::DOWN && static_cast<int>(boardPtr->getPlayerlocation() % Stage::BOARD_HEIGHT + 1) == Stage::BOARD_HEIGHT ||
+			d == Direction::UP && static_cast<int>(boardPtr->getPlayerlocation() % Stage::BOARD_HEIGHT) == 0)
 		{
 			return;
 		}
 
 		// Move the character on the grid
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
+		boardPtr->removeToken(boardPtr->getPlayerlocation());
 		moveSpriteToSide(side);
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
@@ -354,25 +355,24 @@ namespace Player
 
 	void Player::moveSpriteToSide(Side s)
 	{
-		float centerX = schooled::SCREEN_WIDTH_PX / 2;
 		float initX;
 		float colPos;
 		if (s == Side::LEFT)
 		{
-			colPos = static_cast<float>(boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH);
-			initX = OFFSET_X;
+			colPos = static_cast<float>(boardPtr->getPlayerlocation() / Stage::BOARD_WIDTH);
+			initX = Board::OFFSET_X;
 		}
 		else
 		{
 			int offsetRight = Stage::BOARD_WIDTH - 1;
-			colPos = static_cast<float>(offsetRight - boardPtr->getPlayerlocation() % Stage::BOARD_WIDTH);
-			initX = centerX + OFFSET_X;
+			colPos = static_cast<float>(offsetRight - boardPtr->getPlayerlocation() / Stage::BOARD_WIDTH);
+			initX = Board::CENTER_X + Board::OFFSET_X;
 		}
-		float rowPos = static_cast<float>(boardPtr->getPlayerlocation() / Stage::BOARD_HEIGHT);
+		float rowPos = static_cast<float>(boardPtr->getPlayerlocation() % Stage::BOARD_HEIGHT);
 		sprite->move((initX + 
-			(colPos * ROW_WIDTH) +	// The width of the column times the number of columns to move
-			(rowPos * ROW_OFFSET)) * schooled::SCALE,	// The row offset due to the perspective
-			(OFFSET_Y - (rowPos * ROW_HEIGHT)) * schooled::SCALE);
+			(colPos * Board::ROW_WIDTH) +	// The width of the column times the number of columns to move
+			(rowPos * Board::ROW_OFFSET)) * schooled::SCALE,	// The row offset due to the perspective
+			(Board::OFFSET_Y - (rowPos * Board::ROW_HEIGHT)) * schooled::SCALE, false);
 	}
 
 	void Player::startTurn()
