@@ -29,9 +29,9 @@
         <Static>0</Static>
         <Damage>1</Damage>
         <Range>
-          0 0 1
-          0 0 1
-          0 0 1
+          1 0 0
+          1 0 0
+          1 0 0
         </Range>
       </Attack>
       <Attack name="DODGEBALL_C">
@@ -85,9 +85,9 @@
         <Static>0</Static>
         <Damage>1</Damage>
         <Range>
-          0 0 1
-          0 0 1
-          0 0 1
+          1 0 0
+          1 0 0
+          1 0 0
         </Range>
       </Attack>
       <Attack name="FAST_ATTACK">
