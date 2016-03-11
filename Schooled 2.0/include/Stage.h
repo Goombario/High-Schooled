@@ -29,8 +29,9 @@ namespace Stage
 		Sprite::Sprite *display;
 		Sprite::Sprite *HPBar;
 		Sprite::Sprite *SPBar;
-		float offsetX;
-		float offsetY;
+		float offsetX;	// The distance from the edge to the HP bar
+		float offsetY;	// The bottom of the HP bar
+		int side;
 	};
 
 	// Holds the stage elements ex. music, background elements, HUD

@@ -16,33 +16,41 @@ namespace Stage
 	{
 		Image::Image tempImage;
 		std::string path;
-		float offsetX;
+
 		int frameWidth = 96;
 		int frameHeight = 32;
-		int HPOffsetX;
-		int HPOffsetY = schooled::SCREEN_HEIGHT_PX - 11;
+		float distanceToHP = 38.0f;
+		offsetY = schooled::SCREEN_HEIGHT_PX - 9;
+		
+
+		float HUDOffsetX;
 		if (player->getSide() == Side::LEFT)
 		{
 			path = schooled::getResourcePath("img") + "HUD_Left.png";
-			offsetX = 0.0f;
-			HPOffsetX = 34;
+			HUDOffsetX = 0.0f;
+			offsetX = distanceToHP;	// The distance from the edge to the HP bar
+			side = 1;
 		}
 		else
 		{
 			path = schooled::getResourcePath("img") + "HUD_Right.png";
-			offsetX = static_cast<float>(schooled::SCREEN_WIDTH_PX - frameWidth);
-			HPOffsetX = schooled::SCREEN_WIDTH_PX - 34 - 50;
+			HUDOffsetX = static_cast<float>(schooled::SCREEN_WIDTH_PX - frameWidth);
+			offsetX = schooled::SCREEN_WIDTH_PX - distanceToHP;
+			side = -1;
 		}
 
+		// Load the HUD
 		tempImage = GameEngine::getImageManager()->loadImage(path, frameWidth, frameHeight);
 		display = new Sprite::Sprite(tempImage);
-		display->move(offsetX, static_cast<float>(schooled::SCREEN_HEIGHT_PX - frameHeight), 0);
+		display->move(HUDOffsetX, static_cast<float>(schooled::SCREEN_HEIGHT_PX - frameHeight), 0);
 
-		tempImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "HPBar.png", 50, 5);
+		// Load the HP bar
+		tempImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "HPBar.png", 10, 5);
 		HPBar = new Sprite::Sprite(tempImage);
-		HPBar->move(static_cast<float>(HPOffsetX), static_cast<float>(HPOffsetY), false);
 
-		SPBar = nullptr;
+		// Load the SP bar
+		tempImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "SPBar.png", 7, 5);
+		SPBar = new Sprite::Sprite(tempImage);
 	}
 
 	HUD::~HUD()
@@ -58,14 +66,22 @@ namespace Stage
 
 	void HUD::draw()
 	{
-		HPBar->draw();
-		//SPBar->draw();
+		for (int i = 0; i < player->getCurrentHP(); i++)
+		{
+			HPBar->drawAt(offsetX + (i * HPBar->getFrameWidth() * side), offsetY);
+		}
+
+		for (int i = 0; i < player->getCurrentSP(); i++)
+		{
+			SPBar->drawAt(offsetX + 1 + (i * SPBar->getFrameWidth() * side), offsetY - SPBar->getFrameHeight());
+		}
+
 		display->draw();
 	}
 
 	void HUD::update()
 	{
-		//HPBar->setScaleX(player->getCurrentHP() / player->getMaxHP());
+
 	}
 	
 }
