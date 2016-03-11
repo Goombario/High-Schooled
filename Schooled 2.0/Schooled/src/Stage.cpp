@@ -65,7 +65,7 @@ namespace Stage
 
 	void HUD::update()
 	{
-		
+		//HPBar->setScaleX(player->getCurrentHP() / player->getMaxHP());
 	}
 	
 }

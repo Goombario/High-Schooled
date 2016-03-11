@@ -73,6 +73,7 @@ namespace Player
 		inline int getCurrentHP() const { return stats.currentHP; }
 		inline int getCurrentAP() const { return stats.currentAP; }
 		inline int getCurrentSP() const { return stats.currentSP; }
+		inline int getMaxHP() const { return stats.maxHP; }
 
 		// Changes health of enemy player, tokens on enemy board
 		// And changes your cooldown and current AP
