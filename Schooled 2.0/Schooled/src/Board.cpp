@@ -8,16 +8,16 @@ namespace Board
 {
 	Board::Board()
 	{
-		playerLocation = 0;
-		firstPos = 0;
+		playerLocation = { 0, 0 };
+		firstPos = { 0, 0 };
 
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				boardTiles[w][h].hasToken = false;
-				boardTiles[w][h].isPassable = true;
-				boardTiles[w][h].isPath = false;
+				boardTiles[h][w].hasToken = false;
+				boardTiles[h][w].isPassable = true;
+				boardTiles[h][w].isPath = false;
 			}
 		}
 
@@ -25,35 +25,34 @@ namespace Board
 		tokenSprite = nullptr;
 	}
 
-	void Board::placeToken(int location)
+	void Board::placeToken(unsigned int h, unsigned int w)
 	{
-		boardTiles[location / Stage::BOARD_WIDTH]
-		[location % Stage::BOARD_HEIGHT].hasToken = true;
+		boardTiles[h][w].hasToken = true;
 	}
 
-	void Board::placeToken(int w, int h)
+	void Board::placeToken(COORD c)
 	{
-		boardTiles[w][h].hasToken = true;
+		boardTiles[c.Y][c.X].hasToken = true;
 	}
 
-	void Board::removeToken(int location)
+	void Board::removeToken(unsigned int h, unsigned int w)
 	{
-		boardTiles[location / Stage::BOARD_WIDTH]
-			[location % Stage::BOARD_HEIGHT].hasToken = false;
+		boardTiles[h][w].hasToken = false;
 	}
 
-	void Board::removeToken(int w, int h)
+	void Board::removeToken(COORD c)
 	{
-		boardTiles[w][h].hasToken = false;
+		boardTiles[c.Y][c.X].hasToken = false;
 	}
+
 
 	void Board::clearTokens()
 	{
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				removeToken(w, h);
+				removeToken(h, w);
 			}
 		}
 	}
@@ -70,7 +69,7 @@ namespace Board
 			unsigned int countCheck = 0;
 			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 			{
-				if (boardTiles[w][h].hasToken)
+				if (boardTiles[h][w].hasToken)
 					countCheck++;
 			}
 
@@ -81,7 +80,7 @@ namespace Board
 				// Add the completed row to the temporary board
 				for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 				{
-					tempBoard.placeToken(w, h);
+					tempBoard.placeToken(h, w);
 				}
 			}
 		}
@@ -92,7 +91,7 @@ namespace Board
 			unsigned int countCheck = 0;
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				if (boardTiles[w][h].hasToken)
+				if (boardTiles[h][w].hasToken)
 					countCheck++;
 			}
 
@@ -103,7 +102,7 @@ namespace Board
 				// Add the completed column to the temporary board
 				for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 				{
-					tempBoard.placeToken(w, h);
+					tempBoard.placeToken(h, w);
 				}
 			}
 		}
@@ -115,17 +114,18 @@ namespace Board
 
 	void Board::print()
 	{
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		std::cout << "Tokens:" << std::endl;
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				std::cout << boardTiles[w][h].hasToken;
+				std::cout << boardTiles[h][w].hasToken;
 			}
 			std::cout << std::endl;
 		}
 	}
 
-	bool Board::inBounds(int w, int h)
+	bool Board::inBounds(int h, int w)
 	{
 		if (w < Stage::BOARD_WIDTH && w >= 0 &&
 			h < Stage::BOARD_HEIGHT && h >= 0)
@@ -138,11 +138,11 @@ namespace Board
 		float initX = (s == Side::LEFT) ? OFFSET_X : CENTER_X + OFFSET_X;
 		int offsetRight = Stage::BOARD_WIDTH - 1;
 
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				if (boardTiles[w][h].hasToken)
+				if (boardTiles[h][w].hasToken)
 				{
 					int wPos = w;
 					if (s == Side::RIGHT) wPos = Stage::BOARD_WIDTH - 1 - wPos;
@@ -161,11 +161,11 @@ namespace Board
 {
 	void Board::clearPath()
 	{
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				boardTiles[w][h].isPath = false;
+				boardTiles[h][w].isPath = false;
 			}
 		}
 	}
@@ -175,110 +175,133 @@ namespace Board
 		clearPath();
 
 		clearLeePath();
-		waveMap.wMap[firstPos % Stage::BOARD_WIDTH][firstPos / Stage::BOARD_HEIGHT] = 0;
+		waveMap.wMap[firstPos.Y][firstPos.X] = 0;
 
 		// Set up the waveMap
 		int distance = getLeePath(0);
 
-		tracePath(getPlayerlocation() % Stage::BOARD_WIDTH, getPlayerlocation() / Stage::BOARD_HEIGHT);
+		tracePath(getPlayerlocation().Y, getPlayerlocation().X);
 
-		/*std::cout << "Distance :" << distance << std::endl;
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		std::cout << "Distance:" << distance << std::endl;
+		std::cout << "Wave Map:" << std::endl;
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				std::cout << waveMap.wMap[w][h];
+				std::cout << waveMap.wMap[h][w];
 			}
 			std::cout << std::endl;
-		}*/
+		}
 
-		/*for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		std::cout << "Board Path" << std::endl;
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				std::cout << boardTiles[w][h].isPath;
+				std::cout << boardTiles[h][w].isPath;
 			}
 			std::cout << std::endl;
-		}*/
+		}
+		std::cout << std::endl;
 		return distance;
 	}
 
-	void Board::tracePath(int w, int h)
+	void Board::tracePath(int h, int w)
 	{
-		boardTiles[w][h].isPath = true;
+		boardTiles[h][w].isPath = true;
 
 		// IF in bounds AND set value AND less than current node
-		if (inBounds(w + 1, h) && waveMap.wMap[w + 1][h] >= 0 && waveMap.wMap[w + 1][h] < waveMap.wMap[w][h])
+		if (inBounds(h, w + 1) && waveMap.wMap[h][w + 1] >= 0 && waveMap.wMap[h][w + 1] < waveMap.wMap[h][w])
 		{
-			tracePath(w + 1, h);
+			tracePath(h, w + 1);
 		}
-		else if (inBounds(w - 1, h) && waveMap.wMap[w - 1][h] >= 0 && waveMap.wMap[w - 1][h] < waveMap.wMap[w][h])
+		else if (inBounds(h, w - 1) && waveMap.wMap[h][w - 1] >= 0 && waveMap.wMap[h][w - 1] < waveMap.wMap[h][w])
 		{
-			tracePath(w - 1, h);
+			tracePath(h, w - 1);
 		}
-		else if (inBounds(w, h + 1) && waveMap.wMap[w][h + 1] >= 0 && waveMap.wMap[w][h + 1] < waveMap.wMap[w][h])
+		else if (inBounds(h + 1, w) && waveMap.wMap[h + 1][w] >= 0 && waveMap.wMap[h + 1][w] < waveMap.wMap[h][w])
 		{
-			tracePath(w, h + 1);
+			tracePath(h + 1, w);
 		}
-		else if (inBounds(w, h - 1) && waveMap.wMap[w][h - 1] >= 0 && waveMap.wMap[w][h - 1] < waveMap.wMap[w][h])
+		else if (inBounds(h - 1, w) && waveMap.wMap[h - 1][w] >= 0 && waveMap.wMap[h - 1][w] < waveMap.wMap[h][w])
 		{
-			tracePath(w, h - 1);
+			tracePath(h - 1, w);
 		}
 	}
 
 	void Board::clearLeePath()
 	{
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				waveMap.wMap[w][h] = -1;
+				waveMap.wMap[h][w] = -1;
 			}
 		}
 		waveMap.foundTarget = false;
 	}
 
-	void Board::setNeighbours(int w, int h, int i)
+	void Board::setNeighbours(int h, int w, int i)
 	{
 		// Check neighbours and update their values
 		// IF within bounds AND not labeled AND passable
-		if (inBounds(w + 1, h) && waveMap.wMap[w + 1][h] < 0 && boardTiles[w + 1][h].isPassable)
+		if (inBounds(h, w + 1) && waveMap.wMap[h][w + 1] < 0 && boardTiles[h][w + 1].isPassable)
 		{
-			waveMap.wMap[w + 1][h] = i + 1;
+			waveMap.wMap[h][w + 1] = i + 1;
 		}
-		if (inBounds(w - 1, h) && waveMap.wMap[w - 1][h] < 0 && boardTiles[w - 1][h].isPassable)
+		if (inBounds(h, w - 1) && waveMap.wMap[h][w - 1] < 0 && boardTiles[h][w - 1].isPassable)
 		{
-			waveMap.wMap[w - 1][h] = i + 1;
+			waveMap.wMap[h][w - 1] = i + 1;
 		}
-		if (inBounds(w, h + 1) && waveMap.wMap[w][h + 1] < 0 && boardTiles[w][h + 1].isPassable)
+		if (inBounds(h + 1, w) && waveMap.wMap[h + 1][w] < 0 && boardTiles[h + 1][w].isPassable)
 		{
-			waveMap.wMap[w][h + 1] = i + 1;
+			waveMap.wMap[h + 1][w] = i + 1;
 		}
-		if (inBounds(w, h - 1) && waveMap.wMap[w][h - 1] < 0 && boardTiles[w][h - 1].isPassable)
+		if (inBounds(h - 1, w) && waveMap.wMap[h - 1][w] < 0 && boardTiles[h - 1][w].isPassable)
 		{
-			waveMap.wMap[w][h - 1] = i + 1;
+			waveMap.wMap[h - 1][w] = i + 1;
 		}
 	}
 
 	int Board::getLeePath(int i)
 	{
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
 				// If at the target, set foundTarget to true
-				if (w + h*Stage::BOARD_HEIGHT == getPlayerlocation() && waveMap.wMap[w][h] >= 0)
+				if (getPlayerlocation() == COORD{w, h} && waveMap.wMap[h][w] >= 0)		// CHECK
 				{
 					waveMap.foundTarget = true;
-					return waveMap.wMap[w][h];
+					return waveMap.wMap[h][w];
 				}
 
 				// Sets all neighbors of the i value to be i+1
-				if (waveMap.wMap[w][h] == i)
-					setNeighbours(w, h, i);
+				if (waveMap.wMap[h][w] == i)
+					setNeighbours(h, w, i);
 			}
 		}
 
 		return getLeePath(i + 1);
 	}
+}
+
+bool operator ==(COORD a, COORD b)
+{
+	return (a.X == b.X && a.Y == b.Y);
+}
+
+bool operator !=(COORD a, COORD b)
+{
+	return(a.X != b.X || a.Y != b.Y);
+}
+
+COORD operator +(COORD a, COORD b)
+{
+	return{ a.X + b.X, a.Y + b.Y };
+}
+
+COORD operator -(COORD a, COORD b)
+{
+	return{ a.X - b.X, a.Y - b.Y };
 }

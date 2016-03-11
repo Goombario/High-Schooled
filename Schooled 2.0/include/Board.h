@@ -3,6 +3,7 @@
 
 #include "BattleConstants.h"
 #include "Schooled.h"
+#include <Windows.h>
 
 namespace Player
 {
@@ -46,12 +47,12 @@ namespace Board
 		int checkMatches();
 
 		// Place a single token on the board at given location
-		void placeToken(int location);
-		void placeToken(int w, int h);
+		void placeToken(unsigned int h, unsigned int w);
+		void placeToken(COORD c);
 
 		// Remove a token from given location
-		void removeToken(int location);
-		void removeToken(int w, int h);
+		void removeToken(unsigned int h, unsigned int w);
+		void removeToken(COORD c);
 
 		// Adds tokens onto the board
 		inline Board& operator+=(Board const&);
@@ -81,9 +82,9 @@ namespace Board
 		void update();
 
 		// Set the player location
-		inline void setPlayerLocation(unsigned int newLocation) { playerLocation = newLocation; }
-		inline void setPlayerFirstPos(unsigned int newLocation) { firstPos = newLocation; }
-		inline unsigned int getPlayerlocation() { return playerLocation; }
+		inline void setPlayerLocation(COORD newLocation) { playerLocation = newLocation; }
+		inline void setPlayerFirstPos(COORD newLocation) { firstPos = newLocation; }
+		inline COORD getPlayerlocation() { return playerLocation; }
 
 	private:
 		// Helper function returns tile at number position
@@ -92,9 +93,9 @@ namespace Board
 			return boardTiles[i % Stage::BOARD_WIDTH]
 				[i / Stage::BOARD_HEIGHT];
 		};
-		inline Tile& getTile(int w, int h)
+		inline Tile& getTile(int h, int w)
 		{
-			return boardTiles[w][h];
+			return boardTiles[h][w];
 		}
 
 		// Helper function that checks if position is in bounds
@@ -104,17 +105,23 @@ namespace Board
 		void clearPath();
 		int getLeePath(int i);
 		void clearLeePath();
-		void setNeighbours(int w, int h, int i);	// Sets all invalid spaces around coordinate to i+1
-		void tracePath(int w, int h);
+		void setNeighbours(int h, int w, int i);	// Sets all invalid spaces around coordinate to i+1
+		void tracePath(int h, int w);
 
 	private:
-		Tile boardTiles[Stage::BOARD_WIDTH][Stage::BOARD_HEIGHT];
+		Tile boardTiles[Stage::BOARD_HEIGHT][Stage::BOARD_WIDTH];
 		WaveMap waveMap;
-		unsigned int playerLocation;
-		unsigned int firstPos;	// The position at beginning of turn
+		COORD playerLocation;
+		COORD firstPos;	// The position at beginning of turn
 		Sprite::Sprite *tokenSprite;
 	};
 }
+
+// Operators for manipulating COORDS
+bool operator ==(COORD a, COORD b);
+bool operator !=(COORD a, COORD b);
+COORD operator +(COORD a, COORD b);
+COORD operator -(COORD a, COORD b);
 
 #include "Board.inl"
 

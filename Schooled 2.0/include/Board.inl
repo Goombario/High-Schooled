@@ -3,13 +3,13 @@ namespace Board
 	// Adds tokens onto the board
 	inline Board& Board::operator+=(Board const& a)
 	{
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
 				// Bitwise OR
-				this->boardTiles[w][h].hasToken = 
-					(this->boardTiles[w][h].hasToken | a.boardTiles[w][h].hasToken);
+				this->boardTiles[h][w].hasToken = 
+					(this->boardTiles[h][w].hasToken | a.boardTiles[h][w].hasToken);
 			}
 		}
 		return (*this);
@@ -23,13 +23,13 @@ namespace Board
 	// Subtract tokens from the board
 	inline Board& Board::operator-=(Board const& a)
 	{
-		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
-			for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
 				// Bitwise XOR
-				this->boardTiles[w][h].hasToken = 
-					(this->boardTiles[w][h].hasToken ^ a.boardTiles[w][h].hasToken);
+				this->boardTiles[h][w].hasToken = 
+					(this->boardTiles[h][w].hasToken ^ a.boardTiles[h][w].hasToken);
 			}
 		}
 		return (*this);
