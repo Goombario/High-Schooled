@@ -47,9 +47,11 @@ namespace Sprite
 		void drawAt(float x, float y);
 
 		// GETTERS
-		float getX() const { return posX; }
-		float getY() const { return posY; }
-		float getAngle() const { return angle; }
+		inline float getX() const { return posX; }
+		inline float getY() const { return posY; }
+		inline float getAngle() const { return angle; }
+		inline int getFrameWidth() const { return image.frameWidth; }
+		inline int getFrameHeight() const { return image.frameHeight; }
 
 	protected:
 		float posX, posY, angle;

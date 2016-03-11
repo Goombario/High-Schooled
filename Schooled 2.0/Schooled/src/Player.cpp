@@ -236,7 +236,7 @@ namespace Player
 					// Else, place a token.
 					if (enemy.boardPtr->getPlayerlocation() == pos)
 					{
-						enemy.changeHealth(currentAttack->damage);
+						enemy.changeHealth(-currentAttack->damage);
 					}
 					else
 					{	
