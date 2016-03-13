@@ -28,6 +28,11 @@ namespace Stage
 	class Stage;
 }
 
+namespace BattleObject
+{
+	class BattleObject;
+}
+
 namespace BattleState
 {
 	class BattleState : public GameState
@@ -80,6 +85,9 @@ namespace BattleState
 		Board::Board* board1;
 		Board::Board* board2;
 		Stage::Stage* stage;
+
+		// List of battle objects
+		std::vector<BattleObject::BattleObject*> battleObjects;
 
 		bool isEnd;
 		Side playerTurn;

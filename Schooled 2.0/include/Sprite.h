@@ -80,6 +80,9 @@ namespace Sprite
 		// Stop the current animation and remove it from the list
 		void popAnimation();
 
+		// Get the current animation
+		Animation::AnimationEnum getCurrentAnimation();
+
 	private:
 		std::vector<Animation::Animation> animationList;
 		Animation::AnimationData data;

@@ -50,12 +50,8 @@ namespace Stage
 		// Update the HUD 
 		void update();
 
-		// Get the token sprite
-		Sprite::Sprite& getSprite() { return *token; }
-
 	private:
 		Sprite::Sprite *background;
-		Sprite::Sprite *token;
 		const Player::Player *player1, *player2;
 		HUD p1HUD, p2HUD;
 	};

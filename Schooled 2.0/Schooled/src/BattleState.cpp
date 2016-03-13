@@ -1,6 +1,7 @@
 #include "BattleState.h"
 #include "GameEngine.h"
 #include "ShareState.h"
+#include "BattleObject.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
 
@@ -27,6 +28,7 @@ namespace BattleState
 		GameEngine::getMapper()->AddCallback(mainCallback, 0);
 
 		// Tells the mapper to map a specific set of keys to a specific set of actions
+		GameEngine::getMapper()->Clear();
 		GameEngine::getMapper()->PushContext("globalContext");
 		GameEngine::getMapper()->PushContext("player1Action");
 
@@ -36,14 +38,20 @@ namespace BattleState
 		// Hold pressed keys
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
 
-		board1 = new Board::Board();
-		board2 = new Board::Board();
+		board1 = new Board::Board(Side::LEFT);
+		board2 = new Board::Board(Side::RIGHT);
 		player1 = new Player::Player("Nate", board1, Side::LEFT);
 		player2 = new Player::Player("Gym Teacher", board2, Side::RIGHT);
 		stage = new Stage::Stage("Default", player1, player2);
 
-		board1->setTokenSprite(stage->getSprite());
-		board2->setTokenSprite(stage->getSprite());
+		board1->setTokenSprite(player2->getTokenSprite());
+		board2->setTokenSprite(player1->getTokenSprite());
+
+		// Set the list of battle objects
+		battleObjects.push_back(player1);
+		battleObjects.push_back(player2);
+		battleObjects.push_back(board1);
+		battleObjects.push_back(board2);
 
 		playerTurn = Side::LEFT;
 		player1->startTurn();
@@ -54,8 +62,12 @@ namespace BattleState
 	void BattleState::Cleanup()
 	{
 		// Cleanup
-		delete player1;
-		delete player2;
+		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
+		{
+			delete *it;
+		}
+		battleObjects.clear();
+
 		delete stage;
 
 		player1 = nullptr;
@@ -98,6 +110,22 @@ namespace BattleState
 	void mainCallback(InputMapping::MappedInput& inputs)
 	{
 		BattleState *self = BattleState::Instance();
+
+		if (inputs.Actions.find(InputMapping::Action::EXIT_GAME) != inputs.Actions.end())
+		{
+			self->isEnd = true;
+			inputs.EatAction(InputMapping::Action::EXIT_GAME);
+		}
+
+		// If a player is acting (moving, attacking) don't let commands through
+		for (auto it = self->battleObjects.begin(); it != self->battleObjects.end(); it++)
+		{
+			if ((**it).isActing())
+			{
+				return;
+			}
+		}
+
 		if (inputs.Actions.find(InputMapping::Action::BOARD_UP) != inputs.Actions.end())
 		{
 			self->getCurrentPlayer()->move(Direction::UP);
@@ -139,20 +167,15 @@ namespace BattleState
 			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 2);
 			inputs.EatAction(InputMapping::Action::ATTACK_3);
 		}
-
-		if (inputs.Actions.find(InputMapping::Action::EXIT_GAME) != inputs.Actions.end())
-		{
-			self->isEnd = true;
-			inputs.EatAction(InputMapping::Action::EXIT_GAME);
-		}
 	}
 
 	void BattleState::Update(GameEngine* game)
 	{
 		if (isEnd || player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) game->Quit();
-		player1->update();
-		player2->update();
-		stage->update();
+		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
+		{
+			(**it).update();
+		}
 
 		if (getCurrentPlayer()->getCurrentAP() == 0)
 		{
@@ -164,10 +187,10 @@ namespace BattleState
 	void BattleState::Draw(GameEngine* game)
 	{
 		stage->drawBackground();
-		board1->draw(Side::LEFT);
-		board2->draw(Side::RIGHT);
-		player1->draw();
-		player2->draw();
+		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
+		{
+			(**it).draw();
+		}
 		stage->drawHUD();
 		// Fizzle swaps buffer automatically at end
 	}

@@ -4,6 +4,7 @@
     <!--Sprite Data-->
     <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
     <Animation name="GymTeacher.xml"/>
+    <Token name="Default_Token.png" width="16" height="16"/>
 
     <!--Statistics-->
     <Stats>
@@ -60,6 +61,7 @@
     <!--Sprite Data-->
     <Sprite name="Nate.png" frameWidth="64" frameHeight="64"/>
     <Animation name="Nate.xml"/>
+    <Token name="Default_Token.png" width="16" height="16"/>
 
     <!--Statistics-->
     <Stats>
@@ -111,8 +113,8 @@
       <Damage>2</Damage>
     </Special>
   </Player>
-  
-    <Player name="Template">
+
+  <Player name="Template">
     <!--Sprite Data-->
     <Sprite name="" frameWidth="" frameHeight=""/>
     <Animation name="" numCol=""/>
@@ -131,7 +133,7 @@
         <Static></Static>
         <Damage></Damage>
         <Range>
-          
+
         </Range>
       </Attack>
       <Attack name="">

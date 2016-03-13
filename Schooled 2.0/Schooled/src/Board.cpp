@@ -23,6 +23,18 @@ namespace Board
 
 		clearLeePath();
 		tokenSprite = nullptr;
+		side = Side::LEFT;
+		setActing(false);
+	}
+
+	Board::Board(Side s) : Board()
+	{
+		side = s;
+	}
+
+	Board::~Board()
+	{
+
 	}
 
 	void Board::placeToken(unsigned int h, unsigned int w)
@@ -133,9 +145,9 @@ namespace Board
 		return false;
 	}
 
-	void Board::draw(Side s)
+	void Board::draw() const
 	{
-		float initX = (s == Side::LEFT) ? OFFSET_X : CENTER_X + OFFSET_X;
+		float initX = (side == Side::LEFT) ? OFFSET_X : CENTER_X + OFFSET_X;
 		int offsetRight = Stage::BOARD_WIDTH - 1;
 
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
@@ -145,7 +157,7 @@ namespace Board
 				if (boardTiles[h][w].hasToken)
 				{
 					int wPos = w;
-					if (s == Side::RIGHT) wPos = Stage::BOARD_WIDTH - 1 - wPos;
+					if (side == Side::RIGHT) wPos = Stage::BOARD_WIDTH - 1 - wPos;
 					tokenSprite->drawAt((initX + 
 						(wPos * ROW_WIDTH) +
 						(h * ROW_OFFSET)) * schooled::SCALE,
@@ -153,6 +165,11 @@ namespace Board
 				}
 			}
 		}
+	}
+
+	void Board::update()
+	{
+		
 	}
 }
 
