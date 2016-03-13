@@ -188,4 +188,9 @@ namespace Sprite
 		pushAnimation(a);
 		time = 0.0;
 	}
+
+	Animation::AnimationEnum AnimatedSprite::getCurrentAnimation()
+	{
+		return Animation::AnimationLookup.at(animationList.back().name);
+	}
 }

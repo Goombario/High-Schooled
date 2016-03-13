@@ -27,6 +27,10 @@ namespace GameObject
 		void setPos(Vector2 const& newPos) { position = newPos; }
 		void setVelocity(Vector2 const& newVel) { velocity = newVel; }
 		void setAcceleration(Vector2 const& newAcc) { acceleration = newAcc; }
+
+		// Virtual functions
+		virtual void update() {}
+		virtual void draw() {}
 	
 	private:
 		Vector2 getPrevVelocity() const { return prevVelocity; }

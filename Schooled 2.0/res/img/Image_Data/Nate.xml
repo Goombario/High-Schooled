@@ -63,4 +63,8 @@
     <Frame>0.05</Frame>
     <Frame>0.15</Frame>
   </Animation>
+  <Animation name="TOKEN_PLACE" loop="false">
+    <FirstFrame>76</FirstFrame>
+    <Frame>0.0</Frame>
+  </Animation>
 </AnimationList>

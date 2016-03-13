@@ -176,6 +176,9 @@
     <ClInclude Include="..\include\BattleConstants.h">
       <Filter>Battle\Battle Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\BattleObject.h">
+      <Filter>Battle\Battle Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Vector2.inl">

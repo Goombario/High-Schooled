@@ -104,6 +104,7 @@
     <ClInclude Include="..\include\Animation.h" />
     <ClInclude Include="..\include\AnimationConstants.h" />
     <ClInclude Include="..\include\BattleConstants.h" />
+    <ClInclude Include="..\include\BattleObject.h" />
     <ClInclude Include="..\include\Board.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameObject.h" />

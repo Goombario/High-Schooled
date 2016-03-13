@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include "BattleConstants.h"
+#include "BattleObject.h"
 #include "Schooled.h"
 #include <Windows.h>
 
@@ -37,10 +38,13 @@ namespace Board
 		bool foundTarget;
 	};
 
-	class Board
+	class Board : public BattleObject::BattleObject
 	{
 	public:
 		Board();
+		Board(Side);
+
+		~Board();
 
 		// Checks for matches on the board, and removes the matching lines.
 		// Returns the number of lines completed.
@@ -76,10 +80,13 @@ namespace Board
 		void print();
 
 		// Draw the board and tiles to the screen
-		void draw(Side);
+		void draw() const;
 
 		// Update board animations
 		void update();
+
+		// Check if the board is acting (i.e. tokens are animating)
+		inline bool isActing() const { return acting; }
 
 		// Set the player location
 		inline void setPlayerLocation(COORD newLocation) { playerLocation = newLocation; }
@@ -109,6 +116,8 @@ namespace Board
 		void tracePath(int h, int w);
 
 	private:
+		bool acting;
+		Side side;
 		Tile boardTiles[Stage::BOARD_HEIGHT][Stage::BOARD_WIDTH];
 		WaveMap waveMap;
 		COORD playerLocation;

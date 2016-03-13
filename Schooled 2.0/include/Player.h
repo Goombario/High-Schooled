@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "BattleConstants.h"
+#include "BattleObject.h"
 #include <string>
 #include <vector>
 #include "Schooled.h"
@@ -14,6 +15,7 @@ namespace Board
 
 namespace Sprite
 {
+	class Sprite;
 	class AnimatedSprite;
 }
 
@@ -55,7 +57,7 @@ namespace Player
 	};
 
 	// Player class holds a player's data and tools to manipulate it.
-	class Player
+	class Player : public BattleObject::BattleObject
 	{
 	public:
 		Player();
@@ -101,6 +103,9 @@ namespace Player
 		// Draw the player to the screen
 		void draw() const;
 
+		// Get the token sprite
+		Sprite::Sprite& getTokenSprite() { return *token; }
+
 	private:
 		// Move sprite to relative postion
 		void moveSpriteToSide(Side);
@@ -111,6 +116,7 @@ namespace Player
 		SpecialAbility ability;
 		Side side;
 		Sprite::AnimatedSprite *sprite;
+		Sprite::Sprite *token;
 		Board::Board *boardPtr;	// Pointer to the player's board
 	};
 

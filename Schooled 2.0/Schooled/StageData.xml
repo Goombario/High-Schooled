@@ -3,7 +3,6 @@
   <Stage name="Default">
     <Background name="Battle_background.png" width="512" height="288"/>
     <HUD name="HUD.png" width="512" height="288"/>
-    <Token name="Default_Token.png" width="16" height="16"/>
     <Properties></Properties>
   </Stage>
 </StageList>

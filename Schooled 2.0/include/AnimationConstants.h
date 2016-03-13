@@ -15,6 +15,7 @@ namespace Animation
 		WALK_LEFT,
 		IDLE,
 		IDLE_BORED,
+		TOKEN_PLACE,
 	};
 
 	static const std::map<std::string, AnimationEnum> AnimationLookup
@@ -26,6 +27,7 @@ namespace Animation
 		{ "WALK_LEFT", AnimationEnum::WALK_LEFT },
 		{ "IDLE", AnimationEnum::IDLE },
 		{ "IDLE_BORED", AnimationEnum::IDLE_BORED },
+		{ "TOKEN_PLACE", AnimationEnum::TOKEN_PLACE },
 	};
 }
 

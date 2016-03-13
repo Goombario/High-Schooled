@@ -146,32 +146,11 @@ namespace Stage
 			frameWidth, frameHeight);
 		background = new Sprite::Sprite(tempImage);
 		background->move(0, 0, false);
-
-		stageElement = stageData->FirstChildElement("Token");
-		if (stageElement == nullptr)
-		{
-			std::cerr << "ERROR: Loading Stage data file: Token "
-				<< XML_ERROR_FILE_READ_ERROR << std::endl;
-			exit(-2);
-		}
-
-		imageName = stageElement->Attribute("name");
-		CheckXMLResult(stageElement->QueryUnsignedAttribute("width", &frameWidth));
-		CheckXMLResult(stageElement->QueryUnsignedAttribute("height", &frameHeight));
-		tempImage = GameEngine::getImageManager()->loadImage(
-			schooled::getResourcePath("img") + imageName,
-			frameWidth, frameHeight);
-		token = new Sprite::Sprite(tempImage);
-		token->move(0, 0, false);
 	}
 
 	Stage::~Stage()
 	{
 		delete background;
-		delete token;
-
-		background = nullptr;
-		token = nullptr;
 	}
 
 	void Stage::drawBackground()

@@ -19,13 +19,17 @@ namespace Player
 		stats.maxAP = 0;
 		stats.maxHP = 0;
 		stats.maxSP = 0;
+		setActing(false);
 
 		sprite = nullptr;
+		token = nullptr;
 		boardPtr = nullptr;
 	}
 
 	Player::Player(const char* playerName, Board::Board* playerBoard, Side s)
 	{
+		setActing(false);
+
 		boardPtr = playerBoard;
 
 		// Load player data from player file
@@ -59,7 +63,7 @@ namespace Player
 
 		// Load images and animation
 		Image::ImageManager *imageManager = GameEngine::getImageManager();
-		int frameWidth, frameHeight;
+		unsigned int frameWidth, frameHeight;
 		XMLElement *spriteData;
 		spriteData = playerData->FirstChildElement("Sprite");
 		if (spriteData == nullptr)
@@ -71,8 +75,8 @@ namespace Player
 
 		// Load the image data
 		std::string spriteName = spriteData->Attribute("name");
-		CheckXMLResult(spriteData->QueryIntAttribute("frameWidth", &frameWidth));
-		CheckXMLResult(spriteData->QueryIntAttribute("frameHeight", &frameHeight));
+		CheckXMLResult(spriteData->QueryUnsignedAttribute("frameWidth", &frameWidth));
+		CheckXMLResult(spriteData->QueryUnsignedAttribute("frameHeight", &frameHeight));
 		Image::Image spriteImage = imageManager->loadImage(
 			schooled::getResourcePath("img") + spriteName, frameWidth, frameHeight);
 
@@ -85,6 +89,23 @@ namespace Player
 		(*this).sprite = new Sprite::AnimatedSprite(spriteImage, animationData);
 		side = s;
 		moveSpriteToSide(side);
+
+		// Loading the token data
+		spriteData = playerData->FirstChildElement("Token");
+		if (spriteData == nullptr)
+		{
+			std::cerr << "ERROR: Loading Player data file: Token "
+				<< XML_ERROR_FILE_READ_ERROR << std::endl;
+			exit(-2);
+		}
+
+		std::string imageName = spriteData->Attribute("name");
+		CheckXMLResult(spriteData->QueryUnsignedAttribute("width", &frameWidth));
+		CheckXMLResult(spriteData->QueryUnsignedAttribute("height", &frameHeight));
+		Image::Image tempImage = GameEngine::getImageManager()->loadImage(
+			schooled::getResourcePath("img") + imageName,
+			frameWidth, frameHeight);
+		token = new Sprite::Sprite(tempImage);
 
 		// Load statistics
 		XMLElement *statsData = playerData->FirstChildElement("Stats");
@@ -185,7 +206,7 @@ namespace Player
 	Player::~Player()
 	{
 		delete sprite;
-		delete boardPtr;
+		delete token;
 	}
 
 	void Player::attack(Player& enemy, int attackNum)
@@ -394,6 +415,9 @@ namespace Player
 	void Player::update()
 	{
 		sprite->update();
+
+		// Check if the player is still acting
+		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
 	}
 
 	void Player::draw() const
