@@ -4,7 +4,7 @@
     <!--Sprite Data-->
     <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
     <Animation name="GymTeacher.xml"/>
-    <Token name="Default_Token.png" width="16" height="16"/>
+    <Token name="Anchor_Tilt.png" width="64" height="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -30,9 +30,9 @@
         <Static>0</Static>
         <Damage>1</Damage>
         <Range>
-          1 0 0
-          1 0 0
-          1 0 0
+          0 0 1
+          0 0 1
+          0 0 1
         </Range>
       </Attack>
       <Attack name="DODGEBALL_C">
@@ -61,7 +61,7 @@
     <!--Sprite Data-->
     <Sprite name="Nate.png" frameWidth="64" frameHeight="64"/>
     <Animation name="Nate.xml"/>
-    <Token name="Default_Token.png" width="16" height="16"/>
+    <Token name="Fist_Tilt.png" width="64" height="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -87,9 +87,9 @@
         <Static>0</Static>
         <Damage>1</Damage>
         <Range>
-          1 0 0
-          1 0 0
-          1 0 0
+          0 0 1
+          0 0 1
+          0 0 1
         </Range>
       </Attack>
       <Attack name="FAST_ATTACK">

@@ -18,8 +18,8 @@ namespace Sprite
 
 namespace Board
 {
-	float const OFFSET_X = 55;
-	float const OFFSET_Y = 130;
+	float const OFFSET_X = 65;
+	float const OFFSET_Y = 135;
 	float const CENTER_X = schooled::SCREEN_WIDTH_PX / 2;
 	int const ROW_WIDTH = 42;
 	int const ROW_HEIGHT = 31;
@@ -91,7 +91,8 @@ namespace Board
 		// Set the player location
 		inline void setPlayerLocation(COORD newLocation) { playerLocation = newLocation; }
 		inline void setPlayerFirstPos(COORD newLocation) { firstPos = newLocation; }
-		inline COORD getPlayerlocation() { return playerLocation; }
+		inline COORD getPlayerlocation() const { return playerLocation; }
+		inline Side getSide() const { return side; }
 
 	private:
 		// Helper function returns tile at number position
