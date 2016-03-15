@@ -35,6 +35,15 @@ namespace BattleObject
 
 namespace BattleState
 {
+	enum class State : int
+	{
+		EMPTY = -1,
+		POS_CHOOSE,
+		ATTACK_CHOOSE,
+		MOVE,
+		ACTING,
+	};
+
 	class BattleState : public GameState
 	{
 	public:
@@ -75,6 +84,11 @@ namespace BattleState
 		Player::Player* getCurrentPlayer();
 		Player::Player* getOtherPlayer();
 
+		// Modify the current state
+		State getCurrentState() const;
+		void pushState(State newState);
+		void popState();
+
 		// Event handling helpers
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
@@ -91,6 +105,7 @@ namespace BattleState
 
 		bool isEnd;
 		Side playerTurn;
+		std::vector<State> states;
 	};
 }
 

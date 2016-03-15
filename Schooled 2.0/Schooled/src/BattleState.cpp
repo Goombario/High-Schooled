@@ -40,19 +40,20 @@ namespace BattleState
 
 		board1 = new Board::Board(Side::LEFT);
 		board2 = new Board::Board(Side::RIGHT);
-		player1 = new Player::Player("Nate", board1, Side::LEFT);
-		player2 = new Player::Player("Gym Teacher", board2, Side::RIGHT);
+		player1 = new Player::Player("Nate", board1);
+		player2 = new Player::Player("Gym Teacher", board2);
 		stage = new Stage::Stage("Default", player1, player2);
 
 		board1->setTokenSprite(player2->getTokenSprite());
 		board2->setTokenSprite(player1->getTokenSprite());
 
 		// Set the list of battle objects
-		battleObjects.push_back(player1);
-		battleObjects.push_back(player2);
 		battleObjects.push_back(board1);
 		battleObjects.push_back(board2);
+		battleObjects.push_back(player1);
+		battleObjects.push_back(player2);
 
+		pushState(State::POS_CHOOSE);
 		playerTurn = Side::LEFT;
 		player1->startTurn();
 
@@ -117,14 +118,8 @@ namespace BattleState
 			inputs.EatAction(InputMapping::Action::EXIT_GAME);
 		}
 
-		// If a player is acting (moving, attacking) don't let commands through
-		for (auto it = self->battleObjects.begin(); it != self->battleObjects.end(); it++)
-		{
-			if ((**it).isActing())
-			{
-				return;
-			}
-		}
+		// Do not let any commands through if attacking/moving
+		if (self->getCurrentState() == State::ACTING) return;
 
 		if (inputs.Actions.find(InputMapping::Action::BOARD_UP) != inputs.Actions.end())
 		{
@@ -177,6 +172,26 @@ namespace BattleState
 			(**it).update();
 		}
 
+		// If a player is acting (moving, attacking) set the state to ACTING
+		bool isActing = false;
+		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
+		{
+			if ((**it).isActing())
+			{
+				isActing = true;
+			}
+		}
+
+		if (isActing)
+		{
+			pushState(State::ACTING);
+		}
+		else if (!isActing && getCurrentState() == State::ACTING)
+		{
+			popState();
+		}
+
+		// If the player is out of action points
 		if (getCurrentPlayer()->getCurrentAP() == 0)
 		{
 			swapCurrentPlayer();
@@ -225,6 +240,23 @@ namespace BattleState
 		if (playerTurn == Side::LEFT)
 			return player2;
 		return player1;
+	}
+
+	State BattleState::getCurrentState() const 
+	{
+		if (states.empty())
+			return State::EMPTY;
+		return states.back(); 
+	}
+
+	void BattleState::pushState(State newState)
+	{
+		if (getCurrentState() != newState) states.push_back(newState);
+	}
+
+	void BattleState::popState()
+	{ 
+		states.pop_back();
 	}
 }
 

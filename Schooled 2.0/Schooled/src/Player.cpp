@@ -26,7 +26,7 @@ namespace Player
 		boardPtr = nullptr;
 	}
 
-	Player::Player(const char* playerName, Board::Board* playerBoard, Side s)
+	Player::Player(const char* playerName, Board::Board* playerBoard)
 	{
 		setActing(false);
 
@@ -87,8 +87,7 @@ namespace Player
 
 		// Set up the sprite
 		(*this).sprite = new Sprite::AnimatedSprite(spriteImage, animationData);
-		side = s;
-		moveSpriteToSide(side);
+		moveSpriteToSide();
 
 		// Loading the token data
 		spriteData = playerData->FirstChildElement("Token");
@@ -370,17 +369,17 @@ namespace Player
 		// Move the character on the grid
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		boardPtr->removeToken(boardPtr->getPlayerlocation());
-		moveSpriteToSide(side);
+		moveSpriteToSide();
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 	}
 
-	void Player::moveSpriteToSide(Side s)
+	void Player::moveSpriteToSide()
 	{
 		float initX;
 		float colPos;
-		if (s == Side::LEFT)
+		if (boardPtr->getSide() == Side::LEFT)
 		{
 			colPos = static_cast<float>(boardPtr->getPlayerlocation().X);
 			initX = Board::OFFSET_X;
@@ -424,4 +423,6 @@ namespace Player
 	{
 		sprite->draw();
 	}
+
+	Side Player::getSide() const { return boardPtr->getSide(); }
 }

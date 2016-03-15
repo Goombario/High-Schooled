@@ -63,7 +63,7 @@ namespace Player
 		Player();
 
 		// Constructor that takes in a player name and loads the data
-		Player(const char* playerName, Board::Board*, Side);
+		Player(const char* playerName, Board::Board*);
 
 		// Rule of three
 		Player(Player const&);		// NEED UPDATE
@@ -71,11 +71,11 @@ namespace Player
 		~Player();
 
 		// Getters
-		inline Side getSide() const { return side; }
 		inline int getCurrentHP() const { return stats.currentHP; }
 		inline int getCurrentAP() const { return stats.currentAP; }
 		inline int getCurrentSP() const { return stats.currentSP; }
 		inline int getMaxHP() const { return stats.maxHP; }
+		Side getSide() const;
 
 		// Changes health of enemy player, tokens on enemy board
 		// And changes your cooldown and current AP
@@ -108,13 +108,12 @@ namespace Player
 
 	private:
 		// Move sprite to relative postion
-		void moveSpriteToSide(Side);
+		void moveSpriteToSide();
 
 		Stats stats;
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		SpecialAbility ability;
-		Side side;
 		Sprite::AnimatedSprite *sprite;
 		Sprite::Sprite *token;
 		Board::Board *boardPtr;	// Pointer to the player's board
