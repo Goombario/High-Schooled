@@ -146,16 +146,26 @@ namespace Stage
 			frameWidth, frameHeight);
 		background = new Sprite::Sprite(tempImage);
 		background->move(0, 0, false);
+
+		XMLElement *boardElement = stageData->FirstChildElement("Board");
+		if (CheckIfNull(boardElement, "Stage: Board") != XML_SUCCESS) exit(-2);
+		boardSprite = new Sprite::Sprite(boardElement);
+		boardSprite->move(0, 0, false);
 	}
 
 	Stage::~Stage()
 	{
 		delete background;
+		delete boardSprite;
+
+		background = nullptr;
+		boardSprite = nullptr;
 	}
 
 	void Stage::drawBackground()
 	{
 		background->draw();
+		boardSprite->draw();
 	}
 
 	void Stage::drawHUD()

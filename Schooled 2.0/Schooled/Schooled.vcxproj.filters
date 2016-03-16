@@ -179,6 +179,12 @@
     <ClInclude Include="..\include\BattleObject.h">
       <Filter>Battle\Battle Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Battle\Battle Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Collision.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Vector2.inl">

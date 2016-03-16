@@ -4,6 +4,11 @@
 #include "Image.h"
 #include "Animation.h"
 
+namespace tinyxml2
+{
+	class XMLElement;
+}
+
 namespace Sprite
 {
 	typedef int FzlSpriteHandle;
@@ -13,7 +18,7 @@ namespace Sprite
 	public:
 		Sprite();
 		Sprite(Image::Image const&);
-
+		Sprite(tinyxml2::XMLElement const*);
 
 		/* Shift the sprite by x pixels right and y pixels down
 		* @param float x - A float representing the number of pixels to be moved along the x axis
@@ -63,6 +68,7 @@ namespace Sprite
 	{
 	public:
 		AnimatedSprite(Image::Image const&, Animation::AnimationData const&);
+		AnimatedSprite(tinyxml2::XMLElement const* imageData, tinyxml2::XMLElement const* animationData);
 
 		// Draw the sprite to the screen.
 		void draw();
