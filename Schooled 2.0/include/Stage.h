@@ -52,6 +52,7 @@ namespace Stage
 
 	private:
 		Sprite::Sprite *background;
+		Sprite::Sprite *boardSprite;
 		const Player::Player *player1, *player2;
 		HUD p1HUD, p2HUD;
 	};

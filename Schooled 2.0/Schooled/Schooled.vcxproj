@@ -106,6 +106,7 @@
     <ClInclude Include="..\include\BattleConstants.h" />
     <ClInclude Include="..\include\BattleObject.h" />
     <ClInclude Include="..\include\Board.h" />
+    <ClInclude Include="..\include\Collision.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\GameState.h" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\include\Stage.h" />
     <ClInclude Include="..\include\tinyxml2.h" />
     <ClInclude Include="..\include\Vector2.h" />
+    <ClInclude Include="Projectile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Board.inl" />

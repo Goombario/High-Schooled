@@ -2098,6 +2098,9 @@ private:
 // Helper function that checks XML results
 tinyxml2::XMLError CheckXMLResult(tinyxml2::XMLError result);
 
+// Helper function that checks if a pointer is null, and if so return the error
+tinyxml2::XMLError CheckIfNull(tinyxml2::XMLElement const*, const char*);
+
 }	// tinyxml2
 
 #if defined(_MSC_VER)

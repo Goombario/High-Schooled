@@ -2473,5 +2473,17 @@ tinyxml2::XMLError CheckXMLResult(tinyxml2::XMLError result)
 	return result;
 }
 
+// Helper function that checks if a pointer is null, and if so return the error
+tinyxml2::XMLError CheckIfNull(tinyxml2::XMLElement const* elementPtr, const char* elementName)
+{
+	if (elementPtr == nullptr)
+	{
+		std::cerr << "Error: loading data file " << elementName << "." << std::endl;
+		return tinyxml2::XML_ERROR_FILE_READ_ERROR;
+	}
+
+	return tinyxml2::XML_SUCCESS;
+}
+
 }   // namespace tinyxml2
 

@@ -1,6 +1,8 @@
 #include "Sprite.h"
 #include "Fizzle\Fizzle.h"
 #include "Schooled.h"
+#include "tinyxml2.h"
+#include "GameEngine.h"
 
 // Sprite
 namespace Sprite
@@ -25,6 +27,19 @@ namespace Sprite
 		angle = 0.0f;
 		scaleX = 1.0f;
 		scaleY = 1.0f;
+	}
+
+	Sprite::Sprite(tinyxml2::XMLElement const* element) : Sprite()
+	{
+		unsigned int frameWidth;
+		unsigned int frameHeight;
+		std::string spriteName = element->Attribute("name");
+		tinyxml2::CheckXMLResult(element->QueryUnsignedAttribute("frameWidth", &frameWidth));
+		tinyxml2::CheckXMLResult(element->QueryUnsignedAttribute("frameHeight", &frameHeight));
+		Image::Image spriteImage = GameEngine::getImageManager()->loadImage(
+			schooled::getResourcePath("img") + spriteName, frameWidth, frameHeight);
+		
+		this->setImage(spriteImage);
 	}
 
 	void Sprite::shift(float x, float y)
@@ -104,6 +119,17 @@ namespace Sprite
 		time = 0.0;
 
 		pushAnimation(Animation::AnimationEnum::IDLE);
+	}
+
+	AnimatedSprite::AnimatedSprite(tinyxml2::XMLElement const* imageData, tinyxml2::XMLElement const* animationData)
+		: Sprite(imageData)
+	{
+		std::string animationName = animationData->Attribute("name");
+		data = Animation::AnimationData(schooled::getResourcePath("img") + "Image_Data/" + animationName);
+		col = 0;
+		row = 0; 
+		numCol = data.getNumCol();
+		time = 0.0;
 	}
 
 	void AnimatedSprite::draw()
