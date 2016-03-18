@@ -90,7 +90,9 @@
     <ClCompile Include="src\input\InputMapper.cpp" />
     <ClCompile Include="src\input\pch.cpp" />
     <ClCompile Include="src\input\RangeConverter.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Schooled.cpp" />
     <ClCompile Include="src\ShareState.cpp" />
     <ClCompile Include="src\sound.cpp" />
@@ -118,7 +120,9 @@
     <ClInclude Include="..\include\Input\pch.h" />
     <ClInclude Include="..\include\Input\RangeConverter.h" />
     <ClInclude Include="..\include\Input\RawInputConstants.h" />
+    <ClInclude Include="..\include\Particle.h" />
     <ClInclude Include="..\include\Player.h" />
+    <ClInclude Include="..\include\Projectile.h" />
     <ClInclude Include="..\include\Schooled.h" />
     <ClInclude Include="..\include\ShareState.h" />
     <ClInclude Include="..\include\Sound.h" />
@@ -127,7 +131,6 @@
     <ClInclude Include="..\include\Stage.h" />
     <ClInclude Include="..\include\tinyxml2.h" />
     <ClInclude Include="..\include\Vector2.h" />
-    <ClInclude Include="Projectile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Board.inl" />
@@ -137,6 +140,9 @@
     <Text Include="..\include\Input\License.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\res\img\Image_data\Arrow.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
       <SubType>Designer</SubType>
     </Xml>

@@ -70,6 +70,11 @@ namespace BattleState
 		// The callback used in the state
 		friend void mainCallback(InputMapping::MappedInput& inputs);
 
+		// Get the current state and side of the battle class
+		State getCurrentState();
+		inline Side getCurrentSide() const { return playerTurn; }
+
+
 	protected:
 		// Create an empty object
 		BattleState() { }
@@ -85,7 +90,6 @@ namespace BattleState
 		Player::Player* getOtherPlayer();
 
 		// Modify the current state
-		State getCurrentState() const;
 		void pushState(State newState);
 		void popState();
 
@@ -105,6 +109,7 @@ namespace BattleState
 
 		bool isEnd;
 		Side playerTurn;
+		unsigned int choosingPos;
 		std::vector<State> states;
 	};
 }

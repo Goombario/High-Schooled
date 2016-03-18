@@ -6,6 +6,7 @@
 #include "Schooled.h"
 #include "GameEngine.h"
 #include "tinyxml2.h"
+#include "BattleState.h"
 
 using namespace tinyxml2;
 
@@ -26,11 +27,10 @@ namespace Player
 		boardPtr = nullptr;
 	}
 
-	Player::Player(const char* playerName, Board::Board* playerBoard)
+	Player::Player(const char* playerName, Board::Board& playerBoard)
 	{
 		setActing(false);
-
-		boardPtr = playerBoard;
+		boardPtr = &playerBoard;
 
 		// Load player data from player file
 		tinyxml2::XMLDocument data;
@@ -43,11 +43,21 @@ namespace Player
 			exit(-2);
 		}
 
+		// Load the default player data
+		XMLElement *sharedData;
+		sharedData = pRoot->FirstChildElement("SharedData");
+		if (CheckIfNull(sharedData, "Player: SharedData")) exit(-2);
+
+		// Load the arrow sprite
+		if (CheckIfNull(sharedData->FirstChildElement("Arrow"), "Player: Shared: Arrow")) exit(-2);
+		arrowSprite = new Sprite::AnimatedSprite(sharedData->FirstChildElement("Arrow"), sharedData->FirstChildElement("ArrowAnimation"));
+		moveSpriteToSide(*arrowSprite);
+
 		// Choose the first Player data
 		XMLElement *playerData;
-		playerData = pRoot->FirstChildElement();
+		playerData = pRoot->FirstChildElement("Player");
 
-		// Check if the player data loaded
+		// Check if the player data is available
 		std::string dataName = playerData->Attribute("name");
 		while (dataName != playerName)
 		{
@@ -63,57 +73,23 @@ namespace Player
 
 		// Load images and animation
 		Image::ImageManager *imageManager = GameEngine::getImageManager();
-		unsigned int frameWidth, frameHeight;
-		XMLElement *spriteData;
-		spriteData = playerData->FirstChildElement("Sprite");
-		if (spriteData == nullptr)
-		{
-			std::cerr << "ERROR: Loading Player data file: Sprite. "
-				<< XML_ERROR_FILE_READ_ERROR << std::endl;
-			exit(-2);
-		}
-
-		// Load the image data
-		std::string spriteName = spriteData->Attribute("name");
-		CheckXMLResult(spriteData->QueryUnsignedAttribute("frameWidth", &frameWidth));
-		CheckXMLResult(spriteData->QueryUnsignedAttribute("frameHeight", &frameHeight));
-		Image::Image spriteImage = imageManager->loadImage(
-			schooled::getResourcePath("img") + spriteName, frameWidth, frameHeight);
-
-		// Load the animation data
-		std::string animationName = spriteData->NextSiblingElement()->Attribute("name");
-		Animation::AnimationData animationData
-			(schooled::getResourcePath("img") + "Image_Data/" + animationName);
 
 		// Set up the sprite
-		(*this).sprite = new Sprite::AnimatedSprite(spriteImage, animationData);
-		moveSpriteToSide();
+		XMLElement *spriteData;
+		spriteData = playerData->FirstChildElement("Sprite");
+		if (CheckIfNull(spriteData, "Player: Sprite")) exit(-2);
+		(*this).sprite = new Sprite::AnimatedSprite(spriteData, spriteData->NextSiblingElement("Animation"));
+		moveSpriteToSide(*sprite);
 
 		// Loading the token data
 		spriteData = playerData->FirstChildElement("Token");
-		if (spriteData == nullptr)
-		{
-			std::cerr << "ERROR: Loading Player data file: Token "
-				<< XML_ERROR_FILE_READ_ERROR << std::endl;
-			exit(-2);
-		}
-
-		std::string imageName = spriteData->Attribute("name");
-		CheckXMLResult(spriteData->QueryUnsignedAttribute("width", &frameWidth));
-		CheckXMLResult(spriteData->QueryUnsignedAttribute("height", &frameHeight));
-		Image::Image tempImage = GameEngine::getImageManager()->loadImage(
-			schooled::getResourcePath("img") + imageName,
-			frameWidth, frameHeight);
-		token = new Sprite::Sprite(tempImage);
+		if (CheckIfNull(spriteData, "Player: Token")) exit(-2);
+		token = new Sprite::Sprite(spriteData);
 
 		// Load statistics
 		XMLElement *statsData = playerData->FirstChildElement("Stats");
-		if (statsData == nullptr)
-		{
-			std::cerr << "ERROR: Loading Player data file: Stats "
-				<< XML_ERROR_FILE_READ_ERROR << std::endl;
-			exit(-2);
-		}
+		if (CheckIfNull(statsData, "Player: Stats")) exit(-2);
+
 		CheckXMLResult(statsData->FirstChildElement("MaxHP")->QueryIntText(&stats.maxHP));
 		CheckXMLResult(statsData->FirstChildElement("MaxSP")->QueryIntText(&stats.maxSP));
 		CheckXMLResult(statsData->FirstChildElement("MaxAP")->QueryIntText(&stats.maxAP));
@@ -124,12 +100,7 @@ namespace Player
 		
 		// Load all attacks
 		XMLElement *allAttackData = playerData->FirstChildElement("Attacks");
-		if (allAttackData == nullptr)
-		{
-			std::cerr << "ERROR: Loading Player data file: Attacks "
-				<< XML_ERROR_FILE_READ_ERROR << std::endl;
-			exit(-2);
-		}
+		if (CheckIfNull(allAttackData, "Player: Attacks")) exit(-2);
 
 		// Load each attack and put it in the player object
 		(*this).numAttacks = 0;
@@ -169,12 +140,7 @@ namespace Player
 
 		// Load the special data
 		XMLElement *specialData = playerData->FirstChildElement("Special");
-		if (specialData == nullptr)
-		{
-			std::cerr << "ERROR: Loading Player data file: Special "
-				<< XML_ERROR_FILE_READ_ERROR << std::endl;
-			exit(-2);
-		}
+		if (CheckIfNull(specialData, "Player: Special")) exit(-2);
 
 		ability.name = specialData->Attribute("name");
 		CheckXMLResult(specialData->FirstChildElement("RemoveAllTokens")
@@ -189,10 +155,11 @@ namespace Player
 			->QueryIntText(&ability.damage));
 	}
 
-	Player::Player(Player const& source)
+	Player::Player(Player const& source) :
+		sprite(source.sprite),
+		boardPtr(source.boardPtr)
 	{
-		this->sprite = source.sprite;	// Unknown if good
-		this->boardPtr = source.boardPtr;
+
 	}
 
 	Player& Player::operator=(Player const& source)
@@ -206,6 +173,7 @@ namespace Player
 	{
 		delete sprite;
 		delete token;
+		delete arrowSprite;
 	}
 
 	void Player::attack(Player& enemy, int attackNum)
@@ -337,6 +305,13 @@ namespace Player
 
 	void Player::move(Direction d)
 	{
+		// If choosing position, don't use this function.
+		if (BattleState::BattleState::Instance()->getCurrentState() == BattleState::State::POS_CHOOSE)
+		{
+			moveArrow(d);
+			return;
+		}
+
 		// Determine the value to change by
 		COORD change = { 0, 0 };
 		switch (d)
@@ -369,32 +344,75 @@ namespace Player
 		// Move the character on the grid
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		boardPtr->removeToken(boardPtr->getPlayerlocation());
-		moveSpriteToSide();
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
+		moveSpriteToSide(*sprite);
 
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 	}
 
-	void Player::moveSpriteToSide()
+	void Player::moveArrow(Direction d)
+	{
+		// Determine the value to change by
+		COORD change = { 0, 0 };
+		switch (d)
+		{
+		case Direction::UP:
+			change.Y--;
+			break;
+		case Direction::DOWN:
+			change.Y++;
+			break;
+		case Direction::FORWARD:
+			change.X++;
+			break;
+		case Direction::BACKWARD:
+			change.X--;
+			break;
+		}
+
+		int boardSize = Stage::BOARD_HEIGHT * Stage::BOARD_WIDTH;
+
+		// If the movement is outside of the grid, don't move
+		if (boardPtr->getPlayerlocation().X + change.X >= Stage::BOARD_WIDTH ||
+			boardPtr->getPlayerlocation().X + change.X < 0 ||
+			boardPtr->getPlayerlocation().Y + change.Y >= Stage::BOARD_HEIGHT ||
+			boardPtr->getPlayerlocation().Y + change.Y < 0)
+		{
+			return;
+		}
+
+		// If the movement is to the center tile, don't move
+		if (boardPtr->getPlayerlocation().X + change.X == 1 &&
+			boardPtr->getPlayerlocation().Y + change.Y == 1)
+		{
+			return;
+		}
+
+		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
+		moveSpriteToSide(*arrowSprite);
+		moveSpriteToSide(*sprite);
+	}
+
+	void Player::moveSpriteToSide(Sprite::Sprite& s)
 	{
 		float initX;
-		float colPos;
+		float wPos;
 		if (boardPtr->getSide() == Side::LEFT)
 		{
-			colPos = static_cast<float>(boardPtr->getPlayerlocation().X);
-			initX = Board::OFFSET_X;
+			wPos = static_cast<float>(boardPtr->getPlayerlocation().X);
+			initX = Board::OFFSET_X + Board::ROW_OFFSET;
 		}
 		else
 		{
 			int offsetRight = Stage::BOARD_WIDTH - 1;
-			colPos = static_cast<float>(offsetRight - boardPtr->getPlayerlocation().X);
+			wPos = static_cast<float>(offsetRight - boardPtr->getPlayerlocation().X);
 			initX = Board::CENTER_X + Board::OFFSET_X;
 		}
-		float rowPos = static_cast<float>(boardPtr->getPlayerlocation().Y);
-		sprite->move((initX + 
-			(colPos * Board::ROW_WIDTH) +	// The width of the column times the number of columns to move
-			(rowPos * Board::ROW_OFFSET)) * schooled::SCALE,	// The row offset due to the perspective
-			(Board::OFFSET_Y - (rowPos * Board::ROW_HEIGHT)) * schooled::SCALE, false);
+		float hPos = static_cast<float>(boardPtr->getPlayerlocation().Y - 1);
+		s.move((initX + 
+			((wPos + 1) * Board::ROW_WIDTH) +	// The width of the column times the number of columns to move (+1 for alignment)
+			(hPos * Board::ROW_OFFSET)) * schooled::SCALE,	// The row offset due to the perspective
+			(Board::OFFSET_Y - (hPos * Board::ROW_HEIGHT)) * schooled::SCALE);
 	}
 
 	void Player::startTurn()
@@ -414,6 +432,7 @@ namespace Player
 	void Player::update()
 	{
 		sprite->update();
+		arrowSprite->update();
 
 		// Check if the player is still acting
 		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
@@ -421,7 +440,15 @@ namespace Player
 
 	void Player::draw() const
 	{
-		sprite->draw();
+		switch (BattleState::BattleState::Instance()->getCurrentState())
+		{
+		case BattleState::State::POS_CHOOSE:
+			arrowSprite->draw();
+			break;
+			
+		default:
+			sprite->draw();
+		}
 	}
 
 	Side Player::getSide() const { return boardPtr->getSide(); }

@@ -147,7 +147,7 @@ namespace Board
 
 	void Board::draw() const
 	{
-		float initX = (side == Side::LEFT) ? OFFSET_X + 30 : CENTER_X + OFFSET_X;
+		float initX = (side == Side::LEFT) ? OFFSET_X + ROW_OFFSET : CENTER_X + OFFSET_X;
 
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
