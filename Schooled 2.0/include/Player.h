@@ -117,8 +117,9 @@ namespace Player
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		SpecialAbility ability;
-		Sprite::AnimatedSprite *sprite;
 		Sprite::Sprite *token;
+		Sprite::Sprite *glow;
+		Sprite::AnimatedSprite *sprite;
 		Sprite::AnimatedSprite *arrowSprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
 	};

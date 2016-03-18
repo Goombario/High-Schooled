@@ -4,6 +4,7 @@
   <SharedData>
     <Arrow name="Arrow.png" frameWidth="64" frameHeight="128"/>
     <ArrowAnimation name="Arrow.xml"/>
+    <Glow name="Glow.png" frameWidth="64" frameHeight="64"/>
   </SharedData>
   
   <Player name="Gym Teacher">

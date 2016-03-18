@@ -25,6 +25,7 @@ namespace Player
 		sprite = nullptr;
 		token = nullptr;
 		boardPtr = nullptr;
+		glow = nullptr;
 	}
 
 	Player::Player(const char* playerName, Board::Board& playerBoard)
@@ -52,6 +53,10 @@ namespace Player
 		if (CheckIfNull(sharedData->FirstChildElement("Arrow"), "Player: Shared: Arrow")) exit(-2);
 		arrowSprite = new Sprite::AnimatedSprite(sharedData->FirstChildElement("Arrow"), sharedData->FirstChildElement("ArrowAnimation"));
 		moveSpriteToSide(*arrowSprite);
+
+		if (CheckIfNull(sharedData->FirstChildElement("Glow"), "Player: Shared: Glow")) exit(-2);
+		glow = new Sprite::Sprite(sharedData->FirstChildElement("Glow"));
+		moveSpriteToSide(*glow);
 
 		// Choose the first Player data
 		XMLElement *playerData;
@@ -174,6 +179,7 @@ namespace Player
 		delete sprite;
 		delete token;
 		delete arrowSprite;
+		delete glow;
 	}
 
 	void Player::attack(Player& enemy, int attackNum)
@@ -346,6 +352,7 @@ namespace Player
 		boardPtr->removeToken(boardPtr->getPlayerlocation());
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 		moveSpriteToSide(*sprite);
+		moveSpriteToSide(*glow);
 
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 	}
@@ -391,6 +398,7 @@ namespace Player
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		moveSpriteToSide(*arrowSprite);
 		moveSpriteToSide(*sprite);
+		moveSpriteToSide(*glow);
 	}
 
 	void Player::moveSpriteToSide(Sprite::Sprite& s)
@@ -447,6 +455,10 @@ namespace Player
 			break;
 			
 		default:
+			if (BattleState::BattleState::Instance()->getCurrentSide() == boardPtr->getSide())
+			{
+				glow->draw();
+			}
 			sprite->draw();
 		}
 	}
