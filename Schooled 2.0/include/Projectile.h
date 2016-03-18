@@ -1,7 +1,7 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
-#include "GameObject.h"
+#include "BattleObject.h"
 
 namespace Sprite
 {
@@ -20,13 +20,16 @@ namespace Vector
 
 namespace Projectile
 {
-	class Projectile : public GameObject::GameObject
+	class Projectile : public BattleObject::BattleObject
 	{
 	public:
 		Projectile();
 		Projectile(Vector::Vector2 const& force, 
 			Vector::Vector2 const& position, Sprite::Sprite const&);
 		~Projectile();
+
+		void draw() const;
+		void update();
 
 		bool collidesWith(Player::Player const&);
 

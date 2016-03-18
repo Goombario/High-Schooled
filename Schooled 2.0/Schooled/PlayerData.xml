@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Players>
+  <!--Data shared across all players-->
+  <SharedData>
+    <Arrow name="Arrow.png" frameWidth="64" frameHeight="128"/>
+    <ArrowAnimation name="Arrow.xml"/>
+  </SharedData>
+  
   <Player name="Gym Teacher">
     <!--Sprite Data-->
     <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
     <Animation name="GymTeacher.xml"/>
-    <Token name="Anchor_Tilt.png" width="64" height="64"/>
+    <Token name="Anchor_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -24,15 +30,19 @@
           0 0 0
           0 0 0
         </Range>
+        <Projectile>
+          <Sprite name="Dodgeball.png" frameWidth="64" frameHeight="64"/>
+          <Properties mass="10" startingAcceleration="0" hasGravity="false" destroyOnCollision="false"/>
+        </Projectile>
       </Attack>
       <Attack name="DODGEBALL_B">
         <Cooldown>2</Cooldown>
         <Static>0</Static>
         <Damage>1</Damage>
         <Range>
-          0 0 1
-          0 0 1
-          0 0 1
+          1 0 0
+          1 0 0
+          1 0 0
         </Range>
       </Attack>
       <Attack name="DODGEBALL_C">
@@ -61,7 +71,7 @@
     <!--Sprite Data-->
     <Sprite name="Nate.png" frameWidth="64" frameHeight="64"/>
     <Animation name="Nate.xml"/>
-    <Token name="Fist_Tilt.png" width="64" height="64"/>
+    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -87,9 +97,9 @@
         <Static>0</Static>
         <Damage>1</Damage>
         <Range>
-          0 0 1
-          0 0 1
-          0 0 1
+          1 0 0
+          1 0 0
+          1 0 0
         </Range>
       </Attack>
       <Attack name="FAST_ATTACK">
@@ -118,6 +128,7 @@
     <!--Sprite Data-->
     <Sprite name="" frameWidth="" frameHeight=""/>
     <Animation name="" numCol=""/>
+    <Token name="" frameWidth="" frameHeight=""/>
 
     <!--Statistics-->
     <Stats>

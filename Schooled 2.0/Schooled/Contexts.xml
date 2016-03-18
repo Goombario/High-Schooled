@@ -21,6 +21,22 @@
     <Action>ATTACK_2</Action>
     <Action>ATTACK_3</Action>
   </Context>
+
+  <Context name="player1ChoosePos">
+    <Action>BOARD_UP</Action>
+    <Action>BOARD_DOWN</Action>
+    <Action>BOARD_FORWARD</Action>
+    <Action>BOARD_BACKWARD</Action>
+    <Action>SELECT_POS</Action>
+  </Context>
+
+  <Context name="player2ChoosePos">
+    <Action>BOARD_UP</Action>
+    <Action>BOARD_DOWN</Action>
+    <Action>BOARD_FORWARD</Action>
+    <Action>BOARD_BACKWARD</Action>
+    <Action>SELECT_POS</Action>
+  </Context>
   
   <Context name="globalContext">
     <Action>EXIT_GAME</Action>

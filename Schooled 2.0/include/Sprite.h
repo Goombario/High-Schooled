@@ -49,7 +49,7 @@ namespace Sprite
 
 		// Draw the sprite to the screen.
 		void draw();	
-		void drawAt(float x, float y);
+		void drawAt(float x, float y, bool centered = true);
 
 		// GETTERS
 		inline float getX() const { return posX; }
@@ -72,7 +72,7 @@ namespace Sprite
 
 		// Draw the sprite to the screen.
 		void draw();
-		void drawAt(float x, float y);
+		void drawAt(float x, float y, bool centered = true);
 		 
 		// Updates the animation.
 		void update();

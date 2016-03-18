@@ -30,7 +30,7 @@ namespace BattleState
 		// Tells the mapper to map a specific set of keys to a specific set of actions
 		GameEngine::getMapper()->Clear();
 		GameEngine::getMapper()->PushContext("globalContext");
-		GameEngine::getMapper()->PushContext("player1Action");
+		GameEngine::getMapper()->PushContext("player1ChoosePos");
 
 		// Hold valid keys
 		shared::initValidKeys(validKeys);
@@ -40,8 +40,8 @@ namespace BattleState
 
 		board1 = new Board::Board(Side::LEFT);
 		board2 = new Board::Board(Side::RIGHT);
-		player1 = new Player::Player("Nate", board1);
-		player2 = new Player::Player("Gym Teacher", board2);
+		player1 = new Player::Player("Nate", *board1);
+		player2 = new Player::Player("Gym Teacher", *board2);
 		stage = new Stage::Stage("Default", player1, player2);
 
 		board1->setTokenSprite(player2->getTokenSprite());
@@ -53,11 +53,13 @@ namespace BattleState
 		battleObjects.push_back(player1);
 		battleObjects.push_back(player2);
 
+		states.clear();
 		pushState(State::POS_CHOOSE);
 		playerTurn = Side::LEFT;
 		player1->startTurn();
 
 		isEnd = false;
+		choosingPos = 0;
 	}
 
 	void BattleState::Cleanup()
@@ -68,6 +70,7 @@ namespace BattleState
 			delete *it;
 		}
 		battleObjects.clear();
+		states.clear();
 
 		delete stage;
 
@@ -162,6 +165,12 @@ namespace BattleState
 			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 2);
 			inputs.EatAction(InputMapping::Action::ATTACK_3);
 		}
+
+		if (inputs.Actions.find(InputMapping::Action::SELECT_POS) != inputs.Actions.end())
+		{
+			self->swapCurrentPlayer();
+			inputs.EatAction(InputMapping::Action::SELECT_POS);
+		}
 	}
 
 	void BattleState::Update(GameEngine* game)
@@ -214,15 +223,47 @@ namespace BattleState
 	{
 		getCurrentPlayer()->passTurn();
 
+		// If both sides have chosen, switch to normal state
+		if (choosingPos < 2 && getCurrentState() == State::POS_CHOOSE)
+		{
+			choosingPos++;
+			if (choosingPos == 2)
+			{
+				popState();
+				pushState(State::MOVE);
+			}
+		}
+
 		if (playerTurn == Side::LEFT)
 		{
 			playerTurn = Side::RIGHT;
-			GameEngine::getMapper()->PushContext("player2Action");
+			GameEngine::getMapper()->PopContext();
+
+			// Choose the correct context
+			switch (getCurrentState())
+			{
+			case State::POS_CHOOSE:
+				GameEngine::getMapper()->PushContext("player2ChoosePos");
+				break;
+			case State::MOVE:
+				GameEngine::getMapper()->PushContext("player2Action");
+				break;
+			}
 		}
 		else
 		{
 			playerTurn = Side::LEFT;
 			GameEngine::getMapper()->PopContext();
+			// Choose the correct context
+			switch (getCurrentState())
+			{
+			case State::POS_CHOOSE:
+				GameEngine::getMapper()->PushContext("player1ChoosePos");
+				break;
+			case State::MOVE:
+				GameEngine::getMapper()->PushContext("player1Action");
+				break;
+			}
 		}
 
 		getCurrentPlayer()->startTurn();
@@ -242,7 +283,7 @@ namespace BattleState
 		return player1;
 	}
 
-	State BattleState::getCurrentState() const 
+	State BattleState::getCurrentState() 
 	{
 		if (states.empty())
 			return State::EMPTY;

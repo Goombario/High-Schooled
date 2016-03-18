@@ -3,6 +3,7 @@
 
 #include "BattleConstants.h"
 #include "BattleObject.h"
+#include "Projectile.h"
 #include <string>
 #include <vector>
 #include "Schooled.h"
@@ -43,6 +44,7 @@ namespace Player
 		int damage;
 		int cooldown;	// Number of turns before move can be used again
 		int currentCooldown;
+		Projectile::Projectile projectile;
 	};
 
 	// Helper struct holds special ability data
@@ -63,7 +65,7 @@ namespace Player
 		Player();
 
 		// Constructor that takes in a player name and loads the data
-		Player(const char* playerName, Board::Board*);
+		Player(const char* playerName, Board::Board&);
 
 		// Rule of three
 		Player(Player const&);		// NEED UPDATE
@@ -90,6 +92,7 @@ namespace Player
 		// Move the character on the board.
 		// Sets AP to the path of least resistance. (Board updatePath)
 		void move(Direction);
+		void moveArrow(Direction);
 
 		// Choose to end your turn.
 		void passTurn();
@@ -108,7 +111,7 @@ namespace Player
 
 	private:
 		// Move sprite to relative postion
-		void moveSpriteToSide();
+		void moveSpriteToSide(Sprite::Sprite&);
 
 		Stats stats;
 		int numAttacks;	// Unsure if to be used
@@ -116,6 +119,7 @@ namespace Player
 		SpecialAbility ability;
 		Sprite::AnimatedSprite *sprite;
 		Sprite::Sprite *token;
+		Sprite::AnimatedSprite *arrowSprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
 	};
 

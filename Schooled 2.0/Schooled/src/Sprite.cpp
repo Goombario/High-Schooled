@@ -77,8 +77,14 @@ namespace Sprite
 		}
 	}
 
-	void Sprite::drawAt(float x, float y)
+	void Sprite::drawAt(float x, float y, bool centered)
 	{
+		if (!centered)
+		{
+			x += (image.frameWidth / 2);
+			y += (image.frameHeight / 2);
+		}
+
 		// If the scales have been tipped, draw the sprite scaled
 		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
 		{
@@ -130,6 +136,8 @@ namespace Sprite
 		row = 0; 
 		numCol = data.getNumCol();
 		time = 0.0;
+
+		pushAnimation(Animation::AnimationEnum::IDLE);
 	}
 
 	void AnimatedSprite::draw()
@@ -146,8 +154,14 @@ namespace Sprite
 		}
 	}
 
-	void AnimatedSprite::drawAt(float x, float y)
+	void AnimatedSprite::drawAt(float x, float y, bool centered)
 	{
+		if (!centered)
+		{
+			x += (image.frameWidth / 2);
+			y += (image.frameHeight / 2);
+		}
+
 		// If the scales have tipped, draw the sprite scaled.
 		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
 		{
