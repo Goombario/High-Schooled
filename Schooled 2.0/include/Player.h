@@ -45,6 +45,7 @@ namespace Player
 		int cooldown;	// Number of turns before move can be used again
 		int currentCooldown;
 		Projectile::Projectile projectile;
+		Sprite::AnimatedSprite *icon;
 	};
 
 	// Helper struct holds special ability data
@@ -112,6 +113,9 @@ namespace Player
 	private:
 		// Move sprite to relative postion
 		void moveSpriteToSide(Sprite::Sprite&);
+
+		// Update the attack icon animations
+		void updateAttacks();
 
 		Stats stats;
 		int numAttacks;	// Unsure if to be used

@@ -5,6 +5,7 @@
     <Arrow name="Arrow.png" frameWidth="64" frameHeight="128"/>
     <ArrowAnimation name="Arrow.xml"/>
     <Glow name="Glow.png" frameWidth="64" frameHeight="64"/>
+    <IconAnimation name="Icon.xml"/>
   </SharedData>
   
   <Player name="Gym Teacher">
@@ -12,7 +13,7 @@
     <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
     <Animation name="GymTeacher.xml"/>
     <Token name="Anchor_Tilt.png" frameWidth="64" frameHeight="64"/>
-
+    
     <!--Statistics-->
     <Stats>
       <MaxHP>5</MaxHP>
@@ -31,6 +32,7 @@
           0 0 0
           0 0 0
         </Range>
+        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
         <Projectile>
           <Sprite name="Dodgeball.png" frameWidth="64" frameHeight="64"/>
           <Properties mass="10" startingAcceleration="0" hasGravity="false" destroyOnCollision="false"/>
@@ -45,6 +47,7 @@
           1 0 0
           1 0 0
         </Range>
+        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
       </Attack>
       <Attack name="DODGEBALL_C">
         <Cooldown>2</Cooldown>
@@ -55,6 +58,7 @@
           0 0 0
           1 0 1
         </Range>
+        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
       </Attack>
     </Attacks>
 
@@ -92,6 +96,7 @@
           0 0 0
           0 0 0
         </Range>
+        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -102,6 +107,7 @@
           1 0 0
           1 0 0
         </Range>
+        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -112,6 +118,7 @@
           0 0 0
           1 0 1
         </Range>
+        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
       </Attack>
     </Attacks>
 
