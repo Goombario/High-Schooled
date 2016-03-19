@@ -51,6 +51,8 @@ namespace Stage
 		// Load the SP bar
 		tempImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "SPBar.png", 7, 5);
 		SPBar = new Sprite::Sprite(tempImage);
+
+		moveIcons();
 	}
 
 	HUD::~HUD()
@@ -77,11 +79,33 @@ namespace Stage
 		}
 
 		display->draw();
+
+		// Draw Attack Icons
+		for (auto it = player->attacks.begin(); it != player->attacks.end(); it++)
+		{
+			(*it).icon->draw();
+		}
 	}
 
 	void HUD::update()
 	{
+		for (auto it = player->attacks.begin(); it != player->attacks.end(); it++)
+		{
+			(*it).icon->update();
+		}
+	}
 
+	void HUD::moveIcons()
+	{
+		int counter = 0;
+
+		for (auto it = player->attacks.begin(); it != player->attacks.end(); it++)
+		{
+			(*it).icon->move(
+				offsetX + (counter * side * ((*it).icon->getFrameWidth() + 10)),
+				offsetY - (*it).icon->getFrameHeight());
+			counter++;
+		}
 	}
 	
 }

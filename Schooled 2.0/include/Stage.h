@@ -1,6 +1,8 @@
 #ifndef STAGE_H
 #define STAGE_H
 
+#include <vector>
+
 namespace Sprite
 {
 	class Sprite;
@@ -25,10 +27,16 @@ namespace Stage
 		void update();
 
 	private:
+
+		// Attack Icon management
+		void moveIcons();
+
 		const Player::Player *player;
 		Sprite::Sprite *display;
 		Sprite::Sprite *HPBar;
 		Sprite::Sprite *SPBar;
+		std::vector<Sprite::AnimatedSprite> icons;
+		
 		float offsetX;	// The distance from the edge to the HP bar
 		float offsetY;	// The bottom of the HP bar
 		int side;

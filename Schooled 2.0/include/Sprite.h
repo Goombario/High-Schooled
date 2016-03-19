@@ -3,17 +3,23 @@
 
 #include "Image.h"
 #include "Animation.h"
+#include "GameObject.h"
 
 namespace tinyxml2
 {
 	class XMLElement;
 }
 
+namespace Vector
+{
+	class Vector2;
+}
+
 namespace Sprite
 {
 	typedef int FzlSpriteHandle;
 
-	class Sprite
+	class Sprite : public GameObject::GameObject
 	{
 	public:
 		Sprite();
@@ -48,18 +54,17 @@ namespace Sprite
 		inline void setScaleY(float newY) { scaleY = newY; }
 
 		// Draw the sprite to the screen.
-		void draw();	
-		void drawAt(float x, float y, bool centered = true);
+		void draw() const;	
+		void drawAt(float x, float y, bool centered = true) const;
+		void drawAt(Vector::Vector2 const& vec2, bool centered = true) const;
 
 		// GETTERS
-		inline float getX() const { return posX; }
-		inline float getY() const { return posY; }
 		inline float getAngle() const { return angle; }
 		inline int getFrameWidth() const { return image.frameWidth; }
 		inline int getFrameHeight() const { return image.frameHeight; }
 
 	protected:
-		float posX, posY, angle;
+		float angle;
 		float scaleX, scaleY;
 		Image::Image image;
 	};
@@ -71,8 +76,9 @@ namespace Sprite
 		AnimatedSprite(tinyxml2::XMLElement const* imageData, tinyxml2::XMLElement const* animationData);
 
 		// Draw the sprite to the screen.
-		void draw();
-		void drawAt(float x, float y, bool centered = true);
+		void draw() const;
+		void drawAt(float x, float y, bool centered = true) const;
+		void drawAt(Vector::Vector2 const& vec2, bool centered = true) const;
 		 
 		// Updates the animation.
 		void update();

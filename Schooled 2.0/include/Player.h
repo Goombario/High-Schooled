@@ -20,6 +20,11 @@ namespace Sprite
 	class AnimatedSprite;
 }
 
+namespace Stage
+{
+	class HUD;
+}
+
 namespace Player
 {
 
@@ -73,6 +78,8 @@ namespace Player
 		Player& operator=(Player const&);		// NEED UPDATE
 		~Player();
 
+		friend class Stage::HUD;
+
 		// Getters
 		inline int getCurrentHP() const { return stats.currentHP; }
 		inline int getCurrentAP() const { return stats.currentAP; }
@@ -114,8 +121,8 @@ namespace Player
 		// Move sprite to relative postion
 		void moveSpriteToSide(Sprite::Sprite&);
 
-		// Update the attack icon animations
-		void updateAttacks();
+		// Update attack icon cooldown
+		void updateIconCooldown();
 
 		Stats stats;
 		int numAttacks;	// Unsure if to be used

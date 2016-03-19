@@ -181,6 +181,8 @@ namespace BattleState
 			(**it).update();
 		}
 
+		stage->update();
+
 		// If a player is acting (moving, attacking) set the state to ACTING
 		bool isActing = false;
 		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
@@ -190,7 +192,6 @@ namespace BattleState
 				isActing = true;
 			}
 		}
-
 		if (isActing)
 		{
 			pushState(State::ACTING);
