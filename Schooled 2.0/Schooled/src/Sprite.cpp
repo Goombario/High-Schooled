@@ -3,14 +3,13 @@
 #include "Schooled.h"
 #include "tinyxml2.h"
 #include "GameEngine.h"
+#include "Vector2.h"
 
 // Sprite
 namespace Sprite
 {
 	Sprite::Sprite()
 	{
-		posX = 0.0f;
-		posY = 0.0f;
 		angle = 0.0f;
 		scaleX = 1.0f;
 		scaleY = 1.0f;
@@ -22,8 +21,6 @@ namespace Sprite
 	Sprite::Sprite(Image::Image const& i) :
 		image(i)
 	{
-		posX = 0.0f;
-		posY = 0.0f;
 		angle = 0.0f;
 		scaleX = 1.0f;
 		scaleY = 1.0f;
@@ -42,42 +39,38 @@ namespace Sprite
 		this->setImage(spriteImage);
 	}
 
-	void Sprite::shift(float x, float y)
-	{
-		posX += x;
-		posY += y;
-	}
-
 	void Sprite::move(float x, float y, bool centered)
 	{
-		posX = x;
-		posY = y;
+		setPos(Vector::Vector2(x, y));
 
 		if (!centered)
 		{
-			posX = posX + (image.frameWidth / 2);
-			posY = posY + (image.frameHeight / 2);
+			setPos(Vector::Vector2(
+				getPos().getX() + (image.frameWidth / 2),
+				getPos().getY() + (image.frameHeight / 2)));
 		}
 	}
 
-	void Sprite::draw()
+	void Sprite::draw() const
 	{
 		// If the scales have been tipped, draw the sprite scaled
 		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
 		{
 			FzlDrawSpriteScaled(image.handle, 
-				(posX * scaleX * schooled::SCALE),
-				(posY * scaleY * schooled::SCALE), 
+				(static_cast<float>(getPos().getX()) * scaleX * schooled::SCALE),
+				(static_cast<float>(getPos().getY()) * scaleY * schooled::SCALE),
 				angle, 
 				scaleX * schooled::SCALE, scaleY * schooled::SCALE);
 		}
 		else
 		{
-			FzlDrawSprite(image.handle, posX, posY, angle);
+			FzlDrawSprite(image.handle, 
+				static_cast<float>(getPos().getX()),
+				static_cast<float>(getPos().getY()), angle);
 		}
 	}
 
-	void Sprite::drawAt(float x, float y, bool centered)
+	void Sprite::drawAt(float x, float y, bool centered) const
 	{
 		if (!centered)
 		{
@@ -98,6 +91,13 @@ namespace Sprite
 		{
 			FzlDrawSprite(image.handle, x, y, angle);
 		}
+	}
+
+	void Sprite::drawAt(Vector::Vector2 const& vec2, bool centered) const
+	{
+		drawAt(
+			static_cast<float>(vec2.getX()), 
+			static_cast<float>(vec2.getY()), centered);
 	}
 
 	void Sprite::setAngle(float a)
@@ -140,21 +140,25 @@ namespace Sprite
 		pushAnimation(Animation::AnimationEnum::IDLE);
 	}
 
-	void AnimatedSprite::draw()
+	void AnimatedSprite::draw() const
 	{
 		// If the scales have tipped, draw the sprite scaled.
 		if (scaleX != 1.0f || scaleY != 1.0f || schooled::SCALE != 1.0f)
 		{
-			FzlDrawAnimatedSpriteScaled(image.handle, row, col, posX, posY, angle,
+			FzlDrawAnimatedSpriteScaled(image.handle, row, col, 
+				static_cast<float>(getPos().getX()), 
+				static_cast<float>(getPos().getY()), angle,
 				scaleX + schooled::SCALE, scaleY + schooled::SCALE);
 		}
 		else
 		{
-			FzlDrawAnimatedSprite(image.handle, row, col, posX, posY, angle);
+			FzlDrawAnimatedSprite(image.handle, row, col, 
+				static_cast<float>(getPos().getX()),
+				static_cast<float>(getPos().getY()), angle);
 		}
 	}
 
-	void AnimatedSprite::drawAt(float x, float y, bool centered)
+	void AnimatedSprite::drawAt(float x, float y, bool centered) const
 	{
 		if (!centered)
 		{
@@ -172,6 +176,13 @@ namespace Sprite
 		{
 			FzlDrawAnimatedSprite(image.handle, row, col, x, y, angle);
 		}
+	}
+
+	void AnimatedSprite::drawAt(Vector::Vector2 const& vec2, bool centered) const
+	{
+		drawAt(
+			static_cast<float>(vec2.getX()), 
+			static_cast<float>(vec2.getY()), centered);
 	}
 
 	void AnimatedSprite::update()

@@ -267,6 +267,8 @@ namespace Player
 		stats.currentAP = stats.maxAP - stats.lockedAP;
 		currentAttack = nullptr;
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
+
+		updateIconCooldown();
 	}
 
 	void Player::changeHealth(int difference)
@@ -313,10 +315,12 @@ namespace Player
 			{
 				(*it).currentCooldown = 0;
 			}
+			updateIconCooldown();
 		}
 
 		// Decrease the special meter
 		(*this).stats.currentSP -= (*this).stats.maxSP;
+
 	}
 
 	void Player::move(Direction d)
@@ -439,19 +443,8 @@ namespace Player
 		{
 			if ((*it).currentCooldown > 0)
 				(*it).currentCooldown--;
-			switch ((*it).currentCooldown)
-			{
-			case 0:
-				(*it).icon->changeAnimation(Animation::AnimationEnum::IDLE);
-				break;
-			case 1:
-				(*it).icon->changeAnimation(Animation::AnimationEnum::COOLDOWN_1);
-				break;
-			case 2:
-				(*it).icon->changeAnimation(Animation::AnimationEnum::COOLDOWN_2);
-				break;
-			}
 		}
+		updateIconCooldown();
 
 		boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
 
@@ -464,11 +457,6 @@ namespace Player
 		sprite->update();
 		arrowSprite->update();
 
-		for (auto it = attacks.begin(); it != attacks.end(); it++)
-		{
-			(*it).icon->update();
-		}
-
 		// Check if the player is still acting
 		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
 	}
@@ -480,19 +468,42 @@ namespace Player
 			(*it).icon->draw();
 		}
 
+		if (BattleState::BattleState::Instance()->getCurrentSide() == boardPtr->getSide())
+		{
+			glow->draw();
+			//glow->drawAt(getPos());
+		}
+
 		// Choosing which sprites to draw based on the current state of the battle
 		switch (BattleState::BattleState::Instance()->getCurrentState())
 		{
 		case BattleState::State::POS_CHOOSE:
 			arrowSprite->draw();
+			//arrowSprite->drawAt(getPos());
 			break;
 			
 		default:
-			if (BattleState::BattleState::Instance()->getCurrentSide() == boardPtr->getSide())
-			{
-				glow->draw();
-			}
 			sprite->draw();
+			//sprite->drawAt(getPos());
+		}
+	}
+
+	void Player::updateIconCooldown()
+	{
+		for (auto it = attacks.begin(); it != attacks.end(); it++)
+		{
+			switch ((*it).currentCooldown)
+			{
+			case 0:
+				(*it).icon->changeAnimation(Animation::AnimationEnum::IDLE);
+				break;
+			case 1:
+				(*it).icon->changeAnimation(Animation::AnimationEnum::COOLDOWN_1);
+				break;
+			case 2:
+				(*it).icon->changeAnimation(Animation::AnimationEnum::COOLDOWN_2);
+				break;
+			}
 		}
 	}
 
