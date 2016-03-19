@@ -138,6 +138,11 @@ namespace Player
 				}
 			}
 
+			// Icon loading
+			if (CheckIfNull(attackData->FirstChildElement("Icon"), "Player: Attack: Icon")) exit(-2);
+			tempAttack.icon = new Sprite::AnimatedSprite(
+				attackData->FirstChildElement("Icon"), sharedData->FirstChildElement("IconAnimation"));
+
 			(*this).attacks.push_back(tempAttack);
 			(*this).numAttacks++;
 			attackData = attackData->NextSiblingElement();
@@ -180,6 +185,11 @@ namespace Player
 		delete token;
 		delete arrowSprite;
 		delete glow;
+
+		for (auto it = attacks.begin(); it != attacks.end(); it++)
+		{
+			delete (*it).icon;
+		}
 	}
 
 	void Player::attack(Player& enemy, int attackNum)
@@ -429,6 +439,18 @@ namespace Player
 		{
 			if ((*it).currentCooldown > 0)
 				(*it).currentCooldown--;
+			switch ((*it).currentCooldown)
+			{
+			case 0:
+				(*it).icon->changeAnimation(Animation::AnimationEnum::IDLE);
+				break;
+			case 1:
+				(*it).icon->changeAnimation(Animation::AnimationEnum::COOLDOWN_1);
+				break;
+			case 2:
+				(*it).icon->changeAnimation(Animation::AnimationEnum::COOLDOWN_2);
+				break;
+			}
 		}
 
 		boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
@@ -442,12 +464,23 @@ namespace Player
 		sprite->update();
 		arrowSprite->update();
 
+		for (auto it = attacks.begin(); it != attacks.end(); it++)
+		{
+			(*it).icon->update();
+		}
+
 		// Check if the player is still acting
 		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
 	}
 
 	void Player::draw() const
 	{
+		for (auto it = attacks.begin(); it != attacks.end(); it++)
+		{
+			(*it).icon->draw();
+		}
+
+		// Choosing which sprites to draw based on the current state of the battle
 		switch (BattleState::BattleState::Instance()->getCurrentState())
 		{
 		case BattleState::State::POS_CHOOSE:

@@ -245,7 +245,7 @@ namespace BattleState
 			case State::POS_CHOOSE:
 				GameEngine::getMapper()->PushContext("player2ChoosePos");
 				break;
-			case State::MOVE:
+			default:
 				GameEngine::getMapper()->PushContext("player2Action");
 				break;
 			}
@@ -260,7 +260,7 @@ namespace BattleState
 			case State::POS_CHOOSE:
 				GameEngine::getMapper()->PushContext("player1ChoosePos");
 				break;
-			case State::MOVE:
+			default:
 				GameEngine::getMapper()->PushContext("player1Action");
 				break;
 			}

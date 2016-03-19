@@ -236,5 +236,8 @@
     <Xml Include="..\res\img\Image_data\Arrow.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\Icon.xml">
+      <Filter>Battle\Battle Data</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
