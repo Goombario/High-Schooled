@@ -131,7 +131,7 @@
     <Frame>0.35</Frame>
     <Frame>0.15</Frame>
   </Animation>
-<!--<Animation name="MIRRORED_IDLE" loop="true">
+  <!--<Animation name="MIRRORED_IDLE" loop="true">
     <FirstFrame>190</FirstFrame>
     <Frame>0.15</Frame>
     <Frame>0.15</Frame>
