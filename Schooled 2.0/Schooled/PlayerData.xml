@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Players>
+  <Player name="Gym Teacher">
+    <!--Sprite Data-->
+    <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
+    <Animation name="GymTeacher.xml"/>
+    <Token name="Default_Token.png" width="16" height="16"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attack names-->
+    <Attacks>
+      <Attack name="DODGEBALL_A">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+      </Attack>
+      <Attack name="DODGEBALL_B">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+      </Attack>
+      <Attack name="DODGEBALL_C">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability name (Data loaded from seperate file)-->
+    <Special name="DODGEBALL_RAIN">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+    </Special>
+  </Player>
+
+  <Player name="Nate">
+    <!--Sprite Data-->
+    <Sprite name="Nate.png" frameWidth="64" frameHeight="64"/>
+    <Animation name="Nate.xml"/>
+    <Token name="Default_Token.png" width="16" height="16"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="KICK">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+      </Attack>
+      <Attack name="PUNCH">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+      </Attack>
+      <Attack name="FAST_ATTACK">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special name = "BREAK_GROUND">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+    </Special>
+  </Player>
+
+  <Player name="Template">
+    <!--Sprite Data-->
+    <Sprite name="" frameWidth="" frameHeight=""/>
+    <Animation name="" numCol=""/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP></MaxHP>
+      <MaxSP></MaxSP>
+      <MaxAP></MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+
+        </Range>
+      </Attack>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+
+        </Range>
+      </Attack>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+
+        </Range>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special>
+      <RemoveAllTokens></RemoveAllTokens>
+      <RemoveEnemyTokens></RemoveEnemyTokens>
+      <ResetCooldowns></ResetCooldowns>
+      <Heal></Heal>
+      <Damage></Damage>
+    </Special>
+  </Player>
+</Players>
