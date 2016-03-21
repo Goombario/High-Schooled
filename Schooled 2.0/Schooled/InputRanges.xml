@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Ranges>
+  <Range name="RANGE_ONE">
+    <MinimumInput>-1000</MinimumInput>
+    <MaximumInput>1000</MaximumInput>
+    <MinimumOutput>-1</MinimumOutput>
+    <MaximumOutput>1</MaximumOutput>
+  </Range>
+</Ranges>
