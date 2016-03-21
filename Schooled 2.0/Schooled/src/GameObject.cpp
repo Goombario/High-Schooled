@@ -24,46 +24,46 @@ namespace GameObject
 
 	void GameObject::firstOrder()
 	{
-		setPos( getPos() + (velocity * (1 / schooled::FRAMERATE)));
+		setPos(getPos() + (velocity * static_cast<double>(1.0 / schooled::FRAMERATE)));
 	}
 
 	Vector2 GameObject::firstOrder(Vector2 const& lower, Vector2 const& upper) const
 	{
-		double dt = (1 / schooled::FRAMERATE);
-		return (lower + upper * dt);
+		double dt = static_cast<double>(1.0 / schooled::FRAMERATE);
+		return (lower + (upper * dt));
 	}
 
 	void GameObject::secondOrder()
 	{
-		double dt = (1 / schooled::FRAMERATE);
+		double dt = static_cast<double>(1.0 / schooled::FRAMERATE);
 		setPos(getPos() + getPrevVelocity() * dt + getPrevAcceleration() * (dt * dt));
 
 		// Update variables
 		setPrevVelocity(getVelocity());
 		setPrevAcceleration(getAcceleration());
-		setVelocity(getVelocity() + firstOrder(getVelocity(), getAcceleration()));
+		setVelocity(firstOrder(getVelocity(), getAcceleration()));
 	}
 
 	void GameObject::euler()
 	{
-		double dt = (1 / schooled::FRAMERATE);
-		setPos(getPos() + getVelocity() * dt + 0.5 * getAcceleration() * (dt * dt));
+		double dt = static_cast<double>(1.0 / schooled::FRAMERATE);
+		setPos(getPos() + (getVelocity() * dt) + (0.5 * getAcceleration() * (dt * dt)));
 
 		// Update variables
 		setPrevVelocity(getVelocity());
 		setPrevAcceleration(getAcceleration());
-		setVelocity(getVelocity() + firstOrder(getVelocity(), getAcceleration()));
+		setVelocity(firstOrder(getVelocity(), getAcceleration()));
 	}
 
 	void GameObject::adamsBashford()
 	{
-		double dt = (1 / schooled::FRAMERATE);
+		double dt = static_cast<double>(1.0 / schooled::FRAMERATE);
 		setPos(getPos() + 0.5 * (3 * (getVelocity() + getAcceleration() * dt) - getPrevVelocity()) * dt);
 
 		// Update variables
 		setPrevVelocity(getVelocity());
 		setPrevAcceleration(getAcceleration());
-		setVelocity(getVelocity() + firstOrder(getVelocity(), getAcceleration()));
+		setVelocity(firstOrder(getVelocity(), getAcceleration()));
 	}
 
 	void GameObject::impulse(Vector2 const& force)

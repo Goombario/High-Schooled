@@ -119,7 +119,8 @@ namespace Player
 
 	private:
 		// Move sprite to relative postion
-		void moveSpriteToSide(Sprite::Sprite&);
+		//void moveSpriteToSide(Sprite::Sprite&);
+		void moveToSide();
 
 		// Update attack icon cooldown
 		void updateIconCooldown();
