@@ -52,11 +52,9 @@ namespace Player
 		// Load the arrow sprite
 		if (CheckIfNull(sharedData->FirstChildElement("Arrow"), "Player: Shared: Arrow")) exit(-2);
 		arrowSprite = new Sprite::AnimatedSprite(sharedData->FirstChildElement("Arrow"), sharedData->FirstChildElement("ArrowAnimation"));
-		moveSpriteToSide(*arrowSprite);
 
 		if (CheckIfNull(sharedData->FirstChildElement("Glow"), "Player: Shared: Glow")) exit(-2);
 		glow = new Sprite::Sprite(sharedData->FirstChildElement("Glow"));
-		moveSpriteToSide(*glow);
 
 		// Choose the first Player data
 		XMLElement *playerData;
@@ -80,7 +78,6 @@ namespace Player
 		spriteData = playerData->FirstChildElement("Sprite");
 		if (CheckIfNull(spriteData, "Player: Sprite")) exit(-2);
 		(*this).sprite = new Sprite::AnimatedSprite(spriteData, spriteData->NextSiblingElement("Animation"));
-		moveSpriteToSide(*sprite);
 
 		// Loading the token data
 		if (CheckIfNull(playerData->FirstChildElement("Token"), "Player: Token")) exit(-2);
@@ -172,6 +169,8 @@ namespace Player
 			->QueryIntText(&ability.heal));
 		CheckXMLResult(specialData->FirstChildElement("Damage")
 			->QueryIntText(&ability.damage));
+
+		moveToSide();
 	}
 
 	Player::Player(Player const& source) :
@@ -270,7 +269,10 @@ namespace Player
 		// Make the attack projectiles active
 		for (auto it = currentAttack->projectiles.begin(); it != currentAttack->projectiles.end(); it++)
 		{
-			activeProjectiles.push_back(*it);	// NOT SURE IF COPYING
+			Projectile::Projectile tempProj(*it);
+			tempProj.init((*this), enemy);
+			activeProjectiles.push_back(tempProj);
+
 		}
 		
 		// Update player stats
@@ -380,8 +382,9 @@ namespace Player
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		boardPtr->removeToken(boardPtr->getPlayerlocation());
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
-		moveSpriteToSide(*sprite);
-		moveSpriteToSide(*glow);
+		moveToSide();
+		/*moveSpriteToSide(*sprite);
+		moveSpriteToSide(*glow);*/
 
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 	}
@@ -425,12 +428,35 @@ namespace Player
 		}
 
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
-		moveSpriteToSide(*arrowSprite);
+		moveToSide();
+		/*moveSpriteToSide(*arrowSprite);
 		moveSpriteToSide(*sprite);
-		moveSpriteToSide(*glow);
+		moveSpriteToSide(*glow);*/
 	}
 
-	void Player::moveSpriteToSide(Sprite::Sprite& s)
+	//void Player::moveSpriteToSide(Sprite::Sprite& s)
+	//{
+	//	float initX;
+	//	float wPos;
+	//	if (boardPtr->getSide() == Side::LEFT)
+	//	{
+	//		wPos = static_cast<float>(boardPtr->getPlayerlocation().X);
+	//		initX = Board::OFFSET_X + Board::ROW_OFFSET;
+	//	}
+	//	else
+	//	{
+	//		int offsetRight = Stage::BOARD_WIDTH - 1;
+	//		wPos = static_cast<float>(offsetRight - boardPtr->getPlayerlocation().X);
+	//		initX = Board::CENTER_X + Board::OFFSET_X;
+	//	}
+	//	float hPos = static_cast<float>(boardPtr->getPlayerlocation().Y - 1);
+	//	s.move((initX + 
+	//		((wPos + 1) * Board::ROW_WIDTH) +	// The width of the column times the number of columns to move (+1 for alignment)
+	//		(hPos * Board::ROW_OFFSET)) * schooled::SCALE,	// The row offset due to the perspective
+	//		(Board::OFFSET_Y - (hPos * Board::ROW_HEIGHT)) * schooled::SCALE);
+	//}
+
+	void Player::moveToSide()
 	{
 		float initX;
 		float wPos;
@@ -446,10 +472,10 @@ namespace Player
 			initX = Board::CENTER_X + Board::OFFSET_X;
 		}
 		float hPos = static_cast<float>(boardPtr->getPlayerlocation().Y - 1);
-		s.move((initX + 
+		setPos(Vector::Vector2((initX +
 			((wPos + 1) * Board::ROW_WIDTH) +	// The width of the column times the number of columns to move (+1 for alignment)
 			(hPos * Board::ROW_OFFSET)) * schooled::SCALE,	// The row offset due to the perspective
-			(Board::OFFSET_Y - (hPos * Board::ROW_HEIGHT)) * schooled::SCALE);
+			(Board::OFFSET_Y - (hPos * Board::ROW_HEIGHT)) * schooled::SCALE));
 	}
 
 	void Player::startTurn()
@@ -475,16 +501,19 @@ namespace Player
 		// Check if the player is still acting
 		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
 
-		// Update all active projectiles
+		// Update all active projectiles	(UNKNOWN IF EFFICIENT)
+		std::vector<Projectile::Projectile> tempProj;
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
 		{
 			(*it).update();
 
-			if (!(*it).isActing())
+			if ((*it).isActing())
 			{
-				activeProjectiles.erase(it);
+				tempProj.push_back((*it));
 			}
 		}
+		activeProjectiles = tempProj;
+		
 	}
 
 	void Player::draw() const
@@ -492,21 +521,21 @@ namespace Player
 		// If currently selected, draw glow
 		if (BattleState::BattleState::Instance()->getCurrentSide() == boardPtr->getSide())
 		{
-			glow->draw();
-			//glow->drawAt(getPos());
+			//glow->draw();
+			glow->drawAt(getPos());
 		}
 
 		// Choosing which sprites to draw based on the current state of the battle
 		switch (BattleState::BattleState::Instance()->getCurrentState())
 		{
 		case BattleState::State::POS_CHOOSE:
-			arrowSprite->draw();
-			//arrowSprite->drawAt(getPos());
+			//arrowSprite->draw();
+			arrowSprite->drawAt(getPos());
 			break;
 			
 		default:
-			sprite->draw();
-			//sprite->drawAt(getPos());
+			//sprite->draw();
+			sprite->drawAt(getPos());
 		}
 
 		// Draw all active projectiles

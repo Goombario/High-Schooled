@@ -2,10 +2,10 @@
 
 <ProjectileList>
   <Projectile name="Dodgeball_Gravity">
-    <Sprite name="Dodgeball.png" frameWidth="64" frameHeight="64"/>
+    <Sprite name="Dodgeball.png" frameWidth="14" frameHeight="14"/>
     <Properties hasGravity="true"/>
-    <Mass>10</Mass>
-    <Impulse X="0" Y="10"/>
-    <Velocity X="10" Y="0"/>
+    <Mass>1</Mass>
+    <Impulse X="0" Y="200"/>
+    <Velocity X="100" Y="100"/>
   </Projectile>
 </ProjectileList>

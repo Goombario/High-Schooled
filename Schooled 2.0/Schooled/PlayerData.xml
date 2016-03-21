@@ -46,6 +46,12 @@ target - will attack the targeted square, and dissapear afterwards.
           <Projectile name="Dodgeball_Gravity" delay="0.0"
                       offsetX="0.0" offsetY="0.0"
                       hasTarget="true" targetX="0" targetY="0" timeToTarget="2.0"/>
+          <Projectile name="Dodgeball_Gravity" delay="0.2"
+                      offsetX="0.0" offsetY="0.0"
+                      hasTarget="true" targetX="1" targetY="0" timeToTarget="2.0"/>
+          <Projectile name="Dodgeball_Gravity" delay="0.4"
+                      offsetX="0.0" offsetY="0.0"
+                      hasTarget="true" targetX="2" targetY="0" timeToTarget="2.0"/>
         </ProjectileList>
       </Attack>
       <Attack name="DODGEBALL_B">

@@ -40,7 +40,7 @@ namespace BattleState
 
 		board1 = new Board::Board(Side::LEFT);
 		board2 = new Board::Board(Side::RIGHT);
-		player1 = new Player::Player("Nega", *board1);
+		player1 = new Player::Player("GlowyNate", *board1);
 		player2 = new Player::Player("Gym Teacher", *board2);
 		stage = new Stage::Stage("Default", player1, player2);
 

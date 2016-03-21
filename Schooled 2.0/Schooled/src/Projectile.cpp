@@ -2,6 +2,7 @@
 #include "Vector2.h"
 #include "Sprite.h"
 #include "Schooled.h"
+#include "Player.h"
 #include <iostream>
 
 using namespace tinyxml2;
@@ -88,24 +89,42 @@ namespace Projectile
 
 	Projectile::~Projectile()
 	{
-		//delete sprite;
+
+	}
+
+	void Projectile::init(Player::Player const& player, Player::Player const& enemy)
+	{
+		if (player.getSide() == Side::LEFT)
+		{
+			(*this).setPos(player.getPos() + offset);
+
+		}
+		else
+		{
+			(*this).setPos(player.getPos() + Vector::Vector2(offset.getX() * -1, offset.getY()));
+			(*this).setVelocity(Vector::Vector2(
+				getVelocity().getX() * -1, getVelocity().getY()));
+		}
+
+
 	}
 
 	void Projectile::draw() const
 	{
 		sprite.drawAt(getPos());
 	}
+
 	void Projectile::update()
 	{
 		if (delay > 0)
 		{
-			delay -= (1 / schooled::FRAMERATE);
+			delay -= static_cast<double>(1.0 / schooled::FRAMERATE);
 			return;
 		}
 
 		if (hasGravity)
 		{
-			setAcceleration(Vector2(getAcceleration().getX(), getAcceleration().getY() - (9.81 / schooled::FRAMERATE)));
+			setAcceleration(Vector2(getAcceleration().getX(), getAcceleration().getY() - (9.81)));
 		}
 
 		euler();

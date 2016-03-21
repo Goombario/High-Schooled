@@ -10,6 +10,11 @@ namespace Vector
 	class Vector2;
 }
 
+namespace Player
+{
+	class Player;
+}
+
 namespace Projectile
 {
 	struct Target
@@ -28,7 +33,7 @@ namespace Projectile
 		Projectile(tinyxml2::XMLElement const*);
 		~Projectile();
 
-		void init();
+		void init(Player::Player const& player, Player::Player const& enemy);
 
 		void draw() const;
 		void update();
