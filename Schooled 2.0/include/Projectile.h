@@ -3,11 +3,7 @@
 
 #include "BattleObject.h"
 #include "tinyxml2.h"
-
-namespace Sprite
-{
-	class Sprite;
-}
+#include "Sprite.h"
 
 namespace Vector
 {
@@ -16,6 +12,13 @@ namespace Vector
 
 namespace Projectile
 {
+	struct Target
+	{
+		double timeToTarget;
+		int X;
+		int Y;
+	};
+
 	// The base class of a projectile object:
 	// An object that travels a set distance before terminating.
 	class Projectile : public BattleObject::BattleObject
@@ -33,10 +36,15 @@ namespace Projectile
 		//bool collidesWith(BattleObject const*);
 
 	private:
-		Sprite::Sprite *sprite;
+		// Load projectile data from projectile name
+		void loadData(const char*);
+
+		Sprite::Sprite sprite;
 		bool hasGravity;
 		bool collides;
 		double delay;
+		bool hasTarget;
+		Target target;
 		Vector::Vector2 offset;
 	};
 }

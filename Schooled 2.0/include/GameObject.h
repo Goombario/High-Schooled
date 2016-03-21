@@ -31,6 +31,9 @@ namespace GameObject
 		// Virtual functions
 		virtual void update() {}
 		virtual void draw() {}
+
+	protected:
+		double mass;
 	
 	private:
 		Vector2 getPrevVelocity() const { return prevVelocity; }
@@ -38,7 +41,6 @@ namespace GameObject
 		void setPrevVelocity(Vector2 const& newPrevVelocity) { prevVelocity = newPrevVelocity; }
 		void setPrevAcceleration(Vector2 const& newPrevAcceleration) { prevAcceleration = newPrevAcceleration; }
 
-		double mass;
 		Vector2 position;
 		Vector2 velocity;
 		Vector2 prevVelocity;

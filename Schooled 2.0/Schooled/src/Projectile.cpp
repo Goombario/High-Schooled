@@ -2,6 +2,9 @@
 #include "Vector2.h"
 #include "Sprite.h"
 #include "Schooled.h"
+#include <iostream>
+
+using namespace tinyxml2;
 
 namespace Projectile
 {
@@ -12,20 +15,94 @@ namespace Projectile
 
 	Projectile::Projectile(tinyxml2::XMLElement const* projElement)
 	{
+		const char* projName = projElement->Attribute("name");
+		if (projName == NULL)
+		{
+			std::cerr << "Error: Projectile name not found" << std::endl;
+			exit(-2);
+		}
 
+		loadData(projName);
+
+		CheckXMLResult(projElement->QueryDoubleAttribute("delay", &delay));
+		offset.setX(projElement->DoubleAttribute("offsetX"));
+		offset.setY(projElement->DoubleAttribute("offsetY"));
+
+		CheckXMLResult(projElement->QueryBoolAttribute("hasTarget", &hasTarget));
+		if (hasTarget)
+		{
+			CheckXMLResult(projElement->QueryIntAttribute("targetX", &target.X));
+			CheckXMLResult(projElement->QueryIntAttribute("targetY", &target.Y));
+			CheckXMLResult(projElement->QueryDoubleAttribute("timeToTarget", &target.timeToTarget));
+		}
+	}
+
+	void Projectile::loadData(const char* projName)
+	{
+		// Load the projectile data file
+		tinyxml2::XMLDocument data;
+		CheckXMLResult(data.LoadFile("../Schooled/Projectiles.xml"));
+		XMLNode *pRoot = data.RootElement();
+		if (pRoot == nullptr)
+		{
+			std::cerr << "ERROR: Loading Projectile data file: "
+				<< projName << std::endl;
+			exit(-2);
+		}
+
+		// Choose the first Projectile data
+		XMLElement *projData;
+		projData = pRoot->FirstChildElement("Projectile");
+
+		// Check if the projectile data is available
+		std::string dataName = projData->Attribute("name");
+		while (dataName != projName)
+		{
+			projData = projData->NextSiblingElement();
+			if (projData == nullptr)
+			{
+				std::cerr << "ERROR: Projectile not found: " << projName << std::endl;
+				exit(-2);
+			}
+			dataName = projData->Attribute("name");
+		}
+
+		// Load sprite data
+		if (CheckIfNull(projData->FirstChildElement("Sprite"), "Projectile: Sprite")) exit(-2);
+		sprite = Sprite::Sprite(projData->FirstChildElement("Sprite"));
+
+		CheckXMLResult(projData->FirstChildElement("Properties")->QueryBoolAttribute("hasGravity", &hasGravity));
+		CheckXMLResult(projData->FirstChildElement("Mass")->QueryDoubleText(&mass));
+
+		// Impulse
+		double x, y;
+		CheckXMLResult(projData->FirstChildElement("Impulse")->QueryDoubleAttribute("X", &x));
+		CheckXMLResult(projData->FirstChildElement("Impulse")->QueryDoubleAttribute("Y", &y));
+		impulse(Vector::Vector2(x, y));
+
+		// Initial Velocity
+		CheckXMLResult(projData->FirstChildElement("Velocity")->QueryDoubleAttribute("X", &x));
+		CheckXMLResult(projData->FirstChildElement("Velocity")->QueryDoubleAttribute("Y", &y));
+		setVelocity(Vector::Vector2(x, y));
 	}
 
 	Projectile::~Projectile()
 	{
-		delete sprite;
+		//delete sprite;
 	}
 
 	void Projectile::draw() const
 	{
-		sprite->drawAt(getPos());
+		sprite.drawAt(getPos());
 	}
 	void Projectile::update()
 	{
+		if (delay > 0)
+		{
+			delay -= (1 / schooled::FRAMERATE);
+			return;
+		}
+
 		if (hasGravity)
 		{
 			setAcceleration(Vector2(getAcceleration().getX(), getAcceleration().getY() - (9.81 / schooled::FRAMERATE)));
@@ -42,5 +119,4 @@ namespace Projectile
 			setActing(false);
 		}
 	}
-
 }

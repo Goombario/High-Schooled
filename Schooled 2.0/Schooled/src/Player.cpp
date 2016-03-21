@@ -4,7 +4,6 @@
 #include "Image.h"
 #include "Animation.h"
 #include "Schooled.h"
-#include "GameEngine.h"
 #include "tinyxml2.h"
 #include "BattleState.h"
 #include "Vector2.h"
@@ -76,9 +75,6 @@ namespace Player
 			dataName = playerData->Attribute("name");
 		}
 
-		// Load images and animation
-		Image::ImageManager *imageManager = GameEngine::getImageManager();
-
 		// Set up the sprite
 		XMLElement *spriteData;
 		spriteData = playerData->FirstChildElement("Sprite");
@@ -87,9 +83,8 @@ namespace Player
 		moveSpriteToSide(*sprite);
 
 		// Loading the token data
-		spriteData = playerData->FirstChildElement("Token");
-		if (CheckIfNull(spriteData, "Player: Token")) exit(-2);
-		token = new Sprite::Sprite(spriteData);
+		if (CheckIfNull(playerData->FirstChildElement("Token"), "Player: Token")) exit(-2);
+		token = new Sprite::Sprite(playerData->FirstChildElement("Token"));
 
 		// Load statistics
 		XMLElement *statsData = playerData->FirstChildElement("Stats");
@@ -144,9 +139,17 @@ namespace Player
 				attackData->FirstChildElement("Icon"), sharedData->FirstChildElement("IconAnimation"));
 
 			// Projectile loading
-			if (!CheckIfNull(attackData->FirstChildElement("Projectile"), "Player: Attack: Projectile"))
+			if (!CheckIfNull(attackData->FirstChildElement("ProjectileList"), "Player: Attack: Projectile"))
 			{
-				Projectile::Projectile tempProjectile();
+				XMLElement *projData = attackData->
+					FirstChildElement("ProjectileList")->
+					FirstChildElement("Projectile");
+
+				while (projData != nullptr)
+				{
+					tempAttack.projectiles.push_back(Projectile::Projectile(projData));
+					projData = projData->NextSiblingElement("Projectile");
+				}
 			}
 
 			(*this).attacks.push_back(tempAttack);
