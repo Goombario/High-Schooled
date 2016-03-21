@@ -49,8 +49,8 @@ namespace Player
 		int damage;
 		int cooldown;	// Number of turns before move can be used again
 		int currentCooldown;
-		Projectile::Projectile projectile;
 		Sprite::AnimatedSprite *icon;
+		std::vector<Projectile::Projectile> projectiles;
 	};
 
 	// Helper struct holds special ability data
@@ -127,6 +127,7 @@ namespace Player
 		Stats stats;
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
+		std::vector<Projectile::Projectile> activeProjectiles;
 		SpecialAbility ability;
 		Sprite::Sprite *token;
 		Sprite::Sprite *glow;

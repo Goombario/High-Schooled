@@ -7,6 +7,7 @@
 #include "GameEngine.h"
 #include "tinyxml2.h"
 #include "BattleState.h"
+#include "Vector2.h"
 
 using namespace tinyxml2;
 
@@ -40,7 +41,7 @@ namespace Player
 		if (pRoot == nullptr)
 		{
 			std::cerr << "ERROR: Loading Player data file: " 
-				<< XML_ERROR_FILE_READ_ERROR << std::endl;
+				<< playerName << std::endl;
 			exit(-2);
 		}
 
@@ -69,8 +70,7 @@ namespace Player
 			playerData = playerData->NextSiblingElement();
 			if (playerData == nullptr)
 			{
-				std::cerr << "ERROR: Loading playerData: "
-					<< XML_ERROR_FILE_READ_ERROR << std::endl;
+				std::cerr << "ERROR: Loading playerData: " << playerName << std::endl;
 				exit(-2);
 			}
 			dataName = playerData->Attribute("name");
@@ -142,6 +142,12 @@ namespace Player
 			if (CheckIfNull(attackData->FirstChildElement("Icon"), "Player: Attack: Icon")) exit(-2);
 			tempAttack.icon = new Sprite::AnimatedSprite(
 				attackData->FirstChildElement("Icon"), sharedData->FirstChildElement("IconAnimation"));
+
+			// Projectile loading
+			if (!CheckIfNull(attackData->FirstChildElement("Projectile"), "Player: Attack: Projectile"))
+			{
+				Projectile::Projectile tempProjectile();
+			}
 
 			(*this).attacks.push_back(tempAttack);
 			(*this).numAttacks++;
@@ -256,6 +262,12 @@ namespace Player
 		if ((*this).stats.currentSP >= (*this).stats.maxSP)
 		{
 			(*this).useSpecial(enemy);
+		}
+
+		// Make the attack projectiles active
+		for (auto it = currentAttack->projectiles.begin(); it != currentAttack->projectiles.end(); it++)
+		{
+			activeProjectiles.push_back(*it);	// NOT SURE IF COPYING
 		}
 		
 		// Update player stats
@@ -459,15 +471,22 @@ namespace Player
 
 		// Check if the player is still acting
 		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
+
+		// Update all active projectiles
+		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
+		{
+			(*it).update();
+
+			if (!(*it).isActing())
+			{
+				activeProjectiles.erase(it);
+			}
+		}
 	}
 
 	void Player::draw() const
 	{
-		for (auto it = attacks.begin(); it != attacks.end(); it++)
-		{
-			(*it).icon->draw();
-		}
-
+		// If currently selected, draw glow
 		if (BattleState::BattleState::Instance()->getCurrentSide() == boardPtr->getSide())
 		{
 			glow->draw();
@@ -485,6 +504,12 @@ namespace Player
 		default:
 			sprite->draw();
 			//sprite->drawAt(getPos());
+		}
+
+		// Draw all active projectiles
+		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
+		{
+			(*it).draw();
 		}
 	}
 

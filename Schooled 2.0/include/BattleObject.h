@@ -5,6 +5,12 @@
 
 namespace BattleObject
 {
+	struct rect
+	{
+		double width;
+		double height;
+	};
+
 	// Abstract class that all battle objects draw from
 	class BattleObject : public GameObject::GameObject
 	{

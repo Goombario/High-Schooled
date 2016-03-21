@@ -239,6 +239,7 @@
     <Xml Include="..\res\img\Image_Data\Icon.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
+    <Xml Include="Projectiles.xml">
     <Xml Include="..\res\img\Image_Data\GlowyNate.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
