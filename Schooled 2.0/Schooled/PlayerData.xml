@@ -89,8 +89,188 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Nate">
     <!--Sprite Data-->
-    <Sprite name="Nate.png" frameWidth="64" frameHeight="64"/>
+    <Sprite name="Nate.png" frameWidth="90" frameHeight="64"/>
     <Animation name="Nate.xml"/>
+    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="KICK">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+      <Attack name="PUNCH">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+      <Attack name="FAST_ATTACK">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special name = "BREAK_GROUND">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+    </Special>
+  </Player>
+  
+  <Player name="GlowyNate">
+    <!--Sprite Data-->
+    <Sprite name="GlowyNate.png" frameWidth="90" frameHeight="64"/>
+    <Animation name="GlowyNate.xml"/>
+    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="KICK">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+      <Attack name="PUNCH">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+      <Attack name="FAST_ATTACK">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special name = "BREAK_GROUND">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+    </Special>
+  </Player>
+
+  <Player name="Nega">
+    <!--Sprite Data-->
+    <Sprite name="Nega.png" frameWidth="90" frameHeight="64"/>
+    <Animation name="Nega.xml"/>
+    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="KICK">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+      <Attack name="PUNCH">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+      <Attack name="FAST_ATTACK">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special name = "BREAK_GROUND">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+    </Special>
+  </Player>
+
+  <Player name="GlowyNega">
+    <!--Sprite Data-->
+    <Sprite name="GlowyNega.png" frameWidth="90" frameHeight="64"/>
+    <Animation name="GlowyNega.xml"/>
     <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->

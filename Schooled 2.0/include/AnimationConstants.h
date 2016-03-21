@@ -18,6 +18,11 @@ namespace Animation
 		TOKEN_PLACE,
 		COOLDOWN_1,
 		COOLDOWN_2,
+		BACKWARDS,
+		FORWARDS,
+		UP,
+		DOWN,
+		HURT
 	};
 
 	static const std::map<std::string, AnimationEnum> AnimationLookup
@@ -32,6 +37,11 @@ namespace Animation
 		{ "TOKEN_PLACE", AnimationEnum::TOKEN_PLACE },
 		{ "COOLDOWN_1", AnimationEnum::COOLDOWN_1 },
 		{ "COOLDOWN_2", AnimationEnum::COOLDOWN_2 },
+		{ "BACKWARDS", AnimationEnum::BACKWARDS },
+		{ "FORWARDS", AnimationEnum::FORWARDS },
+		{ "UP", AnimationEnum::UP },
+		{ "DOWN", AnimationEnum::DOWN },
+		{ "HURT", AnimationEnum::HURT }
 	};
 }
 

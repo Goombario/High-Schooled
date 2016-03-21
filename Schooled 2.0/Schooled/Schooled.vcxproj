@@ -143,11 +143,16 @@
     <Xml Include="..\res\img\Image_data\Arrow.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\GlowyNate.xml" />
+    <Xml Include="..\res\img\Image_Data\GlowyNega.xml" />
     <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="..\res\img\Image_Data\Icon.xml" />
-    <Xml Include="..\res\img\Image_Data\Nate.xml" />
+    <Xml Include="..\res\img\Image_Data\Nate.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Nega.xml" />
     <Xml Include="Contexts.xml" />
     <Xml Include="InputMap.xml">
       <SubType>Designer</SubType>

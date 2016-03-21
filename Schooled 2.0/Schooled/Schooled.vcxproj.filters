@@ -240,6 +240,13 @@
       <Filter>Battle\Battle Data</Filter>
     </Xml>
     <Xml Include="Projectiles.xml">
+    <Xml Include="..\res\img\Image_Data\GlowyNate.xml">
+      <Filter>Battle\Battle Data</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\GlowyNega.xml">
+      <Filter>Battle\Battle Data</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Nega.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
   </ItemGroup>
