@@ -5,7 +5,7 @@
     <Sprite name="Dodgeball.png" frameWidth="64" frameHeight="64"/>
     <Properties hasGravity="true"/>
     <Mass>10</Mass>
-    <Impulse>0 10</Impulse>
-    <Velocity>10 0</Velocity>
+    <Impulse X="0" Y="10"/>
+    <Velocity X="10" Y="0"/>
   </Projectile>
 </ProjectileList>

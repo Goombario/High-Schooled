@@ -161,7 +161,9 @@
     <Xml Include="PlayerData.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="Projectiles.xml" />
+    <Xml Include="Projectiles.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="StageData.xml">
       <SubType>Designer</SubType>
     </Xml>
