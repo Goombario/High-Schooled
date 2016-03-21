@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Documentation
+
+Projectile types:
+target - will attack the targeted square, and dissapear afterwards.
+
+-->
+
 <Players>
   <!--Data shared across all players-->
   <SharedData>
@@ -33,10 +42,11 @@
           0 0 0
         </Range>
         <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
-        <Projectile>
-          <Sprite name="Dodgeball.png" frameWidth="64" frameHeight="64"/>
-          <Properties mass="10" startingAcceleration="0" hasGravity="false" destroyOnCollision="false"/>
-        </Projectile>
+        <ProjectileList>
+          <Projectile name="Dodgeball_Gravity" delay="0.0"
+                      offsetX="0.0" offsetY="0.0"
+                      targeted="true" target="0 0" timeToTarget="2.0"/>
+        </ProjectileList>
       </Attack>
       <Attack name="DODGEBALL_B">
         <Cooldown>2</Cooldown>
@@ -48,6 +58,11 @@
           1 0 0
         </Range>
         <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <ProjectileList>
+          <Projectile name="Dodgeball_Gravity" delay="0.0"
+                      offsetX="0.0" offsetY="0.0"
+                      targeted="false"/>
+        </ProjectileList>
       </Attack>
       <Attack name="DODGEBALL_C">
         <Cooldown>2</Cooldown>

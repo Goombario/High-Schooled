@@ -19,7 +19,7 @@ namespace Animation
 		XMLNode *root = data.RootElement();
 		if (root == nullptr)
 		{
-			std::cerr << "ERROR: Loading animation data file: " << std::endl << XML_ERROR_FILE_READ_ERROR << std::endl;
+			std::cerr << "ERROR: Loading animation data file: " << dataPath << std::endl;
 			exit(-1);
 		}
 		CheckXMLResult(root->ToElement()->QueryIntAttribute("numCol", &numCol));

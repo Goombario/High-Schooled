@@ -2,15 +2,11 @@
 #define PROJECTILE_H
 
 #include "BattleObject.h"
+#include "tinyxml2.h"
 
 namespace Sprite
 {
 	class Sprite;
-}
-
-namespace Player
-{
-	class Player;
 }
 
 namespace Vector
@@ -20,23 +16,28 @@ namespace Vector
 
 namespace Projectile
 {
+	// The base class of a projectile object:
+	// An object that travels a set distance before terminating.
 	class Projectile : public BattleObject::BattleObject
 	{
 	public:
 		Projectile();
-		Projectile(Vector::Vector2 const& force, 
-			Vector::Vector2 const& position, Sprite::Sprite const&);
+		Projectile(tinyxml2::XMLElement const*);
 		~Projectile();
+
+		void init();
 
 		void draw() const;
 		void update();
 
-		bool collidesWith(Player::Player const&);
+		//bool collidesWith(BattleObject const*);
 
 	private:
 		Sprite::Sprite *sprite;
 		bool hasGravity;
-		bool destroyOnCollision;
+		bool collides;
+		double delay;
+		Vector::Vector2 offset;
 	};
 }
 
