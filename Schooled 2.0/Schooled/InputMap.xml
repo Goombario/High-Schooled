@@ -2,6 +2,28 @@
 
 <Contexts>
 
+  <Context name="mainMenuContext">
+    <Action>
+      <Input>MENU_UP</Input>
+      <Raw>FzlKeyUpArrow</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_DOWN</Input>
+      <Raw>FzlKeyDownArrow</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_SELECT</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_BACK</Input>
+      <Raw>FzlKeyX</Raw>
+    </Action>
+  </Context>
+  
   <Context name="player1Action">
     <!-- All Actions -->
     <Action>

@@ -105,14 +105,14 @@
     <ClCompile Include="src\Stage.cpp">
       <Filter>Battle\Battle Classes</Filter>
     </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Projectile.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
     <ClCompile Include="src\Particle.cpp">
       <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,9 +191,6 @@
     <ClInclude Include="..\include\BattleObject.h">
       <Filter>Battle\Battle Classes</Filter>
     </ClInclude>
-    <ClInclude Include="MenuState.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Projectile.h">
       <Filter>Engine\Physics</Filter>
     </ClInclude>
@@ -202,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Collision.h">
       <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -245,8 +245,6 @@
     <Xml Include="..\res\img\Image_Data\Icon.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
-    <Xml Include="Projectiles.xml">
-	</Xml>
     <Xml Include="..\res\img\Image_Data\GlowyNate.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
@@ -254,6 +252,9 @@
       <Filter>Battle\Battle Data</Filter>
     </Xml>
     <Xml Include="..\res\img\Image_Data\Nega.xml">
+      <Filter>Battle\Battle Data</Filter>
+    </Xml>
+    <Xml Include="Projectiles.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
   </ItemGroup>
