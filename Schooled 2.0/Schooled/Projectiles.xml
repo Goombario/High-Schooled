@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ProjectileList>
+  <Projectile name="Dodgeball_Gravity">
+    <Sprite name="Dodgeball.png" frameWidth="14" frameHeight="14"/>
+    <Properties hasGravity="true"/>
+    <Mass>1</Mass>
+    <Impulse X="0" Y="200"/>
+    <Velocity X="100" Y="100"/>
+  </Projectile>
+</ProjectileList>

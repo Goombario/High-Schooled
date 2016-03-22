@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AnimationList numCol="1">
+  <Animation name="IDLE" loop="false">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.3</Frame>
+    <Frame>0.3</Frame>
+    <Frame>0.3</Frame>
+    <Frame>0.3</Frame>
+  </Animation>
+</AnimationList>
