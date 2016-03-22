@@ -9,6 +9,7 @@
 
 #include "GameEngine.h"
 #include "BattleState.h"
+#include "MenuState.h"
 
 int main(int argc, char **argv)
 {

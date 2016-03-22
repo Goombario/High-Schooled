@@ -105,6 +105,9 @@
     <ClCompile Include="src\Stage.cpp">
       <Filter>Battle\Battle Classes</Filter>
     </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
     <ClCompile Include="src\Projectile.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="..\include\BattleObject.h">
       <Filter>Battle\Battle Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Projectile.h">
       <Filter>Engine\Physics</Filter>
