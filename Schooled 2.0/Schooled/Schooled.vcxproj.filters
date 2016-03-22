@@ -46,6 +46,12 @@
     <Filter Include="Engine\Physics">
       <UniqueIdentifier>{8fb244e0-cc47-4413-bc72-4c434e3f9271}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{12aa97c2-00cf-41b0-8045-3011d08c45ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu\Menu Classes">
+      <UniqueIdentifier>{5d434123-d239-4ea5-826b-75d016d3d498}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -112,7 +118,16 @@
       <Filter>Engine\Physics</Filter>
     </ClCompile>
     <ClCompile Include="MenuState.cpp">
-      <Filter>States</Filter>
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Menu\Menu Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterMenu.cpp">
+      <Filter>Menu\Menu Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="StageMenu.cpp">
+      <Filter>Menu\Menu Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +216,16 @@
       <Filter>Engine\Physics</Filter>
     </ClInclude>
     <ClInclude Include="MenuState.h">
-      <Filter>States</Filter>
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Menu\Menu Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterMenu.h">
+      <Filter>Menu\Menu Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="StageMenu.h">
+      <Filter>Menu\Menu Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -80,6 +80,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CharacterMenu.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\Animation.cpp" />
@@ -102,6 +104,7 @@
     <ClCompile Include="src\Stage.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
+    <ClCompile Include="StageMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Animation.h" />
@@ -132,7 +135,10 @@
     <ClInclude Include="..\include\Stage.h" />
     <ClInclude Include="..\include\tinyxml2.h" />
     <ClInclude Include="..\include\Vector2.h" />
+    <ClInclude Include="CharacterMenu.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="StageMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Board.inl" />
