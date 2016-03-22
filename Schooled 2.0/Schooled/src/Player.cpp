@@ -144,7 +144,10 @@ namespace Player
 
 				while (projData != nullptr)
 				{
-					tempAttack.projectiles.push_back(Projectile::Projectile(projData));
+					Projectile::Projectile tempProj(projData);
+					int pos = (tempProj.getTarget().X * Stage::BOARD_WIDTH + tempProj.getTarget().Y);
+					tempAttack.projectiles.insert(
+						std::map<int, Projectile::Projectile>::value_type(pos, tempProj));
 					projData = projData->NextSiblingElement("Projectile");
 				}
 			}
@@ -243,11 +246,22 @@ namespace Player
 					{	// The attack pattern doesn't change
 						pos = COORD{ h, w };
 					}
-					
+
+					// If the target is found in the projectile list, fire at position.
+					int projPos = w + h * Stage::BOARD_WIDTH;
+					if (projPos >= 0 &&
+						currentAttack->projectiles.find(projPos) != currentAttack->projectiles.end())
+					{
+						Projectile::Projectile tempProj(currentAttack->projectiles.at(projPos));
+						tempProj.init((*this), enemy, enemy.getBoard().getTilePos(pos));
+						activeProjectiles.push_back(tempProj);
+					}
+
 					// If the player is at that position, deal damage
 					// Else, place a token.
 					if (enemy.boardPtr->getPlayerlocation() == pos)
 					{
+
 						enemy.changeHealth(-currentAttack->damage);
 					}
 					else
@@ -269,10 +283,12 @@ namespace Player
 		// Make the attack projectiles active
 		for (auto it = currentAttack->projectiles.begin(); it != currentAttack->projectiles.end(); it++)
 		{
-			Projectile::Projectile tempProj(*it);
-			tempProj.init((*this), enemy);
-			activeProjectiles.push_back(tempProj);
-
+			if ((*it).second.getTarget().X == -1 && (*it).second.getTarget().Y == -1)
+			{
+				Projectile::Projectile tempProj((*it).second);
+				tempProj.init((*this), enemy);
+				activeProjectiles.push_back(tempProj);
+			}
 		}
 		
 		// Update player stats
@@ -512,7 +528,7 @@ namespace Player
 				tempProj.push_back((*it));
 			}
 		}
-		activeProjectiles = tempProj;
+		if (tempProj.size() > 0) { activeProjectiles = tempProj; }
 		
 	}
 

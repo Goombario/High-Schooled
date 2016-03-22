@@ -6,13 +6,11 @@
 #include "Projectile.h"
 #include <string>
 #include <vector>
+#include <map>
 #include "Schooled.h"
+#include "Board.h"
 
 // Forward Declaration
-namespace Board
-{
-	class Board;
-}
 
 namespace Sprite
 {
@@ -50,7 +48,7 @@ namespace Player
 		int cooldown;	// Number of turns before move can be used again
 		int currentCooldown;
 		Sprite::AnimatedSprite *icon;
-		std::vector<Projectile::Projectile> projectiles;
+		std::map<int, Projectile::Projectile> projectiles;
 	};
 
 	// Helper struct holds special ability data
@@ -116,6 +114,9 @@ namespace Player
 
 		// Get the token sprite
 		Sprite::Sprite& getTokenSprite() { return *token; }
+
+		// Get the board
+		Board::Board getBoard() const { return *boardPtr; }
 
 	private:
 		// Move sprite to relative postion
