@@ -7,6 +7,10 @@
     <Action>MENU_DOWN</Action>
     <Action>MENU_SELECT</Action>
     <Action>MENU_BACK</Action>
+    <Action>MENU_P1_LEFT</Action>
+    <Action>MENU_P2_LEFT</Action>
+    <Action>MENU_P1_RIGHT</Action>
+    <Action>MENU_P2_RIGHT</Action>
   </Context>
   
   <Context name="player1Action">

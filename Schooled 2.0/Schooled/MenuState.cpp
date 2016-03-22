@@ -94,6 +94,26 @@ namespace MenuState
 		{
 			inputs.EatAction(InputMapping::Action::MENU_BACK);
 		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_P1_RIGHT) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_P1_RIGHT);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_P1_LEFT) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_P1_LEFT);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_P2_RIGHT) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_P2_RIGHT);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_P2_LEFT) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_P2_LEFT);
+		}
 	}
 
 	void MenuState::Update(GameEngine* game)
