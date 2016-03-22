@@ -22,6 +22,26 @@
       <Input>MENU_BACK</Input>
       <Raw>FzlKeyX</Raw>
     </Action>
+
+    <Action>
+      <Input>MENU_P1_LEFT</Input>
+      <Raw>FzlKeyLeftArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_P2_LEFT</Input>
+      <Raw>FzlKeyA</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P1_RIGHT</Input>
+      <Raw>FzlKeyRightArrow</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P2_RIGHT</Input>
+      <Raw>FzlKeyD</Raw>
+    </Action>
   </Context>
   
   <Context name="player1Action">

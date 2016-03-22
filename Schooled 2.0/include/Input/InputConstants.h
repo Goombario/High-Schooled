@@ -20,6 +20,10 @@ namespace InputMapping
 		MENU_BACK,
 		MENU_UP,
 		MENU_DOWN,
+		MENU_P1_LEFT,
+		MENU_P2_LEFT,
+		MENU_P1_RIGHT,
+		MENU_P2_RIGHT,
 		EXIT_GAME
 	};
 
@@ -57,6 +61,10 @@ namespace InputMapping
 		{"MENU_BACK", Action::MENU_BACK },
 		{"MENU_UP", Action::MENU_UP },
 		{"MENU_DOWN", Action::MENU_DOWN },
+		{ "MENU_P1_LEFT", Action::MENU_P1_LEFT },
+		{ "MENU_P2_LEFT", Action::MENU_P2_LEFT },
+		{ "MENU_P1_RIGHT", Action::MENU_P1_RIGHT },
+		{ "MENU_P2_RIGHT", Action::MENU_P2_RIGHT },
 		{ "EXIT_GAME", Action::EXIT_GAME },
 	};
 
