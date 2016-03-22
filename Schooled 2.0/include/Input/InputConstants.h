@@ -16,6 +16,10 @@ namespace InputMapping
 		ATTACK_1,
 		ATTACK_2,
 		ATTACK_3,
+		MENU_SELECT,
+		MENU_BACK,
+		MENU_UP,
+		MENU_DOWN,
 		EXIT_GAME
 	};
 
@@ -49,6 +53,10 @@ namespace InputMapping
 		{ "ATTACK_1", Action::ATTACK_1 },
 		{ "ATTACK_2", Action::ATTACK_2 },
 		{ "ATTACK_3", Action::ATTACK_3 },
+		{"MENU_SELECT", Action::MENU_SELECT },
+		{"MENU_BACK", Action::MENU_BACK },
+		{"MENU_UP", Action::MENU_UP },
+		{"MENU_DOWN", Action::MENU_DOWN },
 		{ "EXIT_GAME", Action::EXIT_GAME },
 	};
 

@@ -2,10 +2,15 @@
 #define MENU_STATE_H
 
 #include "GameState.h"
-#include "BattleConstants.h"
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
 #include <map>
 #include <vector>
+
+// Forward Declaration
+namespace InputMapping
+{
+	struct MappedInput;
+}
 
 namespace MenuState
 {
@@ -31,6 +36,9 @@ namespace MenuState
 		static MenuState* Instance() {
 			return &m_MenuState;
 		}
+
+		// The callback used in the state
+		friend void mainCallback(InputMapping::MappedInput& inputs);
 
 	protected:
 		// Create an empty object
