@@ -124,7 +124,7 @@ namespace Stage
 		Image::Image tempImage;
 
 		// Load player data from player file
-		XMLDocument data;
+		tinyxml2::XMLDocument data;
 		CheckXMLResult(data.LoadFile("../Schooled/StageData.xml"));
 		XMLNode *pRoot = data.RootElement();
 		if (pRoot == nullptr)

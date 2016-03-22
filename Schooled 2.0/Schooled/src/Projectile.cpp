@@ -4,6 +4,7 @@
 #include "Schooled.h"
 #include "Player.h"
 #include <iostream>
+#include <Windows.h>
 
 using namespace tinyxml2;
 
@@ -35,6 +36,12 @@ namespace Projectile
 			CheckXMLResult(projElement->QueryIntAttribute("targetX", &target.X));
 			CheckXMLResult(projElement->QueryIntAttribute("targetY", &target.Y));
 			CheckXMLResult(projElement->QueryDoubleAttribute("timeToTarget", &target.timeToTarget));
+		}
+		else
+		{
+			target.X = -1;
+			target.Y = -1;
+			target.timeToTarget = 1;
 		}
 	}
 
@@ -87,12 +94,7 @@ namespace Projectile
 		setVelocity(Vector::Vector2(x, y));
 	}
 
-	Projectile::~Projectile()
-	{
-
-	}
-
-	void Projectile::init(Player::Player const& player, Player::Player const& enemy)
+	void Projectile::init(Player::Player const& player, Player::Player const& enemy, Vector::Vector2 const& tilePos)
 	{
 		if (player.getSide() == Side::LEFT)
 		{
@@ -106,7 +108,12 @@ namespace Projectile
 				getVelocity().getX() * -1, getVelocity().getY()));
 		}
 
-
+		if (hasTarget)
+		{
+			Vector::Vector2 distance = player.getPos() - tilePos + offset;
+			Vector::Vector2 velocity((distance.getX() * -1) / target.timeToTarget, 0);
+			setVelocity(Vector::Vector2(velocity.getX(), getVelocity().getY()));
+		}
 	}
 
 	void Projectile::draw() const

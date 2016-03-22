@@ -31,12 +31,17 @@ namespace Projectile
 	public:
 		Projectile();
 		Projectile(tinyxml2::XMLElement const*);
-		~Projectile();
 
-		void init(Player::Player const& player, Player::Player const& enemy);
+		// Initializes the projectile values for throwing
+		void init(
+			Player::Player const& player, 
+			Player::Player const& enemy, 
+			Vector::Vector2 const& tilePos = Vector::Vector2(0, 0));
 
 		void draw() const;
 		void update();
+
+		Target getTarget() const { return target; }
 
 		//bool collidesWith(BattleObject const*);
 

@@ -30,6 +30,7 @@ namespace Board
 		bool hasToken;
 		bool isPassable;
 		bool isPath;
+		Vector::Vector2 pos;
 	};
 
 	struct WaveMap
@@ -93,6 +94,9 @@ namespace Board
 		inline void setPlayerFirstPos(COORD newLocation) { firstPos = newLocation; }
 		inline COORD getPlayerlocation() const { return playerLocation; }
 		inline Side getSide() const { return side; }
+
+		// Get the tile vector
+		Vector::Vector2 getTilePos(COORD location) const { return boardTiles[location.Y][location.X].pos; }
 
 	private:
 		// Helper function returns tile at number position
