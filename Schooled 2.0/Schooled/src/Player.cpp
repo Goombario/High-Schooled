@@ -546,7 +546,7 @@ namespace Player
 		{
 		case BattleState::State::POS_CHOOSE:
 			//arrowSprite->draw();
-			arrowSprite->drawAt(getPos());
+			arrowSprite->drawAt(getPos() + Vector::Vector2(-10, 20));
 			break;
 			
 		default:
