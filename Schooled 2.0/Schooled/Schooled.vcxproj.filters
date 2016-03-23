@@ -46,6 +46,12 @@
     <Filter Include="Engine\Physics">
       <UniqueIdentifier>{8fb244e0-cc47-4413-bc72-4c434e3f9271}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Battle\Battle Data\Characters">
+      <UniqueIdentifier>{cdf8aa11-25e1-4173-a848-b7ee1b9625ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Battle\Battle Data\Feedback">
+      <UniqueIdentifier>{2462b9d9-05d8-4bfc-8da4-e7333462db0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -230,12 +236,6 @@
     <Xml Include="PlayerData.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
-    <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\Nate.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
     <Xml Include="StageData.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
@@ -246,13 +246,31 @@
       <Filter>Battle\Battle Data</Filter>
     </Xml>
     <Xml Include="..\res\img\Image_Data\GlowyNate.xml">
-      <Filter>Battle\Battle Data</Filter>
+      <Filter>Battle\Battle Data\Characters</Filter>
     </Xml>
     <Xml Include="..\res\img\Image_Data\GlowyNega.xml">
-      <Filter>Battle\Battle Data</Filter>
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Nate.xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
     </Xml>
     <Xml Include="..\res\img\Image_Data\Nega.xml">
-      <Filter>Battle\Battle Data</Filter>
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\BarGlows.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\BoardGlows.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\IconGlows.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\TileGlows.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
     <Xml Include="Projectiles.xml">
       <Filter>Battle\Battle Data</Filter>
