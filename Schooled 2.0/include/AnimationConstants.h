@@ -22,7 +22,14 @@ namespace Animation
 		FORWARDS,
 		UP,
 		DOWN,
-		HURT
+		HURT,
+		RED_PULSE,
+		BLUE_PULSE,
+		HP_GREEN_PULSE,
+		HP_RED_PULSE,
+		SP_BLUE_PULSE,
+		SP_RED_PULSE,
+		AP_VIOLET_PULSE
 	};
 
 	static const std::map<std::string, AnimationEnum> AnimationLookup
@@ -41,7 +48,14 @@ namespace Animation
 		{ "FORWARDS", AnimationEnum::FORWARDS },
 		{ "UP", AnimationEnum::UP },
 		{ "DOWN", AnimationEnum::DOWN },
-		{ "HURT", AnimationEnum::HURT }
+		{ "HURT", AnimationEnum::HURT },
+		{ "RED_PULSE", AnimationEnum::RED_PULSE },
+		{ "BLUE_PULSE", AnimationEnum::BLUE_PULSE },
+		{ "HP_GREEN_PULSE", AnimationEnum::HP_GREEN_PULSE },
+		{ "HP_RED_PULSE", AnimationEnum::HP_RED_PULSE },
+		{ "SP_BLUE_PULSE", AnimationEnum::SP_BLUE_PULSE },
+		{ "SP_RED_PULSE", AnimationEnum::SP_RED_PULSE },
+		{ "AP_VIOLET_PULSE", AnimationEnum::AP_VIOLET_PULSE }
 	};
 }
 

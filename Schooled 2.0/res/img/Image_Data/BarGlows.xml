@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AnimationList numCol="14">
+  <Animation name="HP_GREEN_PULSE" loop="true">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+  </Animation>
+  <Animation name="HP_RED_PULSE" loop="true">
+    <FirstFrame>14</FirstFrame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+  </Animation>
+  <Animation name="SP_BLUE_PULSE" loop="true">
+    <FirstFrame>28</FirstFrame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+  </Animation>
+  <Animation name="SP_RED_PULSE" loop="true">
+    <FirstFrame>42</FirstFrame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+  </Animation>
+  <Animation name="AP_VIOLET_PULSE" loop="true">
+    <FirstFrame>56</FirstFrame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+  </Animation>
+</AnimationList>
