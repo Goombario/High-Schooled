@@ -18,6 +18,7 @@ namespace Board
 				boardTiles[h][w].hasToken = false;
 				boardTiles[h][w].isPassable = true;
 				boardTiles[h][w].isPath = false;
+				boardTiles[h][w].pos = Vector::Vector2();
 			}
 		}
 
@@ -30,6 +31,18 @@ namespace Board
 	Board::Board(Side s) : Board()
 	{
 		side = s;
+		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET) : (OFFSET_X + CENTER_X);
+
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		{
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			{
+				boardTiles[h][w].pos = Vector::Vector2(
+					(initX + w * ROW_WIDTH) + 
+					(h * ROW_OFFSET) * schooled::SCALE,
+					(OFFSET_Y - (h * ROW_HEIGHT) * schooled::SCALE));
+			}
+		}
 	}
 
 	Board::~Board()
@@ -153,14 +166,10 @@ namespace Board
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
+				//tokenSprite->drawAt(boardTiles[h][w].pos);
 				if (boardTiles[h][w].hasToken)
 				{
-					int wPos = w;
-					if (side == Side::RIGHT) wPos = Stage::BOARD_WIDTH - 1 - wPos;
-					tokenSprite->drawAt((initX + 
-						(wPos * ROW_WIDTH) +
-						(h * ROW_OFFSET)) * schooled::SCALE,
-						(OFFSET_Y - (h * ROW_HEIGHT)) * schooled::SCALE);
+					tokenSprite->drawAt(boardTiles[h][w].pos);
 				}
 			}
 		}

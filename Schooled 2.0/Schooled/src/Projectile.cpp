@@ -33,15 +33,11 @@ namespace Projectile
 		CheckXMLResult(projElement->QueryBoolAttribute("hasTarget", &hasTarget));
 		if (hasTarget)
 		{
-			CheckXMLResult(projElement->QueryIntAttribute("targetX", &target.X));
-			CheckXMLResult(projElement->QueryIntAttribute("targetY", &target.Y));
-			CheckXMLResult(projElement->QueryDoubleAttribute("timeToTarget", &target.timeToTarget));
+			CheckXMLResult(projElement->QueryDoubleAttribute("timeToTarget", &timeToTarget));
 		}
 		else
 		{
-			target.X = -1;
-			target.Y = -1;
-			target.timeToTarget = 1;
+			timeToTarget = 1;
 		}
 	}
 
@@ -111,7 +107,7 @@ namespace Projectile
 		if (hasTarget)
 		{
 			Vector::Vector2 distance = player.getPos() - tilePos + offset;
-			Vector::Vector2 velocity((distance.getX() * -1) / target.timeToTarget, 0);
+			Vector::Vector2 velocity((distance.getX() * -1.0) / timeToTarget, 0.0);
 			setVelocity(Vector::Vector2(velocity.getX(), getVelocity().getY()));
 		}
 	}

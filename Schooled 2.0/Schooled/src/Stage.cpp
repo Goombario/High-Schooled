@@ -17,8 +17,8 @@ namespace Stage
 		Image::Image tempImage;
 		std::string path;
 
-		int frameWidth = 96;
-		int frameHeight = 32;
+		int frameWidth = 192;
+		int frameHeight = 64;
 		float distanceToHP = 38.0f;
 		offsetY = schooled::SCREEN_HEIGHT_PX - 9;
 		

@@ -6,6 +6,7 @@
 #include "Schooled.h"
 #include "tinyxml2.h"
 #include "BattleState.h"
+#include "Projectile.h"
 #include "Vector2.h"
 
 using namespace tinyxml2;
@@ -136,18 +137,12 @@ namespace Player
 				attackData->FirstChildElement("Icon"), sharedData->FirstChildElement("IconAnimation"));
 
 			// Projectile loading
-			if (!CheckIfNull(attackData->FirstChildElement("ProjectileList"), "Player: Attack: Projectile"))
+			if (!CheckIfNull(attackData->FirstChildElement("Projectile"), "Player: Attack: Projectile"))
 			{
-				XMLElement *projData = attackData->
-					FirstChildElement("ProjectileList")->
-					FirstChildElement("Projectile");
-
+				XMLElement *projData = attackData->FirstChildElement("Projectile");
 				while (projData != nullptr)
 				{
-					Projectile::Projectile tempProj(projData);
-					int pos = (tempProj.getTarget().X * Stage::BOARD_WIDTH + tempProj.getTarget().Y);
-					tempAttack.projectiles.insert(
-						std::map<int, Projectile::Projectile>::value_type(pos, tempProj));
+					tempAttack.projectiles.push_back(Projectile::Projectile(projData));
 					projData = projData->NextSiblingElement("Projectile");
 				}
 			}
@@ -247,12 +242,10 @@ namespace Player
 						pos = COORD{ h, w };
 					}
 
-					// If the target is found in the projectile list, fire at position.
-					int projPos = w + h * Stage::BOARD_WIDTH;
-					if (projPos >= 0 &&
-						currentAttack->projectiles.find(projPos) != currentAttack->projectiles.end())
+					// Fire the projectile
+					for (auto it = currentAttack->projectiles.begin(); it != currentAttack->projectiles.end(); it++)
 					{
-						Projectile::Projectile tempProj(currentAttack->projectiles.at(projPos));
+						Projectile::Projectile tempProj((*it));
 						tempProj.init((*this), enemy, enemy.getBoard().getTilePos(pos));
 						activeProjectiles.push_back(tempProj);
 					}
@@ -278,17 +271,6 @@ namespace Player
 		if ((*this).stats.currentSP >= (*this).stats.maxSP)
 		{
 			(*this).useSpecial(enemy);
-		}
-
-		// Make the attack projectiles active
-		for (auto it = currentAttack->projectiles.begin(); it != currentAttack->projectiles.end(); it++)
-		{
-			if ((*it).second.getTarget().X == -1 && (*it).second.getTarget().Y == -1)
-			{
-				Projectile::Projectile tempProj((*it).second);
-				tempProj.init((*this), enemy);
-				activeProjectiles.push_back(tempProj);
-			}
 		}
 		
 		// Update player stats

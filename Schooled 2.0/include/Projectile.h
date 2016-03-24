@@ -17,13 +17,6 @@ namespace Player
 
 namespace Projectile
 {
-	struct Target
-	{
-		double timeToTarget;
-		int X;
-		int Y;
-	};
-
 	// The base class of a projectile object:
 	// An object that travels a set distance before terminating.
 	class Projectile : public BattleObject::BattleObject
@@ -41,8 +34,6 @@ namespace Projectile
 		void draw() const;
 		void update();
 
-		Target getTarget() const { return target; }
-
 		//bool collidesWith(BattleObject const*);
 
 	private:
@@ -54,7 +45,7 @@ namespace Projectile
 		bool collides;
 		double delay;
 		bool hasTarget;
-		Target target;
+		double timeToTarget;
 		Vector::Vector2 offset;
 	};
 }

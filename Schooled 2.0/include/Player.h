@@ -3,7 +3,6 @@
 
 #include "BattleConstants.h"
 #include "BattleObject.h"
-#include "Projectile.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -21,6 +20,11 @@ namespace Sprite
 namespace Stage
 {
 	class HUD;
+}
+
+namespace Projectile
+{
+	class Projectile;
 }
 
 namespace Player
@@ -48,7 +52,7 @@ namespace Player
 		int cooldown;	// Number of turns before move can be used again
 		int currentCooldown;
 		Sprite::AnimatedSprite *icon;
-		std::map<int, Projectile::Projectile> projectiles;
+		std::vector<Projectile::Projectile> projectiles;
 	};
 
 	// Helper struct holds special ability data
