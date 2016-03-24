@@ -11,18 +11,18 @@ target - will attack the targeted square, and dissapear afterwards.
 <Players>
   <!--Data shared across all players-->
   <SharedData>
-    <Arrow name="Arrow.png" frameWidth="64" frameHeight="128"/>
+    <Arrow name="Arrow.png" frameWidth="128" frameHeight="256"/>
     <ArrowAnimation name="Arrow.xml"/>
     <Glow name="Glow.png" frameWidth="64" frameHeight="64"/>
     <IconAnimation name="Icon.xml"/>
   </SharedData>
-  
+
   <Player name="Gym Teacher">
     <!--Sprite Data-->
-    <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
+    <Sprite name="GymTeacher.png" frameWidth="128" frameHeight="128"/>
     <Animation name="GymTeacher.xml"/>
     <Token name="Anchor_Tilt.png" frameWidth="64" frameHeight="64"/>
-    
+
     <!--Statistics-->
     <Stats>
       <MaxHP>5</MaxHP>
@@ -41,18 +41,10 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
-        <ProjectileList>
-          <Projectile name="Dodgeball_Gravity" delay="0.0"
-                      offsetX="20.0" offsetY="0.0"
-                      hasTarget="true" targetX="0" targetY="0" timeToTarget="2.0"/>
-          <Projectile name="Dodgeball_Gravity" delay="0.2"
-                      offsetX="20.0" offsetY="0.0"
-                      hasTarget="true" targetX="1" targetY="0" timeToTarget="2.1"/>
-          <Projectile name="Dodgeball_Gravity" delay="0.4"
-                      offsetX="20.0" offsetY="0.0"
-                      hasTarget="true" targetX="2" targetY="0" timeToTarget="2.2"/>
-        </ProjectileList>
+        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
+        <Projectile name="Dodgeball_Gravity" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="2.0"/>
       </Attack>
       <Attack name="DODGEBALL_B">
         <Cooldown>2</Cooldown>
@@ -63,12 +55,10 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
-        <ProjectileList>
-          <Projectile name="Dodgeball_Gravity" delay="0.0"
-                      offsetX="0.0" offsetY="0.0"
-                      hasTarget="false"/>
-        </ProjectileList>
+        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
+        <Projectile name="Dodgeball_Gravity" delay="0.0"
+                    offsetX="0.0" offsetY="0.0"
+                    hasTarget="false"/>
       </Attack>
       <Attack name="DODGEBALL_C">
         <Cooldown>2</Cooldown>
@@ -79,7 +69,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
       </Attack>
     </Attacks>
 
@@ -95,7 +85,7 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Nate">
     <!--Sprite Data-->
-    <Sprite name="Nate.png" frameWidth="90" frameHeight="64"/>
+    <Sprite name="Nate.png" frameWidth="180" frameHeight="128"/>
     <Animation name="Nate.xml"/>
     <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
@@ -117,7 +107,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -128,7 +118,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -139,7 +129,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
       </Attack>
     </Attacks>
 
@@ -152,10 +142,10 @@ target - will attack the targeted square, and dissapear afterwards.
       <Damage>2</Damage>
     </Special>
   </Player>
-  
+
   <Player name="GlowyNate">
     <!--Sprite Data-->
-    <Sprite name="GlowyNate.png" frameWidth="90" frameHeight="64"/>
+    <Sprite name="GlowyNate.png" frameWidth="180" frameHeight="128"/>
     <Animation name="GlowyNate.xml"/>
     <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
@@ -177,7 +167,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -188,7 +178,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -199,7 +189,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
       </Attack>
     </Attacks>
 
@@ -215,7 +205,7 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Nega">
     <!--Sprite Data-->
-    <Sprite name="Nega.png" frameWidth="90" frameHeight="64"/>
+    <Sprite name="Nega.png" frameWidth="180" frameHeight="128"/>
     <Animation name="Nega.xml"/>
     <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
@@ -237,7 +227,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -248,7 +238,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -259,7 +249,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
       </Attack>
     </Attacks>
 
@@ -275,7 +265,7 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="GlowyNega">
     <!--Sprite Data-->
-    <Sprite name="GlowyNega.png" frameWidth="90" frameHeight="64"/>
+    <Sprite name="GlowyNega.png" frameWidth="180" frameHeight="128"/>
     <Animation name="GlowyNega.xml"/>
     <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
@@ -297,7 +287,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -308,7 +298,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -319,7 +309,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
       </Attack>
     </Attacks>
 
