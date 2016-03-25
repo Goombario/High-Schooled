@@ -18,12 +18,12 @@ namespace Sprite
 
 namespace Board
 {
-	float const OFFSET_X = 80;
-	float const OFFSET_Y = 270;
+	float const OFFSET_X = 100;
+	float const OFFSET_Y = 337;
 	float const CENTER_X = schooled::SCREEN_WIDTH_PX / 2;
-	int const ROW_WIDTH = 80;
-	int const ROW_HEIGHT = 60;
-	int const ROW_OFFSET = 60;
+	int const ROW_WIDTH = 100;
+	int const ROW_HEIGHT = 75;
+	int const ROW_OFFSET = 75;
 
 	struct Tile
 	{

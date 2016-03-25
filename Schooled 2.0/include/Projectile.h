@@ -45,6 +45,7 @@ namespace Projectile
 		bool collides;
 		double delay;
 		bool hasTarget;
+		double timeElapsed;
 		double timeToTarget;
 		Vector::Vector2 offset;
 	};
