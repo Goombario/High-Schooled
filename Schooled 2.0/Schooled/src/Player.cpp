@@ -510,7 +510,10 @@ namespace Player
 				tempProj.push_back((*it));
 			}
 		}
-		if (tempProj.size() > 0) { activeProjectiles = tempProj; }
+		if (tempProj.size() != activeProjectiles.size()) 
+		{ 
+			activeProjectiles = tempProj; 
+		}
 		
 	}
 

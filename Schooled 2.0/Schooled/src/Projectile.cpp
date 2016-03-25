@@ -17,6 +17,8 @@ namespace Projectile
 
 	Projectile::Projectile(tinyxml2::XMLElement const* projElement)
 	{
+		timeElapsed = 0.0;
+
 		const char* projName = projElement->Attribute("name");
 		if (projName == NULL)
 		{
@@ -108,7 +110,7 @@ namespace Projectile
 		{
 			Vector::Vector2 distance = player.getPos() - tilePos + offset;
 			Vector::Vector2 velocity((distance.getX() * -1.0) / timeToTarget, 0.0);
-			setVelocity(Vector::Vector2(velocity.getX(), getVelocity().getY()));
+			setVelocity(Vector::Vector2(velocity.getX(), velocity.getY()));
 		}
 	}
 
@@ -123,6 +125,13 @@ namespace Projectile
 		{
 			delay -= static_cast<double>(1.0 / schooled::FRAMERATE);
 			return;
+		}
+
+		timeElapsed += static_cast<double>(1.0 / schooled::FRAMERATE);
+		if (timeElapsed >= timeToTarget)
+		{
+			//std::cout << "Reached Target" << std::endl;
+			setActing(false);
 		}
 
 		if (hasGravity)
