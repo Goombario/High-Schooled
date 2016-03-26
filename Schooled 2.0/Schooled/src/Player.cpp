@@ -523,7 +523,7 @@ namespace Player
 		if (BattleState::BattleState::Instance()->getCurrentSide() == boardPtr->getSide())
 		{
 			//glow->draw();
-			glow->drawAt(getPos());
+			//glow->drawAt(getPos());
 		}
 
 		// Choosing which sprites to draw based on the current state of the battle

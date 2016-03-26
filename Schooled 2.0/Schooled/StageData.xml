@@ -3,6 +3,5 @@
   <Stage name="Default">
     <Background name="Gym room.png" width="1280" height="720"/>
     <Board name="Board.png" frameWidth="1280" frameHeight="720"/>
-    <Properties></Properties>
   </Stage>
 </StageList>

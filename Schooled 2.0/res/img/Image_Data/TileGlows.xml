@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AnimationList numCol="24">
-  <Animation name="RED_PULSE" loop="true">
+  <Animation name="IDLE" loop="true">
     <FirstFrame>0</FirstFrame>
+    <Frame>0</Frame>
+  </Animation>
+  <Animation name="RED_PULSE" loop="true">
+    <FirstFrame>24</FirstFrame>
     <Frame>0.2</Frame>
     <Frame>0.1</Frame>
     <Frame>0.1</Frame>
@@ -28,7 +32,7 @@
     <Frame>0.1</Frame>
   </Animation>
   <Animation name="BLUE_PULSE" loop="true">
-    <FirstFrame>24</FirstFrame>
+    <FirstFrame>48</FirstFrame>
     <Frame>0.2</Frame>
     <Frame>0.1</Frame>
     <Frame>0.1</Frame>

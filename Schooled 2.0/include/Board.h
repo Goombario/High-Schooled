@@ -14,6 +14,7 @@ namespace Player
 namespace Sprite
 {
 	class Sprite;
+	class AnimatedSprite;
 }
 
 namespace Board
@@ -31,6 +32,7 @@ namespace Board
 		bool isPassable;
 		bool isPath;
 		Vector::Vector2 pos;
+		Sprite::AnimatedSprite *tileSprite;
 	};
 
 	struct WaveMap

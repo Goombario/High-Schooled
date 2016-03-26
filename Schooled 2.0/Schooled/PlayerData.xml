@@ -85,7 +85,7 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Nate">
     <!--Sprite Data-->
-    <Sprite name="Nate.png" frameWidth="225" frameHeight="160"/>
+    <Sprite name="Nate.png" frameWidth="226" frameHeight="160"/>
     <Animation name="Nate.xml"/>
     <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 

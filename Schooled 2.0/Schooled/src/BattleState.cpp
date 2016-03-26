@@ -235,6 +235,7 @@ namespace BattleState
 			}
 		}
 
+		// Swap the players
 		if (playerTurn == Side::LEFT)
 		{
 			playerTurn = Side::RIGHT;
@@ -255,6 +256,7 @@ namespace BattleState
 		{
 			playerTurn = Side::LEFT;
 			GameEngine::getMapper()->PopContext();
+
 			// Choose the correct context
 			switch (getCurrentState())
 			{
@@ -267,6 +269,7 @@ namespace BattleState
 			}
 		}
 
+		// Start the current player's turn
 		getCurrentPlayer()->startTurn();
 	}
 
