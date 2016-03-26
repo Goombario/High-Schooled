@@ -19,8 +19,8 @@ namespace Stage
 
 		int frameWidth = 192;
 		int frameHeight = 64;
-		float distanceToHP = 38.0f;
-		offsetY = schooled::SCREEN_HEIGHT_PX - 9;
+		float distanceToHP = 76.0f;
+		offsetY = schooled::SCREEN_HEIGHT_PX - 18;
 		
 
 		float HUDOffsetX;
@@ -102,7 +102,7 @@ namespace Stage
 		for (auto it = player->attacks.begin(); it != player->attacks.end(); it++)
 		{
 			(*it).icon->move(
-				offsetX + (counter * side * ((*it).icon->getFrameWidth() + 10)),
+				offsetX + (counter * side * ((*it).icon->getFrameWidth() + 20)),
 				offsetY - (*it).icon->getFrameHeight());
 			counter++;
 		}

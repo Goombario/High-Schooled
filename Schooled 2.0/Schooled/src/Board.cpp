@@ -1,6 +1,8 @@
 #include "Board.h"
 #include "Player.h"
 #include "Sprite.h"
+#include "GameEngine.h"
+#include "Image.h"
 
 #include <iostream>
 
@@ -19,6 +21,7 @@ namespace Board
 				boardTiles[h][w].isPassable = true;
 				boardTiles[h][w].isPath = false;
 				boardTiles[h][w].pos = Vector::Vector2();
+				boardTiles[h][w].tileSprite = nullptr;
 			}
 		}
 
@@ -32,22 +35,39 @@ namespace Board
 	{
 		side = s;
 		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET) : (OFFSET_X + CENTER_X);
+		int wPos;
+
+		// Get tile data
+		Animation::AnimationData tileData(schooled::getResourcePath("img/Image_Data") + "TileGlows.xml");
+		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 3600, 130);
+		Sprite::AnimatedSprite tileSprite(tileImage, tileData);
 
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				boardTiles[h][w].pos = Vector::Vector2(
-					(initX + w * ROW_WIDTH) + 
+				wPos = (side == Side::LEFT) ? w : Stage::BOARD_WIDTH - 1 - w;
+				boardTiles[h][wPos].pos = Vector::Vector2(
+					(initX + w * ROW_WIDTH) +
 					(h * ROW_OFFSET) * schooled::SCALE,
 					(OFFSET_Y - (h * ROW_HEIGHT) * schooled::SCALE));
+
+				// Create the tile sprite
+				boardTiles[h][wPos].tileSprite = new Sprite::AnimatedSprite(tileSprite);
+				boardTiles[h][wPos].tileSprite->setPos(boardTiles[h][wPos].pos);
 			}
 		}
 	}
 
 	Board::~Board()
 	{
-
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		{
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			{
+				delete boardTiles[h][w].tileSprite;
+			}
+		}
 	}
 
 	void Board::placeToken(unsigned int h, unsigned int w)

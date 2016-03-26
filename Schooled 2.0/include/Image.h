@@ -45,6 +45,9 @@ namespace Image
 		std::map<std::string, Image> imageMap;
 	};
 
+	/* Get the image based on the given filepath. If it doesn't exist, returns -1.
+	* @param string filePath - the path to the image file
+	*/
 	Image const& ImageManager::getImage(std::string const& filePath) const 
 	{ 
 		if (imageMap.find(filePath) != imageMap.end())
