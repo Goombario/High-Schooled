@@ -246,7 +246,7 @@ namespace Player
 					for (auto it = currentAttack->projectiles.begin(); it != currentAttack->projectiles.end(); it++)
 					{
 						Projectile::Projectile tempProj((*it));
-						tempProj.init((*this), enemy, enemy.getBoard().getTilePos(pos));
+						tempProj.init((*this), enemy, enemy.getBoard()->getTilePos(pos));
 						activeProjectiles.push_back(tempProj);
 					}
 

@@ -37,6 +37,9 @@ namespace Board
 		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET) : (OFFSET_X + CENTER_X);
 		int wPos;
 
+		// Set the board position
+		setPos(Vector::Vector2(initX + 200, OFFSET_Y - 80));
+
 		// Get tile data
 		Animation::AnimationData tileData(schooled::getResourcePath("img/Image_Data") + "TileGlows.xml");
 		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 3600, 130);

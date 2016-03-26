@@ -1,6 +1,7 @@
 #ifndef STAGE_H
 #define STAGE_H
 
+#include "BattleConstants.h"
 #include <vector>
 
 namespace Sprite
@@ -58,9 +59,13 @@ namespace Stage
 		// Update the HUD 
 		void update();
 
+		// Swap the active board
+		void setActiveBoard(Side);
+
 	private:
 		Sprite::Sprite *background;
 		Sprite::Sprite *boardSprite;
+		Sprite::AnimatedSprite *p1BoardHighlight, *p2BoardHighlight;
 		const Player::Player *player1, *player2;
 		HUD p1HUD, p2HUD;
 	};

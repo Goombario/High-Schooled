@@ -3,5 +3,7 @@
   <Stage name="Default">
     <Background name="Gym room.png" width="1280" height="720"/>
     <Board name="Board.png" frameWidth="1280" frameHeight="720"/>
+    <Highlight name="Board Glow Spritesheet.png" frameWidth="640" frameHeight="325"/>
+    <HighlightAnimation name="BoardGlows.xml"/>
   </Stage>
 </StageList>

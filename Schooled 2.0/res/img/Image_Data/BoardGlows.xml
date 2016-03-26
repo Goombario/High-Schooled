@@ -4,7 +4,7 @@
     <FirstFrame>0</FirstFrame>
     <Frame>0</Frame>
   </Animation>
-  <Animation name="RED_PULSE" loop="true">
+  <Animation name="PULSE" loop="true">
     <FirstFrame>14</FirstFrame>
     <Frame>0.2</Frame>
     <Frame>0.1</Frame>
@@ -21,8 +21,25 @@
     <Frame>0.1</Frame>
     <Frame>0.1</Frame>
   </Animation>
-  <Animation name="BLUE_PULSE" loop="true">
+  <Animation name="RED_PULSE" loop="true">
     <FirstFrame>28</FirstFrame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.2</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+  </Animation>
+  <Animation name="BLUE_PULSE" loop="true">
+    <FirstFrame>42</FirstFrame>
     <Frame>0.2</Frame>
     <Frame>0.1</Frame>
     <Frame>0.1</Frame>
