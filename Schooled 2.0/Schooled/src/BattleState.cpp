@@ -56,6 +56,7 @@ namespace BattleState
 		states.clear();
 		pushState(State::POS_CHOOSE);
 		playerTurn = Side::LEFT;
+		stage->setActiveBoard(playerTurn);
 		player1->startTurn();
 
 		isEnd = false;
@@ -202,7 +203,7 @@ namespace BattleState
 		}
 
 		// If the player is out of action points
-		if (getCurrentPlayer()->getCurrentAP() == 0)
+		if (getCurrentPlayer()->getCurrentAP() == 0 && !getCurrentPlayer()->isActing())
 		{
 			swapCurrentPlayer();
 		}
@@ -269,6 +270,7 @@ namespace BattleState
 			}
 		}
 
+		stage->setActiveBoard(playerTurn);
 		// Start the current player's turn
 		getCurrentPlayer()->startTurn();
 	}

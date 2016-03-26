@@ -175,12 +175,26 @@ namespace Stage
 		if (CheckIfNull(boardElement, "Stage: Board") != XML_SUCCESS) exit(-2);
 		boardSprite = new Sprite::Sprite(boardElement);
 		boardSprite->move(0, 0, false);
+
+		// Load the board highlights
+		if (CheckIfNull(stageData->FirstChildElement("Highlight"), "Stage: Highlight")) exit(-2);
+		if (CheckIfNull(stageData->FirstChildElement("HighlightAnimation"), "Stage: HighlightAnimation")) exit(-2);
+
+		p1BoardHighlight = new Sprite::AnimatedSprite(
+			stageData->FirstChildElement("Highlight"), stageData->FirstChildElement("HighlightAnimation"));
+		p1BoardHighlight->setPos(p1->getBoard()->getPos());
+
+		p2BoardHighlight = new Sprite::AnimatedSprite(
+			stageData->FirstChildElement("Highlight"), stageData->FirstChildElement("HighlightAnimation"));
+		p2BoardHighlight->setPos(p2->getBoard()->getPos());
 	}
 
 	Stage::~Stage()
 	{
 		delete background;
 		delete boardSprite;
+		delete p1BoardHighlight;
+		delete p2BoardHighlight;
 
 		background = nullptr;
 		boardSprite = nullptr;
@@ -189,6 +203,8 @@ namespace Stage
 	void Stage::drawBackground()
 	{
 		background->draw();
+		p1BoardHighlight->draw();
+		p2BoardHighlight->draw();
 		boardSprite->draw();
 	}
 
@@ -202,5 +218,19 @@ namespace Stage
 	{
 		p1HUD.update();
 		p2HUD.update();
+	}
+
+	void Stage::setActiveBoard(Side s)
+	{
+		if (s == Side::LEFT)
+		{
+			p1BoardHighlight->changeAnimation(Animation::AnimationEnum::BLUE_PULSE);
+			p2BoardHighlight->changeAnimation(Animation::AnimationEnum::IDLE);
+		}
+		else
+		{
+			p1BoardHighlight->changeAnimation(Animation::AnimationEnum::IDLE);
+			p2BoardHighlight->changeAnimation(Animation::AnimationEnum::RED_PULSE);
+		}
 	}
 }

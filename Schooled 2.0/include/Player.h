@@ -120,7 +120,7 @@ namespace Player
 		Sprite::Sprite& getTokenSprite() { return *token; }
 
 		// Get the board
-		Board::Board getBoard() const { return *boardPtr; }
+		Board::Board const* getBoard() const { return boardPtr; }
 
 	private:
 		// Move sprite to relative postion
