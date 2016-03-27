@@ -66,6 +66,14 @@ namespace Player
 		int damage;	// How much the enemy player is damaged
 	};
 
+	// Helper stuct that holds the attack window
+	struct AttackWindow
+	{
+		int attackNum;
+		Sprite::Sprite *window;
+		Sprite::Sprite *reticule;
+	};
+
 	// Player class holds a player's data and tools to manipulate it.
 	class Player : public BattleObject::BattleObject
 	{
@@ -135,13 +143,12 @@ namespace Player
 		std::vector<Attack> attacks;
 		std::vector<Projectile::Projectile> activeProjectiles;
 		SpecialAbility ability;
+		AttackWindow attackWindow;
 		Sprite::Sprite *token;
-		Sprite::Sprite *glow;
 		Sprite::AnimatedSprite *sprite;
 		Sprite::AnimatedSprite *arrowSprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
 	};
-
-};
+}
 
 #endif
