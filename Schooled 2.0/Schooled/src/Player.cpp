@@ -26,13 +26,32 @@ namespace Player
 		sprite = nullptr;
 		token = nullptr;
 		boardPtr = nullptr;
-		glow = nullptr;
+
+		attackWindow.window = nullptr;
+		attackWindow.reticule = nullptr;
 	}
 
 	Player::Player(const char* playerName, Board::Board& playerBoard)
 	{
 		setActing(false);
 		boardPtr = &playerBoard;
+
+		// Load the attack window
+		Image::Image tempImage;
+
+		if (boardPtr->getSide() == Side::LEFT)
+		{
+			tempImage = GameEngine::getImageManager()->loadImage(
+				schooled::getResourcePath("img") + "AttackL.png", 380, 170);
+		}
+		else
+		{
+			tempImage = GameEngine::getImageManager()->loadImage(
+				schooled::getResourcePath("img") + "AttackR.png", 380, 170);
+		}
+		attackWindow.window = new Sprite::Sprite(tempImage);
+		attackWindow.reticule = nullptr;
+
 
 		// Load player data from player file
 		tinyxml2::XMLDocument data;
@@ -53,9 +72,6 @@ namespace Player
 		// Load the arrow sprite
 		if (CheckIfNull(sharedData->FirstChildElement("Arrow"), "Player: Shared: Arrow")) exit(-2);
 		arrowSprite = new Sprite::AnimatedSprite(sharedData->FirstChildElement("Arrow"), sharedData->FirstChildElement("ArrowAnimation"));
-
-		if (CheckIfNull(sharedData->FirstChildElement("Glow"), "Player: Shared: Glow")) exit(-2);
-		glow = new Sprite::Sprite(sharedData->FirstChildElement("Glow"));
 
 		// Choose the first Player data
 		XMLElement *playerData;
@@ -190,7 +206,8 @@ namespace Player
 		delete sprite;
 		delete token;
 		delete arrowSprite;
-		delete glow;
+		delete attackWindow.window;
+		delete attackWindow.reticule;
 
 		for (auto it = attacks.begin(); it != attacks.end(); it++)
 		{
@@ -499,7 +516,7 @@ namespace Player
 		// Check if the player is still acting
 		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
 
-		// Update all active projectiles	(UNKNOWN IF EFFICIENT)
+		// Update all active projectiles
 		std::vector<Projectile::Projectile> tempProj;
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
 		{
@@ -533,7 +550,11 @@ namespace Player
 			//arrowSprite->draw();
 			arrowSprite->drawAt(getPos() + Vector::Vector2(-10, 20));
 			break;
-			
+
+		case BattleState::State::ATTACK_CHOOSE:
+			attackWindow.window->draw();
+			attackWindow.reticule->draw();
+
 		default:
 			//sprite->draw();
 			sprite->drawAt(getPos());

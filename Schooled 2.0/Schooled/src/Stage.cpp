@@ -120,7 +120,6 @@ namespace Stage
 		p1HUD(*player1),
 		p2HUD(*player2)
 	{
-		
 		Image::Image tempImage;
 
 		// Load player data from player file
