@@ -30,6 +30,9 @@ namespace Stage
 	public:
 		HUD();
 		HUD(Player::Player const&, tinyxml2::XMLElement*);
+
+		HUD(HUD const&);
+		HUD& operator=(HUD const&);
 		~HUD();
 
 		void draw() const;

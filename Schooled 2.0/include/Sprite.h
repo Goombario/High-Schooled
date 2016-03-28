@@ -72,6 +72,7 @@ namespace Sprite
 	class AnimatedSprite : public Sprite
 	{
 	public:
+		AnimatedSprite();
 		AnimatedSprite(Image::Image const&, Animation::AnimationData const&);
 		AnimatedSprite(tinyxml2::XMLElement const* imageData, tinyxml2::XMLElement const* animationData);
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <IconList>
   <!--Shared data-->
-  <Shared>
+  <SharedData>
     <Reticule name="Icons/Reticule.png" frameWidth="90" frameHeight="90"/>
     <Cooldown name="Icons/Cooldown.png" frameWidth="80" frameHeight="80"/>
     <CooldownAnimation name="Cooldown.xml"/>
     <GlowAnimation name="IconGlows.xml"/>
-  </Shared>
+  </SharedData>
   
   <Icon name="HORIZONTAL">
     <SpriteLeft name="Icons/Icon1L.png" frameWidth="80" frameHeight="80"/>
