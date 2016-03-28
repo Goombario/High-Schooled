@@ -151,19 +151,19 @@ namespace BattleState
 
 		if (inputs.Actions.find(InputMapping::Action::ATTACK_1) != inputs.Actions.end())
 		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 0);
+			self->getCurrentPlayer()->attack(*self->getOtherPlayer());
 			inputs.EatAction(InputMapping::Action::ATTACK_1);
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::ATTACK_2) != inputs.Actions.end())
 		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 1);
+			self->getCurrentPlayer()->attack(*self->getOtherPlayer());
 			inputs.EatAction(InputMapping::Action::ATTACK_2);
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::ATTACK_3) != inputs.Actions.end())
 		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 2);
+			self->getCurrentPlayer()->attack(*self->getOtherPlayer());
 			inputs.EatAction(InputMapping::Action::ATTACK_3);
 		}
 

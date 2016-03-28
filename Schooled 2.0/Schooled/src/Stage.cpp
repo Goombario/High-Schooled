@@ -10,49 +10,46 @@ using namespace tinyxml2;
 // HUD class
 namespace Stage
 {
-
-	HUD::HUD(Player::Player const& p)
+	HUD::HUD()
+	{
+		player = nullptr;
+		display = nullptr;
+		HPBar = nullptr;
+		SPBar = nullptr;
+	}
+	HUD::HUD(Player::Player const& p, XMLElement *HUDData)
 		: player(&p)
 	{
-		Image::Image tempImage;
-		std::string path;
-
-		int frameWidth = 192;
-		int frameHeight = 64;
-		float distanceToHP = 76.0f;
-		offsetY = schooled::SCREEN_HEIGHT_PX - 18;
-		
-
-		float HUDOffsetX;
 		if (player->getSide() == Side::LEFT)
 		{
-			path = schooled::getResourcePath("img") + "HUD_Left.png";
-			HUDOffsetX = 0.0f;
-			offsetX = distanceToHP;	// The distance from the edge to the HP bar
-			side = 1;
+			if (CheckIfNull(HUDData->FirstChildElement("HUDLeft"), "HUD: HUDLeft")) exit(-2);
+			display = new Sprite::Sprite(HUDData->FirstChildElement("HUDLeft"));
+
+			// Set the HUD position
+			setPos(Vector::Vector2(
+				display->getFrameWidth() / 2.0, 
+				display->getFrameWidth() / 2.0));
 		}
 		else
 		{
-			path = schooled::getResourcePath("img") + "HUD_Right.png";
-			HUDOffsetX = static_cast<float>(schooled::SCREEN_WIDTH_PX - frameWidth);
-			offsetX = schooled::SCREEN_WIDTH_PX - distanceToHP;
-			side = -1;
+			if (CheckIfNull(HUDData->FirstChildElement("HUDRight"), "HUD: HUDRight")) exit(-2);
+			display = new Sprite::Sprite(HUDData->FirstChildElement("HUDRight"));
+
+			// Set the HUD position
+			setPos(Vector::Vector2(
+				schooled::SCREEN_WIDTH_PX - (display->getFrameWidth() / 2.0), 
+				display->getFrameWidth() / 2.0));
 		}
 
-		// Load the HUD
-		tempImage = GameEngine::getImageManager()->loadImage(path, frameWidth, frameHeight);
-		display = new Sprite::Sprite(tempImage);
-		display->move(HUDOffsetX, static_cast<float>(schooled::SCREEN_HEIGHT_PX - frameHeight), 0);
-
 		// Load the HP bar
-		tempImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "HPBar.png", 10, 5);
-		HPBar = new Sprite::Sprite(tempImage);
+		if (CheckIfNull(HUDData->FirstChildElement("HPBar"), "HUD: HPBar")) exit(-2);
+		HPBar = new Sprite::Sprite(HUDData->FirstChildElement("HPBar"));
+		HPBar->setPos(Vector::Vector2(10, 10));
 
 		// Load the SP bar
-		tempImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "SPBar.png", 7, 5);
-		SPBar = new Sprite::Sprite(tempImage);
-
-		moveIcons();
+		if (CheckIfNull(HUDData->FirstChildElement("SPBar"), "HUD: SPBar")) exit(-2);
+		SPBar = new Sprite::Sprite(HUDData->FirstChildElement("SPBar"));
+		SPBar->setPos(Vector::Vector2(10, 10));
 	}
 
 	HUD::~HUD()
@@ -66,48 +63,40 @@ namespace Stage
 		SPBar = nullptr;
 	}
 
-	void HUD::draw()
+	void HUD::draw() const
 	{
 		for (int i = 0; i < player->getCurrentHP(); i++)
 		{
-			HPBar->drawAt(offsetX + (i * HPBar->getFrameWidth() * side), offsetY);
+			HPBar->drawAt(
+				HPBar->getPos() +
+				(*this).getPos() +
+				Vector::Vector2(i * HPBar->getFrameWidth() * side, 0));
 		}
 
 		for (int i = 0; i < player->getCurrentSP(); i++)
 		{
-			SPBar->drawAt(offsetX + 1 + (i * SPBar->getFrameWidth() * side), offsetY - SPBar->getFrameHeight());
+			SPBar->drawAt(
+				SPBar->getPos() +
+				(*this).getPos() +
+				Vector::Vector2(i * SPBar->getFrameWidth() * side, 0));
 		}
 
 		display->draw();
 
+		int counter = 0;
 		// Draw Attack Icons
 		for (auto it = player->attacks.begin(); it != player->attacks.end(); it++)
 		{
-			(*it).icon->draw();
+			(*it).icon.drawAt(
+				(*this).getPos() + 
+				Vector::Vector2(display->getFrameWidth() * side + counter * 80, 0));
 		}
 	}
 
 	void HUD::update()
 	{
-		for (auto it = player->attacks.begin(); it != player->attacks.end(); it++)
-		{
-			(*it).icon->update();
-		}
-	}
 
-	void HUD::moveIcons()
-	{
-		int counter = 0;
-
-		for (auto it = player->attacks.begin(); it != player->attacks.end(); it++)
-		{
-			(*it).icon->move(
-				offsetX + (counter * side * ((*it).icon->getFrameWidth() + 20)),
-				offsetY - (*it).icon->getFrameHeight());
-			counter++;
-		}
 	}
-	
 }
 
 // Stage class
@@ -116,9 +105,7 @@ namespace Stage
 	Stage::Stage(const char* stageName, 
 		Player::Player const* p1, Player::Player const* p2) :
 		player1(p1),
-		player2(p2),
-		p1HUD(*player1),
-		p2HUD(*player2)
+		player2(p2)
 	{
 		Image::Image tempImage;
 
@@ -133,8 +120,14 @@ namespace Stage
 			exit(-2);
 		}
 
+		// Load the HUD
+		XMLElement *HUDData;
+		HUDData = pRoot->FirstChildElement("HUD");
+		p1HUD = HUD(*p1, HUDData);
+		p2HUD = HUD(*p2, HUDData);
+
 		XMLElement *stageData;
-		stageData = pRoot->FirstChildElement();
+		stageData = pRoot->FirstChildElement("Stage");
 
 		// Check if stage data loaded
 		std::string stageDataName = stageData->Attribute("name");

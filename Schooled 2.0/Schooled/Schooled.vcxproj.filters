@@ -239,12 +239,6 @@
     <Xml Include="StageData.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
-    <Xml Include="..\res\img\Image_data\Arrow.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\Icon.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
     <Xml Include="..\res\img\Image_Data\GlowyNate.xml">
       <Filter>Battle\Battle Data\Characters</Filter>
     </Xml>
@@ -272,11 +266,17 @@
     <Xml Include="..\res\img\Image_Data\TileGlows.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
-    <Xml Include="Projectiles.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
     <Xml Include="IconData.xml">
       <Filter>Battle\Battle Data</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Cooldown.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_data\Arrow.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="Projectiles.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
   </ItemGroup>
 </Project>

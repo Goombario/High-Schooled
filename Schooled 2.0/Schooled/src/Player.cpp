@@ -17,7 +17,6 @@ namespace Player
 	Icon::Icon()
 	{
 		icon = nullptr;
-		reticule = nullptr;
 		cooldown = nullptr;
 		glow = nullptr;
 	}
@@ -56,11 +55,6 @@ namespace Player
 		XMLElement *sharedData;
 		sharedData = pRoot->FirstChildElement("SharedData");
 		if (CheckIfNull(sharedData, "Icon: SharedData")) exit(-2);
-
-		// Load the reticule
-		if (CheckIfNull(sharedData->FirstChildElement("Reticule"), 
-			"Icon: SharedData : Reticule")) exit(-2);
-		reticule = new Sprite::Sprite(sharedData->FirstChildElement("Reticule"));
 
 		// Load the cooldown
 		if (CheckIfNull(sharedData->FirstChildElement("Cooldown"),
@@ -101,11 +95,62 @@ namespace Player
 	Icon::~Icon()
 	{
 		delete icon;
-		delete reticule;
 		delete cooldown;
 		delete glow;
 	}
 
+	void Icon::draw() const
+	{
+		icon->draw();
+		glow->draw();
+		cooldown->draw();
+	}
+
+	void Icon::drawAt(Vector::Vector2 const& newPos) const
+	{
+		icon->drawAt(newPos);
+		glow->drawAt(newPos);
+		cooldown->drawAt(newPos);
+	}
+
+	void Icon::update()
+	{
+		cooldown->update();
+		glow->update();
+	}
+
+	void Icon::setSelected(bool isSelected)
+	{
+		if (isSelected)
+		{
+			glow->changeAnimation(Animation::AnimationEnum::PULSE);
+		}
+		else
+		{
+			glow->changeAnimation(Animation::AnimationEnum::IDLE);
+		}
+	}
+
+	void Icon::setCooldown(int coolNum)
+	{
+		switch (coolNum)
+		{
+		case 0:
+			cooldown->changeAnimation(Animation::AnimationEnum::IDLE);
+			break;
+
+		case 1:
+			cooldown->changeAnimation(Animation::AnimationEnum::COOLDOWN_1);
+			break;
+
+		case 2:
+			cooldown->changeAnimation(Animation::AnimationEnum::COOLDOWN_2);
+			break;
+
+		default:
+			break;
+		} (coolNum);
+	}
 }
 
 // AttackWindow class
@@ -117,21 +162,24 @@ namespace Player
 	}
 
 	AttackWindow::AttackWindow(Side s)
+		: side(s)
 	{
 		// Load the window image and set the offset
 		Image::Image tempImage;
 
-		if (s == Side::LEFT)
+		if (side == Side::LEFT)
 		{
 			tempImage = GameEngine::getImageManager()->loadImage(
 				schooled::getResourcePath("img") + "AttackL.png", 380, 170);
-			offset = Vector::Vector2(115, 100);
+			iconOffset = Vector::Vector2(115, 100);
+			windowOffset = Vector::Vector2(50, 50);
 		}
 		else
 		{
 			tempImage = GameEngine::getImageManager()->loadImage(
 				schooled::getResourcePath("img") + "AttackR.png", 380, 170);
-			offset = Vector::Vector2(65, 100);
+			iconOffset = Vector::Vector2(65, 100);
+			windowOffset = Vector::Vector2(-50, 50);
 		}
 
 		window = new Sprite::Sprite(tempImage);
@@ -146,6 +194,77 @@ namespace Player
 		{
 			(*it) = nullptr;
 		}
+	}
+
+	void AttackWindow::draw() const
+	{
+		window->draw();
+
+		unsigned int counter = 0;
+		for (auto it = icons.begin(); it != icons.end(); it++)
+		{
+			// Draw icons in order
+			(*it)->drawAt((*it)->getPos() + iconOffset + 
+				Vector::Vector2(counter * 80, 0));
+			counter++;
+		}
+	}
+
+	void AttackWindow::drawAtPlayer(Vector::Vector2 const& playerPos) const
+	{
+		window->drawAt(playerPos + windowOffset);
+
+		unsigned int counter = 0;
+		for (auto it = icons.begin(); it != icons.end(); it++)
+		{
+			// Draw icons in order
+			(*it)->drawAt(
+				playerPos + windowOffset + iconOffset +
+				Vector::Vector2(counter * 80, 0));
+			counter++;
+		}
+	}
+
+	void AttackWindow::update()
+	{
+
+	}
+
+	void AttackWindow::clearActiveIcon()
+	{
+		for (auto it = icons.begin(); it != icons.end(); it++)
+		{
+			(*it)->setSelected(false);
+		}
+	}
+
+	void AttackWindow::setActiveIconIndex(int index)
+	{
+		clearActiveIcon();
+		for (unsigned int i = 0; i < icons.size(); i++)
+		{
+			if (index == i)
+			{
+				icons[i]->setSelected(true);
+				return;
+			}
+		}
+	}
+
+	void AttackWindow::moveActiveIconIndex(int difference)
+	{
+		// If not an increment, don't do anything
+		if (difference != -1 || difference != 1) return;
+
+		icons[attackNum]->setSelected(false);
+
+		attackNum += difference;
+		if (attackNum >= icons.size())
+		{
+			attackNum -= icons.size();
+		}
+
+		icons[attackNum]->setSelected(true);
 	}
 }
 
@@ -328,17 +447,16 @@ namespace Player
 		delete sprite;
 		delete token;
 		delete arrowSprite;
-		delete window.window;
 	}
 
-	void Player::attack(Player& enemy, int attackNum)
+	bool Player::attack(Player& enemy)
 	{
-		Attack *currentAttack = &attacks.at(attackNum);
+		Attack *currentAttack = &attacks.at(window.getActiveIconIndex());
 
 		// Don't attack if the cooldown is still in effect
 		if (currentAttack->currentCooldown != 0)
 		{
-			return;
+			return false;
 		}
 
 		// Check each space if it is being attacked,
@@ -408,7 +526,7 @@ namespace Player
 		
 		// Update player stats
 		currentAttack->currentCooldown = currentAttack->cooldown;
-		(*this).sprite->changeAnimation(static_cast<Animation::AnimationEnum>(attackNum));
+		(*this).sprite->changeAnimation(static_cast<Animation::AnimationEnum>(window.getActiveIconIndex()));
 		(*this).stats.lockedAP += (*this).boardPtr->updatePath() + 1;
 		(*this).boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
 		(*this).boardPtr->updatePath();
@@ -417,6 +535,7 @@ namespace Player
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 
 		updateIconCooldown();
+		return true;
 	}
 
 	void Player::changeHealth(int difference)
@@ -599,10 +718,22 @@ namespace Player
 		stats.lockedAP = 0;
 	}
 
+	void Player::moveSelectedAttack(int i)
+	{
+		window.moveActiveIconIndex(i);
+	}
+
+	void Player::initAttackMenu()
+	{
+		window.clearActiveIcon();
+		window.setActiveIconIndex(0);
+	}
+
 	void Player::update()
 	{
 		sprite->update();
 		arrowSprite->update();
+		window.update();
 
 		// Check if the player is still acting
 		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
@@ -642,7 +773,7 @@ namespace Player
 			break;
 
 		case BattleState::State::ATTACK_CHOOSE:
-			window.window->drawAt(getPos() + window.offset);
+			window.drawAtPlayer(getPos());
 
 		default:
 			sprite->drawAt(getPos());
