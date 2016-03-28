@@ -275,5 +275,8 @@
     <Xml Include="Projectiles.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
+    <Xml Include="IconData.xml">
+      <Filter>Battle\Battle Data</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

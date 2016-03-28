@@ -71,7 +71,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\include\Input;C:\Hg\schooled-2.0\Schooled 2.0\Fizzle\include;C:\Hg\schooled-2.0\Schooled 2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\include\Input;C:\Hg\schooled-2.0\Schooled 2.0\Fizzle\include;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\inc;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Hg\schooled-2.0\Schooled 2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,6 +165,7 @@
     </Xml>
     <Xml Include="..\res\img\Image_Data\TileGlows.xml" />
     <Xml Include="Contexts.xml" />
+    <Xml Include="IconData.xml" />
     <Xml Include="InputMap.xml">
       <SubType>Designer</SubType>
     </Xml>

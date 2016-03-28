@@ -8,6 +8,7 @@
 #include <map>
 #include "Schooled.h"
 #include "Board.h"
+#include "Vector2.h"
 
 // Forward Declaration
 
@@ -29,6 +30,27 @@ namespace Projectile
 
 namespace Player
 {
+	// Helper class that holds icon data
+	class Icon : public GameObject::GameObject
+	{
+	public:
+		Icon();
+		Icon(const char* iconName, Side);
+		~Icon();
+
+		void draw() const;
+		void drawAt(Vector::Vector2 const&) const;
+		void update();
+
+		void setSelected(bool);
+		void setCooldown(int);
+
+	private:
+		Sprite::Sprite *icon;
+		Sprite::Sprite *reticule;
+		Sprite::AnimatedSprite *cooldown;
+		Sprite::AnimatedSprite *glow;
+	};
 
 	// Helper struct holds stats for a player
 	struct Stats
@@ -51,7 +73,7 @@ namespace Player
 		int damage;
 		int cooldown;	// Number of turns before move can be used again
 		int currentCooldown;
-		Sprite::AnimatedSprite *icon;
+		Icon icon;
 		std::vector<Projectile::Projectile> projectiles;
 	};
 
@@ -67,11 +89,29 @@ namespace Player
 	};
 
 	// Helper stuct that holds the attack window
-	struct AttackWindow
+	class AttackWindow : public GameObject::GameObject
 	{
+	public:
+		AttackWindow();
+		AttackWindow(Side);
+		~AttackWindow();
+
+		void draw() const;
+		void drawAt(Vector::Vector2 const&) const;
+		void update();
+
+		// Get and set currently active icon index
+		inline int getActiveIconIndex() const { return attackNum; }
+		void setActiveIconIndex(int i) { attackNum = i; }
+
+		// Add icon to the list
+		void pushIcon(Icon*);
+
+	private:
 		int attackNum;
 		Sprite::Sprite *window;
-		Sprite::Sprite *reticule;
+		Vector::Vector2 offset;
+		std::vector<Icon*> icons;
 	};
 
 	// Player class holds a player's data and tools to manipulate it.
@@ -143,7 +183,7 @@ namespace Player
 		std::vector<Attack> attacks;
 		std::vector<Projectile::Projectile> activeProjectiles;
 		SpecialAbility ability;
-		AttackWindow attackWindow;
+		AttackWindow window;
 		Sprite::Sprite *token;
 		Sprite::AnimatedSprite *sprite;
 		Sprite::AnimatedSprite *arrowSprite;

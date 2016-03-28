@@ -41,7 +41,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="HORIZONTAL"/>
         <Projectile name="Dodgeball_Gravity" delay="0.0"
                     offsetX="20.0" offsetY="0.0"
                     hasTarget="true" timeToTarget="1.0"/>
@@ -55,7 +55,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="VERTICAL"/>
         <Projectile name="Dodgeball_Gravity" delay="0.0"
                     offsetX="0.0" offsetY="0.0"
                     hasTarget="false"/>
@@ -69,7 +69,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="CORNERS"/>
       </Attack>
     </Attacks>
 
@@ -107,7 +107,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="HORIZONTAL"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -118,7 +118,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="VERTICAL"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -129,7 +129,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="CORNERS"/>
       </Attack>
     </Attacks>
 
@@ -167,7 +167,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="HORIZONTAL"/>
         
       </Attack>
       <Attack name="PUNCH">
@@ -179,7 +179,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="VERTICAL"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -190,7 +190,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="CORNERS"/>
       </Attack>
     </Attacks>
 
@@ -228,7 +228,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="HORIZONTAL"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -239,7 +239,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="VERTICAL"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -250,7 +250,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="CORNERS"/>
       </Attack>
     </Attacks>
 
@@ -288,7 +288,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="HORIZONTAL"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -299,7 +299,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="VERTICAL"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -310,7 +310,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="64" frameHeight="64"/>
+        <Icon name="CORNERS"/>
       </Attack>
     </Attacks>
 

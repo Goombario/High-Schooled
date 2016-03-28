@@ -11,6 +11,144 @@
 
 using namespace tinyxml2;
 
+// Icon class
+namespace Player
+{
+	Icon::Icon()
+	{
+		icon = nullptr;
+		reticule = nullptr;
+		cooldown = nullptr;
+		glow = nullptr;
+	}
+
+	Icon::Icon(const char* iconName, Side side)
+	{
+		// Load Icon data from player file
+		tinyxml2::XMLDocument data;
+		CheckXMLResult(data.LoadFile("../Schooled/IconData.xml"));
+		XMLNode *pRoot = data.RootElement();
+		if (pRoot == nullptr)
+		{
+			std::cerr << "ERROR: Loading Icon data file: "
+				<< iconName << std::endl;
+			exit(-2);
+		}
+
+		// Choose the first icon data
+		XMLElement *iconData;
+		iconData = pRoot->FirstChildElement("Icon");
+
+		// Check if the icon data is available
+		std::string dataName = iconData->Attribute("name");
+		while (dataName != iconName)
+		{
+			iconData = iconData->NextSiblingElement();
+			if (iconData == nullptr)
+			{
+				std::cerr << "ERROR: Loading IconData: " << iconName << std::endl;
+				exit(-2);
+			}
+			dataName = iconData->Attribute("name");
+		}
+
+		// Load the default Icon data
+		XMLElement *sharedData;
+		sharedData = pRoot->FirstChildElement("SharedData");
+		if (CheckIfNull(sharedData, "Icon: SharedData")) exit(-2);
+
+		// Load the reticule
+		if (CheckIfNull(sharedData->FirstChildElement("Reticule"), 
+			"Icon: SharedData : Reticule")) exit(-2);
+		reticule = new Sprite::Sprite(sharedData->FirstChildElement("Reticule"));
+
+		// Load the cooldown
+		if (CheckIfNull(sharedData->FirstChildElement("Cooldown"),
+			"Icon: SharedData : Cooldown")) exit(-2);
+		if (CheckIfNull(sharedData->FirstChildElement("CooldownAnimation"),
+			"Icon: SharedData : CooldownAnimation")) exit(-2);
+		cooldown = new Sprite::AnimatedSprite(
+			sharedData->FirstChildElement("Cooldown"),
+			sharedData->FirstChildElement("CooldownAnimation"));
+
+		// Check if glow animation exists
+		if (CheckIfNull(sharedData->FirstChildElement("GlowAnimation"),
+			"Icon: SharedData : GlowAnimation")) exit(-2);
+
+		// Load the icon
+		if (side == Side::LEFT)
+		{
+			if (CheckIfNull(iconData->FirstChildElement("SpriteLeft"), "Icon : SpriteLeft")) exit(-2);
+			icon = new Sprite::Sprite(iconData->FirstChildElement("SpriteLeft"));
+
+			if (CheckIfNull(iconData->FirstChildElement("GlowLeft"), "Icon : GlowLeft")) exit(-2);
+			glow = new Sprite::AnimatedSprite(
+				iconData->FirstChildElement("GlowLeft"),
+				sharedData->FirstChildElement("GlowAnimation"));
+		}
+		else
+		{
+			if (CheckIfNull(iconData->FirstChildElement("SpriteRight"), "Icon : SpriteRight")) exit(-2);
+			icon = new Sprite::Sprite(iconData->FirstChildElement("SpriteRight"));
+
+			if (CheckIfNull(iconData->FirstChildElement("GlowRight"), "Icon : GlowRight")) exit(-2);
+			glow = new Sprite::AnimatedSprite(
+				iconData->FirstChildElement("GlowRight"),
+				sharedData->FirstChildElement("GlowAnimation"));
+		}
+	}
+
+	Icon::~Icon()
+	{
+		delete icon;
+		delete reticule;
+		delete cooldown;
+		delete glow;
+	}
+
+}
+
+// AttackWindow class
+namespace Player
+{
+	AttackWindow::AttackWindow()
+	{
+		window = nullptr;
+	}
+
+	AttackWindow::AttackWindow(Side s)
+	{
+		// Load the window image and set the offset
+		Image::Image tempImage;
+
+		if (s == Side::LEFT)
+		{
+			tempImage = GameEngine::getImageManager()->loadImage(
+				schooled::getResourcePath("img") + "AttackL.png", 380, 170);
+			offset = Vector::Vector2(115, 100);
+		}
+		else
+		{
+			tempImage = GameEngine::getImageManager()->loadImage(
+				schooled::getResourcePath("img") + "AttackR.png", 380, 170);
+			offset = Vector::Vector2(65, 100);
+		}
+
+		window = new Sprite::Sprite(tempImage);
+	}
+
+	AttackWindow::~AttackWindow()
+	{
+		delete window;
+
+		// UNSURE IF NEEDED
+		for (auto it = icons.begin(); it != icons.end(); it++)
+		{
+			(*it) = nullptr;
+		}
+	}
+}
+
 namespace Player
 {
 	Player::Player()
@@ -26,9 +164,6 @@ namespace Player
 		sprite = nullptr;
 		token = nullptr;
 		boardPtr = nullptr;
-
-		attackWindow.window = nullptr;
-		attackWindow.reticule = nullptr;
 	}
 
 	Player::Player(const char* playerName, Board::Board& playerBoard)
@@ -37,21 +172,7 @@ namespace Player
 		boardPtr = &playerBoard;
 
 		// Load the attack window
-		Image::Image tempImage;
-
-		if (boardPtr->getSide() == Side::LEFT)
-		{
-			tempImage = GameEngine::getImageManager()->loadImage(
-				schooled::getResourcePath("img") + "AttackL.png", 380, 170);
-		}
-		else
-		{
-			tempImage = GameEngine::getImageManager()->loadImage(
-				schooled::getResourcePath("img") + "AttackR.png", 380, 170);
-		}
-		attackWindow.window = new Sprite::Sprite(tempImage);
-		attackWindow.reticule = nullptr;
-
+		window = AttackWindow(boardPtr->getSide());
 
 		// Load player data from player file
 		tinyxml2::XMLDocument data;
@@ -149,8 +270,9 @@ namespace Player
 
 			// Icon loading
 			if (CheckIfNull(attackData->FirstChildElement("Icon"), "Player: Attack: Icon")) exit(-2);
-			tempAttack.icon = new Sprite::AnimatedSprite(
-				attackData->FirstChildElement("Icon"), sharedData->FirstChildElement("IconAnimation"));
+			tempAttack.icon = Icon(
+				attackData->FirstChildElement("Icon")->Attribute("name"), 
+				boardPtr->getSide());
 
 			// Projectile loading
 			if (!CheckIfNull(attackData->FirstChildElement("Projectile"), "Player: Attack: Projectile"))
@@ -206,13 +328,7 @@ namespace Player
 		delete sprite;
 		delete token;
 		delete arrowSprite;
-		delete attackWindow.window;
-		delete attackWindow.reticule;
-
-		for (auto it = attacks.begin(); it != attacks.end(); it++)
-		{
-			delete (*it).icon;
-		}
+		delete window.window;
 	}
 
 	void Player::attack(Player& enemy, int attackNum)
@@ -444,32 +560,7 @@ namespace Player
 
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		moveToSide();
-		/*moveSpriteToSide(*arrowSprite);
-		moveSpriteToSide(*sprite);
-		moveSpriteToSide(*glow);*/
 	}
-
-	//void Player::moveSpriteToSide(Sprite::Sprite& s)
-	//{
-	//	float initX;
-	//	float wPos;
-	//	if (boardPtr->getSide() == Side::LEFT)
-	//	{
-	//		wPos = static_cast<float>(boardPtr->getPlayerlocation().X);
-	//		initX = Board::OFFSET_X + Board::ROW_OFFSET;
-	//	}
-	//	else
-	//	{
-	//		int offsetRight = Stage::BOARD_WIDTH - 1;
-	//		wPos = static_cast<float>(offsetRight - boardPtr->getPlayerlocation().X);
-	//		initX = Board::CENTER_X + Board::OFFSET_X;
-	//	}
-	//	float hPos = static_cast<float>(boardPtr->getPlayerlocation().Y - 1);
-	//	s.move((initX + 
-	//		((wPos + 1) * Board::ROW_WIDTH) +	// The width of the column times the number of columns to move (+1 for alignment)
-	//		(hPos * Board::ROW_OFFSET)) * schooled::SCALE,	// The row offset due to the perspective
-	//		(Board::OFFSET_Y - (hPos * Board::ROW_HEIGHT)) * schooled::SCALE);
-	//}
 
 	void Player::moveToSide()
 	{
@@ -547,42 +638,28 @@ namespace Player
 		switch (BattleState::BattleState::Instance()->getCurrentState())
 		{
 		case BattleState::State::POS_CHOOSE:
-			//arrowSprite->draw();
 			arrowSprite->drawAt(getPos() + Vector::Vector2(-10, 20));
 			break;
 
 		case BattleState::State::ATTACK_CHOOSE:
-			attackWindow.window->draw();
-			attackWindow.reticule->draw();
+			window.window->drawAt(getPos() + window.offset);
 
 		default:
-			//sprite->draw();
 			sprite->drawAt(getPos());
 		}
 
 		// Draw all active projectiles
-		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
+		/*for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
 		{
 			(*it).draw();
-		}
+		}*/
 	}
 
 	void Player::updateIconCooldown()
 	{
 		for (auto it = attacks.begin(); it != attacks.end(); it++)
 		{
-			switch ((*it).currentCooldown)
-			{
-			case 0:
-				(*it).icon->changeAnimation(Animation::AnimationEnum::IDLE);
-				break;
-			case 1:
-				(*it).icon->changeAnimation(Animation::AnimationEnum::COOLDOWN_1);
-				break;
-			case 2:
-				(*it).icon->changeAnimation(Animation::AnimationEnum::COOLDOWN_2);
-				break;
-			}
+			(*it).icon.setCooldown((*it).currentCooldown);
 		}
 	}
 
