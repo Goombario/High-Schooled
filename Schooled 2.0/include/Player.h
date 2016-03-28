@@ -36,6 +36,9 @@ namespace Player
 	public:
 		Icon();
 		Icon(const char* iconName, Side);
+
+		Icon(Icon const&);
+		Icon& operator=(Icon const&);
 		~Icon();
 
 		void draw() const;
@@ -93,6 +96,9 @@ namespace Player
 	public:
 		AttackWindow();
 		AttackWindow(Side);
+
+		AttackWindow(AttackWindow const&);
+		AttackWindow& operator=(AttackWindow const&);
 		~AttackWindow();
 
 		void draw() const;

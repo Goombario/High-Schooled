@@ -125,6 +125,44 @@ namespace BattleState
 		// Do not let any commands through if attacking/moving
 		if (self->getCurrentState() == State::ACTING) return;
 
+		if (inputs.Actions.find(InputMapping::Action::MENU_SELECT) != inputs.Actions.end())
+		{
+			if (self->getCurrentState() != State::ATTACK_CHOOSE)
+			{
+				self->pushState(State::ATTACK_CHOOSE);
+				self->getCurrentPlayer()->initAttackMenu();
+				GameEngine::getMapper()->PushContext("attackMenu");
+			}
+			else
+			{
+				bool success = self->getCurrentPlayer()->attack(*self->getOtherPlayer());
+				if (success)
+				{
+					self->popState();
+					GameEngine::getMapper()->PopContext();
+				}
+			}
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_BACK) != inputs.Actions.end())
+		{
+			self->popState();
+			GameEngine::getMapper()->PopContext();
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_UP) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->moveSelectedAttack(1);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_DOWN) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->moveSelectedAttack(-1);
+		}
+
+		// If choosing menu options, don't allow anything else
+		if (self->getCurrentState() == State::ATTACK_CHOOSE) return;
+
 		if (inputs.Actions.find(InputMapping::Action::BOARD_UP) != inputs.Actions.end())
 		{
 			self->getCurrentPlayer()->move(Direction::UP);
@@ -147,24 +185,6 @@ namespace BattleState
 		{
 			self->getCurrentPlayer()->move(Direction::BACKWARD);
 			inputs.EatAction(InputMapping::Action::BOARD_BACKWARD);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::ATTACK_1) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer());
-			inputs.EatAction(InputMapping::Action::ATTACK_1);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::ATTACK_2) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer());
-			inputs.EatAction(InputMapping::Action::ATTACK_2);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::ATTACK_3) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer());
-			inputs.EatAction(InputMapping::Action::ATTACK_3);
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::SELECT_POS) != inputs.Actions.end())

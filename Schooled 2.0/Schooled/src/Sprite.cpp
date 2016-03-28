@@ -115,6 +115,10 @@ namespace Sprite
 // Animated Sprite
 namespace Sprite
 {
+	AnimatedSprite::AnimatedSprite()
+	{
+
+	}
 
 	AnimatedSprite::AnimatedSprite(Image::Image const& i, Animation::AnimationData const& sheet)
 		: Sprite(i), data(sheet)

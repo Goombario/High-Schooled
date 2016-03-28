@@ -13,9 +13,9 @@ namespace Stage
 	HUD::HUD()
 	{
 		player = nullptr;
-		display = nullptr;
-		HPBar = nullptr;
-		SPBar = nullptr;
+		display = new Sprite::Sprite();
+		HPBar = new Sprite::Sprite();
+		SPBar = new Sprite::Sprite();
 	}
 	HUD::HUD(Player::Player const& p, XMLElement *HUDData)
 		: player(&p)
@@ -24,6 +24,8 @@ namespace Stage
 		{
 			if (CheckIfNull(HUDData->FirstChildElement("HUDLeft"), "HUD: HUDLeft")) exit(-2);
 			display = new Sprite::Sprite(HUDData->FirstChildElement("HUDLeft"));
+
+			side = 1;
 
 			// Set the HUD position
 			setPos(Vector::Vector2(
@@ -34,6 +36,8 @@ namespace Stage
 		{
 			if (CheckIfNull(HUDData->FirstChildElement("HUDRight"), "HUD: HUDRight")) exit(-2);
 			display = new Sprite::Sprite(HUDData->FirstChildElement("HUDRight"));
+
+			side = -1;
 
 			// Set the HUD position
 			setPos(Vector::Vector2(
@@ -50,6 +54,38 @@ namespace Stage
 		if (CheckIfNull(HUDData->FirstChildElement("SPBar"), "HUD: SPBar")) exit(-2);
 		SPBar = new Sprite::Sprite(HUDData->FirstChildElement("SPBar"));
 		SPBar->setPos(Vector::Vector2(10, 10));
+	}
+
+	HUD::HUD(HUD const& other)
+	{
+		display = new Sprite::Sprite();
+		*display = *other.display;
+
+		HPBar = new Sprite::Sprite();
+		*HPBar = *other.HPBar;
+
+		SPBar = new Sprite::Sprite();
+		*SPBar = *other.SPBar;
+
+		offset = other.offset;
+		side = other.side;
+	}
+
+	HUD& HUD::operator=(HUD const& other)
+	{
+		if (this == &other) return *this;
+
+		player = other.player;
+
+		// UNSURE IF MEMORY LEAK
+		*display = *other.display;
+		*HPBar = *other.HPBar;
+		*SPBar = *other.SPBar;
+
+		offset = other.offset;
+		side = other.side;
+
+		return (*this);
 	}
 
 	HUD::~HUD()

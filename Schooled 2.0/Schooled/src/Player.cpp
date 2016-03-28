@@ -16,9 +16,9 @@ namespace Player
 {
 	Icon::Icon()
 	{
-		icon = nullptr;
-		cooldown = nullptr;
-		glow = nullptr;
+		icon = new Sprite::Sprite();
+		cooldown = new Sprite::AnimatedSprite();
+		glow = new Sprite::AnimatedSprite();
 	}
 
 	Icon::Icon(const char* iconName, Side side)
@@ -99,6 +99,30 @@ namespace Player
 		delete glow;
 	}
 
+	Icon::Icon(Icon const& other)
+	{
+		icon = new Sprite::Sprite();
+		*icon = *other.icon;
+
+		cooldown = new Sprite::AnimatedSprite();
+		*cooldown = *other.cooldown;
+
+		glow = new Sprite::AnimatedSprite();
+		*glow = *other.glow;
+	}
+
+	Icon& Icon::operator=(Icon const& other)
+	{
+		if (this == &other) return *this;
+
+		// UNSURE IF MEMORY LEAK
+		*icon = *other.icon;
+		*cooldown = *other.cooldown;
+		*glow = *other.glow;
+
+		return *this;
+	}
+
 	void Icon::draw() const
 	{
 		icon->draw();
@@ -149,7 +173,7 @@ namespace Player
 
 		default:
 			break;
-		} (coolNum);
+		};
 	}
 }
 
@@ -162,7 +186,7 @@ namespace Player
 	}
 
 	AttackWindow::AttackWindow(Side s)
-		: side(s)
+		: side(s), attackNum(0)
 	{
 		// Load the window image and set the offset
 		Image::Image tempImage;
@@ -172,17 +196,45 @@ namespace Player
 			tempImage = GameEngine::getImageManager()->loadImage(
 				schooled::getResourcePath("img") + "AttackL.png", 380, 170);
 			iconOffset = Vector::Vector2(115, 100);
-			windowOffset = Vector::Vector2(50, 50);
+			windowOffset = Vector::Vector2(250, 100);
 		}
 		else
 		{
 			tempImage = GameEngine::getImageManager()->loadImage(
 				schooled::getResourcePath("img") + "AttackR.png", 380, 170);
 			iconOffset = Vector::Vector2(65, 100);
-			windowOffset = Vector::Vector2(-50, 50);
+			windowOffset = Vector::Vector2(-250, 100);
 		}
 
 		window = new Sprite::Sprite(tempImage);
+	}
+
+	AttackWindow::AttackWindow(AttackWindow const& other)
+		: window(nullptr)
+	{
+		side = other.side;
+		attackNum = other.attackNum;
+		iconOffset = other.iconOffset;
+		windowOffset = other.windowOffset;
+		icons = other.icons;
+
+		window = new Sprite::Sprite(*other.window);
+	}
+
+	AttackWindow& AttackWindow::operator=(AttackWindow const& other)
+	{
+		if (this == &other) return (*this);
+
+		side = other.side;
+		attackNum = other.attackNum;
+		iconOffset = other.iconOffset;
+		windowOffset = other.windowOffset;
+		icons = other.icons;
+
+		delete window;
+		window = new Sprite::Sprite(*other.window);
+
+		return (*this);
 	}
 
 	AttackWindow::~AttackWindow()
@@ -280,8 +332,8 @@ namespace Player
 		stats.maxSP = 0;
 		setActing(false);
 
-		sprite = nullptr;
-		token = nullptr;
+		sprite = new Sprite::AnimatedSprite();
+		token = new Sprite::Sprite();
 		boardPtr = nullptr;
 	}
 
@@ -428,17 +480,41 @@ namespace Player
 		moveToSide();
 	}
 
-	Player::Player(Player const& source) :
-		sprite(source.sprite),
-		boardPtr(source.boardPtr)
+	Player::Player(Player const& source)
+		: token(nullptr),
+		sprite(nullptr),
+		arrowSprite(nullptr),
+		boardPtr(nullptr)
 	{
+		stats = source.stats;
+		numAttacks = source.numAttacks;
+		attacks = source.attacks;
+		activeProjectiles = source.activeProjectiles;
+		ability = source.ability;
+		window = source.window;
+		token = new Sprite::Sprite(*source.token);
+		sprite = new Sprite::AnimatedSprite(*source.sprite);
+		arrowSprite = new Sprite::AnimatedSprite(*source.arrowSprite);
 
+		boardPtr = source.boardPtr;
 	}
 
 	Player& Player::operator=(Player const& source)
 	{
-		this->sprite = source.sprite;	// Unknown if good
-		this->boardPtr = source.boardPtr;
+		if (this == &source) return (*this);
+
+		stats = source.stats;
+		numAttacks = source.numAttacks;
+		attacks = source.attacks;
+		activeProjectiles = source.activeProjectiles;
+		ability = source.ability;
+		window = source.window;
+
+		*token = *source.token;
+		*sprite = *source.sprite;
+		*arrowSprite = *source.arrowSprite;
+		boardPtr = source.boardPtr;
+
 		return (*this);
 	}
 
@@ -761,8 +837,15 @@ namespace Player
 		// If currently selected, draw glow
 		if (BattleState::BattleState::Instance()->getCurrentSide() == boardPtr->getSide())
 		{
-			//glow->draw();
-			//glow->drawAt(getPos());
+			switch (BattleState::BattleState::Instance()->getCurrentState())
+			{
+			case BattleState::State::ATTACK_CHOOSE:
+				window.drawAtPlayer(getPos());
+				break;
+
+			default:
+				break;
+			}
 		}
 
 		// Choosing which sprites to draw based on the current state of the battle
@@ -771,12 +854,11 @@ namespace Player
 		case BattleState::State::POS_CHOOSE:
 			arrowSprite->drawAt(getPos() + Vector::Vector2(-10, 20));
 			break;
-
-		case BattleState::State::ATTACK_CHOOSE:
-			window.drawAtPlayer(getPos());
+		
 
 		default:
 			sprite->drawAt(getPos());
+			break;
 		}
 
 		// Draw all active projectiles

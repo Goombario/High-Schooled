@@ -67,18 +67,8 @@
     </Action>
 
     <Action>
-      <Input>ATTACK_1</Input>
+      <Input>MENU_SELECT</Input>
       <Raw>FzlKeyZ</Raw>
-    </Action>
-
-    <Action>
-      <Input>ATTACK_2</Input>
-      <Raw>FzlKeyX</Raw>
-    </Action>
-
-    <Action>
-      <Input>ATTACK_3</Input>
-      <Raw>FzlKeyC</Raw>
     </Action>
   </Context>
 
@@ -133,18 +123,8 @@
     </Action>
 
     <Action>
-      <Input>ATTACK_1</Input>
+      <Input>MENU_SELECT</Input>
       <Raw>FzlKeyZ</Raw>
-    </Action>
-
-    <Action>
-      <Input>ATTACK_2</Input>
-      <Raw>FzlKeyX</Raw>
-    </Action>
-
-    <Action>
-      <Input>ATTACK_3</Input>
-      <Raw>FzlKeyC</Raw>
     </Action>
   </Context>
 
@@ -173,6 +153,28 @@
     <Action>
       <Input>SELECT_POS</Input>
       <Raw>FzlKeyZ</Raw>
+    </Action>
+  </Context>
+
+  <Context name="attackMenu">
+    <Action>
+      <Input>MENU_UP</Input>
+      <Raw>FzlKeyRightArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_DOWN</Input>
+      <Raw>FzlKeyLeftArrow</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_SELECT</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_BACK</Input>
+      <Raw>FzlKeyX</Raw>
     </Action>
   </Context>
 
