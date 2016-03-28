@@ -2,6 +2,8 @@
 #define STAGE_H
 
 #include "BattleConstants.h"
+#include "GameObject.h"
+#include "Vector2.h"
 #include <vector>
 
 namespace Sprite
@@ -12,34 +14,34 @@ namespace Sprite
 
 namespace Player
 {
+	class Icon;
 	class Player;
+}
+
+namespace tinyxml2
+{
+	class XMLElement;
 }
 
 namespace Stage
 {
-	class HUD
+	class HUD : public GameObject::GameObject
 	{
 	public:
-		HUD(Player::Player const&);
+		HUD();
+		HUD(Player::Player const&, tinyxml2::XMLElement*);
 		~HUD();
 
-		void draw();
+		void draw() const;
 
 		void update();
 
 	private:
-
-		// Attack Icon management
-		void moveIcons();
-
 		const Player::Player *player;
 		Sprite::Sprite *display;
 		Sprite::Sprite *HPBar;
 		Sprite::Sprite *SPBar;
-		std::vector<Sprite::AnimatedSprite> icons;
-		
-		float offsetX;	// The distance from the edge to the HP bar
-		float offsetY;	// The bottom of the HP bar
+		Vector::Vector2 offset;
 		int side;
 	};
 

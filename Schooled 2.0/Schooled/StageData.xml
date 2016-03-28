@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <StageList>
+  <HUD>
+    <HUDLeft name="HUD_Left.png" frameWidth="192" frameHeight="64"/>
+    <HUDRight name="HUD_Right.png" frameWidth="192" frameHeight="64"/>
+    <HPBar name="HPbar.png" frameWidth="10" frameHeight="5"/>
+    <SPBar name="SPbar.png" frameWidth="7" frameHeight="5"/>
+  </HUD>
+  
   <Stage name="Default">
     <Background name="Gym room.png" width="1280" height="720"/>
     <Board name="Board.png" frameWidth="1280" frameHeight="720"/>

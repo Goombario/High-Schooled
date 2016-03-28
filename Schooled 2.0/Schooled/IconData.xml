@@ -4,7 +4,7 @@
   <Shared>
     <Reticule name="Icons/Reticule.png" frameWidth="90" frameHeight="90"/>
     <Cooldown name="Icons/Cooldown.png" frameWidth="80" frameHeight="80"/>
-    <CooldownAnimation name="Icon.xml"/>
+    <CooldownAnimation name="Cooldown.xml"/>
     <GlowAnimation name="IconGlows.xml"/>
   </Shared>
   

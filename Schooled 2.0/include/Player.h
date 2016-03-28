@@ -47,7 +47,6 @@ namespace Player
 
 	private:
 		Sprite::Sprite *icon;
-		Sprite::Sprite *reticule;
 		Sprite::AnimatedSprite *cooldown;
 		Sprite::AnimatedSprite *glow;
 	};
@@ -97,20 +96,26 @@ namespace Player
 		~AttackWindow();
 
 		void draw() const;
-		void drawAt(Vector::Vector2 const&) const;
+		void drawAtPlayer(Vector::Vector2 const&) const;
 		void update();
 
 		// Get and set currently active icon index
 		inline int getActiveIconIndex() const { return attackNum; }
-		void setActiveIconIndex(int i) { attackNum = i; }
+		void setActiveIconIndex(int i);
+		void clearActiveIcon();
+
+		// Takes in a number to move the index by
+		void moveActiveIconIndex(int difference);
 
 		// Add icon to the list
-		void pushIcon(Icon*);
+		void pushIcon(Icon* newIcon) { icons.push_back(newIcon); };
 
 	private:
-		int attackNum;
+		Side side;
+		unsigned int attackNum;
 		Sprite::Sprite *window;
-		Vector::Vector2 offset;
+		Vector::Vector2 iconOffset;
+		Vector::Vector2 windowOffset;
 		std::vector<Icon*> icons;
 	};
 
@@ -139,7 +144,7 @@ namespace Player
 
 		// Changes health of enemy player, tokens on enemy board
 		// And changes your cooldown and current AP
-		void attack(Player& enemy, int attackNum);
+		bool attack(Player& enemy);
 
 		// Modifies the player's current health
 		void changeHealth(int);
@@ -163,6 +168,10 @@ namespace Player
 
 		// Draw the player to the screen
 		void draw() const;
+
+		// Modify the attack menu
+		void initAttackMenu();
+		void moveSelectedAttack(int);
 
 		// Get the token sprite
 		Sprite::Sprite& getTokenSprite() { return *token; }

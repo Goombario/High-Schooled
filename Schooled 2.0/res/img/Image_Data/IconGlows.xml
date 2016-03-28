@@ -5,54 +5,8 @@
     <FirstFrame>0</FirstFrame>
     
   </Animation>
-  <Animation name="ATTACK_1" loop="true">
+  <Animation name="PULSE" loop="true">
     <FirstFrame>20</FirstFrame>
-    <Frame>0.2</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.2</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-  </Animation>
-  <Animation name="ATTACK_2" loop="true">
-    <FirstFrame>40</FirstFrame>
-    <Frame>0.2</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.2</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.1</Frame>
-  </Animation>
-  <Animation name="ATTACK_3" loop="true">
-    <FirstFrame>60</FirstFrame>
     <Frame>0.2</Frame>
     <Frame>0.1</Frame>
     <Frame>0.1</Frame>

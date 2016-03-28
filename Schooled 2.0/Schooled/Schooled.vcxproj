@@ -155,7 +155,7 @@
     <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="..\res\img\Image_Data\Icon.xml" />
+    <Xml Include="..\res\img\Image_Data\Cooldown.xml" />
     <Xml Include="..\res\img\Image_Data\IconGlows.xml" />
     <Xml Include="..\res\img\Image_Data\Nate.xml">
       <SubType>Designer</SubType>
@@ -165,7 +165,9 @@
     </Xml>
     <Xml Include="..\res\img\Image_Data\TileGlows.xml" />
     <Xml Include="Contexts.xml" />
-    <Xml Include="IconData.xml" />
+    <Xml Include="IconData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="InputMap.xml">
       <SubType>Designer</SubType>
     </Xml>
