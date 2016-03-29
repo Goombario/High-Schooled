@@ -195,14 +195,14 @@ namespace Player
 		{
 			tempImage = GameEngine::getImageManager()->loadImage(
 				schooled::getResourcePath("img") + "AttackL.png", 380, 170);
-			iconOffset = Vector::Vector2(115, 100);
+			iconOffset = Vector::Vector2(-70, 30);
 			windowOffset = Vector::Vector2(250, 100);
 		}
 		else
 		{
 			tempImage = GameEngine::getImageManager()->loadImage(
 				schooled::getResourcePath("img") + "AttackR.png", 380, 170);
-			iconOffset = Vector::Vector2(65, 100);
+			iconOffset = Vector::Vector2(-120, 30);
 			windowOffset = Vector::Vector2(-250, 100);
 		}
 
@@ -256,7 +256,7 @@ namespace Player
 		for (auto it = icons.begin(); it != icons.end(); it++)
 		{
 			// Draw icons in order
-			(*it)->drawAt((*it)->getPos() + iconOffset + 
+			(*it)->drawAt(iconOffset + 
 				Vector::Vector2(counter * 80, 0));
 			counter++;
 		}
@@ -272,14 +272,17 @@ namespace Player
 			// Draw icons in order
 			(*it)->drawAt(
 				playerPos + windowOffset + iconOffset +
-				Vector::Vector2(counter * 80, 0));
+				Vector::Vector2(counter * 90, 0));
 			counter++;
 		}
 	}
 
 	void AttackWindow::update()
 	{
-
+		for (auto it = icons.begin(); it != icons.end(); it++)
+		{
+			(*it)->update();
+		}
 	}
 
 	void AttackWindow::clearActiveIcon()
@@ -288,6 +291,12 @@ namespace Player
 		{
 			(*it)->setSelected(false);
 		}
+	}
+
+	void AttackWindow::reset()
+	{
+		clearActiveIcon();
+		attackNum = 0;
 	}
 
 	void AttackWindow::setActiveIconIndex(int index)
@@ -306,14 +315,18 @@ namespace Player
 	void AttackWindow::moveActiveIconIndex(int difference)
 	{
 		// If not an increment, don't do anything
-		if (difference != -1 || difference != 1) return;
+		if (difference != -1 && difference != 1) return;
 
 		icons[attackNum]->setSelected(false);
 
 		attackNum += difference;
-		if (attackNum >= icons.size())
+		if (attackNum >= static_cast<int>(icons.size()))
 		{
 			attackNum -= icons.size();
+		}
+		else if (attackNum < 0)
+		{
+			attackNum += icons.size();
 		}
 
 		icons[attackNum]->setSelected(true);
@@ -341,9 +354,6 @@ namespace Player
 	{
 		setActing(false);
 		boardPtr = &playerBoard;
-
-		// Load the attack window
-		window = AttackWindow(boardPtr->getSide());
 
 		// Load player data from player file
 		tinyxml2::XMLDocument data;
@@ -459,6 +469,13 @@ namespace Player
 			(*this).attacks.push_back(tempAttack);
 			(*this).numAttacks++;
 			attackData = attackData->NextSiblingElement();
+		}
+
+		// Load the attack window
+		window = AttackWindow(boardPtr->getSide());
+		for (auto it = attacks.begin(); it != attacks.end(); it++)
+		{
+			window.pushIcon(&(*it).icon);
 		}
 
 		// Load the special data
@@ -803,6 +820,11 @@ namespace Player
 	{
 		window.clearActiveIcon();
 		window.setActiveIconIndex(0);
+	}
+
+	void Player::clearAttackMenu()
+	{
+		window.reset();
 	}
 
 	void Player::update()

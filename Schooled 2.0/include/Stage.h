@@ -44,7 +44,7 @@ namespace Stage
 		Sprite::Sprite *display;
 		Sprite::Sprite *HPBar;
 		Sprite::Sprite *SPBar;
-		Vector::Vector2 offset;
+		Vector::Vector2 iconOffset;
 		int side;
 	};
 

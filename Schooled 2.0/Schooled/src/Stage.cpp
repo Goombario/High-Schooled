@@ -17,9 +17,12 @@ namespace Stage
 		HPBar = new Sprite::Sprite();
 		SPBar = new Sprite::Sprite();
 	}
+
 	HUD::HUD(Player::Player const& p, XMLElement *HUDData)
 		: player(&p)
 	{
+		Vector::Vector2 HPPos, SPPos;
+
 		if (player->getSide() == Side::LEFT)
 		{
 			if (CheckIfNull(HUDData->FirstChildElement("HUDLeft"), "HUD: HUDLeft")) exit(-2);
@@ -30,7 +33,11 @@ namespace Stage
 			// Set the HUD position
 			setPos(Vector::Vector2(
 				display->getFrameWidth() / 2.0, 
-				display->getFrameWidth() / 2.0));
+				schooled::SCREEN_HEIGHT_PX - (display->getFrameHeight() / 2.0)));
+
+			HPPos = Vector::Vector2(-20, 13);
+			SPPos = Vector::Vector2(-20, 3);
+			iconOffset = Vector::Vector2(0, -display->getFrameHeight());
 		}
 		else
 		{
@@ -41,19 +48,23 @@ namespace Stage
 
 			// Set the HUD position
 			setPos(Vector::Vector2(
-				schooled::SCREEN_WIDTH_PX - (display->getFrameWidth() / 2.0), 
-				display->getFrameWidth() / 2.0));
+				schooled::SCREEN_WIDTH_PX - (display->getFrameWidth() / 2.0),
+				schooled::SCREEN_HEIGHT_PX - (display->getFrameHeight() / 2.0)));
+
+			HPPos = Vector::Vector2(20, 13);
+			SPPos = Vector::Vector2(20, 3);
+			iconOffset = Vector::Vector2(-display->getFrameWidth(), -display->getFrameHeight());
 		}
 
 		// Load the HP bar
 		if (CheckIfNull(HUDData->FirstChildElement("HPBar"), "HUD: HPBar")) exit(-2);
 		HPBar = new Sprite::Sprite(HUDData->FirstChildElement("HPBar"));
-		HPBar->setPos(Vector::Vector2(10, 10));
+		HPBar->setPos(HPPos);
 
 		// Load the SP bar
 		if (CheckIfNull(HUDData->FirstChildElement("SPBar"), "HUD: SPBar")) exit(-2);
 		SPBar = new Sprite::Sprite(HUDData->FirstChildElement("SPBar"));
-		SPBar->setPos(Vector::Vector2(10, 10));
+		SPBar->setPos(SPPos);
 	}
 
 	HUD::HUD(HUD const& other)
@@ -67,14 +78,14 @@ namespace Stage
 		SPBar = new Sprite::Sprite();
 		*SPBar = *other.SPBar;
 
-		offset = other.offset;
+		iconOffset = other.iconOffset;
 		side = other.side;
 	}
 
 	HUD& HUD::operator=(HUD const& other)
 	{
 		if (this == &other) return *this;
-
+		GameObject::operator=(other);
 		player = other.player;
 
 		// UNSURE IF MEMORY LEAK
@@ -82,7 +93,7 @@ namespace Stage
 		*HPBar = *other.HPBar;
 		*SPBar = *other.SPBar;
 
-		offset = other.offset;
+		iconOffset = other.iconOffset;
 		side = other.side;
 
 		return (*this);
@@ -101,31 +112,37 @@ namespace Stage
 
 	void HUD::draw() const
 	{
+		// Draw all the HP bars
 		for (int i = 0; i < player->getCurrentHP(); i++)
 		{
-			HPBar->drawAt(
-				HPBar->getPos() +
+			Vector::Vector2 tempVec(HPBar->getPos() +
 				(*this).getPos() +
 				Vector::Vector2(i * HPBar->getFrameWidth() * side, 0));
+			HPBar->drawAt(tempVec);
 		}
 
+		// Draw all the SP bars
 		for (int i = 0; i < player->getCurrentSP(); i++)
 		{
-			SPBar->drawAt(
+			Vector::Vector2 tempVec(
 				SPBar->getPos() +
 				(*this).getPos() +
 				Vector::Vector2(i * SPBar->getFrameWidth() * side, 0));
+			SPBar->drawAt(tempVec);
 		}
 
-		display->draw();
-
-		int counter = 0;
+		// Draw the HUD
+		display->drawAt((*this).getPos());
+		
 		// Draw Attack Icons
+		int counter = 0;
 		for (auto it = player->attacks.begin(); it != player->attacks.end(); it++)
 		{
-			(*it).icon.drawAt(
-				(*this).getPos() + 
-				Vector::Vector2(display->getFrameWidth() * side + counter * 80, 0));
+			Vector::Vector2 tempVec(
+				(*this).getPos() + iconOffset +
+				Vector::Vector2(counter * 90, 0));
+			(*it).icon.drawAt(tempVec);
+			counter++;
 		}
 	}
 

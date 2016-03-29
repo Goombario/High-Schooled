@@ -105,6 +105,9 @@ namespace Player
 		void drawAtPlayer(Vector::Vector2 const&) const;
 		void update();
 
+		// Reset the selected to default
+		void reset();
+
 		// Get and set currently active icon index
 		inline int getActiveIconIndex() const { return attackNum; }
 		void setActiveIconIndex(int i);
@@ -118,7 +121,7 @@ namespace Player
 
 	private:
 		Side side;
-		unsigned int attackNum;
+		int attackNum;
 		Sprite::Sprite *window;
 		Vector::Vector2 iconOffset;
 		Vector::Vector2 windowOffset;
@@ -178,6 +181,7 @@ namespace Player
 		// Modify the attack menu
 		void initAttackMenu();
 		void moveSelectedAttack(int);
+		void clearAttackMenu();
 
 		// Get the token sprite
 		Sprite::Sprite& getTokenSprite() { return *token; }
