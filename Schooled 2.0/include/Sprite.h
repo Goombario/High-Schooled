@@ -26,6 +26,8 @@ namespace Sprite
 		Sprite(Image::Image const&);
 		Sprite(tinyxml2::XMLElement const*);
 
+		Sprite& operator=(Sprite const&);
+
 		/* Shift the sprite by x pixels right and y pixels down
 		* @param float x - A float representing the number of pixels to be moved along the x axis
 		* @param float y - A float representing the number of pixels to be moved along the y axis

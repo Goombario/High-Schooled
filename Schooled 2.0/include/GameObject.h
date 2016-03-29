@@ -12,6 +12,8 @@ namespace GameObject
 		GameObject();
 		GameObject(double mass, Vector2 position, Vector2 velocity, Vector2 acceleration);
 
+		GameObject& operator=(GameObject const&);
+
 		void firstOrder();
 		Vector2 firstOrder(Vector2 const& lower, Vector2 const& upper) const;
 		void secondOrder();

@@ -11,22 +11,22 @@
   <Icon name="HORIZONTAL">
     <SpriteLeft name="Icons/Icon1L.png" frameWidth="80" frameHeight="80"/>
     <SpriteRight name="Icons/Icon1R.png" frameWidth="80" frameHeight="80"/>
-    <GlowLeft name="Icons/Icon1GlowL.png" frameWidth="80" frameHeight="80"/>
-    <GlowRight name="Icons/Icon1GlowR.png" frameWidth="80" frameHeight="80"/>
+    <GlowLeft name="Icons/Icon1GlowL.png" frameWidth="90" frameHeight="90"/>
+    <GlowRight name="Icons/Icon1GlowR.png" frameWidth="90" frameHeight="90"/>
   </Icon>
 
   <Icon name="VERTICAL">
     <SpriteLeft name="Icons/Icon2.png" frameWidth="80" frameHeight="80"/>
     <SpriteRight name="Icons/Icon2.png" frameWidth="80" frameHeight="80"/>
-    <GlowLeft name="Icons/Icon2Glow.png" frameWidth="80" frameHeight="80"/>
-    <GlowRight name="Icons/Icon2Glow.png" frameWidth="80" frameHeight="80"/>
+    <GlowLeft name="Icons/Icon2Glow.png" frameWidth="90" frameHeight="90"/>
+    <GlowRight name="Icons/Icon2Glow.png" frameWidth="90" frameHeight="90"/>
   </Icon>
 
   <Icon name="CORNERS">
     <SpriteLeft name="Icons/Icon3.png" frameWidth="80" frameHeight="80"/>
     <SpriteRight name="Icons/Icon3.png" frameWidth="80" frameHeight="80"/>
-    <GlowLeft name="Icons/Icon3Glow.png" frameWidth="80" frameHeight="80"/>
-    <GlowRight name="Icons/Icon3Glow.png" frameWidth="80" frameHeight="80"/>
+    <GlowLeft name="Icons/Icon3Glow.png" frameWidth="90" frameHeight="90"/>
+    <GlowRight name="Icons/Icon3Glow.png" frameWidth="90" frameHeight="90"/>
   </Icon>
   
 </IconList>

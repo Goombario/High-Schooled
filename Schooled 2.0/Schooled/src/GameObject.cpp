@@ -22,6 +22,19 @@ namespace GameObject
 		setPrevAcceleration(Vector2(0, 0));
 	}
 
+	GameObject& GameObject::operator=(GameObject const& other)
+	{
+		if (this == &other) return (*this);
+
+		setPos(other.getPos());
+		setVelocity(other.getVelocity());
+		setAcceleration(other.getAcceleration());
+		setPrevVelocity(other.getPrevVelocity());
+		setPrevAcceleration(other.getPrevAcceleration());
+
+		return (*this);
+	}
+
 	void GameObject::firstOrder()
 	{
 		setPos(getPos() + (velocity * static_cast<double>(1.0 / schooled::FRAMERATE)));

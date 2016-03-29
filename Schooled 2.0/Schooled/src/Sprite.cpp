@@ -39,6 +39,18 @@ namespace Sprite
 		this->setImage(spriteImage);
 	}
 
+	Sprite& Sprite::operator=(Sprite const& other)
+	{
+		if (this == &other) return (*this);
+		GameObject::operator=(other);
+		angle = other.angle;
+		scaleX = other.scaleX;
+		scaleY = other.scaleY;
+		image = other.image;
+
+		return (*this);
+	}
+
 	void Sprite::move(float x, float y, bool centered)
 	{
 		setPos(Vector::Vector2(x, y));

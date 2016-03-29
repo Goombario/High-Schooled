@@ -138,6 +138,7 @@ namespace BattleState
 				bool success = self->getCurrentPlayer()->attack(*self->getOtherPlayer());
 				if (success)
 				{
+					self->getCurrentPlayer()->clearAttackMenu();
 					self->popState();
 					GameEngine::getMapper()->PopContext();
 				}
@@ -146,6 +147,7 @@ namespace BattleState
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_BACK) != inputs.Actions.end())
 		{
+			self->getCurrentPlayer()->clearAttackMenu();
 			self->popState();
 			GameEngine::getMapper()->PopContext();
 		}
