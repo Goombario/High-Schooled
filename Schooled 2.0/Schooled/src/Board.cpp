@@ -8,6 +8,34 @@
 
 namespace Board
 {
+	void Tile::changeState(TileState s, Side side)
+	{
+		switch (s)
+		{
+		case TileState::IDLE:
+			tileSprite->changeAnimation(Animation::AnimationEnum::IDLE);
+			break;
+
+		case TileState::SELECTED:
+			if (side == Side::LEFT)
+			{
+				tileSprite->changeAnimation(Animation::AnimationEnum::RED_PULSE);
+			}
+			else
+			{
+				tileSprite->changeAnimation(Animation::AnimationEnum::BLUE_PULSE);
+			}
+			break;
+
+		case TileState::BLOCKED:
+			tileSprite->changeAnimation(Animation::AnimationEnum::BLOCKED);
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	Board::Board()
 	{
 		playerLocation = { 0, 0 };
@@ -42,7 +70,7 @@ namespace Board
 
 		// Get tile data
 		Animation::AnimationData tileData(schooled::getResourcePath("img/Image_Data") + "TileGlows.xml");
-		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 3600, 130);
+		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 150, 65);
 		Sprite::AnimatedSprite tileSprite(tileImage, tileData);
 
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
@@ -58,8 +86,13 @@ namespace Board
 				// Create the tile sprite
 				boardTiles[h][wPos].tileSprite = new Sprite::AnimatedSprite(tileSprite);
 				boardTiles[h][wPos].tileSprite->setPos(boardTiles[h][wPos].pos);
+
+				// Set the tile state
+				boardTiles[h][wPos].state = TileState::IDLE;
 			}
 		}
+
+		boardTiles[1][1].changeState(TileState::BLOCKED, getSide());
 	}
 
 	Board::~Board()
@@ -189,7 +222,8 @@ namespace Board
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				//tokenSprite->drawAt(boardTiles[h][w].pos);
+				boardTiles[h][w].tileSprite->draw();
+
 				if (boardTiles[h][w].hasToken)
 				{
 					tokenSprite->drawAt(boardTiles[h][w].pos);
@@ -200,7 +234,32 @@ namespace Board
 
 	void Board::update()
 	{
-		
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		{
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			{
+				boardTiles[h][w].tileSprite->update();
+			}
+		}
+	}
+
+	void Board::clearTiles()
+	{
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		{
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			{
+				boardTiles[h][w].changeState(TileState::IDLE, getSide());
+			}
+		}
+	}
+
+	void Board::setSelectedTiles(std::vector<COORD> const& pattern)
+	{
+		for (auto it = pattern.begin(); it != pattern.end(); it++)
+		{
+			boardTiles[(*it).Y][(*it).X].changeState(TileState::SELECTED, getSide());
+		}
 	}
 }
 

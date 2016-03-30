@@ -179,9 +179,14 @@ namespace Player
 		void draw() const;
 
 		// Modify the attack menu
-		void initAttackMenu();
-		void moveSelectedAttack(int);
-		void clearAttackMenu();
+		void initAttackMenu(Player&);
+		void moveSelectedAttack(int, Player&);
+		void clearAttackMenu(Player&);
+		void clearBoardTiles() { boardPtr->clearTiles(); }
+
+		// Find out the attack pattern based on the current player position
+		std::vector<COORD> const getAttackPattern(Attack const&) const;
+		std::vector<COORD> const getAttackPattern(unsigned int) const;
 
 		// Get the token sprite
 		Sprite::Sprite& getTokenSprite() { return *token; }
