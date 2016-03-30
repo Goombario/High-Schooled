@@ -30,7 +30,7 @@ int GameEngine::Init()
 	}
 
 	// Initialize Fizzle
-	FzlInit("Schooled 2.0", static_cast<int>(schooled::SCREEN_WIDTH_PX * schooled::SCALE),
+	FzlInit("High Schooled", static_cast<int>(schooled::SCREEN_WIDTH_PX * schooled::SCALE),
 		static_cast<int>(schooled::SCREEN_HEIGHT_PX * schooled::SCALE), 0);
 	FzlSetFrameRate(schooled::FRAMERATE);
 
