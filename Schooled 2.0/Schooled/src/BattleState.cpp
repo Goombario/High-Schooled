@@ -133,7 +133,7 @@ namespace BattleState
 			if (self->getCurrentState() != State::ATTACK_CHOOSE)
 			{
 				self->pushState(State::ATTACK_CHOOSE);
-				self->getCurrentPlayer()->initAttackMenu();
+				self->getCurrentPlayer()->initAttackMenu(*self->getOtherPlayer());
 				GameEngine::getMapper()->PushContext("attackMenu");
 			}
 			else
@@ -141,7 +141,7 @@ namespace BattleState
 				bool success = self->getCurrentPlayer()->attack(*self->getOtherPlayer());
 				if (success)
 				{
-					self->getCurrentPlayer()->clearAttackMenu();
+					self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
 					self->popState();
 					GameEngine::getMapper()->PopContext();
 				}
@@ -150,19 +150,19 @@ namespace BattleState
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_BACK) != inputs.Actions.end())
 		{
-			self->getCurrentPlayer()->clearAttackMenu();
+			self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
 			self->popState();
 			GameEngine::getMapper()->PopContext();
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_UP) != inputs.Actions.end())
 		{
-			self->getCurrentPlayer()->moveSelectedAttack(1);
+			self->getCurrentPlayer()->moveSelectedAttack(1, *self->getOtherPlayer());
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_DOWN) != inputs.Actions.end())
 		{
-			self->getCurrentPlayer()->moveSelectedAttack(-1);
+			self->getCurrentPlayer()->moveSelectedAttack(-1, *self->getOtherPlayer());
 		}
 
 		// If choosing menu options, don't allow anything else
@@ -258,6 +258,8 @@ namespace BattleState
 			{
 				popState();
 				pushState(State::MOVE);
+				getCurrentPlayer()->clearBoardTiles();
+				getOtherPlayer()->clearBoardTiles();
 			}
 		}
 

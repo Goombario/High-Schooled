@@ -9,6 +9,8 @@
 #include "Projectile.h"
 #include "Vector2.h"
 
+#include <stdexcept>
+
 using namespace tinyxml2;
 
 // Icon class
@@ -547,68 +549,37 @@ namespace Player
 	bool Player::attack(Player& enemy)
 	{
 		Attack *currentAttack = &attacks.at(window.getActiveIconIndex());
-
+		
 		// Don't attack if the cooldown is still in effect
 		if (currentAttack->currentCooldown != 0)
 		{
 			return false;
 		}
 
-		// Check each space if it is being attacked,
-		// And change the player and board accordingly
-		std::cout << "Attack: " << std::endl;
-		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		std::vector<COORD> attackPositions = getAttackPattern(*currentAttack);
+
+		for (auto it = attackPositions.begin(); it != attackPositions.end(); it++)
 		{
-			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			// Fire the projectile
+			for (auto et = currentAttack->projectiles.begin(); et != currentAttack->projectiles.end(); et++)
 			{
-				std::cout << currentAttack->range[h][w];
-				if (currentAttack->range[h][w])
-				{
-					COORD pos;
-					// If the attack changes with player position,
-					if (!currentAttack->isStatic)
-					{
-						pos = boardPtr->getPlayerlocation()
-							+ COORD{ h, w };
-
-						// If the modified value is greater 
-						// than the size of the board, wrap
-						if (pos.X >= Stage::BOARD_WIDTH)
-						{
-							pos.X -= Stage::BOARD_WIDTH;
-						}
-
-						if (pos.Y >= Stage::BOARD_HEIGHT)
-						{
-							pos.Y -= Stage::BOARD_HEIGHT;
-						}
-					}
-					else
-					{	// The attack pattern doesn't change
-						pos = COORD{ h, w };
-					}
-
-					// Fire the projectile
-					for (auto it = currentAttack->projectiles.begin(); it != currentAttack->projectiles.end(); it++)
-					{
-						Projectile::Projectile tempProj((*it));
-						tempProj.init((*this), enemy, enemy.getBoard()->getTilePos(pos));
-						activeProjectiles.push_back(tempProj);
-					}
-
-					// If the player is at that position, deal damage
-					// Else, place a token.
-					if (enemy.boardPtr->getPlayerlocation() == pos)
-					{
-
-						enemy.changeHealth(-currentAttack->damage);
-					}
-					else
-					{	
-						enemy.boardPtr->placeToken(pos);
-					}
-				}
+				Projectile::Projectile tempProj((*et));
+				tempProj.init((*this), enemy, enemy.getBoard()->getTilePos(*it));
+				activeProjectiles.push_back(tempProj);
 			}
+
+			// If the player is at that position, deal damage
+			// Else, place a token.
+			if (enemy.boardPtr->getPlayerlocation() == (*it))
+			{
+
+				enemy.changeHealth(-currentAttack->damage);
+			}
+			else
+			{	
+				enemy.boardPtr->placeToken((*it));
+			}
+			
 			std::cout << std::endl;
 		}
 
@@ -827,20 +798,76 @@ namespace Player
 		stats.lockedAP = 0;
 	}
 
-	void Player::moveSelectedAttack(int i)
+	void Player::moveSelectedAttack(int i, Player& enemy)
 	{
 		window.moveActiveIconIndex(i);
+		enemy.boardPtr->clearTiles();
+		enemy.boardPtr->setSelectedTiles(getAttackPattern(window.getActiveIconIndex()));
 	}
 
-	void Player::initAttackMenu()
+	void Player::initAttackMenu(Player& enemy)
 	{
 		window.clearActiveIcon();
 		window.setActiveIconIndex(0);
+		enemy.boardPtr->clearTiles();
+		enemy.boardPtr->setSelectedTiles(getAttackPattern(window.getActiveIconIndex()));
 	}
 
-	void Player::clearAttackMenu()
+	void Player::clearAttackMenu(Player& enemy)
 	{
 		window.reset();
+		enemy.boardPtr->clearTiles();
+	}
+
+	std::vector<COORD> const Player::getAttackPattern(Attack const& currentAttack) const
+	{
+		std::vector<COORD> points;
+
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		{
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			{
+				//std::cout << currentAttack.range[h][w];
+				if (currentAttack.range[h][w])
+				{
+					COORD pos;
+					// If the attack changes with player position,
+					if (!currentAttack.isStatic)
+					{
+						pos = boardPtr->getPlayerlocation()
+							+ COORD{ h, w };
+
+						// If the modified value is greater 
+						// than the size of the board, wrap
+						if (pos.X >= Stage::BOARD_WIDTH)
+						{
+							pos.X -= Stage::BOARD_WIDTH;
+						}
+
+						if (pos.Y >= Stage::BOARD_HEIGHT)
+						{
+							pos.Y -= Stage::BOARD_HEIGHT;
+						}
+					}
+					else
+					{	// The attack pattern doesn't change
+						pos = COORD{ h, w };
+					}
+
+					points.push_back(pos);
+				}
+			}
+		}
+		return points;
+	}
+
+	std::vector<COORD> const Player::getAttackPattern(unsigned int index) const
+	{
+		if (index >= attacks.size())
+		{
+			throw std::exception("Error: Out of bounds");
+		}
+		return getAttackPattern(attacks.at(index));
 	}
 
 	void Player::update()

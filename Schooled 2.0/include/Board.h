@@ -30,6 +30,7 @@ namespace Board
 	{
 		IDLE,
 		SELECTED,
+		BLOCKED,
 	};
 
 	struct Tile
@@ -39,6 +40,10 @@ namespace Board
 		bool isPath;
 		Vector::Vector2 pos;
 		Sprite::AnimatedSprite *tileSprite;
+		TileState state;
+
+		// Change the state of the tile
+		void changeState(TileState, Side);
 	};
 
 	struct WaveMap
@@ -103,8 +108,11 @@ namespace Board
 		inline COORD getPlayerlocation() const { return playerLocation; }
 		inline Side getSide() const { return side; }
 
-		// Set the tile state
-		void setTileState(Vector::Vector2 const&, TileState);
+		// Modify the tile states
+		// Set all tile states to idle
+		void clearTiles();
+		// Set the tiles at the given coordinates to selected
+		void setSelectedTiles(std::vector<COORD> const&);
 
 		// Get the tile vector
 		Vector::Vector2 getTilePos(COORD location) const { return boardTiles[location.Y][location.X].pos; }
