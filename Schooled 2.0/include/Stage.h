@@ -25,6 +25,7 @@ namespace tinyxml2
 
 namespace Stage
 {
+	// HUD class holds HUD elements
 	class HUD : public GameObject::GameObject
 	{
 	public:
@@ -52,7 +53,6 @@ namespace Stage
 	class Stage
 	{
 	public:
-		// FUTURE: Load data from file for images
 		Stage(const char* stageName, 
 			Player::Player const*, Player::Player const*);
 		~Stage();

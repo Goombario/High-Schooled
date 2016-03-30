@@ -123,7 +123,10 @@ namespace BattleState
 		}
 
 		// Do not let any commands through if attacking/moving
-		if (self->getCurrentState() == State::ACTING) return;
+		if (self->getCurrentState() == State::ACTING)
+		{
+			return;
+		}
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_SELECT) != inputs.Actions.end())
 		{
