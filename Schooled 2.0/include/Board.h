@@ -26,6 +26,12 @@ namespace Board
 	int const ROW_HEIGHT = 75;
 	int const ROW_OFFSET = 75;
 
+	enum class TileState
+	{
+		IDLE,
+		SELECTED,
+	};
+
 	struct Tile
 	{
 		bool hasToken;
@@ -96,6 +102,9 @@ namespace Board
 		inline void setPlayerFirstPos(COORD newLocation) { firstPos = newLocation; }
 		inline COORD getPlayerlocation() const { return playerLocation; }
 		inline Side getSide() const { return side; }
+
+		// Set the tile state
+		void setTileState(Vector::Vector2 const&, TileState);
 
 		// Get the tile vector
 		Vector::Vector2 getTilePos(COORD location) const { return boardTiles[location.Y][location.X].pos; }

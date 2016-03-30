@@ -206,7 +206,8 @@ namespace Sprite
 		//time += FzlGetDeltaTime();	//Broken currently
 		time += (1.0 / schooled::FRAMERATE);	// Locked framerate
 
-		
+		// If the animation list is empty, set it to idle
+		if (animationList.empty()) pushAnimation(Animation::AnimationEnum::IDLE);
 
 		// Checks if the time elapsed since the last frame drawn is large enough to advance
 		// To the next frame
@@ -227,7 +228,7 @@ namespace Sprite
 				else
 				{
 					animationList.pop_back();
-					if (animationList.size() == 0)
+					if (animationList.empty())
 					{
 						pushAnimation(Animation::AnimationEnum::IDLE);
 					}

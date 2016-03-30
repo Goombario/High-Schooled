@@ -201,6 +201,7 @@ namespace Player
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		std::vector<Projectile::Projectile> activeProjectiles;
+		std::vector<::BattleObject::Path> paths;
 		SpecialAbility ability;
 		AttackWindow window;
 		Sprite::Sprite *token;
@@ -208,6 +209,7 @@ namespace Player
 		Sprite::AnimatedSprite *arrowSprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
 	};
+	
 }
 
 #endif

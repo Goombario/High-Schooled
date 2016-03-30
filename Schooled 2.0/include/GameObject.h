@@ -32,7 +32,7 @@ namespace GameObject
 
 		// Virtual functions
 		virtual void update() {}
-		virtual void draw() {}
+		virtual void draw() const {}
 
 	protected:
 		double mass;

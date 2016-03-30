@@ -2,6 +2,12 @@
 #define BATTLE_OBJECT_H
 
 #include "GameObject.h"
+#include <vector>
+
+namespace Vector
+{
+	class Vector2;
+}
 
 namespace BattleObject
 {
@@ -24,7 +30,24 @@ namespace BattleObject
 		void setActing(bool a) { acting = a; }
 
 	private:
-		bool acting;
+		bool acting = false;
+	};
+
+	// Class that applies a vector over a set time
+	class Path : public GameObject::GameObject
+	{
+	public:
+		Path();
+		Path(GameObject const& target, Vector::Vector2 const& dest, double timeToTarget);
+
+		// Update the variables every frame
+		void update(GameObject& target);
+
+		// if the path is still active
+		bool isActive() const;
+
+	private:
+		double timeToTarget;
 	};
 }
 

@@ -494,7 +494,9 @@ namespace Player
 		CheckXMLResult(specialData->FirstChildElement("Damage")
 			->QueryIntText(&ability.damage));
 
-		moveToSide();
+		setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
+			Vector::Vector2(0, sprite->getFrameHeight() / 2.0));
+		//moveToSide();
 	}
 
 	Player::Player(Player const& source)
@@ -692,12 +694,15 @@ namespace Player
 			return;
 		}
 
-		// Determine the value to change by
 		COORD change = { 0, 0 };
+		//Animation::AnimationEnum newAnim;
+
+		// Determine the value to change by
 		switch (d)
 		{
 		case Direction::UP:
 			change.Y--;
+			//newAnim = Animation::AnimationEnum::WALK_UP;
 			break;
 		case Direction::DOWN:
 			change.Y++;
@@ -725,7 +730,16 @@ namespace Player
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		boardPtr->removeToken(boardPtr->getPlayerlocation());
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
-		moveToSide();
+
+		// Add a path
+		paths.push_back(::BattleObject::Path(
+			(*this),
+			boardPtr->getTilePos(boardPtr->getPlayerlocation()) + 
+			Vector::Vector2(0, sprite->getFrameHeight() / 2.0),
+			0.5));
+		//sprite->pushAnimation(newAnim);
+
+		//moveToSide();
 		/*moveSpriteToSide(*sprite);
 		moveSpriteToSide(*glow);*/
 
@@ -771,7 +785,9 @@ namespace Player
 		}
 
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
-		moveToSide();
+		setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
+			Vector::Vector2(0, sprite->getFrameHeight() / 2.0));
+		//moveToSide();
 	}
 
 	void Player::moveToSide()
@@ -829,12 +845,29 @@ namespace Player
 
 	void Player::update()
 	{
+		(*this).firstOrder();
+
+		// Update current path
+		if (!paths.empty())
+		{
+			paths.back().update((*this));
+			if (!paths.back().isActive())
+			{
+				paths.pop_back();
+				sprite->popAnimation();
+			}
+
+		}
+
+		// Update the sprites
 		sprite->update();
 		arrowSprite->update();
 		window.update();
 
 		// Check if the player is still acting
-		setActing(sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE);
+		setActing(
+			sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE ||
+			!paths.empty());
 
 		// Update all active projectiles
 		std::vector<Projectile::Projectile> tempProj;
@@ -865,6 +898,10 @@ namespace Player
 				window.drawAtPlayer(getPos());
 				break;
 
+			case BattleState::State::POS_CHOOSE:
+				arrowSprite->drawAt(getPos() + Vector::Vector2(0, 40));
+				break;
+
 			default:
 				break;
 			}
@@ -874,9 +911,8 @@ namespace Player
 		switch (BattleState::BattleState::Instance()->getCurrentState())
 		{
 		case BattleState::State::POS_CHOOSE:
-			arrowSprite->drawAt(getPos() + Vector::Vector2(-10, 20));
+			//arrowSprite->drawAt(getPos() + Vector::Vector2(-20, 40));
 			break;
-		
 
 		default:
 			sprite->drawAt(getPos());

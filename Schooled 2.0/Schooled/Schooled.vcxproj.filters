@@ -120,6 +120,9 @@
     <ClCompile Include="MenuState.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="src\BattleObject.cpp">
+      <Filter>Battle\Battle Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\ShareState.h">
