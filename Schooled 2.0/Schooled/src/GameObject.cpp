@@ -84,4 +84,21 @@ namespace GameObject
 		acceleration.setX(force.getX() / mass);
 		acceleration.setY(force.getY() / mass);
 	}
+
+	GameObject GameObject::operator+(GameObject const& other) const
+	{
+		return (GameObject(*this) += other);
+	}
+
+	GameObject& GameObject::operator+=(GameObject const& other)
+	{
+		(*this).setPos(other.getPos());
+		(*this).setVelocity(other.getVelocity());
+		(*this).setAcceleration(other.getAcceleration());
+		(*this).setPrevVelocity(other.getPrevVelocity());
+		(*this).setPrevAcceleration(other.getPrevAcceleration());
+		(*this).mass = other.mass;
+
+		return (*this);
+	}
 }

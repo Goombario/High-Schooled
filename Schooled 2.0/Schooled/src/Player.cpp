@@ -544,6 +544,12 @@ namespace Player
 		delete sprite;
 		delete token;
 		delete arrowSprite;
+
+		//delete all remaining paths
+		for (auto it = paths.begin(); it != paths.end(); it++)
+		{
+			delete (*it);
+		}
 	}
 
 	bool Player::attack(Player& enemy)
@@ -709,16 +715,17 @@ namespace Player
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
 		// Add a path
-		paths.push_back(::BattleObject::Path(
+		::BattleObject::Path tempPath(
 			(*this),
 			boardPtr->getTilePos(boardPtr->getPlayerlocation()) + 
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0),
-			0.5));
-		sprite->pushAnimation(newAnim);
+			0.5);
 
-		//moveToSide();
-		/*moveSpriteToSide(*sprite);
-		moveSpriteToSide(*glow);*/
+		::BattleObject::Path *newPath = new ::BattleObject::ProjectilePath(
+			tempPath, 50);
+
+		paths.push_back(newPath);
+		sprite->pushAnimation(newAnim);
 
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 	}
@@ -878,18 +885,21 @@ namespace Player
 
 	void Player::update()
 	{
-		(*this).firstOrder();
-
 		// Update current path
 		if (!paths.empty())
 		{
-			paths.back().update((*this));
-			if (!paths.back().isActive())
+			paths.back()->update((*this));
+			if (!paths.back()->isActive())
 			{
+				delete paths.back();
 				paths.pop_back();
 				sprite->popAnimation();
 			}
 
+		}
+		else
+		{
+			(*this).firstOrder();
 		}
 
 		// Update the sprites
