@@ -206,9 +206,6 @@ namespace Sprite
 		//time += FzlGetDeltaTime();	//Broken currently
 		time += (1.0 / schooled::FRAMERATE);	// Locked framerate
 
-		// If the animation list is empty, set it to idle
-		if (animationList.empty()) pushAnimation(Animation::AnimationEnum::IDLE);
-
 		// Checks if the time elapsed since the last frame drawn is large enough to advance
 		// To the next frame
 		if (animationList.back().frames[col].duration <= time)
@@ -227,11 +224,7 @@ namespace Sprite
 				}
 				else
 				{
-					animationList.pop_back();
-					if (animationList.empty())
-					{
-						pushAnimation(Animation::AnimationEnum::IDLE);
-					}
+					popAnimation();
 				}
 			}
 		}
@@ -248,6 +241,16 @@ namespace Sprite
 	void AnimatedSprite::popAnimation()
 	{
 		animationList.pop_back();
+
+		// If the list is empty, add the idle animation
+		if (animationList.empty())
+		{
+			pushAnimation(Animation::AnimationEnum::IDLE);
+		}
+
+		time = 0.0;
+		row = (animationList.back().firstFrame / numCol);	// Gets the row based on the first frame position
+		col = (animationList.back().firstFrame % numCol);	// Gets the column based on the first frame postion	(Mostly for debug)
 	}
 
 	void AnimatedSprite::changeAnimation(Animation::AnimationEnum a)
