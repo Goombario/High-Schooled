@@ -30,6 +30,10 @@ namespace GameObject
 		void setVelocity(Vector2 const& newVel) { velocity = newVel; }
 		void setAcceleration(Vector2 const& newAcc) { acceleration = newAcc; }
 
+		// Operators
+		GameObject operator+(GameObject const&) const;
+		GameObject& operator+=(GameObject const&);
+
 		// Virtual functions
 		virtual void update() {}
 		virtual void draw() const {}

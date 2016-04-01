@@ -38,16 +38,34 @@ namespace BattleObject
 	{
 	public:
 		Path();
-		Path(GameObject const& target, Vector::Vector2 const& dest, double timeToTarget);
+		Path(GameObject const& target, Vector::Vector2 const& dest, double timeToTarget, double delay=0.0);
 
 		// Update the variables every frame
-		void update(GameObject& target);
+		virtual void update(GameObject& target);
 
 		// if the path is still active
 		bool isActive() const;
 
+		// update the path times.
+		void moveTime();
+
 	private:
 		double timeToTarget;
+		double delay;
+	};
+
+	class ProjectilePath : public Path
+	{
+	public:
+		ProjectilePath();
+		ProjectilePath(GameObject const& target, Vector::Vector2 const& dest, double timeToTarget,
+			double maxHeight, double delay = 0.0);
+		ProjectilePath(Path const& p, double maxHeight);
+
+		void update(GameObject& target);
+
+	private:
+		double gravity;
 	};
 }
 

@@ -206,7 +206,7 @@ namespace Player
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		std::vector<Projectile::Projectile> activeProjectiles;
-		std::vector<::BattleObject::Path> paths;
+		std::vector<::BattleObject::Path*> paths;
 		SpecialAbility ability;
 		AttackWindow window;
 		Sprite::Sprite *token;
