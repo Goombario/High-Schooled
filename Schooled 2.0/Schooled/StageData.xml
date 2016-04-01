@@ -3,8 +3,8 @@
   <HUD>
     <HUDLeft name="HUD_Left.png" frameWidth="192" frameHeight="64"/>
     <HUDRight name="HUD_Right.png" frameWidth="192" frameHeight="64"/>
-    <HPBar name="HPbar.png" frameWidth="20" frameHeight="10"/>
-    <SPBar name="SPbar.png" frameWidth="14" frameHeight="10"/>
+    <HPBar name="HPBar.png" frameWidth="20" frameHeight="10"/>
+    <SPBar name="SPBar.png" frameWidth="14" frameHeight="10"/>
   </HUD>
   
   <Stage name="Default">

@@ -41,7 +41,7 @@ namespace BattleState
 		board1 = new Board::Board(Side::LEFT);
 		board2 = new Board::Board(Side::RIGHT);
 		player1 = new Player::Player("Nate", *board1);
-		player2 = new Player::Player("Gym Teacher", *board2);
+		player2 = new Player::Player("GlowyNate", *board2);
 		stage = new Stage::Stage("Default", player1, player2);
 
 		board1->setTokenSprite(player2->getTokenSprite());

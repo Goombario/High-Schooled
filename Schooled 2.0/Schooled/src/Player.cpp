@@ -666,23 +666,29 @@ namespace Player
 		}
 
 		COORD change = { 0, 0 };
-		//Animation::AnimationEnum newAnim;
+		Animation::AnimationEnum newAnim;
 
 		// Determine the value to change by
 		switch (d)
 		{
 		case Direction::UP:
 			change.Y--;
-			//newAnim = Animation::AnimationEnum::WALK_UP;
+			newAnim = Animation::AnimationEnum::UP;
 			break;
 		case Direction::DOWN:
 			change.Y++;
+			newAnim = Animation::AnimationEnum::DOWN;
 			break;
 		case Direction::FORWARD:
 			change.X++;
+			newAnim = Animation::AnimationEnum::FORWARDS;
 			break;
 		case Direction::BACKWARD:
 			change.X--;
+			newAnim = Animation::AnimationEnum::BACKWARDS;
+			/*newAnim = (getBoard()->getSide() == Side::LEFT) ?
+				Animation::AnimationEnum:: WALK_LEFT:
+				Animation::AnimationEnum::WALK_RIGHT;*/
 			break;
 		}
 
@@ -708,7 +714,7 @@ namespace Player
 			boardPtr->getTilePos(boardPtr->getPlayerlocation()) + 
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0),
 			0.5));
-		//sprite->pushAnimation(newAnim);
+		sprite->pushAnimation(newAnim);
 
 		//moveToSide();
 		/*moveSpriteToSide(*sprite);
