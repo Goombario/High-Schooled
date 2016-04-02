@@ -96,6 +96,7 @@
     <ClCompile Include="src\input\pch.cpp" />
     <ClCompile Include="src\input\RangeConverter.cpp" />
     <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\Path.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Schooled.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\include\Input\RangeConverter.h" />
     <ClInclude Include="..\include\Input\RawInputConstants.h" />
     <ClInclude Include="..\include\Particle.h" />
+    <ClInclude Include="..\include\Path.h" />
     <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Projectile.h" />
     <ClInclude Include="..\include\Schooled.h" />
@@ -165,6 +167,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="..\res\img\Image_Data\TileGlows.xml" />
+    <Xml Include="..\res\img\Image_Data\Token.xml" />
     <Xml Include="Contexts.xml" />
     <Xml Include="IconData.xml">
       <SubType>Designer</SubType>

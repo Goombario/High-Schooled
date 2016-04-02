@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AnimationList numCol="1">
+  <Animation name="TOKEN_EMPTY" loop="true">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0</Frame>
+  </Animation>
+  
+  <Animation name="IDLE" loop="true">
+    <FirstFrame>1</FirstFrame>
+    <Frame>0</Frame>
+  </Animation>
+
+  <Animation name="TOKEN_GHOST" loop="true">
+    <FirstFrame>2</FirstFrame>
+    <Frame>0</Frame>
+  </Animation>
+</AnimationList>

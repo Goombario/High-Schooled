@@ -4,6 +4,7 @@
 #include "BattleConstants.h"
 #include "BattleObject.h"
 #include "Schooled.h"
+#include <vector>
 #include <Windows.h>
 
 namespace Player
@@ -40,6 +41,7 @@ namespace Board
 		bool isPath;
 		Vector::Vector2 pos;
 		Sprite::AnimatedSprite *tileSprite;
+		Sprite::AnimatedSprite *tokenSprite;
 		TileState state;
 
 		// Change the state of the tile
@@ -79,9 +81,6 @@ namespace Board
 		// Subtract tokens from the board
 		inline Board& operator-=(Board const&);
 		inline Board const operator-(Board const&) const;
-
-		// Set the token sprite
-		inline void setTokenSprite(Sprite::Sprite &spritePtr) { tokenSprite = &spritePtr; }
 
 		// Takes players current and first position and draws the path of least resistance.
 		// Returns the distance
@@ -146,7 +145,6 @@ namespace Board
 		WaveMap waveMap;
 		COORD playerLocation;
 		COORD firstPos;	// The position at beginning of turn
-		Sprite::Sprite *tokenSprite;
 	};
 }
 

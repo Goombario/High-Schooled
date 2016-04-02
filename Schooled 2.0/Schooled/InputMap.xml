@@ -48,22 +48,22 @@
     <!-- All Actions -->
     <Action>
       <Input>BOARD_UP</Input>
-      <Raw>FzlKeyUpArrow</Raw>
+      <Raw>FzlKeyW</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_DOWN</Input>
-      <Raw>FzlKeyDownArrow</Raw>
+      <Raw>FzlKeyS</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_FORWARD</Input>
-      <Raw>FzlKeyRightArrow</Raw>
+      <Raw>FzlKeyD</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_BACKWARD</Input>
-      <Raw>FzlKeyLeftArrow</Raw>
+      <Raw>FzlKeyA</Raw>
     </Action>
 
     <Action>
@@ -76,22 +76,22 @@
     <!-- All Actions -->
     <Action>
       <Input>BOARD_UP</Input>
-      <Raw>FzlKeyUpArrow</Raw>
+      <Raw>FzlKeyW</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_DOWN</Input>
-      <Raw>FzlKeyDownArrow</Raw>
+      <Raw>FzlKeyS</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_FORWARD</Input>
-      <Raw>FzlKeyRightArrow</Raw>
+      <Raw>FzlKeyD</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_BACKWARD</Input>
-      <Raw>FzlKeyLeftArrow</Raw>
+      <Raw>FzlKeyA</Raw>
     </Action>
     
     <Action>
@@ -104,22 +104,22 @@
     <!-- All Actions -->
     <Action>
       <Input>BOARD_UP</Input>
-      <Raw>FzlKeyUpArrow</Raw>
+      <Raw>FzlKeyW</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_DOWN</Input>
-      <Raw>FzlKeyDownArrow</Raw>
+      <Raw>FzlKeyS</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_FORWARD</Input>
-      <Raw>FzlKeyLeftArrow</Raw>
+      <Raw>FzlKeyA</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_BACKWARD</Input>
-      <Raw>FzlKeyRightArrow</Raw>
+      <Raw>FzlKeyD</Raw>
     </Action>
 
     <Action>
@@ -132,22 +132,22 @@
     <!-- All Actions -->
     <Action>
       <Input>BOARD_UP</Input>
-      <Raw>FzlKeyUpArrow</Raw>
+      <Raw>FzlKeyW</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_DOWN</Input>
-      <Raw>FzlKeyDownArrow</Raw>
+      <Raw>FzlKeyS</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_FORWARD</Input>
-      <Raw>FzlKeyLeftArrow</Raw>
+      <Raw>FzlKeyA</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_BACKWARD</Input>
-      <Raw>FzlKeyRightArrow</Raw>
+      <Raw>FzlKeyD</Raw>
     </Action>
 
     <Action>
@@ -159,12 +159,12 @@
   <Context name="attackMenu">
     <Action>
       <Input>MENU_UP</Input>
-      <Raw>FzlKeyRightArrow</Raw>
+      <Raw>FzlKeyD</Raw>
     </Action>
 
     <Action>
       <Input>MENU_DOWN</Input>
-      <Raw>FzlKeyLeftArrow</Raw>
+      <Raw>FzlKeyA</Raw>
     </Action>
 
     <Action>

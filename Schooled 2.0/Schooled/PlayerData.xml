@@ -21,7 +21,6 @@ target - will attack the targeted square, and dissapear afterwards.
     <!--Sprite Data-->
     <Sprite name="GymTeacher.png" frameWidth="160" frameHeight="160"/>
     <Animation name="GymTeacher.xml"/>
-    <Token name="Anchor_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -87,7 +86,6 @@ target - will attack the targeted square, and dissapear afterwards.
     <!--Sprite Data-->
     <Sprite name="Nate.png" frameWidth="226" frameHeight="160"/>
     <Animation name="Nate.xml"/>
-    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -149,7 +147,6 @@ target - will attack the targeted square, and dissapear afterwards.
     <RightSprite name="GlowyNate.png" frameWidth="225" frameHeight="160"/>-->
     <Sprite name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
     <Animation name="GlowyNate.xml"/>
-    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -210,7 +207,6 @@ target - will attack the targeted square, and dissapear afterwards.
     <!--Sprite Data-->
     <Sprite name="Nega.png" frameWidth="225" frameHeight="160"/>
     <Animation name="Nega.xml"/>
-    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -270,7 +266,6 @@ target - will attack the targeted square, and dissapear afterwards.
     <!--Sprite Data-->
     <Sprite name="GlowyNega.png" frameWidth="225" frameHeight="160"/>
     <Animation name="GlowyNega.xml"/>
-    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -330,7 +325,6 @@ target - will attack the targeted square, and dissapear afterwards.
     <!--Sprite Data-->
     <Sprite name="" frameWidth="" frameHeight=""/>
     <Animation name="" numCol=""/>
-    <Token name="" frameWidth="" frameHeight=""/>
 
     <!--Statistics-->
     <Stats>

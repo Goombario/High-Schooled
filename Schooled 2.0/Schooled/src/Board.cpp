@@ -14,6 +14,14 @@ namespace Board
 		{
 		case TileState::IDLE:
 			tileSprite->changeAnimation(Animation::AnimationEnum::IDLE);
+			if (hasToken)
+			{
+				tokenSprite->changeAnimation(Animation::AnimationEnum::IDLE);
+			}
+			else
+			{
+				tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+			}
 			break;
 
 		case TileState::SELECTED:
@@ -25,6 +33,7 @@ namespace Board
 			{
 				tileSprite->changeAnimation(Animation::AnimationEnum::BLUE_PULSE);
 			}
+			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_GHOST);
 			break;
 
 		case TileState::BLOCKED:
@@ -50,11 +59,11 @@ namespace Board
 				boardTiles[h][w].isPath = false;
 				boardTiles[h][w].pos = Vector::Vector2();
 				boardTiles[h][w].tileSprite = nullptr;
+				boardTiles[h][w].tokenSprite = nullptr;
 			}
 		}
 
 		clearLeePath();
-		tokenSprite = nullptr;
 		side = Side::LEFT;
 		setActing(false);
 	}
@@ -69,9 +78,14 @@ namespace Board
 		setPos(Vector::Vector2(initX + 200, OFFSET_Y - 80));
 
 		// Get tile data
-		Animation::AnimationData tileData(schooled::getResourcePath("img/Image_Data") + "TileGlows.xml");
+		// Set the tile sprite
 		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 150, 65);
+		Animation::AnimationData tileData(schooled::getResourcePath("img/Image_Data") + "TileGlows.xml");
 		Sprite::AnimatedSprite tileSprite(tileImage, tileData);
+
+		Image::Image tokenImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "Token.png", 80, 80);
+		Animation::AnimationData tokenData(schooled::getResourcePath("img/Image_Data") + "Token.xml");
+		Sprite::AnimatedSprite tokenSprite(tokenImage, tokenData);
 
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
@@ -87,8 +101,12 @@ namespace Board
 				boardTiles[h][wPos].tileSprite = new Sprite::AnimatedSprite(tileSprite);
 				boardTiles[h][wPos].tileSprite->setPos(boardTiles[h][wPos].pos);
 
+				// Create the token sprite
+				boardTiles[h][wPos].tokenSprite = new Sprite::AnimatedSprite(tokenSprite);
+				boardTiles[h][wPos].tokenSprite->setPos(boardTiles[h][wPos].pos);
+
 				// Set the tile state
-				boardTiles[h][wPos].state = TileState::IDLE;
+				boardTiles[h][wPos].changeState(TileState::IDLE, getSide());
 			}
 		}
 
@@ -102,6 +120,7 @@ namespace Board
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
 				delete boardTiles[h][w].tileSprite;
+				delete boardTiles[h][w].tokenSprite;
 			}
 		}
 	}
@@ -223,11 +242,8 @@ namespace Board
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
 				boardTiles[h][w].tileSprite->draw();
+				boardTiles[h][w].tokenSprite->draw();
 
-				if (boardTiles[h][w].hasToken)
-				{
-					tokenSprite->drawAt(boardTiles[h][w].pos);
-				}
 			}
 		}
 	}
@@ -259,6 +275,10 @@ namespace Board
 		for (auto it = pattern.begin(); it != pattern.end(); it++)
 		{
 			boardTiles[(*it).Y][(*it).X].changeState(TileState::SELECTED, getSide());
+			if (getPlayerlocation() == COORD{ (*it).Y, (*it).X })
+			{
+				boardTiles[(*it).Y][(*it).X].tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+			}
 		}
 	}
 }

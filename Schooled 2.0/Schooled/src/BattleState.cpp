@@ -44,9 +44,6 @@ namespace BattleState
 		player2 = new Player::Player("GlowyNate", *board2);
 		stage = new Stage::Stage("Default", player1, player2);
 
-		board1->setTokenSprite(player2->getTokenSprite());
-		board2->setTokenSprite(player1->getTokenSprite());
-
 		// Set the list of battle objects
 		battleObjects.push_back(board1);
 		battleObjects.push_back(board2);
