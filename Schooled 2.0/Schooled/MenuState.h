@@ -52,6 +52,10 @@ namespace MenuState
 		std::map<FzlKey, bool> previouslyPressed;
 
 		bool isEnd;
+
+		// Menu objects
+		//Board::Board* board2;
+		Menu::GenericMenu* menu;
 	};
 }
 

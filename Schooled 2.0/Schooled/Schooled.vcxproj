@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CharacterMenu.cpp" />
+    <ClCompile Include="GenericMenu.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="..\include\tinyxml2.h" />
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="CharacterMenu.h" />
+    <ClInclude Include="GenericMenu.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="StageMenu.h" />

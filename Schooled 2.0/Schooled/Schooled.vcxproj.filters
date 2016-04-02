@@ -49,7 +49,7 @@
     <Filter Include="Menu">
       <UniqueIdentifier>{12aa97c2-00cf-41b0-8045-3011d08c45ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Menu\Menu Classes">
+    <Filter Include="Menu\Menus">
       <UniqueIdentifier>{5d434123-d239-4ea5-826b-75d016d3d498}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -121,13 +121,16 @@
       <Filter>Menu</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
-      <Filter>Menu\Menu Classes</Filter>
+      <Filter>Menu\Menus</Filter>
     </ClCompile>
     <ClCompile Include="CharacterMenu.cpp">
-      <Filter>Menu\Menu Classes</Filter>
+      <Filter>Menu\Menus</Filter>
     </ClCompile>
     <ClCompile Include="StageMenu.cpp">
-      <Filter>Menu\Menu Classes</Filter>
+      <Filter>Menu\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericMenu.cpp">
+      <Filter>Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,13 +222,16 @@
       <Filter>Menu</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
-      <Filter>Menu\Menu Classes</Filter>
+      <Filter>Menu\Menus</Filter>
     </ClInclude>
     <ClInclude Include="CharacterMenu.h">
-      <Filter>Menu\Menu Classes</Filter>
+      <Filter>Menu\Menus</Filter>
     </ClInclude>
     <ClInclude Include="StageMenu.h">
-      <Filter>Menu\Menu Classes</Filter>
+      <Filter>Menu\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GenericMenu.h">
+      <Filter>Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

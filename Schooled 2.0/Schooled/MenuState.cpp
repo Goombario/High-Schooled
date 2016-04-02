@@ -3,6 +3,7 @@
 #include "ShareState.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
+#include "GenericMenu.h"
 
 #include "Sprite.h"
 
@@ -28,6 +29,8 @@ namespace MenuState
 
 		// Hold pressed keys
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
+
+		menu = new Menu::GenericMenu("MainMenu");
 	}
 
 	void MenuState::Cleanup()
@@ -124,7 +127,7 @@ namespace MenuState
 
 	void MenuState::Draw(GameEngine* game)
 	{
-
+		
 		// Fizzle swaps buffer automatically at end
 	}
 }
