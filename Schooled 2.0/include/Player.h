@@ -28,6 +28,11 @@ namespace Projectile
 	class Projectile;
 }
 
+namespace Path
+{
+	class Path;
+}
+
 namespace Player
 {
 	// Helper class that holds icon data
@@ -188,9 +193,6 @@ namespace Player
 		std::vector<COORD> const getAttackPattern(Attack const&) const;
 		std::vector<COORD> const getAttackPattern(unsigned int) const;
 
-		// Get the token sprite
-		Sprite::Sprite& getTokenSprite() { return *token; }
-
 		// Get the board
 		Board::Board const* getBoard() const { return boardPtr; }
 
@@ -206,10 +208,9 @@ namespace Player
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		std::vector<Projectile::Projectile> activeProjectiles;
-		std::vector<::BattleObject::Path*> paths;
+		std::vector<Path::Path*> paths;
 		SpecialAbility ability;
 		AttackWindow window;
-		Sprite::Sprite *token;
 		Sprite::AnimatedSprite *sprite;
 		Sprite::AnimatedSprite *arrowSprite;
 		Board::Board *boardPtr;	// Pointer to the player's board

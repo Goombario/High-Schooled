@@ -8,6 +8,7 @@
 #include "BattleState.h"
 #include "Projectile.h"
 #include "Vector2.h"
+#include "Path.h"
 
 #include <stdexcept>
 
@@ -348,7 +349,6 @@ namespace Player
 		setActing(false);
 
 		sprite = new Sprite::AnimatedSprite();
-		token = new Sprite::Sprite();
 		boardPtr = nullptr;
 	}
 
@@ -399,10 +399,6 @@ namespace Player
 		spriteData = playerData->FirstChildElement("Sprite");
 		if (CheckIfNull(spriteData, "Player: Sprite")) exit(-2);
 		(*this).sprite = new Sprite::AnimatedSprite(spriteData, spriteData->NextSiblingElement("Animation"));
-
-		// Loading the token data
-		if (CheckIfNull(playerData->FirstChildElement("Token"), "Player: Token")) exit(-2);
-		token = new Sprite::Sprite(playerData->FirstChildElement("Token"));
 
 		// Load statistics
 		XMLElement *statsData = playerData->FirstChildElement("Stats");
@@ -502,8 +498,7 @@ namespace Player
 	}
 
 	Player::Player(Player const& source)
-		: token(nullptr),
-		sprite(nullptr),
+		: sprite(nullptr),
 		arrowSprite(nullptr),
 		boardPtr(nullptr)
 	{
@@ -513,7 +508,6 @@ namespace Player
 		activeProjectiles = source.activeProjectiles;
 		ability = source.ability;
 		window = source.window;
-		token = new Sprite::Sprite(*source.token);
 		sprite = new Sprite::AnimatedSprite(*source.sprite);
 		arrowSprite = new Sprite::AnimatedSprite(*source.arrowSprite);
 
@@ -531,7 +525,6 @@ namespace Player
 		ability = source.ability;
 		window = source.window;
 
-		*token = *source.token;
 		*sprite = *source.sprite;
 		*arrowSprite = *source.arrowSprite;
 		boardPtr = source.boardPtr;
@@ -542,7 +535,6 @@ namespace Player
 	Player::~Player()
 	{
 		delete sprite;
-		delete token;
 		delete arrowSprite;
 
 		//delete all remaining paths
@@ -711,20 +703,20 @@ namespace Player
 
 		// Move the character on the grid
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
-		boardPtr->removeToken(boardPtr->getPlayerlocation());
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
+		boardPtr->removeToken(boardPtr->getPlayerlocation());
+
 		// Add a path
-		::BattleObject::Path tempPath(
-			(*this),
+		Path::Path *tempPath = new Path::Path(
+			(*this).getPos(),
 			boardPtr->getTilePos(boardPtr->getPlayerlocation()) + 
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0),
-			0.5);
+			0.25);
 
-		::BattleObject::Path *newPath = new ::BattleObject::ProjectilePath(
-			tempPath, 50);
+		//Path::Path *newPath = new Path::ProjectilePath(tempPath, 100);
 
-		paths.push_back(newPath);
+		paths.push_back(tempPath);
 		sprite->pushAnimation(newAnim);
 
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
