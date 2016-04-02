@@ -32,6 +32,8 @@ namespace Board
 		IDLE,
 		SELECTED,
 		BLOCKED,
+		PLACING,
+		REMOVING,
 	};
 
 	struct Tile

@@ -41,6 +41,12 @@ namespace Board
 			tileSprite->changeAnimation(Animation::AnimationEnum::BLOCKED);
 			break;
 
+		case TileState::PLACING:
+			tokenSprite->pushAnimation(Animation::AnimationEnum::TOKEN_PLACE);
+			tokenSprite->pushAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+			tokenSprite->addDelay(1.0);
+			break;
+
 		default:
 			break;
 		}
@@ -212,7 +218,20 @@ namespace Board
 			}
 		}
 
+
 		(*this) -= tempBoard;
+		// Go through the board, and set all the ones that are going to PLACING
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		{
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			{
+				if (tempBoard.boardTiles[h][w].hasToken)
+				{
+					(*this).boardTiles[h][w].changeState(TileState::PLACING, getSide());
+				}
+			}
+		}
+
 		print();
 		return numCompleted;
 	}
