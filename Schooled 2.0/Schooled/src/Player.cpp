@@ -556,26 +556,45 @@ namespace Player
 
 		std::vector<COORD> attackPositions = getAttackPattern(*currentAttack);
 
-		for (auto it = attackPositions.begin(); it != attackPositions.end(); it++)
+		if (currentAttack->isStatic)
 		{
+			unsigned int counter = 0;
 			// Fire the projectile
 			for (auto et = currentAttack->projectiles.begin(); et != currentAttack->projectiles.end(); et++)
 			{
 				Projectile::Projectile tempProj((*et));
-				tempProj.init((*this), enemy, enemy.getBoard()->getTilePos(*it));
+				tempProj.init((*this), enemy.getBoard()->getTilePos(attackPositions[counter]));
 				activeProjectiles.push_back(tempProj);
+				counter++;
 			}
+		}
+
+		for (auto it = attackPositions.begin(); it != attackPositions.end(); it++)
+		{
+			if (!currentAttack->isStatic)
+			{
+				for (auto et = currentAttack->projectiles.begin(); et != currentAttack->projectiles.end(); et++)
+				{
+					Projectile::Projectile tempProj((*et));
+					tempProj.init((*this), enemy.getBoard()->getTilePos((*it)));
+					activeProjectiles.push_back(tempProj);
+				}
+			}
+
+			double delay = (!activeProjectiles.empty()) ? activeProjectiles.back().getTimeToTarget() : 0.0;
 
 			// If the player is at that position, deal damage
 			// Else, place a token.
 			if (enemy.boardPtr->getPlayerlocation() == (*it))
 			{
-
 				enemy.changeHealth(-currentAttack->damage);
+				enemy.sprite->pushAnimation(Animation::AnimationEnum::HURT);
+				
+				enemy.sprite->addDelay(delay);
 			}
 			else
 			{	
-				enemy.boardPtr->placeToken((*it));
+				enemy.boardPtr->placeToken((*it), delay);
 			}
 			
 			std::cout << std::endl;
@@ -955,10 +974,10 @@ namespace Player
 		}
 
 		// Draw all active projectiles
-		/*for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
+		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
 		{
 			(*it).draw();
-		}*/
+		}
 	}
 
 	void Player::updateIconCooldown()

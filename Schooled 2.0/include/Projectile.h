@@ -26,10 +26,11 @@ namespace Projectile
 		Projectile(tinyxml2::XMLElement const*);
 
 		// Initializes the projectile values for throwing
-		void init(
-			Player::Player const& player, 
-			Player::Player const& enemy, 
-			Vector::Vector2 const& tilePos = Vector::Vector2(0, 0));
+		void init(Player::Player const& player, Vector::Vector2 const& target);
+
+		// Getters
+		double getDelay() const { return delay; }
+		double getTimeToTarget() const { return timeToTarget; }
 
 		void draw() const;
 		void update();
