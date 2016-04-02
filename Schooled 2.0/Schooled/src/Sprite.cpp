@@ -230,6 +230,11 @@ namespace Sprite
 		}
 	}
 
+	void AnimatedSprite::addDelay(double time)
+	{
+		animationList.back().frames[col].duration += time;
+	}
+
 	void AnimatedSprite::pushAnimation(Animation::AnimationEnum a)
 	{
 		Animation::Animation tempA = data.getAnimation(a);
@@ -240,7 +245,8 @@ namespace Sprite
 
 	void AnimatedSprite::popAnimation()
 	{
-		animationList.pop_back();
+		if (!animationList.empty())
+			animationList.pop_back();
 
 		// If the list is empty, add the idle animation
 		if (animationList.empty())
@@ -263,5 +269,10 @@ namespace Sprite
 	Animation::AnimationEnum AnimatedSprite::getCurrentAnimation()
 	{
 		return Animation::AnimationLookup.at(animationList.back().name);
+	}
+
+	bool AnimatedSprite::isIdle() const
+	{
+		return (Animation::AnimationLookup.at(animationList.back().name) == Animation::AnimationEnum::IDLE);
 	}
 }

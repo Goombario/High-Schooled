@@ -14,13 +14,14 @@ namespace Board
 		{
 		case TileState::IDLE:
 			tileSprite->changeAnimation(Animation::AnimationEnum::IDLE);
-			if (hasToken)
-			{
-				tokenSprite->changeAnimation(Animation::AnimationEnum::IDLE);
-			}
-			else
+			if (!hasToken)
 			{
 				tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+			}
+			else if (hasToken && tokenSprite->isIdle() ||
+				hasToken && tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_GHOST)
+			{
+				tokenSprite->changeAnimation(Animation::AnimationEnum::IDLE);
 			}
 			break;
 
@@ -125,24 +126,28 @@ namespace Board
 		}
 	}
 
-	void Board::placeToken(unsigned int h, unsigned int w)
+	void Board::placeToken(unsigned int h, unsigned int w, double delay)
 	{
 		boardTiles[h][w].hasToken = true;
+		boardTiles[h][w].tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_PLACE);
+		boardTiles[h][w].tokenSprite->addDelay(delay);
 	}
 
-	void Board::placeToken(COORD c)
+	void Board::placeToken(COORD c, double delay)
 	{
-		boardTiles[c.Y][c.X].hasToken = true;
+		placeToken(c.Y, c.X, delay);
 	}
 
-	void Board::removeToken(unsigned int h, unsigned int w)
+	void Board::removeToken(unsigned int h, unsigned int w, double delay)
 	{
 		boardTiles[h][w].hasToken = false;
+		boardTiles[h][w].tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+		boardTiles[h][w].tokenSprite->addDelay(delay);
 	}
 
-	void Board::removeToken(COORD c)
+	void Board::removeToken(COORD c, double delay)
 	{
-		boardTiles[c.Y][c.X].hasToken = false;
+		removeToken(c.Y, c.X, delay);
 	}
 
 
@@ -180,7 +185,7 @@ namespace Board
 				// Add the completed row to the temporary board
 				for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 				{
-					tempBoard.placeToken(h, w);
+					tempBoard.boardTiles[h][w].hasToken = true;
 				}
 			}
 		}
@@ -202,7 +207,7 @@ namespace Board
 				// Add the completed column to the temporary board
 				for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 				{
-					tempBoard.placeToken(h, w);
+					tempBoard.boardTiles[h][w].hasToken = true;
 				}
 			}
 		}
@@ -255,6 +260,7 @@ namespace Board
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
 				boardTiles[h][w].tileSprite->update();
+				boardTiles[h][w].tokenSprite->update();
 			}
 		}
 	}
@@ -275,7 +281,7 @@ namespace Board
 		for (auto it = pattern.begin(); it != pattern.end(); it++)
 		{
 			boardTiles[(*it).Y][(*it).X].changeState(TileState::SELECTED, getSide());
-			if (getPlayerlocation() == COORD{ (*it).Y, (*it).X })
+			if (getPlayerlocation() == COORD{ (*it).X, (*it).Y })
 			{
 				boardTiles[(*it).Y][(*it).X].tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
 			}

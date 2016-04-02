@@ -13,6 +13,7 @@ namespace Projectile
 	Projectile::Projectile()
 	{
 		sprite = nullptr;
+		setActing(true);
 	}
 
 	Projectile::Projectile(tinyxml2::XMLElement const* projElement)
@@ -41,6 +42,8 @@ namespace Projectile
 		{
 			timeToTarget = 1;
 		}
+
+		setActing(true);
 	}
 
 	void Projectile::loadData(const char* projName)
@@ -92,7 +95,7 @@ namespace Projectile
 		setVelocity(Vector::Vector2(x, y));
 	}
 
-	void Projectile::init(Player::Player const& player, Player::Player const& enemy, Vector::Vector2 const& tilePos)
+	void Projectile::init(Player::Player const& player, Vector::Vector2 const& tilePos)
 	{
 		if (player.getSide() == Side::LEFT)
 		{
@@ -108,15 +111,28 @@ namespace Projectile
 
 		if (hasTarget)
 		{
-			Vector::Vector2 distance = player.getPos() - tilePos + offset;
-			Vector::Vector2 velocity((distance.getX() * -1.0) / timeToTarget, 0.0);
-			setVelocity(Vector::Vector2(velocity.getX(), velocity.getY()));
+			Vector::Vector2 distance = player.getPos() - tilePos;
+			Vector::Vector2 velocity;
+			if (hasGravity)
+			{
+				velocity = Vector::Vector2((distance.getX() * -1.0) / timeToTarget, 0.0);
+			}
+			else
+			{
+				velocity = Vector::Vector2(
+					(distance.getX() * -1.0) / timeToTarget, 
+					(distance.getY() * -1.0) / timeToTarget);
+			}
+			setVelocity(velocity);
 		}
 	}
 
 	void Projectile::draw() const
 	{
-		sprite.drawAt(getPos());
+		if (delay == 0)
+		{
+			sprite.drawAt(getPos());
+		}
 	}
 
 	void Projectile::update()

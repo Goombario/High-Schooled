@@ -67,12 +67,12 @@ namespace Board
 		int checkMatches();
 
 		// Place a single token on the board at given location
-		void placeToken(unsigned int h, unsigned int w);
-		void placeToken(COORD c);
+		void placeToken(unsigned int h, unsigned int w, double delay = 0.0);
+		void placeToken(COORD c, double delay = 0.0);
 
 		// Remove a token from given location
-		void removeToken(unsigned int h, unsigned int w);
-		void removeToken(COORD c);
+		void removeToken(unsigned int h, unsigned int w, double delay = 0.0);
+		void removeToken(COORD c, double delay=0.0);
 
 		// Adds tokens onto the board
 		inline Board& operator+=(Board const&);

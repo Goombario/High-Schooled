@@ -4,6 +4,11 @@
     <FirstFrame>0</FirstFrame>
     <Frame>0</Frame>
   </Animation>
+
+  <Animation name="TOKEN_PLACE" loop="false">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.0</Frame>
+  </Animation>
   
   <Animation name="IDLE" loop="true">
     <FirstFrame>1</FirstFrame>
