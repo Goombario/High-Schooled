@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StageList>
+  <Stage name="MainMenu">
+    <Background name="Gym.png" width="512" height="288"/>
+    <HUD name="HUD.png" width="512" height="288"/>
+    <Board name="Board.png" frameWidth="512" frameHeight="288"/>
+    <Properties></Properties>
+  </Stage>
+</StageList>
