@@ -13,16 +13,7 @@ namespace Board
 		switch (s)
 		{
 		case TileState::IDLE:
-			tileSprite->changeAnimation(Animation::AnimationEnum::IDLE);
-			if (!hasToken)
-			{
-				tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
-			}
-			else if (hasToken && tokenSprite->isIdle() ||
-				hasToken && tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_GHOST)
-			{
-				tokenSprite->changeAnimation(Animation::AnimationEnum::IDLE);
-			}
+			makeIdle();
 			break;
 
 		case TileState::SELECTED:
@@ -42,13 +33,37 @@ namespace Board
 			break;
 
 		case TileState::PLACING:
-			tokenSprite->pushAnimation(Animation::AnimationEnum::TOKEN_PLACE);
-			tokenSprite->pushAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
-			tokenSprite->addDelay(1.0);
+			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_PLACE);
+			break;
+
+		case TileState::COMPLETING:
+			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+			tokenSprite->pushAnimation(Animation::AnimationEnum::TOKEN_COMPLETE);
+			break;
+			
+		case TileState::DESTROYING:
+			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+			tokenSprite->pushAnimation(Animation::AnimationEnum::TOKEN_DESTROY);
 			break;
 
 		default:
 			break;
+		}
+
+		state = s;
+	}
+
+	void Tile::makeIdle()
+	{
+		tileSprite->changeAnimation(Animation::AnimationEnum::IDLE);
+		if (!hasToken)
+		{
+			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+		}
+		else if (hasToken && tokenSprite->isIdle() ||
+			hasToken && tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_GHOST)
+		{
+			tokenSprite->changeAnimation(Animation::AnimationEnum::IDLE);
 		}
 	}
 
@@ -67,6 +82,7 @@ namespace Board
 				boardTiles[h][w].pos = Vector::Vector2();
 				boardTiles[h][w].tileSprite = nullptr;
 				boardTiles[h][w].tokenSprite = nullptr;
+				completedTiles[h][w] = false;
 			}
 		}
 
@@ -114,6 +130,9 @@ namespace Board
 
 				// Set the tile state
 				boardTiles[h][wPos].changeState(TileState::IDLE, getSide());
+
+				// Set the completed check board to false
+				completedTiles[h][w] = false;
 			}
 		}
 
@@ -134,9 +153,12 @@ namespace Board
 
 	void Board::placeToken(unsigned int h, unsigned int w, double delay)
 	{
-		boardTiles[h][w].hasToken = true;
-		boardTiles[h][w].tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_PLACE);
-		boardTiles[h][w].tokenSprite->addDelay(delay);
+		if (!boardTiles[h][w].hasToken)
+		{
+			boardTiles[h][w].hasToken = true;
+			boardTiles[h][w].changeState(TileState::PLACING, getSide());
+			boardTiles[h][w].tokenSprite->addDelay(delay);
+		}
 	}
 
 	void Board::placeToken(COORD c, double delay)
@@ -147,13 +169,27 @@ namespace Board
 	void Board::removeToken(unsigned int h, unsigned int w, double delay)
 	{
 		boardTiles[h][w].hasToken = false;
-		boardTiles[h][w].tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
+		boardTiles[h][w].changeState(TileState::IDLE, getSide());
 		boardTiles[h][w].tokenSprite->addDelay(delay);
 	}
 
 	void Board::removeToken(COORD c, double delay)
 	{
 		removeToken(c.Y, c.X, delay);
+	}
+	
+	void Board::destroyToken(COORD c)
+	{
+		destroyToken(c.Y, c.X);
+	}
+
+	void Board::destroyToken(unsigned int h, unsigned int w)
+	{
+		if (boardTiles[h][w].hasToken)
+		{
+			boardTiles[h][w].hasToken = false;
+			boardTiles[h][w].changeState(TileState::DESTROYING, getSide());
+		}
 	}
 
 
@@ -171,8 +207,6 @@ namespace Board
 	int Board::checkMatches()
 	{
 		unsigned int numCompleted = 0;
-		// Temporary board holds all the matches
-		Board tempBoard;
 
 		// Check all the columns for matches
 		for (int w = 0; w < Stage::BOARD_WIDTH; w++)
@@ -191,7 +225,7 @@ namespace Board
 				// Add the completed row to the temporary board
 				for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 				{
-					tempBoard.boardTiles[h][w].hasToken = true;
+					completedTiles[h][w] = true;
 				}
 			}
 		}
@@ -213,21 +247,7 @@ namespace Board
 				// Add the completed column to the temporary board
 				for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 				{
-					tempBoard.boardTiles[h][w].hasToken = true;
-				}
-			}
-		}
-
-
-		(*this) -= tempBoard;
-		// Go through the board, and set all the ones that are going to PLACING
-		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
-		{
-			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
-			{
-				if (tempBoard.boardTiles[h][w].hasToken)
-				{
-					(*this).boardTiles[h][w].changeState(TileState::PLACING, getSide());
+					completedTiles[h][w] = true;
 				}
 			}
 		}
@@ -274,12 +294,66 @@ namespace Board
 
 	void Board::update()
 	{
+		bool finishedPlacing = true;
+		bool completeAvailable = false;
+		setActing(false);
+
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
+				// If the tiles are doing some sort of change in state, it's acting
+				if (boardTiles[h][w].state == TileState::COMPLETING ||
+					boardTiles[h][w].state == TileState::PLACING)
+				{
+					setActing(true);
+				}
+
 				boardTiles[h][w].tileSprite->update();
 				boardTiles[h][w].tokenSprite->update();
+
+				// Check if there is the ability to complete tiles
+				if (completedTiles[h][w])
+				{
+					completeAvailable = true;
+				}
+
+				// If any tile is finished its action, make it idle
+				if (boardTiles[h][w].state == TileState::PLACING && 
+					boardTiles[h][w].tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::IDLE ||
+					boardTiles[h][w].state == TileState::COMPLETING &&
+					boardTiles[h][w].tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_EMPTY ||
+					boardTiles[h][w].state == TileState::DESTROYING &&
+					boardTiles[h][w].tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_EMPTY)
+				{
+					boardTiles[h][w].changeState(TileState::IDLE, getSide());
+				}
+				// If a tile is still placing, don't allow the tiles to complete
+				else if (boardTiles[h][w].state == TileState::PLACING)
+				{
+					finishedPlacing = false;
+				}
+			}
+		}
+
+		if (finishedPlacing && completeAvailable)
+		{
+			completeRows();
+		}
+	}
+
+	void Board::completeRows()
+	{
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		{
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			{
+				if (completedTiles[h][w])
+				{
+					removeToken(h, w);
+					boardTiles[h][w].changeState(TileState::COMPLETING, getSide());
+					completedTiles[h][w] = false;
+				}
 			}
 		}
 	}
@@ -290,7 +364,11 @@ namespace Board
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				boardTiles[h][w].changeState(TileState::IDLE, getSide());
+				boardTiles[h][w].makeIdle();
+				if (boardTiles[h][w].state != TileState::PLACING)
+				{
+					boardTiles[h][w].changeState(TileState::IDLE, getSide());
+				}
 			}
 		}
 	}

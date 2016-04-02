@@ -182,7 +182,9 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
         </Range>
         <Icon name="HORIZONTAL"/>
-        
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -194,6 +196,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
         </Range>
         <Icon name="VERTICAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -205,6 +210,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 1
         </Range>
         <Icon name="CORNERS"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
     </Attacks>
 
