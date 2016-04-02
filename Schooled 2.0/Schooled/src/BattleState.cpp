@@ -225,7 +225,7 @@ namespace BattleState
 		}
 
 		// If the player is out of action points
-		if (getCurrentPlayer()->getCurrentAP() == 0 && !getCurrentPlayer()->isActing())
+		if (getCurrentPlayer()->getCurrentAP() == 0 && !getCurrentPlayer()->isActing()/* && !getCurrentPlayer()->getBoard()->isActing()*/)
 		{
 			swapCurrentPlayer();
 		}

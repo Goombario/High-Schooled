@@ -675,6 +675,9 @@ namespace Player
 
 	void Player::move(Direction d)
 	{
+		// If out of AP, don't move (Failsafe)
+		if ((*this).stats.currentAP <= 0) return;
+
 		// If choosing position, don't use this function.
 		if (BattleState::BattleState::Instance()->getCurrentState() == BattleState::State::POS_CHOOSE)
 		{
@@ -724,7 +727,7 @@ namespace Player
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
-		boardPtr->removeToken(boardPtr->getPlayerlocation());
+		boardPtr->destroyToken(boardPtr->getPlayerlocation());
 
 		// Add a path
 		Path::Path *tempPath = new Path::Path(

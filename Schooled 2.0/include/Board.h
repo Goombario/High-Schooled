@@ -33,7 +33,8 @@ namespace Board
 		SELECTED,
 		BLOCKED,
 		PLACING,
-		REMOVING,
+		COMPLETING,
+		DESTROYING,
 	};
 
 	struct Tile
@@ -48,6 +49,9 @@ namespace Board
 
 		// Change the state of the tile
 		void changeState(TileState, Side);
+
+		// Make the tile to be idle state (without changing state)
+		void makeIdle();
 	};
 
 	struct WaveMap
@@ -75,6 +79,10 @@ namespace Board
 		// Remove a token from given location
 		void removeToken(unsigned int h, unsigned int w, double delay = 0.0);
 		void removeToken(COORD c, double delay=0.0);
+
+		// Destroys the token underfoot
+		void destroyToken(unsigned int h, unsigned int w);
+		void destroyToken(COORD c);
 
 		// Adds tokens onto the board
 		inline Board& operator+=(Board const&);
@@ -130,6 +138,9 @@ namespace Board
 			return boardTiles[h][w];
 		}
 
+		// Mark tiles as completed, and clear the temporary completeBoard
+		void completeRows();
+
 		// Helper function that checks if position is in bounds
 		bool inBounds(int, int);
 
@@ -144,6 +155,7 @@ namespace Board
 		bool acting;
 		Side side;
 		Tile boardTiles[Stage::BOARD_HEIGHT][Stage::BOARD_WIDTH];
+		bool completedTiles[Stage::BOARD_HEIGHT][Stage::BOARD_WIDTH];
 		WaveMap waveMap;
 		COORD playerLocation;
 		COORD firstPos;	// The position at beginning of turn
