@@ -41,8 +41,8 @@ namespace Menu
 			menuDataName = menuData->Attribute("name");
 		}
 
-		XMLElement *menuElement = menuData->FirstChildElement("Background");
-		if (menuElement == nullptr)
+		XMLElement *bgElement = menuData->FirstChildElement("Background");
+		if (bgElement == nullptr)
 		{
 			std::cerr << "ERROR: Loading Menu data file: Background "
 				<< XML_ERROR_FILE_READ_ERROR << std::endl;
@@ -52,19 +52,26 @@ namespace Menu
 		std::string imageName;
 		unsigned int frameWidth;
 		unsigned int frameHeight;
-		imageName = menuElement->Attribute("name");
-		CheckXMLResult(menuElement->QueryUnsignedAttribute("width", &frameWidth));
-		CheckXMLResult(menuElement->QueryUnsignedAttribute("height", &frameHeight));
+		imageName = bgElement->Attribute("name");
+		CheckXMLResult(bgElement->QueryUnsignedAttribute("width", &frameWidth));
+		CheckXMLResult(bgElement->QueryUnsignedAttribute("height", &frameHeight));
 		tempImage = GameEngine::getImageManager()->loadImage(
 			schooled::getResourcePath("img") + imageName,
 			frameWidth, frameHeight);
 		background = new Sprite::Sprite(tempImage);
 		background->move(0, 0, false);
 
-		XMLElement *boardElement = menuData->FirstChildElement("Menu");
-		if (CheckIfNull(boardElement, "Stage: Board") != XML_SUCCESS) exit(-2);
-		menuSprite = new Sprite::Sprite(boardElement);
+		XMLElement *menuElement = menuData->FirstChildElement("Menu");
+		if (CheckIfNull(menuElement, "Menu: Overlay") != XML_SUCCESS) exit(-2);
+		menuSprite = new Sprite::Sprite(menuElement);
 		menuSprite->move(0, 0, false);
+
+		XMLElement *menuLightElement = menuData->FirstChildElement("Highlight");
+		XMLElement *menuAnimationElement = menuData->FirstChildElement("HighlightAnimation");
+		if (CheckIfNull(menuLightElement, "Menu: Sprite") != XML_SUCCESS) exit(-2);
+		if (CheckIfNull(menuAnimationElement, "Menu: Animation") != XML_SUCCESS) exit(-2);
+		menuAnimSprite = new Sprite::AnimatedSprite(menuLightElement, menuAnimationElement);
+		menuAnimSprite->move(0, 0, false);
 	}
 
 	GenericMenu::~GenericMenu()
@@ -85,6 +92,7 @@ namespace Menu
 	void GenericMenu::drawMenu()
 	{
 		menuSprite->draw();
+		menuAnimSprite->draw();
 	}
 
 	void GenericMenu::update()
