@@ -67,9 +67,13 @@ namespace Stage
 		// Swap the active board
 		void setActiveBoard(Side);
 
+		// Make the DARKENESS
+		void setDark(bool darkness = true);
+
 	private:
+		bool hasDarkness;
 		Sprite::Sprite *background;
-		Sprite::Sprite *boardSprite;
+		Sprite::Sprite *boardSprite, *darkness;
 		Sprite::AnimatedSprite *p1BoardHighlight, *p2BoardHighlight;
 		const Player::Player *player1, *player2;
 		HUD p1HUD, p2HUD;

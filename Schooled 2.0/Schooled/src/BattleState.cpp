@@ -211,6 +211,15 @@ namespace BattleState
 			(**it).update();
 		}
 
+		if (getCurrentPlayer()->canUseSpecial() && 
+			!getCurrentPlayer()->isActing() &&
+			!getOtherPlayer()->getBoard()->isActing())
+		{
+			getCurrentPlayer()->useSpecial(*getOtherPlayer());
+			getCurrentPlayer()->update();
+		}
+
+		stage->setDark(getCurrentPlayer()->isUsingSpecial());
 		stage->update();
 
 		// If a player is acting (moving, attacking) set the state to ACTING
@@ -232,7 +241,9 @@ namespace BattleState
 		}
 
 		// If the player is out of action points
-		if (getCurrentPlayer()->getCurrentAP() == 0 && !getCurrentPlayer()->isActing()/* && !getCurrentPlayer()->getBoard()->isActing()*/)
+		if (getCurrentPlayer()->getCurrentAP() == 0 && 
+			!getCurrentPlayer()->isActing() &&
+			!getOtherPlayer()->getBoard()->isActing())
 		{
 			swapCurrentPlayer();
 		}

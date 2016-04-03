@@ -116,9 +116,6 @@ namespace Board
 		// Update board animations
 		void update();
 
-		// Check if the board is acting (i.e. tokens are animating)
-		inline bool isActing() const { return acting; }
-
 		// Set the player location
 		inline void setPlayerLocation(COORD newLocation) { playerLocation = newLocation; }
 		inline void setPlayerFirstPos(COORD newLocation) { firstPos = newLocation; }
@@ -163,7 +160,6 @@ namespace Board
 		void tracePath(int h, int w);
 
 	private:
-		bool acting;
 		Side side;
 		Tile boardTiles[Stage::BOARD_HEIGHT][Stage::BOARD_WIDTH];
 		bool completedTiles[Stage::BOARD_HEIGHT][Stage::BOARD_WIDTH];

@@ -160,8 +160,6 @@ namespace Stage
 		player1(p1),
 		player2(p2)
 	{
-		Image::Image tempImage;
-
 		// Load player data from player file
 		tinyxml2::XMLDocument data;
 		CheckXMLResult(data.LoadFile("../Schooled/StageData.xml"));
@@ -204,16 +202,7 @@ namespace Stage
 			exit(-2);
 		}
 
-		std::string imageName;
-		unsigned int frameWidth;
-		unsigned int frameHeight;
-		imageName = stageElement->Attribute("name");
-		CheckXMLResult(stageElement->QueryUnsignedAttribute("width", &frameWidth));
-		CheckXMLResult(stageElement->QueryUnsignedAttribute("height", &frameHeight));
-		tempImage = GameEngine::getImageManager()->loadImage(
-			schooled::getResourcePath("img") + imageName, 
-			frameWidth, frameHeight);
-		background = new Sprite::Sprite(tempImage);
+		background = new Sprite::Sprite(stageElement);
 		background->move(0, 0, false);
 
 		XMLElement *boardElement = stageData->FirstChildElement("Board");
@@ -232,6 +221,12 @@ namespace Stage
 		p2BoardHighlight = new Sprite::AnimatedSprite(
 			stageData->FirstChildElement("Highlight"), stageData->FirstChildElement("HighlightAnimation"));
 		p2BoardHighlight->setPos(p2->getBoard()->getPos());
+
+		// Load the DARKNESS
+		if (CheckIfNull(stageData->FirstChildElement("Darkness"), "Stage: Darkness")) exit(-2);
+		darkness = new Sprite::Sprite(stageData->FirstChildElement("Darkness"));
+		darkness->move(0, 0, false);
+		setDark(false);
 	}
 
 	Stage::~Stage()
@@ -250,6 +245,10 @@ namespace Stage
 		background->draw();
 		p1BoardHighlight->draw();
 		p2BoardHighlight->draw();
+		if (hasDarkness)
+		{
+			darkness->draw();
+		}
 		boardSprite->draw();
 	}
 
@@ -257,6 +256,11 @@ namespace Stage
 	{
 		p1HUD.draw();
 		p2HUD.draw();
+	}
+
+	void Stage::setDark(bool hasDarkness)
+	{
+		(*this).hasDarkness = hasDarkness;
 	}
 
 	void Stage::update()
