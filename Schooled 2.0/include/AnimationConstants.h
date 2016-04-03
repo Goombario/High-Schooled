@@ -33,6 +33,8 @@ namespace Animation
 		BLUE_PULSE,
 		HP_GREEN_PULSE,
 		HP_RED_PULSE,
+		HP_MED,
+		HP_LOW,
 		SP_BLUE_PULSE,
 		SP_RED_PULSE,
 		AP_VIOLET_PULSE
@@ -65,6 +67,8 @@ namespace Animation
 		{ "BLUE_PULSE", AnimationEnum::BLUE_PULSE },
 		{ "HP_GREEN_PULSE", AnimationEnum::HP_GREEN_PULSE },
 		{ "HP_RED_PULSE", AnimationEnum::HP_RED_PULSE },
+		{ "HP_MED", AnimationEnum::HP_MED },
+		{ "HP_LOW", AnimationEnum::HP_LOW },
 		{ "SP_BLUE_PULSE", AnimationEnum::SP_BLUE_PULSE },
 		{ "SP_RED_PULSE", AnimationEnum::SP_RED_PULSE },
 		{ "AP_VIOLET_PULSE", AnimationEnum::AP_VIOLET_PULSE }

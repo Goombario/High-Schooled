@@ -47,9 +47,11 @@ namespace Player
 		~Icon();
 
 		void draw() const;
+		void drawNoGlowAt(Vector::Vector2 const&) const;
 		void drawAt(Vector::Vector2 const&) const;
 		void update();
 
+		// Setters
 		void setSelected(bool);
 		void setCooldown(int);
 
@@ -154,6 +156,8 @@ namespace Player
 		inline int getCurrentAP() const { return stats.currentAP; }
 		inline int getCurrentSP() const { return stats.currentSP; }
 		inline int getMaxHP() const { return stats.maxHP; }
+		inline int getMaxSP() const { return stats.maxSP; }
+		inline int getMaxAP() const { return stats.maxAP; }
 		Side getSide() const;
 
 		// Changes health of enemy player, tokens on enemy board
