@@ -2,6 +2,7 @@
 #define MENU_STATE_H
 
 #include "GameState.h"
+#include "GenericMenu.h"
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
 #include <map>
 #include <vector>
@@ -46,7 +47,7 @@ namespace MenuState
 
 	private:
 		static MenuState m_MenuState;
-
+		
 		// Event handling helpers
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
@@ -54,7 +55,7 @@ namespace MenuState
 		bool isEnd;
 
 		// Menu objects
-		//Board::Board* board2;
+		Menu::GenericMenu* highlight;
 		Menu::GenericMenu* menu;
 	};
 }

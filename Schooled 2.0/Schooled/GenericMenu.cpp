@@ -11,10 +11,9 @@ namespace Menu
 {
 	GenericMenu::GenericMenu(const char* menuName)
 	{
-
 		Image::Image tempImage;
 
-		// Load player data from player file
+		// Load menu data from player file
 		XMLDocument data;
 		CheckXMLResult(data.LoadFile("../Schooled/MenuData.xml"));
 		XMLNode *pRoot = data.RootElement();
@@ -28,14 +27,14 @@ namespace Menu
 		XMLElement *menuData;
 		menuData = pRoot->FirstChildElement();
 
-		// Check if stage data loaded
+		// Check if menu data loaded
 		std::string menuDataName = menuData->Attribute("name");
 		while (menuDataName != menuName)
 		{
 			menuData = menuData->NextSiblingElement();
 			if (menuData == nullptr)
 			{
-				std::cerr << "ERROR: Loading stageData: "
+				std::cerr << "ERROR: Loading menuData: "
 					<< XML_ERROR_FILE_READ_ERROR << std::endl;
 				exit(-2);
 			}
@@ -45,7 +44,7 @@ namespace Menu
 		XMLElement *menuElement = menuData->FirstChildElement("Background");
 		if (menuElement == nullptr)
 		{
-			std::cerr << "ERROR: Loading Stage data file: Background "
+			std::cerr << "ERROR: Loading Menu data file: Background "
 				<< XML_ERROR_FILE_READ_ERROR << std::endl;
 			exit(-2);
 		}
@@ -62,7 +61,7 @@ namespace Menu
 		background = new Sprite::Sprite(tempImage);
 		background->move(0, 0, false);
 
-		XMLElement *boardElement = menuData->FirstChildElement("Board");
+		XMLElement *boardElement = menuData->FirstChildElement("Menu");
 		if (CheckIfNull(boardElement, "Stage: Board") != XML_SUCCESS) exit(-2);
 		menuSprite = new Sprite::Sprite(boardElement);
 		menuSprite->move(0, 0, false);
@@ -80,13 +79,12 @@ namespace Menu
 	void GenericMenu::drawBackground()
 	{
 		background->draw();
-		menuSprite->draw();
+
 	}
 
 	void GenericMenu::drawMenu()
 	{
-		//p1HUD.draw();
-		//p2HUD.draw();
+		menuSprite->draw();
 	}
 
 	void GenericMenu::update()

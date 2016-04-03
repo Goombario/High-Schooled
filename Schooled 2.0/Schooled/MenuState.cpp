@@ -3,7 +3,6 @@
 #include "ShareState.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
-#include "GenericMenu.h"
 
 #include "Sprite.h"
 
@@ -127,7 +126,8 @@ namespace MenuState
 
 	void MenuState::Draw(GameEngine* game)
 	{
-		
+		menu->drawBackground();
+		menu->drawMenu();
 		// Fizzle swaps buffer automatically at end
 	}
 }
