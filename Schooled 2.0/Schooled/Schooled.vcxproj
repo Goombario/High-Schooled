@@ -184,7 +184,9 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="InputRanges.xml" />
-    <Xml Include="MenuData.xml" />
+    <Xml Include="MenuData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="PlayerData.xml">
       <SubType>Designer</SubType>
     </Xml>

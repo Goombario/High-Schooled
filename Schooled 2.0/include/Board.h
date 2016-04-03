@@ -32,6 +32,7 @@ namespace Board
 		IDLE,
 		SELECTED,
 		BLOCKED,
+		CRACKED,
 		PLACING,
 		COMPLETING,
 		DESTROYING,
@@ -84,6 +85,13 @@ namespace Board
 		void destroyToken(unsigned int h, unsigned int w);
 		void destroyToken(COORD c);
 
+		// Set the cracked setting of the token.
+		void crackToken(unsigned int h, unsigned int w, bool cracked = true);
+		void crackToken(COORD c, bool cracked = true);
+
+		// Clear all cracked tokens
+		void destroyCrackedTokens();
+
 		// Adds tokens onto the board
 		inline Board& operator+=(Board const&);
 		inline Board const operator+(Board const&) const;
@@ -125,6 +133,9 @@ namespace Board
 
 		// Get the tile vector
 		Vector::Vector2 getTilePos(COORD location) const { return boardTiles[location.Y][location.X].pos; }
+
+		// Get the tile state
+		TileState getTileState(COORD location) const { return boardTiles[location.Y][location.X].state; }
 
 	private:
 		// Helper function returns tile at number position
