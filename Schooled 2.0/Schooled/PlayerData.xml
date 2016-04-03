@@ -11,18 +11,17 @@ target - will attack the targeted square, and dissapear afterwards.
 <Players>
   <!--Data shared across all players-->
   <SharedData>
-    <Arrow name="Arrow.png" frameWidth="64" frameHeight="128"/>
+    <Arrow name="Arrow.png" frameWidth="160" frameHeight="320"/>
     <ArrowAnimation name="Arrow.xml"/>
     <Glow name="Glow.png" frameWidth="64" frameHeight="64"/>
     <IconAnimation name="Icon.xml"/>
   </SharedData>
-  
+
   <Player name="Gym Teacher">
     <!--Sprite Data-->
-    <Sprite name="GymTeacher.png" frameWidth="64" frameHeight="64"/>
+    <Sprite name="GymTeacher.png" frameWidth="160" frameHeight="160"/>
     <Animation name="GymTeacher.xml"/>
-    <Token name="Anchor_Tilt.png" frameWidth="64" frameHeight="64"/>
-    
+
     <!--Statistics-->
     <Stats>
       <MaxHP>5</MaxHP>
@@ -41,18 +40,10 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
-        <ProjectileList>
-          <Projectile name="Dodgeball_Gravity" delay="0.0"
-                      offsetX="0.0" offsetY="0.0"
-                      hasTarget="true" targetX="0" targetY="0" timeToTarget="2.0"/>
-          <Projectile name="Dodgeball_Gravity" delay="0.2"
-                      offsetX="0.0" offsetY="0.0"
-                      hasTarget="true" targetX="1" targetY="0" timeToTarget="2.0"/>
-          <Projectile name="Dodgeball_Gravity" delay="0.4"
-                      offsetX="0.0" offsetY="0.0"
-                      hasTarget="true" targetX="2" targetY="0" timeToTarget="2.0"/>
-        </ProjectileList>
+        <Icon name="HORIZONTAL"/>
+        <Projectile name="Dodgeball_Gravity" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="DODGEBALL_B">
         <Cooldown>2</Cooldown>
@@ -63,12 +54,10 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
-        <ProjectileList>
-          <Projectile name="Dodgeball_Gravity" delay="0.0"
-                      offsetX="0.0" offsetY="0.0"
-                      hasTarget="false"/>
-        </ProjectileList>
+        <Icon name="VERTICAL"/>
+        <Projectile name="Dodgeball_Gravity" delay="0.0"
+                    offsetX="0.0" offsetY="0.0"
+                    hasTarget="false"/>
       </Attack>
       <Attack name="DODGEBALL_C">
         <Cooldown>2</Cooldown>
@@ -79,7 +68,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="CORNERS"/>
       </Attack>
     </Attacks>
 
@@ -95,9 +84,8 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Nate">
     <!--Sprite Data-->
-    <Sprite name="Nate.png" frameWidth="90" frameHeight="64"/>
+    <Sprite name="Nate.png" frameWidth="226" frameHeight="160"/>
     <Animation name="Nate.xml"/>
-    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -117,7 +105,10 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="HORIZONTAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -128,7 +119,13 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="VERTICAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+        <Projectile name="Dodgeball" delay="0.5"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -139,7 +136,13 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="CORNERS"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+        <Projectile name="Dodgeball" delay="1.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
     </Attacks>
 
@@ -152,12 +155,13 @@ target - will attack the targeted square, and dissapear afterwards.
       <Damage>2</Damage>
     </Special>
   </Player>
-  
+
   <Player name="GlowyNate">
     <!--Sprite Data-->
-    <Sprite name="GlowyNate.png" frameWidth="90" frameHeight="64"/>
+    <!--<LeftSprite name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
+    <RightSprite name="GlowyNate.png" frameWidth="225" frameHeight="160"/>-->
+    <Sprite name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
     <Animation name="GlowyNate.xml"/>
-    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -177,7 +181,10 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="HORIZONTAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -188,7 +195,10 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="VERTICAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -199,7 +209,10 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="CORNERS"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
     </Attacks>
 
@@ -215,9 +228,8 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Nega">
     <!--Sprite Data-->
-    <Sprite name="Nega.png" frameWidth="90" frameHeight="64"/>
+    <Sprite name="Nega.png" frameWidth="225" frameHeight="160"/>
     <Animation name="Nega.xml"/>
-    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -237,7 +249,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="HORIZONTAL"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -248,7 +260,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="VERTICAL"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -259,7 +271,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="CORNERS"/>
       </Attack>
     </Attacks>
 
@@ -275,9 +287,8 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="GlowyNega">
     <!--Sprite Data-->
-    <Sprite name="GlowyNega.png" frameWidth="90" frameHeight="64"/>
+    <Sprite name="GlowyNega.png" frameWidth="225" frameHeight="160"/>
     <Animation name="GlowyNega.xml"/>
-    <Token name="Fist_Tilt.png" frameWidth="64" frameHeight="64"/>
 
     <!--Statistics-->
     <Stats>
@@ -297,7 +308,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           0 0 0
         </Range>
-        <Icon name="Icons/Icon1.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="HORIZONTAL"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -308,7 +319,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
           1 0 0
         </Range>
-        <Icon name="Icons/Icon2.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="VERTICAL"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -319,7 +330,7 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
           1 0 1
         </Range>
-        <Icon name="Icons/Icon3.png" frameWidth="32" frameHeight="32"/>
+        <Icon name="CORNERS"/>
       </Attack>
     </Attacks>
 
@@ -337,7 +348,6 @@ target - will attack the targeted square, and dissapear afterwards.
     <!--Sprite Data-->
     <Sprite name="" frameWidth="" frameHeight=""/>
     <Animation name="" numCol=""/>
-    <Token name="" frameWidth="" frameHeight=""/>
 
     <!--Statistics-->
     <Stats>

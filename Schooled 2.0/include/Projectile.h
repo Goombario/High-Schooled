@@ -17,13 +17,6 @@ namespace Player
 
 namespace Projectile
 {
-	struct Target
-	{
-		double timeToTarget;
-		int X;
-		int Y;
-	};
-
 	// The base class of a projectile object:
 	// An object that travels a set distance before terminating.
 	class Projectile : public BattleObject::BattleObject
@@ -31,9 +24,13 @@ namespace Projectile
 	public:
 		Projectile();
 		Projectile(tinyxml2::XMLElement const*);
-		~Projectile();
 
-		void init(Player::Player const& player, Player::Player const& enemy);
+		// Initializes the projectile values for throwing
+		void init(Player::Player const& player, Vector::Vector2 const& target);
+
+		// Getters
+		double getDelay() const { return delay; }
+		double getTimeToTarget() const { return timeToTarget; }
 
 		void draw() const;
 		void update();
@@ -49,7 +46,8 @@ namespace Projectile
 		bool collides;
 		double delay;
 		bool hasTarget;
-		Target target;
+		double timeElapsed;
+		double timeToTarget;
 		Vector::Vector2 offset;
 	};
 }

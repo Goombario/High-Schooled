@@ -1,6 +1,9 @@
 #ifndef STAGE_H
 #define STAGE_H
 
+#include "BattleConstants.h"
+#include "GameObject.h"
+#include "Vector2.h"
 #include <vector>
 
 namespace Sprite
@@ -11,34 +14,38 @@ namespace Sprite
 
 namespace Player
 {
+	class Icon;
 	class Player;
+}
+
+namespace tinyxml2
+{
+	class XMLElement;
 }
 
 namespace Stage
 {
-	class HUD
+	// HUD class holds HUD elements
+	class HUD : public GameObject::GameObject
 	{
 	public:
-		HUD(Player::Player const&);
+		HUD();
+		HUD(Player::Player const&, tinyxml2::XMLElement*);
+
+		HUD(HUD const&);
+		HUD& operator=(HUD const&);
 		~HUD();
 
-		void draw();
+		void draw() const;
 
 		void update();
 
 	private:
-
-		// Attack Icon management
-		void moveIcons();
-
 		const Player::Player *player;
 		Sprite::Sprite *display;
 		Sprite::Sprite *HPBar;
 		Sprite::Sprite *SPBar;
-		std::vector<Sprite::AnimatedSprite> icons;
-		
-		float offsetX;	// The distance from the edge to the HP bar
-		float offsetY;	// The bottom of the HP bar
+		Vector::Vector2 iconOffset;
 		int side;
 	};
 
@@ -46,7 +53,6 @@ namespace Stage
 	class Stage
 	{
 	public:
-		// FUTURE: Load data from file for images
 		Stage(const char* stageName, 
 			Player::Player const*, Player::Player const*);
 		~Stage();
@@ -58,9 +64,13 @@ namespace Stage
 		// Update the HUD 
 		void update();
 
+		// Swap the active board
+		void setActiveBoard(Side);
+
 	private:
 		Sprite::Sprite *background;
 		Sprite::Sprite *boardSprite;
+		Sprite::AnimatedSprite *p1BoardHighlight, *p2BoardHighlight;
 		const Player::Player *player1, *player2;
 		HUD p1HUD, p2HUD;
 	};

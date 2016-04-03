@@ -39,6 +39,18 @@ namespace Sprite
 		this->setImage(spriteImage);
 	}
 
+	Sprite& Sprite::operator=(Sprite const& other)
+	{
+		if (this == &other) return (*this);
+		GameObject::operator=(other);
+		angle = other.angle;
+		scaleX = other.scaleX;
+		scaleY = other.scaleY;
+		image = other.image;
+
+		return (*this);
+	}
+
 	void Sprite::move(float x, float y, bool centered)
 	{
 		setPos(Vector::Vector2(x, y));
@@ -115,6 +127,10 @@ namespace Sprite
 // Animated Sprite
 namespace Sprite
 {
+	AnimatedSprite::AnimatedSprite()
+	{
+
+	}
 
 	AnimatedSprite::AnimatedSprite(Image::Image const& i, Animation::AnimationData const& sheet)
 		: Sprite(i), data(sheet)
@@ -190,8 +206,6 @@ namespace Sprite
 		//time += FzlGetDeltaTime();	//Broken currently
 		time += (1.0 / schooled::FRAMERATE);	// Locked framerate
 
-		
-
 		// Checks if the time elapsed since the last frame drawn is large enough to advance
 		// To the next frame
 		if (animationList.back().frames[col].duration <= time)
@@ -210,14 +224,15 @@ namespace Sprite
 				}
 				else
 				{
-					animationList.pop_back();
-					if (animationList.size() == 0)
-					{
-						pushAnimation(Animation::AnimationEnum::IDLE);
-					}
+					popAnimation();
 				}
 			}
 		}
+	}
+
+	void AnimatedSprite::addDelay(double time)
+	{
+		animationList.back().frames[col].duration += time;
 	}
 
 	void AnimatedSprite::pushAnimation(Animation::AnimationEnum a)
@@ -230,7 +245,18 @@ namespace Sprite
 
 	void AnimatedSprite::popAnimation()
 	{
-		animationList.pop_back();
+		if (!animationList.empty())
+			animationList.pop_back();
+
+		// If the list is empty, add the idle animation
+		if (animationList.empty())
+		{
+			pushAnimation(Animation::AnimationEnum::IDLE);
+		}
+
+		time = 0.0;
+		row = (animationList.back().firstFrame / numCol);	// Gets the row based on the first frame position
+		col = (animationList.back().firstFrame % numCol);	// Gets the column based on the first frame postion	(Mostly for debug)
 	}
 
 	void AnimatedSprite::changeAnimation(Animation::AnimationEnum a)
@@ -243,5 +269,10 @@ namespace Sprite
 	Animation::AnimationEnum AnimatedSprite::getCurrentAnimation()
 	{
 		return Animation::AnimationLookup.at(animationList.back().name);
+	}
+
+	bool AnimatedSprite::isIdle() const
+	{
+		return (Animation::AnimationLookup.at(animationList.back().name) == Animation::AnimationEnum::IDLE);
 	}
 }

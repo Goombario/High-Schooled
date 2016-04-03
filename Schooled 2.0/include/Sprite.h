@@ -26,6 +26,8 @@ namespace Sprite
 		Sprite(Image::Image const&);
 		Sprite(tinyxml2::XMLElement const*);
 
+		Sprite& operator=(Sprite const&);
+
 		/* Shift the sprite by x pixels right and y pixels down
 		* @param float x - A float representing the number of pixels to be moved along the x axis
 		* @param float y - A float representing the number of pixels to be moved along the y axis
@@ -72,6 +74,7 @@ namespace Sprite
 	class AnimatedSprite : public Sprite
 	{
 	public:
+		AnimatedSprite();
 		AnimatedSprite(Image::Image const&, Animation::AnimationData const&);
 		AnimatedSprite(tinyxml2::XMLElement const* imageData, tinyxml2::XMLElement const* animationData);
 
@@ -82,6 +85,9 @@ namespace Sprite
 		 
 		// Updates the animation.
 		void update();
+
+		// Add a delay to the current frame
+		void addDelay(double time);
 
 		// Change the current animation to the given animation.
 		void changeAnimation(Animation::AnimationEnum a);
@@ -94,6 +100,8 @@ namespace Sprite
 
 		// Get the current animation
 		Animation::AnimationEnum getCurrentAnimation();
+
+		bool isIdle() const;
 
 	private:
 		std::vector<Animation::Animation> animationList;

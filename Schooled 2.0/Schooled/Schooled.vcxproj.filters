@@ -49,25 +49,22 @@
     <Filter Include="Menu">
       <UniqueIdentifier>{12aa97c2-00cf-41b0-8045-3011d08c45ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Battle\Battle Data\Characters">
+      <UniqueIdentifier>{cdf8aa11-25e1-4173-a848-b7ee1b9625ad}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Menu\Menus">
       <UniqueIdentifier>{5d434123-d239-4ea5-826b-75d016d3d498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Battle\Battle Data\Feedback">
+      <UniqueIdentifier>{2462b9d9-05d8-4bfc-8da4-e7333462db0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input\Classes">
+      <UniqueIdentifier>{c576b7c6-30c2-4deb-876e-378c680c055f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input\InputContext.cpp">
-      <Filter>Engine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input\InputMapper.cpp">
-      <Filter>Engine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input\pch.cpp">
-      <Filter>Engine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input\RangeConverter.cpp">
-      <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\tinyxml2.cpp">
       <Filter>Resource Files</Filter>
@@ -132,28 +129,28 @@
     <ClCompile Include="GenericMenu.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
+    <ClCompile Include="src\BattleObject.cpp">
+      <Filter>Battle\Battle Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Path.cpp">
+      <Filter>Battle\Battle Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\InputContext.cpp">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\InputMapper.cpp">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\pch.cpp">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\RangeConverter.cpp">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\ShareState.h">
       <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Input\FileIO.h">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Input\InputConstants.h">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Input\InputContext.h">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Input\InputMapper.h">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Input\pch.h">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Input\RangeConverter.h">
-      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Sound.h">
       <Filter>Engine\Sound</Filter>
@@ -163,9 +160,6 @@
     </ClInclude>
     <ClInclude Include="..\include\Vector2.h">
       <Filter>Engine\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Input\RawInputConstants.h">
-      <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Image.h">
       <Filter>Engine\Draw</Filter>
@@ -233,6 +227,30 @@
     <ClInclude Include="GenericMenu.h">
       <Filter>Menu</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Path.h">
+      <Filter>Battle\Battle Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\FileIO.h">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\InputConstants.h">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\InputContext.h">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\InputMapper.h">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\pch.h">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\RangeConverter.h">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Input\RawInputConstants.h">
+      <Filter>Engine\Input\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Vector2.inl">
@@ -241,11 +259,6 @@
     <None Include="..\include\Board.inl">
       <Filter>Battle\Battle Classes</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\include\Input\License.txt">
-      <Filter>Engine\Input</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Contexts.xml">
@@ -260,32 +273,55 @@
     <Xml Include="PlayerData.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
-    <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\Nate.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
     <Xml Include="StageData.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
-    <Xml Include="..\res\img\Image_data\Arrow.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\Icon.xml">
-      <Filter>Battle\Battle Data</Filter>
-    </Xml>
     <Xml Include="..\res\img\Image_Data\GlowyNate.xml">
-      <Filter>Battle\Battle Data</Filter>
+      <Filter>Battle\Battle Data\Characters</Filter>
     </Xml>
     <Xml Include="..\res\img\Image_Data\GlowyNega.xml">
-      <Filter>Battle\Battle Data</Filter>
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Nate.xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
     </Xml>
     <Xml Include="..\res\img\Image_Data\Nega.xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\BarGlows.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\BoardGlows.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\IconGlows.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\TileGlows.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="IconData.xml">
       <Filter>Battle\Battle Data</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Cooldown.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_data\Arrow.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
     <Xml Include="Projectiles.xml">
-      <Filter>Battle\Battle Data</Filter>
+      <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\Token.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\include\Input\License.txt">
+      <Filter>Engine\Input\Classes</Filter>
+    </Text>
   </ItemGroup>
 </Project>
