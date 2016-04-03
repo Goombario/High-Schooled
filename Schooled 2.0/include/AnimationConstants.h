@@ -34,7 +34,10 @@ namespace Animation
 		HP_RED_PULSE,
 		SP_BLUE_PULSE,
 		SP_RED_PULSE,
-		AP_VIOLET_PULSE
+		AP_VIOLET_PULSE,
+		START,
+		CREDITS,
+		EXIT
 	};
 
 	static const std::map<std::string, AnimationEnum> AnimationLookup
@@ -65,7 +68,10 @@ namespace Animation
 		{ "HP_RED_PULSE", AnimationEnum::HP_RED_PULSE },
 		{ "SP_BLUE_PULSE", AnimationEnum::SP_BLUE_PULSE },
 		{ "SP_RED_PULSE", AnimationEnum::SP_RED_PULSE },
-		{ "AP_VIOLET_PULSE", AnimationEnum::AP_VIOLET_PULSE }
+		{ "AP_VIOLET_PULSE", AnimationEnum::AP_VIOLET_PULSE },
+		{ "START", AnimationEnum::START },
+		{ "CREDITS", AnimationEnum::CREDITS },
+		{ "EXIT", AnimationEnum::EXIT },
 	};
 }
 

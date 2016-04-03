@@ -61,6 +61,9 @@
     <Filter Include="Engine\Input\Classes">
       <UniqueIdentifier>{c576b7c6-30c2-4deb-876e-378c680c055f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Menu\Menu Data">
+      <UniqueIdentifier>{a57e7050-c0f7-4b5d-b7d7-b6fc6f6dd084}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -320,6 +323,9 @@
     </Xml>
     <Xml Include="MenuData.xml">
       <Filter>Menu</Filter>
+    </Xml>
+    <Xml Include="MainMenuAnim.xml">
+      <Filter>Menu\Menus</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

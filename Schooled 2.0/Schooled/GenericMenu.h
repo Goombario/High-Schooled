@@ -1,8 +1,6 @@
 #ifndef GENERIC_MENU_H
 #define GENERIC_MENU_H
 
-#include <vector>
-
 namespace Sprite
 {
 	class Sprite;

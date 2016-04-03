@@ -19,7 +19,7 @@ namespace Menu
 		XMLNode *pRoot = data.RootElement();
 		if (pRoot == nullptr)
 		{
-			std::cerr << "ERROR: Loading Stage data file: "
+			std::cerr << "ERROR: Loading menu data file: "
 				<< XML_ERROR_FILE_READ_ERROR << std::endl;
 			exit(-2);
 		}
