@@ -40,12 +40,9 @@ namespace BattleState
 
 		board1 = new Board::Board(Side::LEFT);
 		board2 = new Board::Board(Side::RIGHT);
-		player1 = new Player::Player("GlowyNate", *board1);
-		player2 = new Player::Player("Gym Teacher", *board2);
+		player1 = new Player::Player("Nate", *board1);
+		player2 = new Player::Player("GlowyNate", *board2);
 		stage = new Stage::Stage("Default", player1, player2);
-
-		board1->setTokenSprite(player2->getTokenSprite());
-		board2->setTokenSprite(player1->getTokenSprite());
 
 		// Set the list of battle objects
 		battleObjects.push_back(board1);
@@ -56,6 +53,7 @@ namespace BattleState
 		states.clear();
 		pushState(State::POS_CHOOSE);
 		playerTurn = Side::LEFT;
+		stage->setActiveBoard(playerTurn);
 		player1->startTurn();
 
 		isEnd = false;
@@ -122,7 +120,57 @@ namespace BattleState
 		}
 
 		// Do not let any commands through if attacking/moving
-		if (self->getCurrentState() == State::ACTING) return;
+		if (self->getCurrentState() == State::ACTING)
+		{
+			return;
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_SELECT) != inputs.Actions.end())
+		{
+			if (self->getCurrentState() != State::ATTACK_CHOOSE)
+			{
+				self->pushState(State::ATTACK_CHOOSE);
+				self->getCurrentPlayer()->initAttackMenu(*self->getOtherPlayer());
+				if (self->getCurrentSide() == Side::LEFT)
+				{
+					GameEngine::getMapper()->PushContext("p1AttackMenu");
+				}
+				else
+				{
+					GameEngine::getMapper()->PushContext("p2AttackMenu");
+				}
+			}
+			else
+			{
+				bool success = self->getCurrentPlayer()->attack(*self->getOtherPlayer());
+				if (success)
+				{
+					self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
+					self->popState();
+					GameEngine::getMapper()->PopContext();
+				}
+			}
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_BACK) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
+			self->popState();
+			GameEngine::getMapper()->PopContext();
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_UP) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->moveSelectedAttack(1, *self->getOtherPlayer());
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_DOWN) != inputs.Actions.end())
+		{
+			self->getCurrentPlayer()->moveSelectedAttack(-1, *self->getOtherPlayer());
+		}
+
+		// If choosing menu options, don't allow anything else
+		if (self->getCurrentState() == State::ATTACK_CHOOSE) return;
 
 		if (inputs.Actions.find(InputMapping::Action::BOARD_UP) != inputs.Actions.end())
 		{
@@ -146,24 +194,6 @@ namespace BattleState
 		{
 			self->getCurrentPlayer()->move(Direction::BACKWARD);
 			inputs.EatAction(InputMapping::Action::BOARD_BACKWARD);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::ATTACK_1) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 0);
-			inputs.EatAction(InputMapping::Action::ATTACK_1);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::ATTACK_2) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 1);
-			inputs.EatAction(InputMapping::Action::ATTACK_2);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::ATTACK_3) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->attack(*self->getOtherPlayer(), 2);
-			inputs.EatAction(InputMapping::Action::ATTACK_3);
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::SELECT_POS) != inputs.Actions.end())
@@ -202,7 +232,7 @@ namespace BattleState
 		}
 
 		// If the player is out of action points
-		if (getCurrentPlayer()->getCurrentAP() == 0)
+		if (getCurrentPlayer()->getCurrentAP() == 0 && !getCurrentPlayer()->isActing()/* && !getCurrentPlayer()->getBoard()->isActing()*/)
 		{
 			swapCurrentPlayer();
 		}
@@ -232,9 +262,12 @@ namespace BattleState
 			{
 				popState();
 				pushState(State::MOVE);
+				getCurrentPlayer()->clearBoardTiles();
+				getOtherPlayer()->clearBoardTiles();
 			}
 		}
 
+		// Swap the players
 		if (playerTurn == Side::LEFT)
 		{
 			playerTurn = Side::RIGHT;
@@ -255,6 +288,7 @@ namespace BattleState
 		{
 			playerTurn = Side::LEFT;
 			GameEngine::getMapper()->PopContext();
+
 			// Choose the correct context
 			switch (getCurrentState())
 			{
@@ -267,6 +301,8 @@ namespace BattleState
 			}
 		}
 
+		stage->setActiveBoard(playerTurn);
+		// Start the current player's turn
 		getCurrentPlayer()->startTurn();
 	}
 

@@ -4,6 +4,7 @@
 #include "Schooled.h"
 #include "Player.h"
 #include <iostream>
+#include <Windows.h>
 
 using namespace tinyxml2;
 
@@ -12,10 +13,13 @@ namespace Projectile
 	Projectile::Projectile()
 	{
 		sprite = nullptr;
+		setActing(true);
 	}
 
 	Projectile::Projectile(tinyxml2::XMLElement const* projElement)
 	{
+		timeElapsed = 0.0;
+
 		const char* projName = projElement->Attribute("name");
 		if (projName == NULL)
 		{
@@ -32,10 +36,14 @@ namespace Projectile
 		CheckXMLResult(projElement->QueryBoolAttribute("hasTarget", &hasTarget));
 		if (hasTarget)
 		{
-			CheckXMLResult(projElement->QueryIntAttribute("targetX", &target.X));
-			CheckXMLResult(projElement->QueryIntAttribute("targetY", &target.Y));
-			CheckXMLResult(projElement->QueryDoubleAttribute("timeToTarget", &target.timeToTarget));
+			CheckXMLResult(projElement->QueryDoubleAttribute("timeToTarget", &timeToTarget));
 		}
+		else
+		{
+			timeToTarget = 1;
+		}
+
+		setActing(true);
 	}
 
 	void Projectile::loadData(const char* projName)
@@ -87,12 +95,7 @@ namespace Projectile
 		setVelocity(Vector::Vector2(x, y));
 	}
 
-	Projectile::~Projectile()
-	{
-
-	}
-
-	void Projectile::init(Player::Player const& player, Player::Player const& enemy)
+	void Projectile::init(Player::Player const& player, Vector::Vector2 const& tilePos)
 	{
 		if (player.getSide() == Side::LEFT)
 		{
@@ -106,12 +109,30 @@ namespace Projectile
 				getVelocity().getX() * -1, getVelocity().getY()));
 		}
 
-
+		if (hasTarget)
+		{
+			Vector::Vector2 distance = player.getPos() - tilePos;
+			Vector::Vector2 velocity;
+			if (hasGravity)
+			{
+				velocity = Vector::Vector2((distance.getX() * -1.0) / timeToTarget, 0.0);
+			}
+			else
+			{
+				velocity = Vector::Vector2(
+					(distance.getX() * -1.0) / timeToTarget, 
+					(distance.getY() * -1.0) / timeToTarget);
+			}
+			setVelocity(velocity);
+		}
 	}
 
 	void Projectile::draw() const
 	{
-		sprite.drawAt(getPos());
+		if (delay == 0)
+		{
+			sprite.drawAt(getPos());
+		}
 	}
 
 	void Projectile::update()
@@ -120,6 +141,13 @@ namespace Projectile
 		{
 			delay -= static_cast<double>(1.0 / schooled::FRAMERATE);
 			return;
+		}
+
+		timeElapsed += static_cast<double>(1.0 / schooled::FRAMERATE);
+		if (timeElapsed >= timeToTarget)
+		{
+			//std::cout << "Reached Target" << std::endl;
+			setActing(false);
 		}
 
 		if (hasGravity)

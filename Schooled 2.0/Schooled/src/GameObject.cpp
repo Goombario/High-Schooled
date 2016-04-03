@@ -22,6 +22,19 @@ namespace GameObject
 		setPrevAcceleration(Vector2(0, 0));
 	}
 
+	GameObject& GameObject::operator=(GameObject const& other)
+	{
+		if (this == &other) return (*this);
+
+		setPos(other.getPos());
+		setVelocity(other.getVelocity());
+		setAcceleration(other.getAcceleration());
+		setPrevVelocity(other.getPrevVelocity());
+		setPrevAcceleration(other.getPrevAcceleration());
+
+		return (*this);
+	}
+
 	void GameObject::firstOrder()
 	{
 		setPos(getPos() + (velocity * static_cast<double>(1.0 / schooled::FRAMERATE)));
@@ -70,5 +83,22 @@ namespace GameObject
 	{
 		acceleration.setX(force.getX() / mass);
 		acceleration.setY(force.getY() / mass);
+	}
+
+	GameObject GameObject::operator+(GameObject const& other) const
+	{
+		return (GameObject(*this) += other);
+	}
+
+	GameObject& GameObject::operator+=(GameObject const& other)
+	{
+		(*this).setPos(other.getPos());
+		(*this).setVelocity(other.getVelocity());
+		(*this).setAcceleration(other.getAcceleration());
+		(*this).setPrevVelocity(other.getPrevVelocity());
+		(*this).setPrevAcceleration(other.getPrevAcceleration());
+		(*this).mass = other.mass;
+
+		return (*this);
 	}
 }

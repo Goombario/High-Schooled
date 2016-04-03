@@ -3,16 +3,14 @@
 
 #include "BattleConstants.h"
 #include "BattleObject.h"
-#include "Projectile.h"
 #include <string>
 #include <vector>
+#include <map>
 #include "Schooled.h"
+#include "Board.h"
+#include "Vector2.h"
 
 // Forward Declaration
-namespace Board
-{
-	class Board;
-}
 
 namespace Sprite
 {
@@ -25,8 +23,41 @@ namespace Stage
 	class HUD;
 }
 
+namespace Projectile
+{
+	class Projectile;
+}
+
+namespace Path
+{
+	class Path;
+}
+
 namespace Player
 {
+	// Helper class that holds icon data
+	class Icon : public GameObject::GameObject
+	{
+	public:
+		Icon();
+		Icon(const char* iconName, Side);
+
+		Icon(Icon const&);
+		Icon& operator=(Icon const&);
+		~Icon();
+
+		void draw() const;
+		void drawAt(Vector::Vector2 const&) const;
+		void update();
+
+		void setSelected(bool);
+		void setCooldown(int);
+
+	private:
+		Sprite::Sprite *icon;
+		Sprite::AnimatedSprite *cooldown;
+		Sprite::AnimatedSprite *glow;
+	};
 
 	// Helper struct holds stats for a player
 	struct Stats
@@ -49,7 +80,7 @@ namespace Player
 		int damage;
 		int cooldown;	// Number of turns before move can be used again
 		int currentCooldown;
-		Sprite::AnimatedSprite *icon;
+		Icon icon;
 		std::vector<Projectile::Projectile> projectiles;
 	};
 
@@ -62,6 +93,44 @@ namespace Player
 		bool resetCooldowns;
 		int heal;	// How much the player is healed
 		int damage;	// How much the enemy player is damaged
+	};
+
+	// Helper stuct that holds the attack window
+	class AttackWindow : public GameObject::GameObject
+	{
+	public:
+		AttackWindow();
+		AttackWindow(Side);
+
+		AttackWindow(AttackWindow const&);
+		AttackWindow& operator=(AttackWindow const&);
+		~AttackWindow();
+
+		void draw() const;
+		void drawAtPlayer(Vector::Vector2 const&) const;
+		void update();
+
+		// Reset the selected to default
+		void reset();
+
+		// Get and set currently active icon index
+		inline int getActiveIconIndex() const { return attackNum; }
+		void setActiveIconIndex(int i);
+		void clearActiveIcon();
+
+		// Takes in a number to move the index by
+		void moveActiveIconIndex(int difference);
+
+		// Add icon to the list
+		void pushIcon(Icon* newIcon) { icons.push_back(newIcon); };
+
+	private:
+		Side side;
+		int attackNum;
+		Sprite::Sprite *window;
+		Vector::Vector2 iconOffset;
+		Vector::Vector2 windowOffset;
+		std::vector<Icon*> icons;
 	};
 
 	// Player class holds a player's data and tools to manipulate it.
@@ -89,7 +158,7 @@ namespace Player
 
 		// Changes health of enemy player, tokens on enemy board
 		// And changes your cooldown and current AP
-		void attack(Player& enemy, int attackNum);
+		bool attack(Player& enemy);
 
 		// Modifies the player's current health
 		void changeHealth(int);
@@ -114,8 +183,18 @@ namespace Player
 		// Draw the player to the screen
 		void draw() const;
 
-		// Get the token sprite
-		Sprite::Sprite& getTokenSprite() { return *token; }
+		// Modify the attack menu
+		void initAttackMenu(Player&);
+		void moveSelectedAttack(int, Player&);
+		void clearAttackMenu(Player&);
+		void clearBoardTiles() { boardPtr->clearTiles(); }
+
+		// Find out the attack pattern based on the current player position
+		std::vector<COORD> const getAttackPattern(Attack const&) const;
+		std::vector<COORD> const getAttackPattern(unsigned int) const;
+
+		// Get the board
+		Board::Board const* getBoard() const { return boardPtr; }
 
 	private:
 		// Move sprite to relative postion
@@ -129,14 +208,14 @@ namespace Player
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		std::vector<Projectile::Projectile> activeProjectiles;
+		std::vector<Path::Path*> paths;
 		SpecialAbility ability;
-		Sprite::Sprite *token;
-		Sprite::Sprite *glow;
+		AttackWindow window;
 		Sprite::AnimatedSprite *sprite;
 		Sprite::AnimatedSprite *arrowSprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
 	};
-
-};
+	
+}
 
 #endif

@@ -4,6 +4,7 @@
 #include "BattleConstants.h"
 #include "BattleObject.h"
 #include "Schooled.h"
+#include <vector>
 #include <Windows.h>
 
 namespace Player
@@ -14,22 +15,43 @@ namespace Player
 namespace Sprite
 {
 	class Sprite;
+	class AnimatedSprite;
 }
 
 namespace Board
 {
-	float const OFFSET_X = 40;
-	float const OFFSET_Y = 135;
+	float const OFFSET_X = 100;
+	float const OFFSET_Y = 337;
 	float const CENTER_X = schooled::SCREEN_WIDTH_PX / 2;
-	int const ROW_WIDTH = 40;
-	int const ROW_HEIGHT = 30;
-	int const ROW_OFFSET = 30;
+	int const ROW_WIDTH = 100;
+	int const ROW_HEIGHT = 75;
+	int const ROW_OFFSET = 75;
+
+	enum class TileState
+	{
+		IDLE,
+		SELECTED,
+		BLOCKED,
+		PLACING,
+		COMPLETING,
+		DESTROYING,
+	};
 
 	struct Tile
 	{
 		bool hasToken;
 		bool isPassable;
 		bool isPath;
+		Vector::Vector2 pos;
+		Sprite::AnimatedSprite *tileSprite;
+		Sprite::AnimatedSprite *tokenSprite;
+		TileState state;
+
+		// Change the state of the tile
+		void changeState(TileState, Side);
+
+		// Make the tile to be idle state (without changing state)
+		void makeIdle();
 	};
 
 	struct WaveMap
@@ -51,12 +73,16 @@ namespace Board
 		int checkMatches();
 
 		// Place a single token on the board at given location
-		void placeToken(unsigned int h, unsigned int w);
-		void placeToken(COORD c);
+		void placeToken(unsigned int h, unsigned int w, double delay = 0.0);
+		void placeToken(COORD c, double delay = 0.0);
 
 		// Remove a token from given location
-		void removeToken(unsigned int h, unsigned int w);
-		void removeToken(COORD c);
+		void removeToken(unsigned int h, unsigned int w, double delay = 0.0);
+		void removeToken(COORD c, double delay=0.0);
+
+		// Destroys the token underfoot
+		void destroyToken(unsigned int h, unsigned int w);
+		void destroyToken(COORD c);
 
 		// Adds tokens onto the board
 		inline Board& operator+=(Board const&);
@@ -65,9 +91,6 @@ namespace Board
 		// Subtract tokens from the board
 		inline Board& operator-=(Board const&);
 		inline Board const operator-(Board const&) const;
-
-		// Set the token sprite
-		inline void setTokenSprite(Sprite::Sprite &spritePtr) { tokenSprite = &spritePtr; }
 
 		// Takes players current and first position and draws the path of least resistance.
 		// Returns the distance
@@ -94,6 +117,15 @@ namespace Board
 		inline COORD getPlayerlocation() const { return playerLocation; }
 		inline Side getSide() const { return side; }
 
+		// Modify the tile states
+		// Set all tile states to idle
+		void clearTiles();
+		// Set the tiles at the given coordinates to selected
+		void setSelectedTiles(std::vector<COORD> const&);
+
+		// Get the tile vector
+		Vector::Vector2 getTilePos(COORD location) const { return boardTiles[location.Y][location.X].pos; }
+
 	private:
 		// Helper function returns tile at number position
 		inline Tile& getTile(int i)
@@ -105,6 +137,9 @@ namespace Board
 		{
 			return boardTiles[h][w];
 		}
+
+		// Mark tiles as completed, and clear the temporary completeBoard
+		void completeRows();
 
 		// Helper function that checks if position is in bounds
 		bool inBounds(int, int);
@@ -120,10 +155,10 @@ namespace Board
 		bool acting;
 		Side side;
 		Tile boardTiles[Stage::BOARD_HEIGHT][Stage::BOARD_WIDTH];
+		bool completedTiles[Stage::BOARD_HEIGHT][Stage::BOARD_WIDTH];
 		WaveMap waveMap;
 		COORD playerLocation;
 		COORD firstPos;	// The position at beginning of turn
-		Sprite::Sprite *tokenSprite;
 	};
 }
 

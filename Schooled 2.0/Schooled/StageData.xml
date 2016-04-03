@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <StageList>
+  <HUD>
+    <HUDLeft name="HUD_Left.png" frameWidth="192" frameHeight="64"/>
+    <HUDRight name="HUD_Right.png" frameWidth="192" frameHeight="64"/>
+    <HPBar name="HPBar.png" frameWidth="20" frameHeight="10"/>
+    <SPBar name="SPBar.png" frameWidth="14" frameHeight="10"/>
+  </HUD>
+  
   <Stage name="Default">
-    <Background name="Gym.png" width="512" height="288"/>
-    <HUD name="HUD.png" width="512" height="288"/>
-    <Board name="Board.png" frameWidth="512" frameHeight="288"/>
-    <Properties></Properties>
+    <Background name="Gym room.png" width="1280" height="720"/>
+    <Board name="Board.png" frameWidth="1280" frameHeight="720"/>
+    <Highlight name="Board Glow Spritesheet.png" frameWidth="640" frameHeight="325"/>
+    <HighlightAnimation name="BoardGlows.xml"/>
   </Stage>
 </StageList>

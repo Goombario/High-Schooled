@@ -24,7 +24,7 @@ namespace BattleObject
 		void setActing(bool a) { acting = a; }
 
 	private:
-		bool acting;
+		bool acting = false;
 	};
 }
 

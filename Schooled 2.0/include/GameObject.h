@@ -12,6 +12,8 @@ namespace GameObject
 		GameObject();
 		GameObject(double mass, Vector2 position, Vector2 velocity, Vector2 acceleration);
 
+		GameObject& operator=(GameObject const&);
+
 		void firstOrder();
 		Vector2 firstOrder(Vector2 const& lower, Vector2 const& upper) const;
 		void secondOrder();
@@ -28,9 +30,13 @@ namespace GameObject
 		void setVelocity(Vector2 const& newVel) { velocity = newVel; }
 		void setAcceleration(Vector2 const& newAcc) { acceleration = newAcc; }
 
+		// Operators
+		GameObject operator+(GameObject const&) const;
+		GameObject& operator+=(GameObject const&);
+
 		// Virtual functions
 		virtual void update() {}
-		virtual void draw() {}
+		virtual void draw() const {}
 
 	protected:
 		double mass;
