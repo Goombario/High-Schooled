@@ -133,6 +133,12 @@ namespace Player
 		cooldown->draw();
 	}
 
+	void Icon::drawNoGlowAt(Vector::Vector2 const& newPos) const
+	{
+		icon->drawAt(newPos);
+		cooldown->drawAt(newPos);
+	}
+
 	void Icon::drawAt(Vector::Vector2 const& newPos) const
 	{
 		icon->drawAt(newPos);

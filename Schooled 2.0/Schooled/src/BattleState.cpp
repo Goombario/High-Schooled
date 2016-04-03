@@ -148,6 +148,7 @@ namespace BattleState
 					self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
 					self->popState();
 					GameEngine::getMapper()->PopContext();
+					self->stage->updateHPColour();
 				}
 			}
 		}
@@ -220,6 +221,7 @@ namespace BattleState
 		}
 
 		stage->setDark(getCurrentPlayer()->isUsingSpecial());
+		stage->updateHPColour();
 		stage->update();
 
 		// If a player is acting (moving, attacking) set the state to ACTING

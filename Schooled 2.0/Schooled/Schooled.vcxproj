@@ -167,6 +167,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="..\res\img\Image_Data\Cooldown.xml" />
+    <Xml Include="..\res\img\Image_Data\HPBar.xml" />
     <Xml Include="..\res\img\Image_Data\IconGlows.xml" />
     <Xml Include="..\res\img\Image_Data\Nate.xml">
       <SubType>Designer</SubType>

@@ -40,11 +40,17 @@ namespace Stage
 
 		void update();
 
+		// Update the HP bar colour
+		void updateHPColour();
+
 	private:
 		const Player::Player *player;
 		Sprite::Sprite *display;
-		Sprite::Sprite *HPBar;
+		Sprite::AnimatedSprite *HPBar;
 		Sprite::Sprite *SPBar;
+		Sprite::Sprite *APBar;
+		Sprite::Sprite *sideBar;
+		Sprite::Sprite *downBar;
 		Vector::Vector2 iconOffset;
 		int side;
 	};
@@ -63,6 +69,9 @@ namespace Stage
 
 		// Update the HUD 
 		void update();
+
+		// Update the HP bar colour
+		void updateHPColour();
 
 		// Swap the active board
 		void setActiveBoard(Side);

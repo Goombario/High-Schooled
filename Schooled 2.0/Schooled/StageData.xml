@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <StageList>
   <HUD>
-    <HUDLeft name="HUD_Left.png" frameWidth="192" frameHeight="64"/>
-    <HUDRight name="HUD_Right.png" frameWidth="192" frameHeight="64"/>
-    <HPBar name="HPBar.png" frameWidth="20" frameHeight="10"/>
-    <SPBar name="SPBar.png" frameWidth="14" frameHeight="10"/>
+    <HUDLeft name="HUDLeft.png" frameWidth="200" frameHeight="200"/>
+    <HUDRight name="HUDRight.png" frameWidth="200" frameHeight="200"/>
+    <HPBar name="HPBar.png" frameWidth="40" frameHeight="60"/>
+    <HPAnimation name="HPBar.xml"/>
+    <SPBarLeft name="SPBarLeft.png" frameWidth="40" frameHeight="60"/>
+    <SPBarRight name="SPBarRight.png" frameWidth="40" frameHeight="60"/>
+    <APBar name="APBar.png" frameWidth="60" frameHeight="40"/>
+    <SideBarLeft name="SideBarLeft.png" frameWidth="40" frameHeight="60"/>
+    <SideBarRight name="SideBarRight.png" frameWidth="40" frameHeight="60"/>
+    <DownBar name="DownBar.png" frameWidth="60" frameHeight="40"/>
   </HUD>
   
   <Stage name="Default">
