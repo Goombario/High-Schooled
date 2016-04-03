@@ -492,9 +492,19 @@ namespace Player
 		CheckXMLResult(specialData->FirstChildElement("Damage")
 			->QueryIntText(&ability.damage));
 
-		setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
+		// Set the player position
+		if (boardPtr->getSide() == Side::LEFT)
+		{
+			setPos(Vector::Vector2(-200, 0));
+		}
+		else
+		{
+			setPos(Vector::Vector2(schooled::SCREEN_WIDTH_PX + 200, 0));
+		}
+		
+
+		arrowSprite->setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0));
-		//moveToSide();
 	}
 
 	Player::Player(Player const& source)
@@ -793,9 +803,20 @@ namespace Player
 		}
 
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
-		setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
+		arrowSprite->setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0));
 		//moveToSide();
+	}
+
+	void Player::endChoosing()
+	{
+		setPos(Vector::Vector2(getPos().getX(), arrowSprite->getPos().getY()));
+		Path::Path *tempPath = new Path::Path(
+			(*this).getPos(),
+			arrowSprite->getPos(),
+			1.0);
+
+		paths.push_back(tempPath);
 	}
 
 	void Player::moveToSide()
@@ -967,7 +988,7 @@ namespace Player
 				break;
 
 			case BattleState::State::POS_CHOOSE:
-				arrowSprite->drawAt(getPos() + Vector::Vector2(0, 40));
+				arrowSprite->drawAt(arrowSprite->getPos() + Vector::Vector2(0, 40));
 				break;
 
 			default:
@@ -975,17 +996,7 @@ namespace Player
 			}
 		}
 
-		// Choosing which sprites to draw based on the current state of the battle
-		switch (BattleState::BattleState::Instance()->getCurrentState())
-		{
-		case BattleState::State::POS_CHOOSE:
-			//arrowSprite->drawAt(getPos() + Vector::Vector2(-20, 40));
-			break;
-
-		default:
-			sprite->drawAt(getPos());
-			break;
-		}
+		sprite->drawAt(getPos());
 
 		// Draw all active projectiles
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)

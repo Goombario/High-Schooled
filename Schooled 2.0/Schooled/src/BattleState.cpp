@@ -258,6 +258,7 @@ namespace BattleState
 		if (choosingPos < 2 && getCurrentState() == State::POS_CHOOSE)
 		{
 			choosingPos++;
+			getCurrentPlayer()->endChoosing();
 			if (choosingPos == 2)
 			{
 				popState();

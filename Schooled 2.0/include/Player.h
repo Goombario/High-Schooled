@@ -177,6 +177,9 @@ namespace Player
 		// Resets cooldowns
 		void startTurn();
 
+		// Finish planning phase by moving player to arrow location
+		void endChoosing();
+
 		// Update the player's animations
 		void update();
 
