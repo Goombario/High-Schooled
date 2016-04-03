@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.07.00">
+    <object class="AudioFile" id="{c492a58d-f96b-4616-bd5f-5639a8aa924a}">
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>1.0208390022675737</value>
+        </property>
+        <property name="audioFilePath">
+            <value>$(AUDIO_BIN_DIR)/pewpew {1d860ba8-80d5-406a-b006-69ab117a654f}.wav</value>
+        </property>
+        <relationship name="container">
+            <destination>{c90dbc6e-0732-465f-8f11-334dcdf3e701}</destination>
+        </relationship>
+    </object>
+</objects>

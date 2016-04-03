@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AnimationList numCol="2">
+  <Animation name="TOKEN_EMPTY" loop="true">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.0</Frame>
+  </Animation>
+
+  <Animation name="IDLE" loop="true">
+    <FirstFrame>2</FirstFrame>
+    <Frame>0.0</Frame>
+  </Animation>
+  
+  <Animation name="TOKEN_PLACE" loop="false">
+    <FirstFrame>4</FirstFrame>
+    <Frame>0.5</Frame>
+    <Frame>0.5</Frame>
+  </Animation>
+  
+  <Animation name="TOKEN_GHOST" loop="true">
+    <FirstFrame>6</FirstFrame>
+    <Frame>0.0</Frame>
+  </Animation>
+
+  <Animation name="TOKEN_COMPLETE" loop="false">
+    <FirstFrame>8</FirstFrame>
+    <Frame>1.0</Frame>
+    <Frame>0.0</Frame>
+  </Animation>
+
+  <Animation name="TOKEN_DESTROY" loop="false">
+    <FirstFrame>10</FirstFrame>
+    <Frame>1.0</Frame>
+    <Frame>0.0</Frame>
+  </Animation>
+
+  <Animation name="TOKEN_CRACKED" loop="true">
+    <FirstFrame>12</FirstFrame>
+    <Frame>0.0</Frame>
+  </Animation>
+  
+  
+</AnimationList>
