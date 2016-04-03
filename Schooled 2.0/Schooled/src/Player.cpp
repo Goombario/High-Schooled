@@ -611,9 +611,12 @@ namespace Player
 		currentAttack->currentCooldown = currentAttack->cooldown;
 		(*this).sprite->changeAnimation(static_cast<Animation::AnimationEnum>(window.getActiveIconIndex()));
 		(*this).stats.lockedAP += (*this).boardPtr->updatePath() + 1;
+		stats.currentAP = stats.maxAP - stats.lockedAP;
+
+		// Update the board
 		(*this).boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
 		(*this).boardPtr->updatePath();
-		stats.currentAP = stats.maxAP - stats.lockedAP;
+		(*this).boardPtr->destroyCrackedTokens();
 		currentAttack = nullptr;
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 
@@ -628,7 +631,7 @@ namespace Player
 
 	void Player::passTurn()
 	{
-
+		boardPtr->destroyCrackedTokens();
 	}
 
 	void Player::useSpecial(Player& enemy)
@@ -723,11 +726,18 @@ namespace Player
 			return;
 		}
 
+		// If the spot it's moving onto is cracked, and is standing on a cracked, set the current one to not be cracked
+		if (boardPtr->getTileState(boardPtr->getPlayerlocation()) == Board::TileState::CRACKED &&
+			boardPtr->getTileState(boardPtr->getPlayerlocation() + change) == Board::TileState::CRACKED)	
+		{
+			boardPtr->crackToken(boardPtr->getPlayerlocation(), false);
+		}
+
 		// Move the character on the grid
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
-		boardPtr->destroyToken(boardPtr->getPlayerlocation());
+		boardPtr->crackToken(boardPtr->getPlayerlocation());
 
 		// Add a path
 		Path::Path *tempPath = new Path::Path(
@@ -820,6 +830,7 @@ namespace Player
 		updateIconCooldown();
 
 		boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
+		//boardPtr->setTileState(boardPtr->getPlayerlocation(), Board::TileState::CRACKED);
 
 		stats.currentAP = stats.maxAP;
 		stats.lockedAP = 0;
