@@ -29,7 +29,7 @@
     <Action>MENU_SELECT</Action>
   </Context>
 
-  <Context name="attackMenu">
+  <Context name="p1AttackMenu">
     <Action>MENU_UP</Action>
     <Action>MENU_DOWN</Action>
     <Action>MENU_SELECT</Action>
@@ -50,6 +50,13 @@
     <Action>BOARD_FORWARD</Action>
     <Action>BOARD_BACKWARD</Action>
     <Action>SELECT_POS</Action>
+  </Context>
+
+  <Context name="p2AttackMenu">
+    <Action>MENU_UP</Action>
+    <Action>MENU_DOWN</Action>
+    <Action>MENU_SELECT</Action>
+    <Action>MENU_BACK</Action>
   </Context>
   
   <Context name="globalContext">
