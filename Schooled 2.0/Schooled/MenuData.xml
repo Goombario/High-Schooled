@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <StageList>
   <Stage name="MainMenu">
-    <Background name="Gym.png" width="512" height="288"/>
-    <Menu name="Main_Menu.png" frameWidth="512" frameHeight="288"/>
-    <Properties></Properties>
+    <Background name="Gym room.png" width="1280" height="720"/>
+    <Menu name="Main_Menu_shadow.png" frameWidth="1280" frameHeight="720"/>
   </Stage>
 </StageList>
