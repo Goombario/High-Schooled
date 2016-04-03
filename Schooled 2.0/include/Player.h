@@ -215,6 +215,7 @@ namespace Player
 		std::vector<Attack> attacks;
 		std::vector<Projectile::Projectile> activeProjectiles;
 		std::vector<Path::Path*> paths;
+		std::vector<COORD> boardPath;
 		SpecialAbility ability;
 		AttackWindow window;
 		Sprite::AnimatedSprite *sprite;

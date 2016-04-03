@@ -617,6 +617,8 @@ namespace Player
 		(*this).stats.lockedAP += (*this).boardPtr->updatePath() + 1;
 		stats.currentAP = stats.maxAP - stats.lockedAP;
 		(*this).stats.currentSP += (enemy.boardPtr->checkMatches());
+		boardPath.clear();
+		boardPath.push_back(boardPtr->getPlayerlocation());
 
 		// Update the board
 		(*this).boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
@@ -638,6 +640,7 @@ namespace Player
 	void Player::passTurn()
 	{
 		boardPtr->destroyCrackedTokens();
+		boardPath.clear();
 	}
 
 	void Player::useSpecial(Player& enemy)
@@ -741,11 +744,15 @@ namespace Player
 			return;
 		}
 
-		// If the spot it's moving onto is cracked, and is standing on a cracked, set the current one to not be cracked
-		if (boardPtr->getTileState(boardPtr->getPlayerlocation()) == Board::TileState::CRACKED &&
-			boardPtr->getTileState(boardPtr->getPlayerlocation() + change) == Board::TileState::CRACKED)	
+		if (boardPath.size() > 1 &&
+			boardPath.at(boardPath.size() - 2) == boardPtr->getPlayerlocation() + change)
 		{
 			boardPtr->crackToken(boardPtr->getPlayerlocation(), false);
+			boardPath.pop_back();
+		}
+		else
+		{
+			boardPath.push_back(boardPtr->getPlayerlocation() + change);
 		}
 
 		// Move the character on the grid
@@ -753,6 +760,7 @@ namespace Player
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
 		boardPtr->crackToken(boardPtr->getPlayerlocation());
+		
 
 		// Add a path
 		Path::Path *tempPath = new Path::Path(
@@ -856,7 +864,7 @@ namespace Player
 		updateIconCooldown();
 
 		boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
-		//boardPtr->setTileState(boardPtr->getPlayerlocation(), Board::TileState::CRACKED);
+		boardPath.push_back(boardPtr->getPlayerlocation());
 
 		stats.currentAP = stats.maxAP;
 		stats.lockedAP = 0;
