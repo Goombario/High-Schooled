@@ -104,27 +104,27 @@
     <!-- All Actions -->
     <Action>
       <Input>BOARD_UP</Input>
-      <Raw>FzlKeyW</Raw>
+      <Raw>FzlKeyI</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_DOWN</Input>
-      <Raw>FzlKeyS</Raw>
+      <Raw>FzlKeyK</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_FORWARD</Input>
-      <Raw>FzlKeyA</Raw>
+      <Raw>FzlKeyJ</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_BACKWARD</Input>
-      <Raw>FzlKeyD</Raw>
+      <Raw>FzlKeyL</Raw>
     </Action>
 
     <Action>
       <Input>MENU_SELECT</Input>
-      <Raw>FzlKeyZ</Raw>
+      <Raw>FzlKeyN</Raw>
     </Action>
   </Context>
 
@@ -132,31 +132,31 @@
     <!-- All Actions -->
     <Action>
       <Input>BOARD_UP</Input>
-      <Raw>FzlKeyW</Raw>
+      <Raw>FzlKeyI</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_DOWN</Input>
-      <Raw>FzlKeyS</Raw>
+      <Raw>FzlKeyK</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_FORWARD</Input>
-      <Raw>FzlKeyA</Raw>
+      <Raw>FzlKeyJ</Raw>
     </Action>
 
     <Action>
       <Input>BOARD_BACKWARD</Input>
-      <Raw>FzlKeyD</Raw>
+      <Raw>FzlKeyL</Raw>
     </Action>
 
     <Action>
       <Input>SELECT_POS</Input>
-      <Raw>FzlKeyZ</Raw>
+      <Raw>FzlKeyN</Raw>
     </Action>
   </Context>
 
-  <Context name="attackMenu">
+  <Context name="p1AttackMenu">
     <Action>
       <Input>MENU_UP</Input>
       <Raw>FzlKeyD</Raw>
@@ -175,6 +175,28 @@
     <Action>
       <Input>MENU_BACK</Input>
       <Raw>FzlKeyX</Raw>
+    </Action>
+  </Context>
+
+  <Context name="p2AttackMenu">
+    <Action>
+      <Input>MENU_UP</Input>
+      <Raw>FzlKeyL</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_DOWN</Input>
+      <Raw>FzlKeyJ</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_SELECT</Input>
+      <Raw>FzlKeyN</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_BACK</Input>
+      <Raw>FzlKeyM</Raw>
     </Action>
   </Context>
 

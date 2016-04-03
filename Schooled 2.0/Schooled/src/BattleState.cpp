@@ -131,7 +131,14 @@ namespace BattleState
 			{
 				self->pushState(State::ATTACK_CHOOSE);
 				self->getCurrentPlayer()->initAttackMenu(*self->getOtherPlayer());
-				GameEngine::getMapper()->PushContext("attackMenu");
+				if (self->getCurrentSide() == Side::LEFT)
+				{
+					GameEngine::getMapper()->PushContext("p1AttackMenu");
+				}
+				else
+				{
+					GameEngine::getMapper()->PushContext("p2AttackMenu");
+				}
 			}
 			else
 			{
