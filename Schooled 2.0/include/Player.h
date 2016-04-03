@@ -164,6 +164,8 @@ namespace Player
 		void changeHealth(int);
 
 		// Use your special ability. May affect the enemy player/board.
+		bool canUseSpecial() const { return (stats.currentSP >= stats.maxSP); }
+		bool isUsingSpecial() const { return usingSpecial; }
 		void useSpecial(Player&);
 
 		// Move the character on the board.
@@ -207,6 +209,7 @@ namespace Player
 		// Update attack icon cooldown
 		void updateIconCooldown();
 
+		bool usingSpecial;
 		Stats stats;
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;

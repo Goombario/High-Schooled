@@ -355,6 +355,7 @@ namespace Player
 	Player::Player(const char* playerName, Board::Board& playerBoard)
 	{
 		setActing(false);
+		usingSpecial = false;
 		boardPtr = &playerBoard;
 
 		// Load player data from player file
@@ -408,7 +409,7 @@ namespace Player
 		CheckXMLResult(statsData->FirstChildElement("MaxSP")->QueryIntText(&stats.maxSP));
 		CheckXMLResult(statsData->FirstChildElement("MaxAP")->QueryIntText(&stats.maxAP));
 		stats.currentHP = stats.maxHP;
-		stats.currentSP = 0;
+		stats.currentSP = 3;
 		stats.currentAP = 0;
 		stats.lockedAP = 0;
 		
@@ -609,19 +610,13 @@ namespace Player
 			
 			std::cout << std::endl;
 		}
-
-		// Update the SP counter, and use the special if filled
-		(*this).stats.currentSP += (enemy.boardPtr->checkMatches());
-		if ((*this).stats.currentSP >= (*this).stats.maxSP)
-		{
-			(*this).useSpecial(enemy);
-		}
 		
 		// Update player stats
 		currentAttack->currentCooldown = currentAttack->cooldown;
 		(*this).sprite->changeAnimation(static_cast<Animation::AnimationEnum>(window.getActiveIconIndex()));
 		(*this).stats.lockedAP += (*this).boardPtr->updatePath() + 1;
 		stats.currentAP = stats.maxAP - stats.lockedAP;
+		(*this).stats.currentSP += (enemy.boardPtr->checkMatches());
 
 		// Update the board
 		(*this).boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
@@ -631,6 +626,7 @@ namespace Player
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 
 		updateIconCooldown();
+
 		return true;
 	}
 
@@ -646,6 +642,10 @@ namespace Player
 
 	void Player::useSpecial(Player& enemy)
 	{
+		sprite->changeAnimation(Animation::AnimationEnum::ATTACK_SPECIAL);
+		enemy.sprite->changeAnimation(Animation::AnimationEnum::HURT);
+		enemy.sprite->addDelay(1.0);
+
 		// Clear tokens from one or more players
 		if (ability.removesAllTokens)
 		{
@@ -667,7 +667,12 @@ namespace Player
 		// Heal the current player
 		if (ability.heal > 0)
 		{
-			(*this).changeHealth(ability.heal);
+			int newHeal = ability.heal;
+			if (ability.heal + stats.currentHP > stats.maxHP)
+			{
+				newHeal = stats.maxHP - stats.currentHP;
+			}
+			(*this).changeHealth(newHeal);
 		}
 
 		// Reset all cooldowns
@@ -957,6 +962,9 @@ namespace Player
 		setActing(
 			sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE ||
 			!paths.empty());
+
+		// Check if the player is using their special
+		usingSpecial = (sprite->getCurrentAnimation() == Animation::AnimationEnum::ATTACK_SPECIAL);
 
 		// Update all active projectiles
 		std::vector<Projectile::Projectile> tempProj;
