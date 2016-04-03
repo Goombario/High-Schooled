@@ -324,8 +324,8 @@
     <Xml Include="MenuData.xml">
       <Filter>Menu</Filter>
     </Xml>
-    <Xml Include="MainMenuAnim.xml">
-      <Filter>Menu\Menus</Filter>
+    <Xml Include="..\res\img\Image_Data\MainMenuAnim.xml">
+      <Filter>Menu\Menu Data</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

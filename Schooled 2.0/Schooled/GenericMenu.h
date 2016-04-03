@@ -28,6 +28,7 @@ namespace Menu
 	private:
 		Sprite::Sprite *background;
 		Sprite::Sprite *menuSprite;
+		Sprite::AnimatedSprite *menuAnimSprite;
 	};
 }
 
