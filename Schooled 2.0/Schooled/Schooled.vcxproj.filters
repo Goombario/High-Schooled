@@ -318,6 +318,9 @@
     <Xml Include="..\res\img\Image_Data\Token.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
+    <Xml Include="MenuData.xml">
+      <Filter>Menu</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\include\Input\License.txt">
