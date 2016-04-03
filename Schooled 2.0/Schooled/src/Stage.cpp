@@ -26,7 +26,7 @@ namespace Stage
 		: player(&p)
 	{
 		Vector::Vector2 HPPos, SPPos, APPos;
-		const char* sideBarName;
+		const char *sideBarName, *hpName, *spName;
 
 		if (player->getSide() == Side::LEFT)
 		{
@@ -40,10 +40,12 @@ namespace Stage
 				display->getFrameWidth() / 2.0, 
 				schooled::SCREEN_HEIGHT_PX - (display->getFrameHeight() / 2.0)));
 
-			HPPos = Vector::Vector2(90, 40);
-			SPPos = Vector::Vector2(90, -10);
-			APPos = Vector::Vector2(-55, -100);
-			iconOffset = Vector::Vector2(0, -display->getFrameHeight());
+			HPPos = Vector::Vector2(85, 40);
+			SPPos = Vector::Vector2(85, -10);
+			APPos = Vector::Vector2(-80, -125);
+			iconOffset = Vector::Vector2(-20, display->getFrameHeight() - schooled::SCREEN_HEIGHT_PX - 30);
+			hpName = "HPBarLeft";
+			spName = "SPBarLeft";
 			sideBarName = "SideBarLeft";
 		}
 		else
@@ -58,22 +60,24 @@ namespace Stage
 				schooled::SCREEN_WIDTH_PX - (display->getFrameWidth() / 2.0),
 				schooled::SCREEN_HEIGHT_PX - (display->getFrameHeight() / 2.0)));
 
-			HPPos = Vector::Vector2(-80, 40);
-			SPPos = Vector::Vector2(-80, -10);
-			APPos = Vector::Vector2(60, -100);
-			iconOffset = Vector::Vector2(-display->getFrameWidth(), -display->getFrameHeight());
+			HPPos = Vector::Vector2(-85, 40);
+			SPPos = Vector::Vector2(-85, -10);
+			APPos = Vector::Vector2(85, -125);
+			iconOffset = Vector::Vector2(-display->getFrameWidth() + 20, display->getFrameHeight() - schooled::SCREEN_HEIGHT_PX - 30);
+			hpName = "HPBarRight";
+			spName = "SPBarRight";
 			sideBarName = "SideBarRight";
 		}
 
 		// Load the HP bar
-		if (CheckIfNull(HUDData->FirstChildElement("HPBar"), "HUD: HPBar")) exit(-2);
+		if (CheckIfNull(HUDData->FirstChildElement(hpName), "HUD: HPBar")) exit(-2);
 		if (CheckIfNull(HUDData->FirstChildElement("HPAnimation"), "HUD: HPAnimation")) exit(-2);
-		HPBar = new Sprite::AnimatedSprite(HUDData->FirstChildElement("HPBar"), HUDData->FirstChildElement("HPAnimation"));
+		HPBar = new Sprite::AnimatedSprite(HUDData->FirstChildElement(hpName), HUDData->FirstChildElement("HPAnimation"));
 		HPBar->setPos(HPPos);
 
 		// Load the SP bar
-		if (CheckIfNull(HUDData->FirstChildElement("SPBar"), "HUD: SPBar")) exit(-2);
-		SPBar = new Sprite::Sprite(HUDData->FirstChildElement("SPBar"));
+		if (CheckIfNull(HUDData->FirstChildElement(spName), "HUD: SPBar")) exit(-2);
+		SPBar = new Sprite::Sprite(HUDData->FirstChildElement(spName));
 		SPBar->setPos(SPPos);
 
 		// Load the AP bar
@@ -152,7 +156,7 @@ namespace Stage
 		{
 			Vector::Vector2 tempVec(HPBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2((i * HPBar->getFrameWidth() * side) - 5, 0));
+				Vector::Vector2((i * (HPBar->getFrameWidth() - 20) * side), 0));
 			sideBar->drawAt(tempVec);
 		}
 
@@ -161,8 +165,8 @@ namespace Stage
 		{
 			Vector::Vector2 tempVec(HPBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2(i * HPBar->getFrameWidth() * side, 0));
-			//HPBar->drawAt(tempVec);
+				Vector::Vector2(i * (HPBar->getFrameWidth() - 20) * side, 0));
+			HPBar->drawAt(tempVec);
 		}
 
 		// Draw all the SP background bars
@@ -170,7 +174,7 @@ namespace Stage
 		{
 			Vector::Vector2 tempVec(SPBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2((i * SPBar->getFrameWidth() * side) - 5, 0));
+				Vector::Vector2((i * (SPBar->getFrameWidth() - 20) * side), 0));
 			sideBar->drawAt(tempVec);
 		}
 
@@ -180,27 +184,27 @@ namespace Stage
 			Vector::Vector2 tempVec(
 				SPBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2(i * SPBar->getFrameWidth() * side, 0));
-			//SPBar->drawAt(tempVec);
+				Vector::Vector2(i * (SPBar->getFrameWidth() - 20) * side, 0));
+			SPBar->drawAt(tempVec);
 		}
 
 		// Draw all the AP background bars
-		for (int i = 0; i < player->getMaxAP(); i++)
+		for (int i = player->getMaxAP(); i > 0; --i)
 		{
 			Vector::Vector2 tempVec(APBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2(side * APBar->getFrameWidth(), (i * APBar->getFrameHeight()) - 5));
+				Vector::Vector2(side * APBar->getFrameWidth(), i * (APBar->getFrameHeight() - 20)));
 			downBar->drawAt(tempVec);
 		}
 
 		// Draw all the AP bars
-		for (int i = 0; i < player->getCurrentAP(); i++)
+		for (int i = 1; i <= player->getCurrentAP(); i++)
 		{
 			Vector::Vector2 tempVec(
 				APBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2(side * APBar->getFrameWidth(), i * APBar->getFrameHeight()));
-			//APBar->drawAt(tempVec);
+				Vector::Vector2(side * APBar->getFrameWidth(), i * (APBar->getFrameHeight() - 20)));
+			APBar->drawAt(tempVec);
 		}
 
 		// Draw the HUD
@@ -213,7 +217,7 @@ namespace Stage
 			Vector::Vector2 tempVec(
 				(*this).getPos() + iconOffset +
 				Vector::Vector2(counter * 90, 0));
-			//(*it).icon.drawNoGlowAt(tempVec);
+			(*it).icon.drawNoGlowAt(tempVec);
 			counter++;
 		}
 	}

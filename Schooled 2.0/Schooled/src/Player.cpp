@@ -647,6 +647,7 @@ namespace Player
 	{
 		boardPtr->destroyCrackedTokens();
 		boardPath.clear();
+		stats.currentAP = 0;
 	}
 
 	void Player::useSpecial(Player& enemy)
