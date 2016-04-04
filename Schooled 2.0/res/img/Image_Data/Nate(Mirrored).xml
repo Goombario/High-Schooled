@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AnimationList numCol="19">
+  <Animation name="IDLE" loop="true">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="ATTACK_1" loop="false">
+    <FirstFrame>19</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.07</Frame>
+    <Frame>0.25</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="ATTACK_2" loop="false">
+    <FirstFrame>38</FirstFrame>
+    <Frame>0.07</Frame>
+    <Frame>0.07</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="ATTACK_3" loop="false">
+    <FirstFrame>57</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.005</Frame>
+    <Frame>1.5</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.005</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="ATTACK_SPECIAL" loop="false">
+    <FirstFrame>76</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.05</Frame>
+    <Frame>1.5</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="TOKEN_PLACE" loop="false">
+    <FirstFrame>76</FirstFrame>
+    <Frame>0.0</Frame>
+  </Animation>
+  <Animation name="BACKWARDS" loop="false">
+    <FirstFrame>95</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="FORWARDS" loop="false">
+    <FirstFrame>114</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="DOWN" loop="false">
+    <FirstFrame>133</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="UP" loop="false">
+    <FirstFrame>152</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.05</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="HURT" loop="false">
+    <FirstFrame>171</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.25</Frame>
+    <Frame>0.35</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+  <Animation name="IDLE_HIGHLIGHT" loop="true">
+    <FirstFrame>190</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+</AnimationList>
