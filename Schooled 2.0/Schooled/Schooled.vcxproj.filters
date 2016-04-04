@@ -64,6 +64,9 @@
     <Filter Include="Menu\Menu Data">
       <UniqueIdentifier>{a57e7050-c0f7-4b5d-b7d7-b6fc6f6dd084}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tutorial">
+      <UniqueIdentifier>{fa76ae9e-0723-421f-a6a1-f9852976232d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -149,6 +152,12 @@
     </ClCompile>
     <ClCompile Include="src\input\RangeConverter.cpp">
       <Filter>Engine\Input\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TutorialState.cpp">
+      <Filter>Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tutorial.cpp">
+      <Filter>Tutorial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +263,12 @@
     <ClInclude Include="..\include\Input\RawInputConstants.h">
       <Filter>Engine\Input\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\TutorialState.h">
+      <Filter>Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Tutorial.h">
+      <Filter>Tutorial</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Vector2.inl">
@@ -324,8 +339,14 @@
     <Xml Include="MenuData.xml">
       <Filter>Menu</Filter>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\HPBar.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
     <Xml Include="..\res\img\Image_Data\MainMenuAnim.xml">
       <Filter>Menu\Menu Data</Filter>
+    </Xml>
+    <Xml Include="TutorialData.xml">
+      <Filter>Tutorial</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

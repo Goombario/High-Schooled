@@ -4,6 +4,7 @@
 #include "GameEngine.h"
 #include "Schooled.h"
 
+#include <string>
 #include "tinyxml2.h"
 using namespace tinyxml2;
 
@@ -14,14 +15,18 @@ namespace Stage
 	{
 		player = nullptr;
 		display = new Sprite::Sprite();
-		HPBar = new Sprite::Sprite();
+		HPBar = new Sprite::AnimatedSprite();
 		SPBar = new Sprite::Sprite();
+		APBar = new Sprite::Sprite();
+		sideBar = new Sprite::Sprite();
+		downBar = new Sprite::Sprite();
 	}
 
 	HUD::HUD(Player::Player const& p, XMLElement *HUDData)
 		: player(&p)
 	{
-		Vector::Vector2 HPPos, SPPos;
+		Vector::Vector2 HPPos, SPPos, APPos;
+		const char *sideBarName, *hpName, *spName;
 
 		if (player->getSide() == Side::LEFT)
 		{
@@ -35,9 +40,13 @@ namespace Stage
 				display->getFrameWidth() / 2.0, 
 				schooled::SCREEN_HEIGHT_PX - (display->getFrameHeight() / 2.0)));
 
-			HPPos = Vector::Vector2(-20, 13);
-			SPPos = Vector::Vector2(-20, 3);
-			iconOffset = Vector::Vector2(0, -display->getFrameHeight());
+			HPPos = Vector::Vector2(85, 40);
+			SPPos = Vector::Vector2(85, -10);
+			APPos = Vector::Vector2(-80, -125);
+			iconOffset = Vector::Vector2(-20, display->getFrameHeight() - schooled::SCREEN_HEIGHT_PX - 30);
+			hpName = "HPBarLeft";
+			spName = "SPBarLeft";
+			sideBarName = "SideBarLeft";
 		}
 		else
 		{
@@ -51,20 +60,38 @@ namespace Stage
 				schooled::SCREEN_WIDTH_PX - (display->getFrameWidth() / 2.0),
 				schooled::SCREEN_HEIGHT_PX - (display->getFrameHeight() / 2.0)));
 
-			HPPos = Vector::Vector2(20, 13);
-			SPPos = Vector::Vector2(20, 3);
-			iconOffset = Vector::Vector2(-display->getFrameWidth(), -display->getFrameHeight());
+			HPPos = Vector::Vector2(-85, 40);
+			SPPos = Vector::Vector2(-85, -10);
+			APPos = Vector::Vector2(85, -125);
+			iconOffset = Vector::Vector2(-display->getFrameWidth() + 20, display->getFrameHeight() - schooled::SCREEN_HEIGHT_PX - 30);
+			hpName = "HPBarRight";
+			spName = "SPBarRight";
+			sideBarName = "SideBarRight";
 		}
 
 		// Load the HP bar
-		if (CheckIfNull(HUDData->FirstChildElement("HPBar"), "HUD: HPBar")) exit(-2);
-		HPBar = new Sprite::Sprite(HUDData->FirstChildElement("HPBar"));
+		if (CheckIfNull(HUDData->FirstChildElement(hpName), "HUD: HPBar")) exit(-2);
+		if (CheckIfNull(HUDData->FirstChildElement("HPAnimation"), "HUD: HPAnimation")) exit(-2);
+		HPBar = new Sprite::AnimatedSprite(HUDData->FirstChildElement(hpName), HUDData->FirstChildElement("HPAnimation"));
 		HPBar->setPos(HPPos);
 
 		// Load the SP bar
-		if (CheckIfNull(HUDData->FirstChildElement("SPBar"), "HUD: SPBar")) exit(-2);
-		SPBar = new Sprite::Sprite(HUDData->FirstChildElement("SPBar"));
+		if (CheckIfNull(HUDData->FirstChildElement(spName), "HUD: SPBar")) exit(-2);
+		SPBar = new Sprite::Sprite(HUDData->FirstChildElement(spName));
 		SPBar->setPos(SPPos);
+
+		// Load the AP bar
+		if (CheckIfNull(HUDData->FirstChildElement("APBar"), "HUD: APBar")) exit(-2);
+		APBar = new Sprite::Sprite(HUDData->FirstChildElement("APBar"));
+		APBar->setPos(APPos);
+
+		// Load the Down bar
+		if (CheckIfNull(HUDData->FirstChildElement("DownBar"), "HUD: DownBar")) exit(-2);
+		downBar = new Sprite::Sprite(HUDData->FirstChildElement("DownBar"));
+
+		// Load the Side bar
+		if (CheckIfNull(HUDData->FirstChildElement(sideBarName), "HUD: SideBar")) exit(-2);
+		sideBar = new Sprite::Sprite(HUDData->FirstChildElement(sideBarName));
 	}
 
 	HUD::HUD(HUD const& other)
@@ -72,11 +99,17 @@ namespace Stage
 		display = new Sprite::Sprite();
 		*display = *other.display;
 
-		HPBar = new Sprite::Sprite();
+		HPBar = new Sprite::AnimatedSprite();
 		*HPBar = *other.HPBar;
 
 		SPBar = new Sprite::Sprite();
 		*SPBar = *other.SPBar;
+
+		sideBar = new Sprite::Sprite();
+		*sideBar = *other.sideBar;
+
+		downBar = new Sprite::Sprite();
+		*downBar = *other.downBar;
 
 		iconOffset = other.iconOffset;
 		side = other.side;
@@ -92,6 +125,9 @@ namespace Stage
 		*display = *other.display;
 		*HPBar = *other.HPBar;
 		*SPBar = *other.SPBar;
+		*APBar = *other.APBar;
+		*sideBar = *other.sideBar;
+		*downBar = *other.downBar;
 
 		iconOffset = other.iconOffset;
 		side = other.side;
@@ -104,6 +140,9 @@ namespace Stage
 		delete display;
 		delete HPBar;
 		delete SPBar;
+		delete APBar;
+		delete downBar;
+		delete sideBar;
 
 		display = nullptr;
 		HPBar = nullptr;
@@ -112,13 +151,31 @@ namespace Stage
 
 	void HUD::draw() const
 	{
+		// Draw all the HP background bars
+		for (int i = 0; i < player->getMaxHP(); i++)
+		{
+			Vector::Vector2 tempVec(HPBar->getPos() +
+				(*this).getPos() +
+				Vector::Vector2((i * (HPBar->getFrameWidth() - 20) * side), 0));
+			sideBar->drawAt(tempVec);
+		}
+
 		// Draw all the HP bars
 		for (int i = 0; i < player->getCurrentHP(); i++)
 		{
 			Vector::Vector2 tempVec(HPBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2(i * HPBar->getFrameWidth() * side, 0));
+				Vector::Vector2(i * (HPBar->getFrameWidth() - 20) * side, 0));
 			HPBar->drawAt(tempVec);
+		}
+
+		// Draw all the SP background bars
+		for (int i = 0; i < player->getMaxSP(); i++)
+		{
+			Vector::Vector2 tempVec(SPBar->getPos() +
+				(*this).getPos() +
+				Vector::Vector2((i * (SPBar->getFrameWidth() - 20) * side), 0));
+			sideBar->drawAt(tempVec);
 		}
 
 		// Draw all the SP bars
@@ -127,8 +184,27 @@ namespace Stage
 			Vector::Vector2 tempVec(
 				SPBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2(i * SPBar->getFrameWidth() * side, 0));
+				Vector::Vector2(i * (SPBar->getFrameWidth() - 20) * side, 0));
 			SPBar->drawAt(tempVec);
+		}
+
+		// Draw all the AP background bars
+		for (int i = player->getMaxAP(); i > 0; --i)
+		{
+			Vector::Vector2 tempVec(APBar->getPos() +
+				(*this).getPos() +
+				Vector::Vector2(side * APBar->getFrameWidth(), i * (APBar->getFrameHeight() - 20)));
+			downBar->drawAt(tempVec);
+		}
+
+		// Draw all the AP bars
+		for (int i = 1; i <= player->getCurrentAP(); i++)
+		{
+			Vector::Vector2 tempVec(
+				APBar->getPos() +
+				(*this).getPos() +
+				Vector::Vector2(side * APBar->getFrameWidth(), i * (APBar->getFrameHeight() - 20)));
+			APBar->drawAt(tempVec);
 		}
 
 		// Draw the HUD
@@ -141,14 +217,30 @@ namespace Stage
 			Vector::Vector2 tempVec(
 				(*this).getPos() + iconOffset +
 				Vector::Vector2(counter * 90, 0));
-			(*it).icon.drawAt(tempVec);
+			(*it).icon.drawNoGlowAt(tempVec);
 			counter++;
 		}
 	}
 
 	void HUD::update()
 	{
+		HPBar->update();
+	}
 
+	void HUD::updateHPColour()
+	{
+		if (player->getCurrentHP() < player->getMaxHP() / 4)
+		{
+			HPBar->changeAnimation(Animation::AnimationEnum::HP_LOW);
+		}
+		else if (player->getCurrentHP() < player->getMaxHP() / 2)
+		{
+			HPBar->changeAnimation(Animation::AnimationEnum::HP_MED);
+		}
+		else
+		{
+			HPBar->changeAnimation(Animation::AnimationEnum::IDLE);
+		}
 	}
 }
 
@@ -160,8 +252,6 @@ namespace Stage
 		player1(p1),
 		player2(p2)
 	{
-		Image::Image tempImage;
-
 		// Load player data from player file
 		tinyxml2::XMLDocument data;
 		CheckXMLResult(data.LoadFile("../Schooled/StageData.xml"));
@@ -204,16 +294,7 @@ namespace Stage
 			exit(-2);
 		}
 
-		std::string imageName;
-		unsigned int frameWidth;
-		unsigned int frameHeight;
-		imageName = stageElement->Attribute("name");
-		CheckXMLResult(stageElement->QueryUnsignedAttribute("width", &frameWidth));
-		CheckXMLResult(stageElement->QueryUnsignedAttribute("height", &frameHeight));
-		tempImage = GameEngine::getImageManager()->loadImage(
-			schooled::getResourcePath("img") + imageName, 
-			frameWidth, frameHeight);
-		background = new Sprite::Sprite(tempImage);
+		background = new Sprite::Sprite(stageElement);
 		background->move(0, 0, false);
 
 		XMLElement *boardElement = stageData->FirstChildElement("Board");
@@ -232,6 +313,12 @@ namespace Stage
 		p2BoardHighlight = new Sprite::AnimatedSprite(
 			stageData->FirstChildElement("Highlight"), stageData->FirstChildElement("HighlightAnimation"));
 		p2BoardHighlight->setPos(p2->getBoard()->getPos());
+
+		// Load the DARKNESS
+		if (CheckIfNull(stageData->FirstChildElement("Darkness"), "Stage: Darkness")) exit(-2);
+		darkness = new Sprite::Sprite(stageData->FirstChildElement("Darkness"));
+		darkness->move(0, 0, false);
+		setDark(false);
 	}
 
 	Stage::~Stage()
@@ -250,6 +337,10 @@ namespace Stage
 		background->draw();
 		p1BoardHighlight->draw();
 		p2BoardHighlight->draw();
+		if (hasDarkness)
+		{
+			darkness->draw();
+		}
 		boardSprite->draw();
 	}
 
@@ -259,10 +350,21 @@ namespace Stage
 		p2HUD.draw();
 	}
 
+	void Stage::setDark(bool hasDarkness)
+	{
+		(*this).hasDarkness = hasDarkness;
+	}
+
 	void Stage::update()
 	{
 		p1HUD.update();
 		p2HUD.update();
+	}
+
+	void Stage::updateHPColour()
+	{
+		p1HUD.updateHPColour();
+		p2HUD.updateHPColour();
 	}
 
 	void Stage::setActiveBoard(Side s)

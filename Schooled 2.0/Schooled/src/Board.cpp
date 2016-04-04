@@ -32,6 +32,10 @@ namespace Board
 			tileSprite->changeAnimation(Animation::AnimationEnum::BLOCKED);
 			break;
 
+		case TileState::CRACKED:
+			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_CRACKED);
+			break;
+
 		case TileState::PLACING:
 			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_PLACE);
 			break;
@@ -61,7 +65,8 @@ namespace Board
 			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
 		}
 		else if (hasToken && tokenSprite->isIdle() ||
-			hasToken && tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_GHOST)
+			hasToken && tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_GHOST ||
+			hasToken && tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_CRACKED)
 		{
 			tokenSprite->changeAnimation(Animation::AnimationEnum::IDLE);
 		}
@@ -192,6 +197,39 @@ namespace Board
 		}
 	}
 
+	void Board::crackToken(COORD c, bool cracked)
+	{
+		crackToken(c.Y, c.X, cracked);
+	}
+
+	void Board::crackToken(unsigned int h, unsigned int w, bool cracked)
+	{
+		if (boardTiles[h][w].hasToken)
+		{
+			if (cracked)
+			{
+				boardTiles[h][w].changeState(TileState::CRACKED, getSide());
+			}
+			else
+			{
+				boardTiles[h][w].changeState(TileState::IDLE, getSide());
+			}
+		}
+	}
+
+	void Board::destroyCrackedTokens()
+	{
+		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
+		{
+			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
+			{
+				if (boardTiles[h][w].state == TileState::CRACKED)
+				{
+					destroyToken(COORD{ w, h });
+				}
+			}
+		}
+	}
 
 	void Board::clearTokens()
 	{
@@ -304,7 +342,8 @@ namespace Board
 			{
 				// If the tiles are doing some sort of change in state, it's acting
 				if (boardTiles[h][w].state == TileState::COMPLETING ||
-					boardTiles[h][w].state == TileState::PLACING)
+					boardTiles[h][w].state == TileState::PLACING ||
+					boardTiles[h][w].state == TileState::DESTROYING)
 				{
 					setActing(true);
 				}

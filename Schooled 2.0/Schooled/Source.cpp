@@ -9,6 +9,7 @@
 
 #include "GameEngine.h"
 #include "BattleState.h"
+#include "TutorialState.h"
 #include "MenuState.h"
 
 int main(int argc, char **argv)
@@ -24,7 +25,8 @@ int main(int argc, char **argv)
 	}
 
 	// Load the first state
-	game.ChangeState(MenuState::MenuState::Instance());
+	game.ChangeState(BattleState::BattleState::Instance());
+	game.PushState(TutorialState::TutorialState::Instance());
 
 	// Main game loop
 	while (game.Running())

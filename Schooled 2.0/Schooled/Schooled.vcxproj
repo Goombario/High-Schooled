@@ -109,6 +109,8 @@
     <ClCompile Include="src\BattleState.cpp" />
     <ClCompile Include="src\Stage.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
+    <ClCompile Include="src\Tutorial.cpp" />
+    <ClCompile Include="src\TutorialState.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="StageMenu.cpp" />
   </ItemGroup>
@@ -122,6 +124,7 @@
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\GameState.h" />
+    <ClInclude Include="..\include\Tutorial.h" />
     <ClInclude Include="..\include\Image.h" />
     <ClInclude Include="..\include\Input\FileIO.h" />
     <ClInclude Include="..\include\Input\InputConstants.h" />
@@ -141,6 +144,7 @@
     <ClInclude Include="..\include\BattleState.h" />
     <ClInclude Include="..\include\Stage.h" />
     <ClInclude Include="..\include\tinyxml2.h" />
+    <ClInclude Include="..\include\TutorialState.h" />
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="CharacterMenu.h" />
     <ClInclude Include="GenericMenu.h" />
@@ -167,6 +171,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="..\res\img\Image_Data\Cooldown.xml" />
+    <Xml Include="..\res\img\Image_Data\HPBar.xml" />
     <Xml Include="..\res\img\Image_Data\IconGlows.xml" />
     <Xml Include="..\res\img\Image_Data\MainMenuAnim.xml" />
     <Xml Include="..\res\img\Image_Data\Nate.xml">
@@ -197,6 +202,7 @@
     <Xml Include="StageData.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="TutorialData.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -58,6 +58,24 @@
     <Action>MENU_SELECT</Action>
     <Action>MENU_BACK</Action>
   </Context>
+
+  <Context name="tutorial">
+    <Action>P1_ADVANCE</Action>
+    <Action>P2_ADVANCE</Action>
+    <Action>P1_BACK</Action>
+    <Action>P2_BACK</Action>
+    <Action>P1_READY</Action>
+    <Action>P2_READY</Action>
+  </Context>
+
+  <Context name="altTutorial">
+    <Action>P1_ADVANCE</Action>
+    <Action>P2_ADVANCE</Action>
+    <Action>P1_BACK</Action>
+    <Action>P2_BACK</Action>
+    <Action>P1_READY</Action>
+    <Action>P2_READY</Action>
+  </Context>
   
   <Context name="globalContext">
     <Action>EXIT_GAME</Action>

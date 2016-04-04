@@ -43,6 +43,70 @@
       <Raw>FzlKeyD</Raw>
     </Action>
   </Context>
+
+  <Context name="tutorial">
+    <Action>
+      <Input>P1_ADVANCE</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+    
+    <Action>
+      <Input>P2_ADVANCE</Input>
+      <Raw>FzlKeyN</Raw>
+    </Action>
+
+    <Action>
+      <Input>P1_BACK</Input>
+      <Raw>FzlKeyX</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_BACK</Input>
+      <Raw>FzlKeyM</Raw>
+    </Action>
+
+    <Action>
+      <Input>P1_READY</Input>
+      <Raw>FzlKeyC</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_READY</Input>
+      <Raw>FzlKeyComma</Raw>
+    </Action>
+  </Context>
+
+  <Context name="altTutorial">
+    <Action>
+      <Input>P1_ADVANCE</Input>
+      <Raw>FzlKeyD</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_ADVANCE</Input>
+      <Raw>FzlKeyL</Raw>
+    </Action>
+
+    <Action>
+      <Input>P1_BACK</Input>
+      <Raw>FzlKeyA</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_BACK</Input>
+      <Raw>FzlKeyJ</Raw>
+    </Action>
+
+    <Action>
+      <Input>P1_READY</Input>
+      <Raw>FzlKeyC</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_READY</Input>
+      <Raw>FzlKeyComma</Raw>
+    </Action>
+  </Context>
   
   <Context name="player1Action">
     <!-- All Actions -->
