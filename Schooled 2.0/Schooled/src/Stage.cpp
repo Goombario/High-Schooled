@@ -341,13 +341,14 @@ namespace Stage
 		{
 			darkness->draw();
 		}
-		boardSprite->draw();
+		
 	}
 
 	void Stage::drawHUD()
 	{
 		p1HUD.draw();
 		p2HUD.draw();
+		boardSprite->draw();
 	}
 
 	void Stage::setDark(bool hasDarkness)
