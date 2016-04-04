@@ -28,7 +28,6 @@ namespace BattleState
 		GameEngine::getMapper()->AddCallback(mainCallback, 0);
 
 		// Tells the mapper to map a specific set of keys to a specific set of actions
-		GameEngine::getMapper()->Clear();
 		GameEngine::getMapper()->PushContext("globalContext");
 		GameEngine::getMapper()->PushContext("player1ChoosePos");
 
@@ -81,12 +80,61 @@ namespace BattleState
 
 	void BattleState::Pause()
 	{
+		GameEngine::getMapper()->PopContext();
+		GameEngine::getMapper()->PopContext();
 		// Suspend sounds and potentially pop contexts
 	}
 
 	void BattleState::Resume()
 	{
 		// Resume sounds and push contexts
+		GameEngine::getMapper()->PushContext("globalContext");
+		
+		// Find which context to push
+		if (getCurrentSide() == Side::RIGHT)
+		{
+			switch (getCurrentState())
+			{
+			case State::EMPTY:
+				break;
+			case State::POS_CHOOSE:
+				GameEngine::getMapper()->PushContext("player2ChoosePos");
+				break;
+			case State::ATTACK_CHOOSE:
+				GameEngine::getMapper()->PushContext("p2AttackMenu");
+				break;
+			case State::MOVE:
+				GameEngine::getMapper()->PushContext("player2Action");
+				break;
+			case State::ACTING:
+				GameEngine::getMapper()->PushContext("player2Action");
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			switch (getCurrentState())
+			{
+			case State::EMPTY:
+				break;
+			case State::POS_CHOOSE:
+				GameEngine::getMapper()->PushContext("player1ChoosePos");
+				break;
+			case State::ATTACK_CHOOSE:
+				GameEngine::getMapper()->PushContext("p1AttackMenu");
+				break;
+			case State::MOVE:
+				GameEngine::getMapper()->PushContext("player1Action");
+				break;
+			case State::ACTING:
+				GameEngine::getMapper()->PushContext("player1Action");
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	void BattleState::HandleEvents(GameEngine* game)

@@ -61,6 +61,9 @@
     <Filter Include="Engine\Input\Classes">
       <UniqueIdentifier>{c576b7c6-30c2-4deb-876e-378c680c055f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tutorial">
+      <UniqueIdentifier>{fa76ae9e-0723-421f-a6a1-f9852976232d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -146,6 +149,12 @@
     </ClCompile>
     <ClCompile Include="src\input\RangeConverter.cpp">
       <Filter>Engine\Input\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TutorialState.cpp">
+      <Filter>Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tutorial.cpp">
+      <Filter>Tutorial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +260,12 @@
     <ClInclude Include="..\include\Input\RawInputConstants.h">
       <Filter>Engine\Input\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\TutorialState.h">
+      <Filter>Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Tutorial.h">
+      <Filter>Tutorial</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Vector2.inl">
@@ -323,6 +338,9 @@
     </Xml>
     <Xml Include="..\res\img\Image_Data\HPBar.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="TutorialData.xml">
+      <Filter>Tutorial</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
