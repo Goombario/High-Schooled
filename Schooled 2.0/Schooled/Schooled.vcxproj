@@ -83,14 +83,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CharacterMenu.cpp" />
-    <ClCompile Include="GenericMenu.cpp" />
-    <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\BattleObject.cpp" />
     <ClCompile Include="src\Board.cpp" />
+    <ClCompile Include="src\CharacterMenu.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Image.cpp" />
@@ -98,6 +95,9 @@
     <ClCompile Include="src\input\InputMapper.cpp" />
     <ClCompile Include="src\input\pch.cpp" />
     <ClCompile Include="src\input\RangeConverter.cpp" />
+    <ClCompile Include="src\MainMenu.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\Path.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -108,11 +108,11 @@
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\BattleState.cpp" />
     <ClCompile Include="src\Stage.cpp" />
+    <ClCompile Include="src\StageMenu.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\Tutorial.cpp" />
     <ClCompile Include="src\TutorialState.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
-    <ClCompile Include="StageMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Animation.h" />
@@ -120,10 +120,15 @@
     <ClInclude Include="..\include\BattleConstants.h" />
     <ClInclude Include="..\include\BattleObject.h" />
     <ClInclude Include="..\include\Board.h" />
+    <ClInclude Include="..\include\CharacterMenu.h" />
     <ClInclude Include="..\include\Collision.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\GameState.h" />
+    <ClInclude Include="..\include\MainMenu.h" />
+    <ClInclude Include="..\include\Menu.h" />
+    <ClInclude Include="..\include\MenuState.h" />
+    <ClInclude Include="..\include\StageMenu.h" />
     <ClInclude Include="..\include\Tutorial.h" />
     <ClInclude Include="..\include\Image.h" />
     <ClInclude Include="..\include\Input\FileIO.h" />
@@ -146,11 +151,6 @@
     <ClInclude Include="..\include\tinyxml2.h" />
     <ClInclude Include="..\include\TutorialState.h" />
     <ClInclude Include="..\include\Vector2.h" />
-    <ClInclude Include="CharacterMenu.h" />
-    <ClInclude Include="GenericMenu.h" />
-    <ClInclude Include="MainMenu.h" />
-    <ClInclude Include="MenuState.h" />
-    <ClInclude Include="StageMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\Board.inl" />

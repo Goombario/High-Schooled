@@ -1,425 +1,137 @@
 #include "MenuState.h"
-#include "GameState.h"
-#include "PlayingState.h"
-#include "sound_effects.h"
+#include "GameEngine.h"
 #include "ShareState.h"
-
 #include "Fizzle\Fizzle.h"
+#include "Input\InputMapper.h"
 
-#include <fstream>
-#include <stdio.h>
+#include "Menu.h"
+#include "CharacterMenu.h"
+#include "MainMenu.h"
+#include "StageMenu.h"
+#include "Sprite.h"
+
 #include <iostream>
-
-using schooled::getSetting;
-using schooled::controlOptions;
+using std::string;
 
 namespace MenuState
 {
-
 	MenuState MenuState::m_MenuState;
-	int MenuState::lSelect = 0;
-
-	// FMOD sounds
-	namespace snd
-	{
-		// Title Screen Music
-		Sound::Description *m_title_desc = nullptr;
-		Sound::Instance *m_title = nullptr;
-
-		// Dungeon Music
-		Sound::Description *m_dungeon_desc = nullptr;
-		Sound::Instance *m_dungeon = nullptr;
-
-		// Sound effects
-		Sound::Description *s_start_desc = nullptr;
-
-	}
 
 	void MenuState::Init()
 	{
-		// Get the Title Screen Music
-		//snd::m_title_desc = new Sound::Description("Tracks/m_title");
-		//snd::m_title = new Sound::Instance(snd::m_title_desc);
+		// Initialize the mapper context
+		// Tells the mapper to map a specific set of keys to a specific set of actions
+		GameEngine::getMapper()->PushContext("globalContext");
+		GameEngine::getMapper()->PushContext("mainMenuContext");
 
-		// Get the Dungeon Music
-		//snd::m_dungeon_desc = new Sound::Description("Tracks/m_dungeon");
-		//snd::m_dungeon = new Sound::Instance(snd::m_dungeon_desc);
+		// Tells the mapper to call the given function after the contexts have been mapped.
+		GameEngine::getMapper()->AddCallback(mainCallback, 0);
 
-		// Get the sound effects
-		//snd::s_start_desc = new Sound::Description("SFX/s_start", true);
+		// Hold valid keys
+		shared::initValidKeys(validKeys);
 
+		// Hold pressed keys
+		shared::initPreviouslyPressed(previouslyPressed, validKeys);
 
-		// Set and clear the buffer
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		buffer.open(hConsole);
-		buffer.clear();
-		buffer.close(hConsole);
-
-		// Get the artwork and intro text
-		art = getTextBlock(schooled::getResourcePath("text") + "title.txt");
-		introText = getTextBlock(schooled::getResourcePath("text") + "intro.txt");
-
-		// Check if settings file exists.
-		if (!std::ifstream("Settings.txt"))
-		{
-			initSettings();
-		}
-
-		//Play the music
-		snd::m_title->start();
-
-		// Set the default location of the selection to "Start Game"
-		menuSelect = 0;
-
-		// Set the menu options
-		menuSelections.push_back("Start Game");
-		menuSelections.push_back("Control Options");
-		menuSelections.push_back("Level Select");
-		menuSelections.push_back("Credits");
-		menuSelections.push_back("Quit");
-
-		// Load schemes
-		setSchemes();
-
-		// Set flags
-		selectingControl = false;
-		selectingLevel = false;
-		changedSettings = false;
-		selectingCredits = false;
-		startingGame = false;
-		showObjective = false;
-
-		// Get the level list
-		levelSelections = shared::getRoomNames();
-
-		// Get the control from the settings file
-		selectedControl = 0;
-		string sControl = schooled::getSetting("ControlScheme");
-
-		for (unsigned int i = 0; i < controlOptions.size(); i++)
-		{
-			if (controlOptions[i] == sControl)
-			{
-				selectedControl = i;
-				break;
-			}
-		}
+		//menu = new Menu::Menu("MainMenu");
 	}
 
 	void MenuState::Cleanup()
 	{
-		// Stop the main music
-		snd::m_title->stop(FMOD_STUDIO_STOP_IMMEDIATE);
+		// Cleanup all pointers
 	}
 
 	void MenuState::Pause()
 	{
-		// Stop the main music and if settings changed, save settings
-		snd::m_title->stop();
-		if (changedSettings)
-		{
-			saveSetting("ControlScheme", controlOptions[selectedControl]);
-		}
+		// Suspend sounds and potentially pop contexts
 	}
 
 	void MenuState::Resume()
 	{
-		// Play the main music
-		snd::m_title->start();
+		// Resume sounds and push contexts
 	}
 
 	void MenuState::HandleEvents(GameEngine* game)
 	{
-		// SHOULD BE IN UPDATE
-		// If the game is starting and the controls are being shown
-		if (startingGame)
+		// Go through all valid keys and set if they are down or not, and if they have been previously down.
+		for (FzlKey key : validKeys)
 		{
-			startingGame = false;
-			showObjective = true;
-			return;
-		}
-		// Showing the objective
-		else if (showObjective)
-		{
-			showObjective = false;
-			snd::m_title->stop();
-
-			Sound::Instance s_start(snd::s_start_desc);
-			s_start.start();
-			game->PushState(PlayingState::Instance());
-			return;
-		}
-
-
-		//Escape key
-		if (FzlGetKey(FzlKeyEscape))
-		{
-			// If not in submenu, quit
-			if (!selectingControl && !selectingLevel && !selectingCredits)
+			if (FzlGetKey(key))
 			{
-				game->Quit();
+				bool previouslyDown = previouslyPressed[key];
+				previouslyPressed[key] = true;
+				game->getMapper()->SetRawButtonState(key, true, previouslyDown);
+			}
+			else
+			{
+				previouslyPressed[key] = false;
+				game->getMapper()->SetRawButtonState(key, false, true);
 			}
 		}
-		else if (FzlGetKey(FzlKeyX) || FzlGetKey(FzlKeyN))
-		{
-			if (selectingControl)	// Controls menu
-			{
-				selectingControl = false;
-				changedSettings = false;
-			}
-			else if (selectingLevel)	// level select menu
-			{
-				selectingLevel = false;
-				lSelect = 0;
-				levelSelect = 0;
-			}
-			else if (selectingCredits)	// credits menu
-			{
-				selectingCredits = false;
-			}
-			return;
-		}
-		// Going up
-		else if (FzlGetKey(FzlKeyW) || FzlGetKey(FzlKeyUpArrow))
-		{
-			if (selectingControl) return; // Don't move if changing controls
-			//snd::menuHighlight->play();
+		// Mapper dispatches automatically at end
+	}
 
-			if (selectingLevel)	// Choosing a level to play
-			{
-				// Change the level select highlight
-				levelSelect = (levelSelect > 0) ? levelSelect - 1 : levelSelections.size() - 1;
-				return;
-			}
-			// Change the main menu highlight
-			menuSelect = (menuSelect > 0) ? menuSelect - 1 : menuSelections.size() - 1;
-			return;
+	void mainCallback(InputMapping::MappedInput& inputs)
+	{
+		MenuState *self = MenuState::Instance();
+
+		if (inputs.Actions.find(InputMapping::Action::EXIT_GAME) != inputs.Actions.end())
+		{
+			self->isEnd = true;
+			inputs.EatAction(InputMapping::Action::EXIT_GAME);
 		}
 
-		// Going down
-		else if (FzlGetKey(FzlKeyS) || FzlGetKey(FzlKeyDownArrow))
+		if (inputs.Actions.find(InputMapping::Action::MENU_UP) != inputs.Actions.end())
 		{
-			if (selectingControl) return; // Don't move if changing controls
-			//snd::menuHighlight->play();
-			if (selectingLevel)	// Choosing a level to play
-			{
-				// Change the level select highlight
-				levelSelect = (levelSelect < levelSelections.size() - 1) ? levelSelect + 1 : 0;
-				return;
-			}
-			// Change the main menu highlight
-			menuSelect = (menuSelect < menuSelections.size() - 1) ? menuSelect + 1 : 0;
-		}
-		// Going left
-		else if (FzlGetKey(FzlKeyA) || FzlGetKey(FzlKeyLeftArrow))
-		{
-			if (!selectingControl) return;	// If not selecting controls, break
-			//snd::menuHighlight->play();
-
-			selectedControl = (selectedControl > 0) ? selectedControl - 1 : controlOptions.size() - 1;
+			inputs.EatAction(InputMapping::Action::MENU_UP);
 		}
 
-		// Going right
-		else if (FzlGetKey(FzlKeyD) || FzlGetKey(FzlKeyRightArrow))
+		if (inputs.Actions.find(InputMapping::Action::MENU_DOWN) != inputs.Actions.end())
 		{
-
-			if (!selectingControl) return;	// If not selecting controls, break
-			//snd::menuHighlight->play();
-
-			selectedControl = (selectedControl < controlOptions.size() - 1) ? selectedControl + 1 : 0;
+			inputs.EatAction(InputMapping::Action::MENU_DOWN);
 		}
-		// "Enter" key
-		else if (FzlGetKey(FzlKeyZ) || FzlGetKey(FzlKeyM)
-			|| FzlGetKey(FzlKeyEnter) || FzlGetKey(FzlKeySpace))
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_SELECT) != inputs.Actions.end())
 		{
-			handleMenu(game);
+			inputs.EatAction(InputMapping::Action::MENU_SELECT);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_BACK) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_BACK);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_P1_RIGHT) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_P1_RIGHT);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_P1_LEFT) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_P1_LEFT);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_P2_RIGHT) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_P2_RIGHT);
+		}
+
+		if (inputs.Actions.find(InputMapping::Action::MENU_P2_LEFT) != inputs.Actions.end())
+		{
+			inputs.EatAction(InputMapping::Action::MENU_P2_LEFT);
 		}
 	}
 
 	void MenuState::Update(GameEngine* game)
 	{
-		if (showObjective)
-		{
-			snd::m_title->stop();
-			snd::m_dungeon->start();
-		}
-
+		if (isEnd) game->Quit();
+		// FMOD updates automatically at end
 	}
 
 	void MenuState::Draw(GameEngine* game)
 	{
-		
-	}
-
-	string MenuState::getTextBlock(string filename)
-	{
-		string tempLine, fullLine;
-		std::ifstream stream(filename);
-		if (!stream)
-		{
-			std::cerr << "File failed to load (GetTextBlock)" << std::endl;
-			exit(1);
-		}
-
-		while (getline(stream, tempLine))
-		{
-			fullLine += tempLine + "#";
-		}
-
-		stream.close();
-		return fullLine;
-	}
-
-	void MenuState::handleMenu(GameEngine* game)
-	{
-		switch (menuSelect)
-		{
-		case 0:
-			// Start game
-			startingGame = true;
-			break;
-
-		case 1:
-			// Control settings
-			if (!selectingControl)
-			{
-				selectingControl = true;
-			}
-			else
-			{
-				selectingControl = false;
-				changedSettings = true;
-			}
-			break;
-
-		case 2:
-			// Level selector
-			if (!selectingLevel)
-			{
-				selectingLevel = true;
-			}
-			else
-			{
-				lSelect = levelSelect + 1;
-				snd::m_title->stop();
-				Sound::Instance s_start(snd::s_start_desc);
-				s_start.start();
-				game->PushState(PlayingState::Instance());
-			}
-			break;
-
-		case 3:
-			// Credits
-			if (!selectingCredits)
-			{
-				selectingCredits = true;
-			}
-			else
-			{
-				selectingCredits = false;
-			}
-			break;
-
-		case 4:
-			// Quit game
-			game->Quit();
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	void MenuState::saveSetting(string a_key, string change)
-	{
-		// Open the files for input/output
-		std::ifstream inStream("Settings.txt");
-		std::ofstream outStream("temp.txt");
-		string line;
-
-		// If there is an error with the files, error
-		if (!inStream || !outStream)
-		{
-			std::cerr << "File failed to load (SaveSetting)" << std::endl;
-			exit(1);
-		}
-
-		// Check for changes and put the information in the other file
-		while (std::getline(inStream, line))
-		{
-			if (line.substr(0, line.find(':')) == a_key)
-			{
-				line = a_key + ": " + change;
-			}
-			outStream << line << std::endl;
-		}
-		outStream.flush();
-
-		inStream.close();
-		outStream.close();
-
-		// Error checking and renaming
-		if (remove("Settings.txt") != 0)
-			std::cerr << "Error deleting file" << std::endl;
-		else
-			puts("File successfully deleted");
-
-		int result = rename("temp.txt", "Settings.txt");
-		if (result == 0)
-			puts("File successfully renamed");
-		else
-			std::cerr << "Error renaming file" << std::endl;
-	}
-
-	void MenuState::initSettings()
-	{
-		// Open the file for output
-		std::ofstream stream("Settings.txt");
-		if (!stream)
-		{
-			std::cerr << "File open failed (initSettings)." << std::endl;
-			exit(1);
-		}
-		stream << "ControlScheme: Double-Tap" << std::endl;
-		stream.close();
-	}
-
-	void MenuState::setSchemes()
-	{
-		// Classic scheme
-		cScheme.push_back("FACE UP = UP");
-		cScheme.push_back("FACE DOWN = DOWN");
-		cScheme.push_back("FACE LEFT = LEFT");
-		cScheme.push_back("FACE RIGHT = RIGHT");
-		cScheme.push_back("MOVE = Z");
-		cScheme.push_back("ATTACK = X");
-		cScheme.push_back("INTERACT = SPACE");
-
-		// Double-Tap scheme
-		dScheme.push_back("FACE UP = UP");
-		dScheme.push_back("FACE DOWN = DOWN");
-		dScheme.push_back("FACE LEFT = LEFT");
-		dScheme.push_back("FACE RIGHT = RIGHT");
-		dScheme.push_back("MOVE = FACE KEYS (TAP AGAIN)");
-		dScheme.push_back("ATTACK = X");
-		dScheme.push_back("INTERACT = SPACE");
-
-		// Classic lefty scheme
-		clScheme.push_back("FACE UP = W");
-		clScheme.push_back("FACE DOWN = S");
-		clScheme.push_back("FACE LEFT = A");
-		clScheme.push_back("FACE RIGHT = D");
-		clScheme.push_back("MOVE = M");
-		clScheme.push_back("ATTACK = N");
-		clScheme.push_back("INTERACT = SPACE");
-
-		// Double-Tap lefty scheme
-		dlScheme.push_back("FACE UP = W");
-		dlScheme.push_back("FACE DOWN = S");
-		dlScheme.push_back("FACE LEFT = A");
-		dlScheme.push_back("FACE RIGHT = D");
-		dlScheme.push_back("MOVE = FACE KEYS (TAP AGAIN)");
-		dlScheme.push_back("ATTACK = N");
-		dlScheme.push_back("INTERACT = SPACE");
+		//menu->draw();
+		// Fizzle swaps buffer automatically at end
 	}
 }
+

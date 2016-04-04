@@ -120,21 +120,6 @@
     <ClCompile Include="src\Particle.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Menu\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterMenu.cpp">
-      <Filter>Menu\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="StageMenu.cpp">
-      <Filter>Menu\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="GenericMenu.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
     <ClCompile Include="src\BattleObject.cpp">
       <Filter>Battle\Battle Classes</Filter>
     </ClCompile>
@@ -158,6 +143,21 @@
     </ClCompile>
     <ClCompile Include="src\Tutorial.cpp">
       <Filter>Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainMenu.cpp">
+      <Filter>Menu\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Menu\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StageMenu.cpp">
+      <Filter>Menu\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterMenu.cpp">
+      <Filter>Menu\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MenuState.cpp">
+      <Filter>Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,21 +224,6 @@
     <ClInclude Include="..\include\Collision.h">
       <Filter>Engine\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="MenuState.h">
-      <Filter>Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Menu\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterMenu.h">
-      <Filter>Menu\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="StageMenu.h">
-      <Filter>Menu\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="GenericMenu.h">
-      <Filter>Menu</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Path.h">
       <Filter>Battle\Battle Classes</Filter>
     </ClInclude>
@@ -268,6 +253,21 @@
     </ClInclude>
     <ClInclude Include="..\include\Tutorial.h">
       <Filter>Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\StageMenu.h">
+      <Filter>Menu\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CharacterMenu.h">
+      <Filter>Menu\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MainMenu.h">
+      <Filter>Menu\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Menu.h">
+      <Filter>Menu\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MenuState.h">
+      <Filter>Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -336,9 +336,6 @@
     <Xml Include="..\res\img\Image_Data\Token.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
-    <Xml Include="MenuData.xml">
-      <Filter>Menu</Filter>
-    </Xml>
     <Xml Include="..\res\img\Image_Data\HPBar.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
@@ -347,6 +344,9 @@
     </Xml>
     <Xml Include="TutorialData.xml">
       <Filter>Tutorial</Filter>
+    </Xml>
+    <Xml Include="MenuData.xml">
+      <Filter>Menu\Menu Data</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
