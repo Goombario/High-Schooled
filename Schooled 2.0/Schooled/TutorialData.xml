@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TutorialSlides>
+  <Slide>
+    <Default name="Tutorial/Slide_1.png" frameWidth="120" frameHeight="120"/>
+  </Slide>
+  <Slide>
+    <Default name="Tutorial/Slide_2.png" frameWidth="120" frameHeight="120"/>
+  </Slide>
+  <Slide>
+    <Default name="Tutorial/Slide_3.png" frameWidth="120" frameHeight="120"/>
+  </Slide>
+  <Slide>
+    <Default name="Tutorial/Slide_4.png" frameWidth="120" frameHeight="120"/>
+  </Slide>
+  <Slide>
+    <Default name="Tutorial/Slide_5.png" frameWidth="120" frameHeight="120"/>
+  </Slide>
+  <Slide>
+    <Default name="Tutorial/Slide_6.png" frameWidth="120" frameHeight="120"/>
+  </Slide>
+</TutorialSlides>

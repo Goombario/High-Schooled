@@ -837,6 +837,7 @@ namespace Player
 			1.0);
 
 		paths.push_back(tempPath);
+		sprite->pushAnimation(Animation::AnimationEnum::FORWARDS);
 	}
 
 	void Player::moveToSide()
