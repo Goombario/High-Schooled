@@ -378,6 +378,9 @@
     <Xml Include="..\res\img\Image_Data\TokenBreak.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
+    <Xml Include="Janitor.xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\include\Input\License.txt">
