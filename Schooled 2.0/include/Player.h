@@ -47,9 +47,11 @@ namespace Player
 		~Icon();
 
 		void draw() const;
+		void drawNoGlowAt(Vector::Vector2 const&) const;
 		void drawAt(Vector::Vector2 const&) const;
 		void update();
 
+		// Setters
 		void setSelected(bool);
 		void setCooldown(int);
 
@@ -154,6 +156,8 @@ namespace Player
 		inline int getCurrentAP() const { return stats.currentAP; }
 		inline int getCurrentSP() const { return stats.currentSP; }
 		inline int getMaxHP() const { return stats.maxHP; }
+		inline int getMaxSP() const { return stats.maxSP; }
+		inline int getMaxAP() const { return stats.maxAP; }
 		Side getSide() const;
 
 		// Changes health of enemy player, tokens on enemy board
@@ -164,6 +168,8 @@ namespace Player
 		void changeHealth(int);
 
 		// Use your special ability. May affect the enemy player/board.
+		bool canUseSpecial() const { return (stats.currentSP >= stats.maxSP); }
+		bool isUsingSpecial() const { return usingSpecial; }
 		void useSpecial(Player&);
 
 		// Move the character on the board.
@@ -176,6 +182,9 @@ namespace Player
 
 		// Resets cooldowns
 		void startTurn();
+
+		// Finish planning phase by moving player to arrow location
+		void endChoosing();
 
 		// Update the player's animations
 		void update();
@@ -204,11 +213,13 @@ namespace Player
 		// Update attack icon cooldown
 		void updateIconCooldown();
 
+		bool usingSpecial;
 		Stats stats;
 		int numAttacks;	// Unsure if to be used
 		std::vector<Attack> attacks;
 		std::vector<Projectile::Projectile> activeProjectiles;
 		std::vector<Path::Path*> paths;
+		std::vector<COORD> boardPath;
 		SpecialAbility ability;
 		AttackWindow window;
 		Sprite::AnimatedSprite *sprite;

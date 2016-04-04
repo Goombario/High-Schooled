@@ -133,6 +133,12 @@ namespace Player
 		cooldown->draw();
 	}
 
+	void Icon::drawNoGlowAt(Vector::Vector2 const& newPos) const
+	{
+		icon->drawAt(newPos);
+		cooldown->drawAt(newPos);
+	}
+
 	void Icon::drawAt(Vector::Vector2 const& newPos) const
 	{
 		icon->drawAt(newPos);
@@ -355,6 +361,7 @@ namespace Player
 	Player::Player(const char* playerName, Board::Board& playerBoard)
 	{
 		setActing(false);
+		usingSpecial = false;
 		boardPtr = &playerBoard;
 
 		// Load player data from player file
@@ -408,7 +415,7 @@ namespace Player
 		CheckXMLResult(statsData->FirstChildElement("MaxSP")->QueryIntText(&stats.maxSP));
 		CheckXMLResult(statsData->FirstChildElement("MaxAP")->QueryIntText(&stats.maxAP));
 		stats.currentHP = stats.maxHP;
-		stats.currentSP = 0;
+		stats.currentSP = 3;
 		stats.currentAP = 0;
 		stats.lockedAP = 0;
 		
@@ -492,9 +499,19 @@ namespace Player
 		CheckXMLResult(specialData->FirstChildElement("Damage")
 			->QueryIntText(&ability.damage));
 
-		setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
+		// Set the player position
+		if (boardPtr->getSide() == Side::LEFT)
+		{
+			setPos(Vector::Vector2(-200, 0));
+		}
+		else
+		{
+			setPos(Vector::Vector2(schooled::SCREEN_WIDTH_PX + 200, 0));
+		}
+		
+
+		arrowSprite->setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0));
-		//moveToSide();
 	}
 
 	Player::Player(Player const& source)
@@ -599,25 +616,25 @@ namespace Player
 			
 			std::cout << std::endl;
 		}
-
-		// Update the SP counter, and use the special if filled
-		(*this).stats.currentSP += (enemy.boardPtr->checkMatches());
-		if ((*this).stats.currentSP >= (*this).stats.maxSP)
-		{
-			(*this).useSpecial(enemy);
-		}
 		
 		// Update player stats
 		currentAttack->currentCooldown = currentAttack->cooldown;
 		(*this).sprite->changeAnimation(static_cast<Animation::AnimationEnum>(window.getActiveIconIndex()));
 		(*this).stats.lockedAP += (*this).boardPtr->updatePath() + 1;
+		stats.currentAP = stats.maxAP - stats.lockedAP;
+		(*this).stats.currentSP += (enemy.boardPtr->checkMatches());
+		boardPath.clear();
+		boardPath.push_back(boardPtr->getPlayerlocation());
+
+		// Update the board
 		(*this).boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
 		(*this).boardPtr->updatePath();
-		stats.currentAP = stats.maxAP - stats.lockedAP;
+		(*this).boardPtr->destroyCrackedTokens();
 		currentAttack = nullptr;
 		std::cout << "Current AP: " << stats.currentAP << std::endl;
 
 		updateIconCooldown();
+
 		return true;
 	}
 
@@ -628,11 +645,17 @@ namespace Player
 
 	void Player::passTurn()
 	{
-
+		boardPtr->destroyCrackedTokens();
+		boardPath.clear();
+		stats.currentAP = 0;
 	}
 
 	void Player::useSpecial(Player& enemy)
 	{
+		sprite->changeAnimation(Animation::AnimationEnum::ATTACK_SPECIAL);
+		enemy.sprite->changeAnimation(Animation::AnimationEnum::HURT);
+		enemy.sprite->addDelay(1.0);
+
 		// Clear tokens from one or more players
 		if (ability.removesAllTokens)
 		{
@@ -654,7 +677,12 @@ namespace Player
 		// Heal the current player
 		if (ability.heal > 0)
 		{
-			(*this).changeHealth(ability.heal);
+			int newHeal = ability.heal;
+			if (ability.heal + stats.currentHP > stats.maxHP)
+			{
+				newHeal = stats.maxHP - stats.currentHP;
+			}
+			(*this).changeHealth(newHeal);
 		}
 
 		// Reset all cooldowns
@@ -723,11 +751,23 @@ namespace Player
 			return;
 		}
 
+		if (boardPath.size() > 1 &&
+			boardPath.at(boardPath.size() - 2) == boardPtr->getPlayerlocation() + change)
+		{
+			boardPtr->crackToken(boardPtr->getPlayerlocation(), false);
+			boardPath.pop_back();
+		}
+		else
+		{
+			boardPath.push_back(boardPtr->getPlayerlocation() + change);
+		}
+
 		// Move the character on the grid
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
-		boardPtr->destroyToken(boardPtr->getPlayerlocation());
+		boardPtr->crackToken(boardPtr->getPlayerlocation());
+		
 
 		// Add a path
 		Path::Path *tempPath = new Path::Path(
@@ -783,9 +823,21 @@ namespace Player
 		}
 
 		boardPtr->setPlayerLocation(boardPtr->getPlayerlocation() + change);
-		setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
+		arrowSprite->setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0));
 		//moveToSide();
+	}
+
+	void Player::endChoosing()
+	{
+		setPos(Vector::Vector2(getPos().getX(), arrowSprite->getPos().getY()));
+		Path::Path *tempPath = new Path::Path(
+			(*this).getPos(),
+			arrowSprite->getPos(),
+			1.0);
+
+		paths.push_back(tempPath);
+		sprite->pushAnimation(Animation::AnimationEnum::FORWARDS);
 	}
 
 	void Player::moveToSide()
@@ -820,6 +872,7 @@ namespace Player
 		updateIconCooldown();
 
 		boardPtr->setPlayerFirstPos(boardPtr->getPlayerlocation());
+		boardPath.push_back(boardPtr->getPlayerlocation());
 
 		stats.currentAP = stats.maxAP;
 		stats.lockedAP = 0;
@@ -926,6 +979,9 @@ namespace Player
 			sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE ||
 			!paths.empty());
 
+		// Check if the player is using their special
+		usingSpecial = (sprite->getCurrentAnimation() == Animation::AnimationEnum::ATTACK_SPECIAL);
+
 		// Update all active projectiles
 		std::vector<Projectile::Projectile> tempProj;
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
@@ -956,7 +1012,7 @@ namespace Player
 				break;
 
 			case BattleState::State::POS_CHOOSE:
-				arrowSprite->drawAt(getPos() + Vector::Vector2(0, 40));
+				arrowSprite->drawAt(arrowSprite->getPos() + Vector::Vector2(0, 40));
 				break;
 
 			default:
@@ -964,17 +1020,7 @@ namespace Player
 			}
 		}
 
-		// Choosing which sprites to draw based on the current state of the battle
-		switch (BattleState::BattleState::Instance()->getCurrentState())
-		{
-		case BattleState::State::POS_CHOOSE:
-			//arrowSprite->drawAt(getPos() + Vector::Vector2(-20, 40));
-			break;
-
-		default:
-			sprite->drawAt(getPos());
-			break;
-		}
+		sprite->drawAt(getPos());
 
 		// Draw all active projectiles
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
