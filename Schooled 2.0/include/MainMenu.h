@@ -12,20 +12,7 @@ namespace Sprite
 namespace Menu
 {
 	// Main menu class
-	class MainMenu : public Menu
-	{
-	public:
-		MainMenu(const char* menuName);
-		~MainMenu();
-
-		// Inherited overloads
-		void draw() const;
-		void update();
-
-	private:
-		Sprite::Sprite *background;
-		Sprite::Sprite *menuSprite;
-	};
+	
 }
 
 #endif

@@ -144,16 +144,7 @@
     <ClCompile Include="src\Tutorial.cpp">
       <Filter>Tutorial</Filter>
     </ClCompile>
-    <ClCompile Include="src\MainMenu.cpp">
-      <Filter>Menu\Menus</Filter>
-    </ClCompile>
     <ClCompile Include="src\Menu.cpp">
-      <Filter>Menu\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="src\StageMenu.cpp">
-      <Filter>Menu\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CharacterMenu.cpp">
       <Filter>Menu\Menus</Filter>
     </ClCompile>
     <ClCompile Include="src\MenuState.cpp">
@@ -253,15 +244,6 @@
     </ClInclude>
     <ClInclude Include="..\include\Tutorial.h">
       <Filter>Tutorial</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\StageMenu.h">
-      <Filter>Menu\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\CharacterMenu.h">
-      <Filter>Menu\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\MainMenu.h">
-      <Filter>Menu\Menus</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Menu.h">
       <Filter>Menu\Menus</Filter>

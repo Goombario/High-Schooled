@@ -5,9 +5,6 @@
 #include "Input\InputMapper.h"
 
 #include "Menu.h"
-#include "CharacterMenu.h"
-#include "MainMenu.h"
-#include "StageMenu.h"
 #include "Sprite.h"
 
 #include <iostream>
@@ -33,7 +30,8 @@ namespace MenuState
 		// Hold pressed keys
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
 
-		//menu = new Menu::Menu("MainMenu");
+		charMenu = new Menu::CharMenu("d");
+		selectedMenu = charMenu;
 	}
 
 	void MenuState::Cleanup()

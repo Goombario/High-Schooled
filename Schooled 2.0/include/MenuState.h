@@ -22,6 +22,13 @@ namespace Menu
 
 namespace MenuState
 {
+	enum class State
+	{
+		MAIN_MENU,
+		CHAR_MENU,
+		STAGE_MENU
+	};
+
 	class MenuState : public GameState
 	{
 	public:
@@ -62,8 +69,8 @@ namespace MenuState
 		bool isEnd;
 
 		// Menu objects
-		Menu::Menu* selectedMenu;
-		//std::vector<Menu::Menu> menuList;
+		Menu::Menu *selectedMenu, *charMenu, *stageMenu, *mainMenu;
+		
 	};
 }
 

@@ -11,21 +11,7 @@ namespace Sprite
 
 namespace Menu
 {
-	// The stage changing menu
-	class StageMenu : public Menu
-	{
-	public:
-		StageMenu(const char* menuName);
-		~StageMenu();
-
-		// Inherited overloads
-		void draw() const;
-		void update();
-
-	private:
-		Sprite::Sprite *background;
-		Sprite::Sprite *menuSprite;
-	};
+	
 }
 
 #endif
