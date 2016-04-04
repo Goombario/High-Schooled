@@ -167,21 +167,36 @@
     <Xml Include="..\res\img\Image_Data\BoardGlows.xml" />
     <Xml Include="..\res\img\Image_Data\GlowyNate.xml" />
     <Xml Include="..\res\img\Image_Data\GlowyNega.xml" />
+    <Xml Include="..\res\img\Image_Data\GymTeacher(Mirrored).xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="..\res\img\Image_Data\Cooldown.xml" />
     <Xml Include="..\res\img\Image_Data\HPBar.xml" />
     <Xml Include="..\res\img\Image_Data\IconGlows.xml" />
+    <Xml Include="..\res\img\Image_Data\Nate(Mirrored).xml" />
     <Xml Include="..\res\img\Image_Data\MainMenuAnim.xml" />
     <Xml Include="..\res\img\Image_Data\Nate.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\Nega(Mirrored).xml" />
     <Xml Include="..\res\img\Image_Data\Nega.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="..\res\img\Image_Data\TileGlows.xml" />
+    <Xml Include="..\res\img\Image_Data\Tive(Mirrored).xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Tive.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="..\res\img\Image_Data\Token.xml" />
+    <Xml Include="..\res\img\Image_Data\TokenBreak.xml" />
+    <Xml Include="..\res\img\Image_Data\TokenPiece2.xml" />
+    <Xml Include="..\res\img\Image_Data\TokenPiece3.xml" />
+    <Xml Include="..\res\img\Image_Data\TokenPiece4.xml" />
     <Xml Include="Contexts.xml" />
     <Xml Include="IconData.xml">
       <SubType>Designer</SubType>
@@ -202,6 +217,7 @@
     <Xml Include="StageData.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="TokenPiece1.xml" />
     <Xml Include="TutorialData.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
