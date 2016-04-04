@@ -321,6 +321,36 @@
     <Xml Include="MenuData.xml">
       <Filter>Menu</Filter>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\Nate(Mirrored).xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Nega(Mirrored).xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\GymTeacher(Mirrored).xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Tive.xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Tive(Mirrored).xml">
+      <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="TokenPiece1.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\TokenPiece2.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\TokenPiece3.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\TokenPiece4.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\TokenBreak.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\include\Input\License.txt">

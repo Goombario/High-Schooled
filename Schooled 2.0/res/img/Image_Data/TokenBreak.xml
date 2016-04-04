@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AnimationList numCol="21">
+  <Animation name="HALF_BREAK" loop="false">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+  </Animation>
+  <Animation name="FULL_BREAK" loop="false">
+    <FirstFrame>21</FirstFrame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+  </Animation>
+</AnimationList>
