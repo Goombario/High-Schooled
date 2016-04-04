@@ -77,8 +77,8 @@ namespace Sprite
 		else
 		{
 			FzlDrawSprite(image.handle, 
-				static_cast<float>(getPos().getX()),
-				static_cast<float>(getPos().getY()), angle);
+				static_cast<float>(getPos().getX()) - static_cast<int>(getPos().getX()) % 5,
+				static_cast<float>(getPos().getY()) - static_cast<int>(getPos().getY()) % 5, angle);
 		}
 	}
 
@@ -101,7 +101,9 @@ namespace Sprite
 		}
 		else
 		{
-			FzlDrawSprite(image.handle, x, y, angle);
+			FzlDrawSprite(image.handle, 
+				x - static_cast<int>(x) % 5, 
+				y - static_cast<int>(y) % 5, angle);
 		}
 	}
 
@@ -169,8 +171,8 @@ namespace Sprite
 		else
 		{
 			FzlDrawAnimatedSprite(image.handle, row, col, 
-				static_cast<float>(getPos().getX()),
-				static_cast<float>(getPos().getY()), angle);
+				static_cast<float>(getPos().getX()) - static_cast<int>(getPos().getX()) % 5,
+				static_cast<float>(getPos().getY()) - static_cast<int>(getPos().getY()) % 5, angle);
 		}
 	}
 
@@ -190,7 +192,9 @@ namespace Sprite
 		}
 		else
 		{
-			FzlDrawAnimatedSprite(image.handle, row, col, x, y, angle);
+			FzlDrawAnimatedSprite(image.handle, row, col, 
+				x - static_cast<int>(x) % 5,
+				y - static_cast<int>(y) % 5, angle);
 		}
 	}
 
