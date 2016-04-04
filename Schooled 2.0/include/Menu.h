@@ -26,11 +26,8 @@ namespace Menu
 		Menu(const char* menuName);
 		virtual ~Menu();
 
-		virtual void draw() const;
+		virtual void draw() const = 0;
 		virtual void update() = 0;
-
-		// Get the XMLElement for the menu
-		tinyxml2::XMLElement const* getMenuElement(const char* menuName) const;
 
 		// Move the menu selection by the number given
 		// Returns false if the operation failed
@@ -39,8 +36,8 @@ namespace Menu
 		// Get the selection number
 		int getSelectionNum() const { return selectionNum; }
 
-		// Reset the selection number
-		void reset() { selectionNum = 0; }
+		// Reset the selection number and other menu items
+		virtual void reset() = 0;
 
 	private:
 		int selectionNum;
@@ -56,12 +53,15 @@ namespace Menu
 	class MainMenu : public Menu
 	{
 	public:
-		MainMenu(const char* menuName);
+		MainMenu();
 		~MainMenu();
 
 		// Move the menu selection by the number given
 		// Returns false if the operation failed
 		bool moveSelectionNum(int change);
+
+		// Reset the cursor to default
+		void reset();
 
 		// Inherited overloads
 		void draw() const;
@@ -70,13 +70,14 @@ namespace Menu
 	private:
 		unsigned int maxSize;
 		Sprite::AnimatedSprite *highlight;
+		Sprite::Sprite *darkLayer;
 	};
 
 	// Character selection menu for a single character
 	class CharMenu : public Menu
 	{
 	public:
-		CharMenu(const char* menuName, Side);
+		CharMenu(Side);
 		~CharMenu();
 
 		// Move the menu selection by the number given
@@ -87,28 +88,48 @@ namespace Menu
 		void draw() const;
 		void update();
 
+		// Move the selection
 		void moveSelection(int change);
 
-	private:
-	};
+		// Reset the character location and the spotlight 
+		void reset();
 
-	// The stage changing menu
-	class StageMenu : public Menu
-	{
-	public:
-		StageMenu(const char* menuName);
-		~StageMenu();
+		// get the chosen name
+		std::string getChosenName() const { return characterNames.at(getSelectionNum()); }
 
-		// Move the menu selection by the number given
-		// Returns false if the operation failed
-		bool moveSelectionNum(int change);
-
-		// Inherited overloads
-		void draw() const;
-		void update();
+		// Set the menu to finished
+		void setFinished(bool isFinished = true);
+		bool isFinished() const { return finished; }
 
 	private:
+		bool finished;
+		unsigned int maxSize;
+		std::vector<Sprite::Sprite> nameSprites;
+		std::vector<Sprite::AnimatedSprite> characterSprites;
+		std::vector<std::string> characterNames;
+		Sprite::Sprite *spotlight;
+
+		// Load all character and name sprites
+		void loadSprites(tinyxml2::XMLElement const*);
 	};
+
+	//// The stage changing menu
+	//class StageMenu : public Menu
+	//{
+	//public:
+	//	StageMenu(const char* menuName);
+	//	~StageMenu();
+
+	//	// Move the menu selection by the number given
+	//	// Returns false if the operation failed
+	//	bool moveSelectionNum(int change);
+
+	//	// Inherited overloads
+	//	void draw() const;
+	//	void update();
+
+	//private:
+	//};
 }
 
 #endif

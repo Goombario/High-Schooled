@@ -13,6 +13,13 @@
     <SideBarRight name="SideBarRight.png" frameWidth="40" frameHeight="60"/>
     <DownBar name="DownBar.png" frameWidth="60" frameHeight="40"/>
   </HUD>
+
+  <SharedStage>
+    <Board name="Board.png" frameWidth="1280" frameHeight="720"/>
+    <Highlight name="Board Glow Spritesheet.png" frameWidth="640" frameHeight="325"/>
+    <Darkness name="Dark Layer.png" frameWidth="1280" frameHeight="720"/>
+    <HighlightAnimation name="BoardGlows.xml"/>
+  </SharedStage>
   
   <Stage name="Default">
     <Background name="Gym room.png" frameWidth="1280" frameHeight="720"/>
@@ -20,5 +27,9 @@
     <Highlight name="Board Glow Spritesheet.png" frameWidth="640" frameHeight="325"/>
     <Darkness name="Dark Layer.png" frameWidth="1280" frameHeight="720"/>
     <HighlightAnimation name="BoardGlows.xml"/>
+  </Stage>
+
+  <Stage name="Gym">
+    <Background name="Gym room.png" frameWidth="1280" frameHeight="720"/>
   </Stage>
 </StageList>

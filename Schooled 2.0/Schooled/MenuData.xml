@@ -2,14 +2,44 @@
 <MenuList>
   <Menu name="MainMenu">
     <Background name="Gym room.png" frameWidth="1280" frameHeight="720"/>
-    <Menu name="Main_Menu_shadow.png" frameWidth="1280" frameHeight="720"/>
-    <Highlight name="MainMenuAnim.png" frameWidth="340" frameHeight="105"/>
+    <Menu name="Menu/Main_Menu.png" frameWidth="1280" frameHeight="720"/>
+    <DarkLayer name="Dark Layer.png" frameWidth="1280" frameHeight="720"/>
+    <Highlight name="Menu/MainMenuAnim.png" frameWidth="340" frameHeight="105"/>
     <HighlightAnimation name="MainMenuAnim.xml"/>
   </Menu>
   
   <Menu name="CharMenu">
-    <Background name="Gym room.png" frameWidth="1280" frameHeight="720"/>
-    <Menu name="Main_Menu_shadow.png" frameWidth="1280" frameHeight="720"/>
+    <Background name="Dark Layer.png" frameWidth="1280" frameHeight="720"/>
+    <Menu name="Menu/Main_Menu_shadow.png" frameWidth="1280" frameHeight="720"/>
+    <MenuLeft name="Menu/chara_select_left.png" frameWidth="640" frameHeight="720"/>
+    <MenuRight name="Menu/chara_select_right.png" frameWidth="640" frameHeight="720"/>
+    <Spotlight name="Menu/Spotlight.png" frameWidth="380" frameHeight="350"/>
+    
+    <Characters>
+      <Character name="Gym Teacher">
+        <Sprite name="GymTeacher.png" frameWidth="230" frameHeight="170"/>
+        <Animation name="GymTeacher.xml"/>
+        <Name name="Menu/coach.png" frameWidth="320" frameHeight="90"/>
+      </Character>
+      
+      <Character name="Tive">
+        <Sprite name="Tive.png" frameWidth="230" frameHeight="170"/>
+        <Animation name="Tive.xml"/>
+        <Name name="Menu/hcaoc.png" frameWidth="320" frameHeight="90"/>
+      </Character>
+
+      <Character name="Nate">
+        <Sprite name="Nate.png" frameWidth="230" frameHeight="170"/>
+        <Animation name="Nate.xml"/>
+        <Name name="Menu/nate.png" frameWidth="190" frameHeight="90"/>
+      </Character>
+
+      <Character name="Nega">
+        <Sprite name="Nega.png" frameWidth="230" frameHeight="170"/>
+        <Animation name="Nega.xml"/>
+        <Name name="Menu/etan.png" frameWidth="190" frameHeight="90"/>
+      </Character>
+    </Characters>
   </Menu>
 
   <Menu name="StageMenu">
