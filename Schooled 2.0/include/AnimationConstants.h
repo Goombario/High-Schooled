@@ -38,6 +38,7 @@ namespace Animation
 		SP_BLUE_PULSE,
 		SP_RED_PULSE,
 		AP_VIOLET_PULSE,
+		IDLE_HIGHLIGHT,
 		START,
 		CREDITS,
 		EXIT
@@ -76,6 +77,7 @@ namespace Animation
 		{ "SP_RED_PULSE", AnimationEnum::SP_RED_PULSE },
 		{ "AP_VIOLET_PULSE", AnimationEnum::AP_VIOLET_PULSE },
 		{ "START", AnimationEnum::START },
+		{ "IDLE_HIGHLIGHT", AnimationEnum::IDLE_HIGHLIGHT },
 		{ "CREDITS", AnimationEnum::CREDITS },
 		{ "EXIT", AnimationEnum::EXIT },
 	};
