@@ -52,6 +52,9 @@ namespace MenuState
 			return &m_MenuState;
 		}
 
+		// Get the current state of the menu
+		State getCurrentState() const { return currentState; }
+
 		// The callback used in the state
 		friend void mainCallback(InputMapping::MappedInput& inputs);
 
@@ -61,15 +64,21 @@ namespace MenuState
 
 	private:
 		static MenuState m_MenuState;
-		
+
+		// Change the current state of the menu
+		void changeMenuState(State);
+
 		// Event handling helpers
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
 
+		// State variables
 		bool isEnd;
+		State currentState;
 
 		// Menu objects
-		Menu::Menu *selectedMenu, *charMenu, *stageMenu, *mainMenu;
+		Menu::MainMenu *mainMenu;
+		Menu::CharMenu *p1CharMenu, *p2CharMenu;
 		
 	};
 }
