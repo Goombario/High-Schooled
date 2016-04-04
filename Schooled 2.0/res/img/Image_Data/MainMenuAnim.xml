@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AnimationList numCol="2">
   
-  <Animation name="START" loop="true">
+  <Animation name="IDLE" loop="true">
     <FirstFrame>0</FirstFrame>
     <Frame>0.5</Frame>
     <Frame>0.5</Frame>
