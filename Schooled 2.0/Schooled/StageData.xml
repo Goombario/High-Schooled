@@ -32,4 +32,16 @@
   <Stage name="Gym">
     <Background name="Gym room.png" frameWidth="1280" frameHeight="720"/>
   </Stage>
+
+  <Stage name="Library">
+    <Background name="library room.png" frameWidth="1280" frameHeight="720"/>
+  </Stage>
+
+  <Stage name="Science Room">
+    <Background name="science room.png" frameWidth="1280" frameHeight="720"/>
+  </Stage>
+
+  <Stage name="Bathroom">
+    <Background name="bathroom.png" frameWidth="1280" frameHeight="720"/>
+  </Stage>
 </StageList>

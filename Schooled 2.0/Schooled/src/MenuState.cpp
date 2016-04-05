@@ -33,8 +33,10 @@ namespace MenuState
 		mainMenu = new Menu::MainMenu();
 		p1CharMenu = new Menu::CharMenu(Side::LEFT);
 		p2CharMenu = new Menu::CharMenu(Side::RIGHT);
+		stageMenu = new Menu::StageMenu();
 
 		currentState = State::MAIN_MENU;
+		delay = 0.0;
 	}
 
 	void MenuState::Cleanup()
@@ -43,12 +45,15 @@ namespace MenuState
 		delete mainMenu;
 		delete p1CharMenu;
 		delete p2CharMenu;
+		delete stageMenu;
 
 		mainMenu = nullptr;
 		p1CharMenu = nullptr;
 		p2CharMenu = nullptr;
+		stageMenu = nullptr;
 
 		currentState = State::MAIN_MENU;
+		delay = 0.0;
 	}
 
 	void MenuState::Pause()
@@ -143,6 +148,7 @@ namespace MenuState
 				self->p1CharMenu->setFinished();
 				break;
 			case State::STAGE_MENU:
+				self->stageMenu->setFinished();
 				break;
 			default:
 				break;
@@ -175,6 +181,7 @@ namespace MenuState
 				self->p2CharMenu->setFinished();
 				break;
 			case State::STAGE_MENU:
+				self->stageMenu->setFinished();
 				break;
 			default:
 				break;
@@ -246,7 +253,7 @@ namespace MenuState
 				self->p1CharMenu->moveSelectionNum(1);
 				break;
 			case State::STAGE_MENU:
-				
+				self->stageMenu->moveSelectionNum(1);
 				break;
 			default:
 				break;
@@ -263,6 +270,7 @@ namespace MenuState
 				self->p2CharMenu->moveSelectionNum(1);
 				break;
 			case State::STAGE_MENU:
+				self->stageMenu->moveSelectionNum(1);
 				break;
 			default:
 				break;
@@ -279,6 +287,7 @@ namespace MenuState
 				self->p1CharMenu->moveSelectionNum(-1);
 				break;
 			case State::STAGE_MENU:
+				self->stageMenu->moveSelectionNum(-1);
 				break;
 			default:
 				break;
@@ -295,6 +304,7 @@ namespace MenuState
 				self->p2CharMenu->moveSelectionNum(-1);
 				break;
 			case State::STAGE_MENU:
+				self->stageMenu->moveSelectionNum(-1);
 				break;
 			default:
 				break;
@@ -304,6 +314,7 @@ namespace MenuState
 
 	void MenuState::Update(GameEngine* game)
 	{
+
 		if (isEnd) game->Quit();
 		switch (getCurrentState())
 		{
@@ -315,10 +326,17 @@ namespace MenuState
 			p2CharMenu->update();
 			break;
 		case State::STAGE_MENU:
+			stageMenu->update();
 			break;
 		default:
 			break;
 		}
+
+		if (p1CharMenu->isFinished() && p2CharMenu->isFinished())
+		{
+			changeMenuState(State::STAGE_MENU);
+		}
+
 		// FMOD updates automatically at end
 	}
 
@@ -334,6 +352,7 @@ namespace MenuState
 			p2CharMenu->draw();
 			break;
 		case State::STAGE_MENU:
+			stageMenu->draw();
 			break;
 		default:
 			break;
@@ -353,6 +372,7 @@ namespace MenuState
 			p2CharMenu->reset();
 			break;
 		case State::STAGE_MENU:
+			stageMenu->reset();
 			break;
 		default:
 			break;
