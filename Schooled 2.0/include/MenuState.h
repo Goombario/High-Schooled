@@ -68,6 +68,9 @@ namespace MenuState
 		// Change the current state of the menu
 		void changeMenuState(State);
 
+		// Save the pertinent data to a file
+		void saveData();
+
 		// Event handling helpers
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
@@ -81,7 +84,7 @@ namespace MenuState
 		Menu::CharMenu *p1CharMenu, *p2CharMenu;
 		Menu::StageMenu *stageMenu;
 		
-		double delay;
+		double timer;
 	};
 }
 

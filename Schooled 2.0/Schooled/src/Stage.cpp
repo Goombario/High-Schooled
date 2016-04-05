@@ -42,7 +42,7 @@ namespace Stage
 
 			HPPos = Vector::Vector2(85, 40);
 			SPPos = Vector::Vector2(85, -10);
-			APPos = Vector::Vector2(-80, -125);
+			APPos = Vector::Vector2(-80, -65);
 			iconOffset = Vector::Vector2(-20, display->getFrameHeight() - schooled::SCREEN_HEIGHT_PX - 30);
 			hpName = "HPBarLeft";
 			spName = "SPBarLeft";
@@ -62,7 +62,7 @@ namespace Stage
 
 			HPPos = Vector::Vector2(-85, 40);
 			SPPos = Vector::Vector2(-85, -10);
-			APPos = Vector::Vector2(85, -125);
+			APPos = Vector::Vector2(85, -65);
 			iconOffset = Vector::Vector2(-display->getFrameWidth() + 20, display->getFrameHeight() - schooled::SCREEN_HEIGHT_PX - 30);
 			hpName = "HPBarRight";
 			spName = "SPBarRight";
@@ -189,11 +189,11 @@ namespace Stage
 		}
 
 		// Draw all the AP background bars
-		for (int i = player->getMaxAP(); i > 0; --i)
+		for (int i = 1; i <= player->getMaxAP(); i++)
 		{
 			Vector::Vector2 tempVec(APBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2(side * APBar->getFrameWidth(), i * (APBar->getFrameHeight() - 20)));
+				Vector::Vector2(side * APBar->getFrameWidth(), i * -(APBar->getFrameHeight() - 20)));
 			downBar->drawAt(tempVec);
 		}
 
@@ -203,7 +203,7 @@ namespace Stage
 			Vector::Vector2 tempVec(
 				APBar->getPos() +
 				(*this).getPos() +
-				Vector::Vector2(side * APBar->getFrameWidth(), i * (APBar->getFrameHeight() - 20)));
+				Vector::Vector2(side * APBar->getFrameWidth(), i * -(APBar->getFrameHeight() - 20)));
 			APBar->drawAt(tempVec);
 		}
 
