@@ -95,31 +95,31 @@
   </Animation>
   <Animation name="DOWN" loop="false">
     <FirstFrame>133</FirstFrame>
-    <Frame>0.15</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
     <Frame>0.0</Frame>
     <Frame>0.05</Frame>
     <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.05</Frame>
     <Frame>0.1</Frame>
-    <Frame>0.05</Frame>
-    <Frame>0.05</Frame>
-    <Frame>0.05</Frame>
-    <Frame>0.05</Frame>
-    <Frame>0.1</Frame>
-    <Frame>0.15</Frame>
   </Animation>
   <Animation name="UP" loop="false">
     <FirstFrame>152</FirstFrame>
-    <Frame>0.15</Frame>
+    <Frame>0.1</Frame>
     <Frame>0.0</Frame>
-    <Frame>0.05</Frame>
+    <Frame>0.0</Frame>
     <Frame>0.0</Frame>
     <Frame>0.1</Frame>
-    <Frame>0.05</Frame>
-    <Frame>0.05</Frame>
-    <Frame>0.05</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
     <Frame>0.05</Frame>
     <Frame>0.1</Frame>
-    <Frame>0.15</Frame>
   </Animation>
   <Animation name="HURT" loop="false">
     <FirstFrame>171</FirstFrame>

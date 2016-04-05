@@ -87,7 +87,6 @@
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\BattleObject.cpp" />
     <ClCompile Include="src\Board.cpp" />
-    <ClCompile Include="src\CharacterMenu.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Image.cpp" />
@@ -95,7 +94,6 @@
     <ClCompile Include="src\input\InputMapper.cpp" />
     <ClCompile Include="src\input\pch.cpp" />
     <ClCompile Include="src\input\RangeConverter.cpp" />
-    <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\Particle.cpp" />
@@ -108,7 +106,6 @@
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\BattleState.cpp" />
     <ClCompile Include="src\Stage.cpp" />
-    <ClCompile Include="src\StageMenu.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\Tutorial.cpp" />
     <ClCompile Include="src\TutorialState.cpp" />
@@ -120,15 +117,12 @@
     <ClInclude Include="..\include\BattleConstants.h" />
     <ClInclude Include="..\include\BattleObject.h" />
     <ClInclude Include="..\include\Board.h" />
-    <ClInclude Include="..\include\CharacterMenu.h" />
     <ClInclude Include="..\include\Collision.h" />
     <ClInclude Include="..\include\GameEngine.h" />
     <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\GameState.h" />
-    <ClInclude Include="..\include\MainMenu.h" />
     <ClInclude Include="..\include\Menu.h" />
     <ClInclude Include="..\include\MenuState.h" />
-    <ClInclude Include="..\include\StageMenu.h" />
     <ClInclude Include="..\include\Tutorial.h" />
     <ClInclude Include="..\include\Image.h" />
     <ClInclude Include="..\include\Input\FileIO.h" />
@@ -176,11 +170,8 @@
     <Xml Include="..\res\img\Image_Data\Cooldown.xml" />
     <Xml Include="..\res\img\Image_Data\HPBar.xml" />
     <Xml Include="..\res\img\Image_Data\IconGlows.xml" />
-<<<<<<< local
     <Xml Include="..\res\img\Image_Data\Nate(Mirrored).xml" />
-=======
     <Xml Include="..\res\img\Image_Data\MainMenuAnim.xml" />
->>>>>>> other
     <Xml Include="..\res\img\Image_Data\Nate.xml">
       <SubType>Designer</SubType>
     </Xml>
@@ -220,11 +211,8 @@
     <Xml Include="StageData.xml">
       <SubType>Designer</SubType>
     </Xml>
-<<<<<<< local
     <Xml Include="TokenPiece1.xml" />
-=======
     <Xml Include="TutorialData.xml" />
->>>>>>> other
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
