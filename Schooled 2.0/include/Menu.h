@@ -31,7 +31,7 @@ namespace Menu
 
 		// Move the menu selection by the number given
 		// Returns false if the operation failed
-		virtual bool moveSelectionNum(int change) = 0;
+		virtual void moveSelectionNum(int change) = 0;
 
 		// Get the selection number
 		int getSelectionNum() const { return selectionNum; }
@@ -43,6 +43,7 @@ namespace Menu
 		int selectionNum;
 
 	protected:
+		unsigned int maxSize;
 		Sprite::Sprite *background;
 		Sprite::Sprite *menuSprite;
 
@@ -58,7 +59,7 @@ namespace Menu
 
 		// Move the menu selection by the number given
 		// Returns false if the operation failed
-		bool moveSelectionNum(int change);
+		void moveSelectionNum(int change);
 
 		// Reset the cursor to default
 		void reset();
@@ -68,7 +69,6 @@ namespace Menu
 		void update();
 
 	private:
-		unsigned int maxSize;
 		Sprite::AnimatedSprite *highlight;
 		Sprite::Sprite *darkLayer;
 	};
@@ -82,14 +82,11 @@ namespace Menu
 
 		// Move the menu selection by the number given
 		// Returns false if the operation failed
-		bool moveSelectionNum(int change);
+		void moveSelectionNum(int change);
 
 		// Inherited overloads
 		void draw() const;
 		void update();
-
-		// Move the selection
-		void moveSelection(int change);
 
 		// Reset the character location and the spotlight 
 		void reset();
@@ -103,7 +100,6 @@ namespace Menu
 
 	private:
 		bool finished;
-		unsigned int maxSize;
 		std::vector<Sprite::Sprite> nameSprites;
 		std::vector<Sprite::AnimatedSprite> characterSprites;
 		std::vector<std::string> characterNames;
@@ -113,23 +109,37 @@ namespace Menu
 		void loadSprites(tinyxml2::XMLElement const*);
 	};
 
-	//// The stage changing menu
-	//class StageMenu : public Menu
-	//{
-	//public:
-	//	StageMenu(const char* menuName);
-	//	~StageMenu();
+	// The stage changing menu
+	class StageMenu : public Menu
+	{
+	public:
+		StageMenu();
+		~StageMenu();
 
-	//	// Move the menu selection by the number given
-	//	// Returns false if the operation failed
-	//	bool moveSelectionNum(int change);
+		// Inherited overloads
+		void draw() const;
+		void update();
 
-	//	// Inherited overloads
-	//	void draw() const;
-	//	void update();
+		// Move the menu selection by the number given
+		// Returns false if the operation failed
+		void moveSelectionNum(int change);
 
-	//private:
-	//};
+		// Returns the name of the currently selected stage
+		std::string getStageName() const { return names.at(getSelectionNum()); }
+
+		// Reset the character location and the spotlight
+		void reset();
+
+		// Get if the stage has been chosen
+		bool isFinished() const { return finished; }
+		void setFinished(bool newFinished = true) { finished = newFinished; }
+
+	private:
+		bool finished;
+		std::vector<Sprite::Sprite> stageSprites;
+		std::vector<Sprite::Sprite> nameSprites;
+		std::vector<std::string> names;
+	};
 }
 
 #endif

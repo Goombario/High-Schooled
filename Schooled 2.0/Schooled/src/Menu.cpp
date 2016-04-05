@@ -14,6 +14,7 @@ namespace Menu
 	{
 		setPos(Vector::Vector2(schooled::SCREEN_WIDTH_PX / 2.0, schooled::SCREEN_HEIGHT_PX / 2.0));
 		selectionNum = 0;
+		maxSize = 0;
 
 		// Load menu data from player file
 		XMLDocument data;
@@ -123,13 +124,17 @@ namespace Menu
 		highlight->update();
 	}
 
-	bool MainMenu::moveSelectionNum(int change)
+	void MainMenu::moveSelectionNum(int change)
 	{
 		if (getSelectionNum() + change >= static_cast<int>(maxSize) ||
 			getSelectionNum() + change < 0)
-			return false;
-
-		setSelectionNum(getSelectionNum() + change);
+		{
+			setSelectionNum(maxSize - 1 - getSelectionNum());
+		}
+		else
+		{
+			setSelectionNum(getSelectionNum() + change);
+		}
 
 		// Change the highlight
 		switch (getSelectionNum())
@@ -147,8 +152,6 @@ namespace Menu
 			highlight->setPos(getPos() + Vector::Vector2(10, -197));
 			break;
 		}
-
-		return true;
 	}
 
 	void MainMenu::reset()
@@ -164,7 +167,6 @@ namespace Menu
 		: Menu("CharMenu")
 	{
 		finished = false;
-		maxSize = 0;
 		Vector::Vector2 spotPos;
 
 		const char* sideName;
@@ -278,16 +280,20 @@ namespace Menu
 		characterSprites.at(getSelectionNum()).update();
 	}
 
-	bool CharMenu::moveSelectionNum(int change)
+	void CharMenu::moveSelectionNum(int change)
 	{
+		if (isFinished()) return;
 		if (getSelectionNum() + change >= static_cast<int>(maxSize) ||
 			getSelectionNum() + change < 0)
-			return false;
+		{
+			setSelectionNum(maxSize - 1 - getSelectionNum());
+		}
+		else
+		{
+			setSelectionNum(getSelectionNum() + change);
+		}
 
-		setSelectionNum(getSelectionNum() + change);
 		characterSprites.at(getSelectionNum()).changeAnimation(Animation::AnimationEnum::IDLE);
-
-		return true;
 	}
 
 	void CharMenu::setFinished(bool isFinished)
@@ -299,5 +305,103 @@ namespace Menu
 	{
 		setSelectionNum(0);
 		setFinished(false);
+	}
+}
+
+// Stage choosing menu
+namespace Menu
+{
+	StageMenu::StageMenu()
+		: Menu("StageMenu")
+	{
+		finished = false;
+
+		// Load menu data from player file
+		XMLDocument data;
+		CheckXMLResult(data.LoadFile("../Schooled/MenuData.xml"));
+		XMLNode *pRoot = data.RootElement();
+		if (pRoot == nullptr)
+		{
+			std::cerr << "ERROR: Loading menu data file: "
+				<< XML_ERROR_FILE_READ_ERROR << std::endl;
+			exit(-2);
+		}
+
+		XMLElement *menuData;
+		menuData = pRoot->FirstChildElement("Menu");
+
+		// Check if menu data loaded
+		std::string menuDataName = menuData->Attribute("name");
+		while (menuDataName != "StageMenu")
+		{
+			menuData = menuData->NextSiblingElement();
+			if (menuData == nullptr)
+			{
+				std::cerr << "ERROR: Loading menuData: "
+					<< XML_ERROR_FILE_READ_ERROR << std::endl;
+				exit(-2);
+			}
+			menuDataName = menuData->Attribute("name");
+		}
+
+		if (CheckIfNull(menuData->FirstChildElement("Stages"), "Stage menu: Stages")) exit(-2);
+		if (CheckIfNull(menuData->FirstChildElement("Stages")->FirstChildElement("Stage"), "Stage menu: Stages : Stage")) exit(-2);
+		XMLElement *stageData = menuData->FirstChildElement("Stages")->FirstChildElement("Stage");
+
+		// Load each stage data
+		while (stageData != nullptr)
+		{
+			std::string stageName = stageData->Attribute("name");
+
+			if (CheckIfNull(stageData->FirstChildElement("Background"), "Stage menu: Stage: Background")) exit(-2);
+			Sprite::Sprite stageSprite(stageData->FirstChildElement("Background"));
+			stageSprite.setPos(getPos());
+
+			if (CheckIfNull(stageData->FirstChildElement("Name"), "Stage menu: Stage: NameSprite")) exit(-2);
+			Sprite::Sprite nameSprite(stageData->FirstChildElement("Name"));
+			nameSprite.setPos(getPos() + Vector::Vector2(0, -305));
+
+			names.push_back(stageName);
+			stageSprites.push_back(stageSprite);
+			nameSprites.push_back(nameSprite);
+			maxSize++;
+
+			stageData = stageData->NextSiblingElement("Stage");
+		}
+	}
+
+	StageMenu::~StageMenu()
+	{
+
+	}
+
+	void StageMenu::draw() const
+	{
+		stageSprites.at(getSelectionNum()).draw();
+		menuSprite->draw();
+		nameSprites.at(getSelectionNum()).draw();
+	}
+
+	void StageMenu::update()
+	{
+
+	}
+
+	void StageMenu::moveSelectionNum(int change)
+	{
+		if (getSelectionNum() + change >= static_cast<int>(maxSize) ||
+			getSelectionNum() + change < 0)
+		{
+			setSelectionNum(maxSize - 1 - getSelectionNum());
+		}
+		else
+		{
+			setSelectionNum(getSelectionNum() + change);
+		}
+	}
+
+	void StageMenu::reset()
+	{
+		setSelectionNum(0);
 	}
 }

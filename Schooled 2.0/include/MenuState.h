@@ -79,7 +79,9 @@ namespace MenuState
 		// Menu objects
 		Menu::MainMenu *mainMenu;
 		Menu::CharMenu *p1CharMenu, *p2CharMenu;
+		Menu::StageMenu *stageMenu;
 		
+		double delay;
 	};
 }
 
