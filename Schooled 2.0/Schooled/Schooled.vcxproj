@@ -199,6 +199,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="InputRanges.xml" />
+    <Xml Include="Janitor.xml" />
     <Xml Include="MenuData.xml">
       <SubType>Designer</SubType>
     </Xml>
@@ -211,7 +212,9 @@
     <Xml Include="StageData.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="TokenPiece1.xml" />
+    <Xml Include="TokenPiece1.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="TutorialData.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
