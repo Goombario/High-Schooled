@@ -19,73 +19,9 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Gym Teacher">
     <!--Sprite Data-->
-    <Sprite name="GymTeacher.png" frameWidth="230" frameHeight="170"/>
+    <SpriteLeft name="GymTeacher.png" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="GymTeacher(mirrored).png" frameWidth="230" frameHeight="170"/>
     <Animation name="GymTeacher.xml"/>
-
-    <!--Statistics-->
-    <Stats>
-      <MaxHP>5</MaxHP>
-      <MaxSP>4</MaxSP>
-      <MaxAP>2</MaxAP>
-    </Stats>
-
-    <!--List of attack names-->
-    <Attacks>
-      <Attack name="DODGEBALL_A">
-        <Cooldown>2</Cooldown>
-        <Static>0</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 1 1
-          0 0 0
-          0 0 0
-        </Range>
-        <Icon name="HORIZONTAL"/>
-        <Projectile name="Dodgeball_Gravity" delay="0.0"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-      </Attack>
-      <Attack name="DODGEBALL_B">
-        <Cooldown>2</Cooldown>
-        <Static>0</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 0 0
-          1 0 0
-          1 0 0
-        </Range>
-        <Icon name="VERTICAL"/>
-        <Projectile name="Dodgeball_Gravity" delay="0.0"
-                    offsetX="0.0" offsetY="0.0"
-                    hasTarget="false"/>
-      </Attack>
-      <Attack name="DODGEBALL_C">
-        <Cooldown>2</Cooldown>
-        <Static>1</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 0 1
-          0 0 0
-          1 0 1
-        </Range>
-        <Icon name="CORNERS"/>
-      </Attack>
-    </Attacks>
-
-    <!--Special ability name (Data loaded from seperate file)-->
-    <Special name="DODGEBALL_RAIN">
-      <RemoveAllTokens>0</RemoveAllTokens>
-      <RemoveEnemyTokens>1</RemoveEnemyTokens>
-      <ResetCooldowns>1</ResetCooldowns>
-      <Heal>1</Heal>
-      <Damage>2</Damage>
-    </Special>
-  </Player>
-
-  <Player name="Gym Teacher (Mirrored)">
-    <!--Sprite Data-->
-    <Sprite name="GymTeacher(Mirrored).png" frameWidth="230" frameHeight="170"/>
-    <Animation name="GymTeacher(Mirrored).xml"/>
 
     <!--Statistics-->
     <Stats>
@@ -149,7 +85,8 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Tive">
     <!--Sprite Data-->
-    <Sprite name="Tive.png" frameWidth="230" frameHeight="170"/>
+    <SpriteLeft name="Tive.png" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="Tive(Mirrored).png" frameWidth="230" frameHeight="170"/>
     <Animation name="Tive.xml"/>
 
     <!--Statistics-->
@@ -212,74 +149,10 @@ target - will attack the targeted square, and dissapear afterwards.
     </Special>
   </Player>
 
-  <Player name="Tive(Mirrored)">
-    <!--Sprite Data-->
-    <Sprite name="Tive(Mirrored).png" frameWidth="230" frameHeight="170"/>
-    <Animation name="Tive(Mirrored).xml"/>
-
-    <!--Statistics-->
-    <Stats>
-      <MaxHP>5</MaxHP>
-      <MaxSP>4</MaxSP>
-      <MaxAP>2</MaxAP>
-    </Stats>
-
-    <!--List of attack names-->
-    <Attacks>
-      <Attack name="DODGEBALL_A">
-        <Cooldown>2</Cooldown>
-        <Static>0</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 1 1
-          0 0 0
-          0 0 0
-        </Range>
-        <Icon name="HORIZONTAL"/>
-        <Projectile name="Dodgeball_Gravity" delay="0.0"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-      </Attack>
-      <Attack name="DODGEBALL_B">
-        <Cooldown>2</Cooldown>
-        <Static>0</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 0 0
-          1 0 0
-          1 0 0
-        </Range>
-        <Icon name="VERTICAL"/>
-        <Projectile name="Dodgeball_Gravity" delay="0.0"
-                    offsetX="0.0" offsetY="0.0"
-                    hasTarget="false"/>
-      </Attack>
-      <Attack name="DODGEBALL_C">
-        <Cooldown>2</Cooldown>
-        <Static>1</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 0 1
-          0 0 0
-          1 0 1
-        </Range>
-        <Icon name="CORNERS"/>
-      </Attack>
-    </Attacks>
-
-    <!--Special ability name (Data loaded from seperate file)-->
-    <Special name="DODGEBALL_RAIN">
-      <RemoveAllTokens>0</RemoveAllTokens>
-      <RemoveEnemyTokens>1</RemoveEnemyTokens>
-      <ResetCooldowns>1</ResetCooldowns>
-      <Heal>1</Heal>
-      <Damage>2</Damage>
-    </Special>
-  </Player>
-  
   <Player name="Nate">
     <!--Sprite Data-->
-    <Sprite name="Nate.png" frameWidth="230" frameHeight="170"/>
+    <SpriteLeft name="Nate.png" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="Nate(Mirrored).png" frameWidth="230" frameHeight="170"/>
     <Animation name="Nate.xml"/>
 
     <!--Statistics-->
@@ -351,85 +224,10 @@ target - will attack the targeted square, and dissapear afterwards.
     </Special>
   </Player>
 
-  <Player name="Nate(Mirrored)">
-    <!--Sprite Data-->
-    <Sprite name="Nate(Mirrored).png" frameWidth="230" frameHeight="170"/>
-    <Animation name="Nate(Mirrored).xml"/>
-
-    <!--Statistics-->
-    <Stats>
-      <MaxHP>5</MaxHP>
-      <MaxSP>4</MaxSP>
-      <MaxAP>2</MaxAP>
-    </Stats>
-
-    <!--List of attacks and attack properties-->
-    <Attacks>
-      <Attack name="KICK">
-        <Cooldown>2</Cooldown>
-        <Static>0</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 1 1
-          0 0 0
-          0 0 0
-        </Range>
-        <Icon name="HORIZONTAL"/>
-        <Projectile name="Dodgeball" delay="0.0"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-      </Attack>
-      <Attack name="PUNCH">
-        <Cooldown>2</Cooldown>
-        <Static>0</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 0 0
-          1 0 0
-          1 0 0
-        </Range>
-        <Icon name="VERTICAL"/>
-        <Projectile name="Dodgeball" delay="0.0"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-        <Projectile name="Dodgeball" delay="0.5"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-      </Attack>
-      <Attack name="FAST_ATTACK">
-        <Cooldown>2</Cooldown>
-        <Static>1</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 0 1
-          0 0 0
-          1 0 1
-        </Range>
-        <Icon name="CORNERS"/>
-        <Projectile name="Dodgeball" delay="0.0"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-        <Projectile name="Dodgeball" delay="1.0"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-      </Attack>
-    </Attacks>
-
-    <!--Special ability properties-->
-    <Special name = "BREAK_GROUND">
-      <RemoveAllTokens>0</RemoveAllTokens>
-      <RemoveEnemyTokens>1</RemoveEnemyTokens>
-      <ResetCooldowns>1</ResetCooldowns>
-      <Heal>1</Heal>
-      <Damage>2</Damage>
-    </Special>
-  </Player>
-  
   <Player name="GlowyNate">
     <!--Sprite Data-->
-    <!--<LeftSprite name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
-    <RightSprite name="GlowyNate.png" frameWidth="225" frameHeight="160"/>-->
-    <Sprite name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
+    <SpriteLeft name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
+    <SpriteRight name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
     <Animation name="GlowyNate.xml"/>
 
     <!--Statistics-->
@@ -497,67 +295,9 @@ target - will attack the targeted square, and dissapear afterwards.
 
   <Player name="Nega">
     <!--Sprite Data-->
-    <Sprite name="Nega.png" frameWidth="230" frameHeight="170"/>
+    <SpriteLeft name="Nega.png" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="Nega.png(Mirrored)" frameWidth="230" frameHeight="170"/>
     <Animation name="Nega.xml"/>
-
-    <!--Statistics-->
-    <Stats>
-      <MaxHP>5</MaxHP>
-      <MaxSP>4</MaxSP>
-      <MaxAP>2</MaxAP>
-    </Stats>
-
-    <!--List of attacks and attack properties-->
-    <Attacks>
-      <Attack name="KICK">
-        <Cooldown>2</Cooldown>
-        <Static>0</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 1 1
-          0 0 0
-          0 0 0
-        </Range>
-        <Icon name="HORIZONTAL"/>
-      </Attack>
-      <Attack name="PUNCH">
-        <Cooldown>2</Cooldown>
-        <Static>0</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 0 0
-          1 0 0
-          1 0 0
-        </Range>
-        <Icon name="VERTICAL"/>
-      </Attack>
-      <Attack name="FAST_ATTACK">
-        <Cooldown>2</Cooldown>
-        <Static>1</Static>
-        <Damage>1</Damage>
-        <Range>
-          1 0 1
-          0 0 0
-          1 0 1
-        </Range>
-        <Icon name="CORNERS"/>
-      </Attack>
-    </Attacks>
-
-    <!--Special ability properties-->
-    <Special name = "BREAK_GROUND">
-      <RemoveAllTokens>0</RemoveAllTokens>
-      <RemoveEnemyTokens>1</RemoveEnemyTokens>
-      <ResetCooldowns>1</ResetCooldowns>
-      <Heal>1</Heal>
-      <Damage>2</Damage>
-    </Special>
-  </Player>
-
-  <Player name="Nega(Mirrored)">
-    <!--Sprite Data-->
-    <Sprite name="Nega(Mirrored).png" frameWidth="230" frameHeight="170"/>
-    <Animation name="Nega(Mirrored).xml"/>
 
     <!--Statistics-->
     <Stats>

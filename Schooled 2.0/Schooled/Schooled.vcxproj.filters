@@ -330,19 +330,7 @@
     <Xml Include="MenuData.xml">
       <Filter>Menu\Menu Data</Filter>
     </Xml>
-    <Xml Include="..\res\img\Image_Data\Nate(Mirrored).xml">
-      <Filter>Battle\Battle Data\Characters</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\Nega(Mirrored).xml">
-      <Filter>Battle\Battle Data\Characters</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\GymTeacher(Mirrored).xml">
-      <Filter>Battle\Battle Data\Characters</Filter>
-    </Xml>
     <Xml Include="..\res\img\Image_Data\Tive.xml">
-      <Filter>Battle\Battle Data\Characters</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\Tive(Mirrored).xml">
       <Filter>Battle\Battle Data\Characters</Filter>
     </Xml>
     <Xml Include="TokenPiece1.xml">

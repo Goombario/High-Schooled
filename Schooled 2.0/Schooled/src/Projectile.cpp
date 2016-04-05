@@ -152,7 +152,7 @@ namespace Projectile
 
 		if (hasGravity)
 		{
-			setAcceleration(Vector2(getAcceleration().getX(), getAcceleration().getY() - (9.81)));
+			setAcceleration(Vector2(getAcceleration().getX(), getAcceleration().getY() - (schooled::GRAVITY)));
 		}
 
 		euler();

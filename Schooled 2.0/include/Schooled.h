@@ -6,10 +6,9 @@
 namespace schooled
 {
 	// Constant variables
-	double const CAMERA_SPEED = 3;
-	float const CAMERA_MAX_ACCELERATION = 2;
 	int const FRAMERATE = 60;
 	float const SCALE = 1.0f;
+	double const GRAVITY = 49.05;
 	int const SCREEN_HEIGHT_PX = 720;
 	int const SCREEN_WIDTH_PX = 1280;
 
