@@ -90,7 +90,6 @@ namespace TutorialState
 		if (inputs.Actions.find(InputMapping::Action::EXIT_GAME) != inputs.Actions.end())
 		{
 			self->isEnd = true;
-			inputs.EatAction(InputMapping::Action::EXIT_GAME);
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::P1_ADVANCE) != inputs.Actions.end())

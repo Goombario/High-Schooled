@@ -1,8 +1,11 @@
 #include "MenuState.h"
 #include "GameEngine.h"
+#include "TutorialState.h"
+#include "BattleState.h"
 #include "ShareState.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
+#include "Schooled.h"
 
 #include "Menu.h"
 #include "Sprite.h"
@@ -36,7 +39,7 @@ namespace MenuState
 		stageMenu = new Menu::StageMenu();
 
 		currentState = State::MAIN_MENU;
-		delay = 0.0;
+		timer = 0.0;
 	}
 
 	void MenuState::Cleanup()
@@ -53,7 +56,8 @@ namespace MenuState
 		stageMenu = nullptr;
 
 		currentState = State::MAIN_MENU;
-		delay = 0.0;
+		timer = 0.0;
+		isEnd = false;
 	}
 
 	void MenuState::Pause()
@@ -314,7 +318,6 @@ namespace MenuState
 
 	void MenuState::Update(GameEngine* game)
 	{
-
 		if (isEnd) game->Quit();
 		switch (getCurrentState())
 		{
@@ -332,11 +335,37 @@ namespace MenuState
 			break;
 		}
 
-		if (p1CharMenu->isFinished() && p2CharMenu->isFinished())
+		// If both players have chosen characters, move to stage select
+		if (p1CharMenu->isFinished() && p2CharMenu->isFinished() && timer < 1.0)
+		{
+			timer += 1.0 / schooled::FRAMERATE;
+		}
+		else if (p1CharMenu->isFinished() && p2CharMenu->isFinished())
 		{
 			changeMenuState(State::STAGE_MENU);
+			timer = 0.0;
+		}
+		else
+		{
+			timer = 0.0;
 		}
 
+		// If a stage has been chosen, start the game! :)
+		if (stageMenu->isFinished())
+		{
+			saveData();
+
+			// Show a loading screen
+			Image::Image tempImage = game->getImageManager()->loadImage(schooled::getResourcePath("img") + "Loading.png", 1280, 720);
+			Sprite::Sprite loadSprite(tempImage);
+			loadSprite.setPos(Vector::Vector2(schooled::SCREEN_WIDTH_PX / 2.0, schooled::SCREEN_HEIGHT_PX / 2.0));
+			FzlSwapBuffers();
+			loadSprite.draw();
+			FzlSwapBuffers();
+
+			game->PushState(BattleState::BattleState::Instance());
+			game->PushState(TutorialState::TutorialState::Instance());
+		}
 		// FMOD updates automatically at end
 	}
 
@@ -379,6 +408,11 @@ namespace MenuState
 		}
 
 		currentState = s;
+	}
+
+	void MenuState::saveData()
+	{
+
 	}
 }
 
