@@ -12,7 +12,7 @@
   
   <Animation name="TOKEN_PLACE" loop="false">
     <FirstFrame>4</FirstFrame>
-    <Frame>0.5</Frame>
+    <Frame>0.0</Frame>
     <Frame>0.5</Frame>
   </Animation>
   

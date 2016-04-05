@@ -181,11 +181,14 @@ namespace Stage
 		// Draw all the SP bars
 		for (int i = 0; i < player->getCurrentSP(); i++)
 		{
-			Vector::Vector2 tempVec(
-				SPBar->getPos() +
-				(*this).getPos() +
-				Vector::Vector2(i * (SPBar->getFrameWidth() - 20) * side, 0));
-			SPBar->drawAt(tempVec);
+			if (i < player->getMaxSP())
+			{
+				Vector::Vector2 tempVec(
+					SPBar->getPos() +
+					(*this).getPos() +
+					Vector::Vector2(i * (SPBar->getFrameWidth() - 20) * side, 0));
+				SPBar->drawAt(tempVec);
+			}
 		}
 
 		// Draw all the AP background bars

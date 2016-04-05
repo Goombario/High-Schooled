@@ -254,7 +254,6 @@ namespace BattleState
 
 	void BattleState::Update(GameEngine* game)
 	{
-		if (isEnd || player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) game->Quit();
 		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
 		{
 			(**it).update();
@@ -297,6 +296,9 @@ namespace BattleState
 		{
 			swapCurrentPlayer();
 		}
+
+		if (isEnd || (player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) &&
+			!player1->isActing() && !player2->isActing()) game->Quit();
 		// FMOD updates automatically at end
 	}
 
