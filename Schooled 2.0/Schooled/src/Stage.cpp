@@ -229,11 +229,11 @@ namespace Stage
 
 	void HUD::updateHPColour()
 	{
-		if (player->getCurrentHP() < player->getMaxHP() / 4)
+		if (player->getCurrentHP() < player->getMaxHP() / 4.0)
 		{
 			HPBar->changeAnimation(Animation::AnimationEnum::HP_LOW);
 		}
-		else if (player->getCurrentHP() < player->getMaxHP() / 2)
+		else if (player->getCurrentHP() < player->getMaxHP() / 2.0)
 		{
 			HPBar->changeAnimation(Animation::AnimationEnum::HP_MED);
 		}

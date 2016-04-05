@@ -403,7 +403,8 @@ namespace Player
 
 		// Set up the sprite
 		XMLElement *spriteData;
-		spriteData = playerData->FirstChildElement("Sprite");
+		const char* spriteSide = (boardPtr->getSide() == Side::LEFT) ? "SpriteLeft" : "SpriteRight";
+		spriteData = playerData->FirstChildElement(spriteSide);
 		if (CheckIfNull(spriteData, "Player: Sprite")) exit(-2);
 		(*this).sprite = new Sprite::AnimatedSprite(spriteData, spriteData->NextSiblingElement("Animation"));
 
