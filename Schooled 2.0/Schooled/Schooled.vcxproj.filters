@@ -312,9 +312,6 @@
     <Xml Include="..\res\img\Image_data\Arrow.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
-    <Xml Include="Projectiles.xml">
-      <Filter>Battle\Battle Data\Feedback</Filter>
-    </Xml>
     <Xml Include="..\res\img\Image_Data\Token.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
@@ -350,6 +347,9 @@
     </Xml>
     <Xml Include="Janitor.xml">
       <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="Projectiles.xml">
+      <Filter>Battle\Battle Data</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

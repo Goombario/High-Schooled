@@ -25,8 +25,8 @@ target - will attack the targeted square, and dissapear afterwards.
 
     <!--Statistics-->
     <Stats>
-      <MaxHP>5</MaxHP>
-      <MaxSP>4</MaxSP>
+      <MaxHP>6</MaxHP>
+      <MaxSP>5</MaxSP>
       <MaxAP>2</MaxAP>
     </Stats>
 
@@ -56,9 +56,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
         </Range>
         <Icon name="VERTICAL"/>
-        <Projectile name="Dodgeball_Gravity" delay="0.0"
+        <Projectile name="Dodgeball" delay="0.0"
                     offsetX="0.0" offsetY="0.0"
-                    hasTarget="false"/>
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="DODGEBALL_C">
         <Cooldown>2</Cooldown>
@@ -70,6 +70,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 1
         </Range>
         <Icon name="CORNERS"/>
+        <Projectile name="NULL" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
     </Attacks>
 
@@ -122,9 +125,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
         </Range>
         <Icon name="VERTICAL"/>
-        <Projectile name="Dodgeball_Gravity" delay="0.0"
-                    offsetX="0.0" offsetY="0.0"
-                    hasTarget="false"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
       <Attack name="DODGEBALL_C">
         <Cooldown>2</Cooldown>
@@ -136,6 +139,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 1
         </Range>
         <Icon name="CORNERS"/>
+        <Projectile name="NULL" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
     </Attacks>
 
@@ -157,8 +163,8 @@ target - will attack the targeted square, and dissapear afterwards.
 
     <!--Statistics-->
     <Stats>
-      <MaxHP>5</MaxHP>
-      <MaxSP>4</MaxSP>
+      <MaxHP>6</MaxHP>
+      <MaxSP>5</MaxSP>
       <MaxAP>2</MaxAP>
     </Stats>
 
@@ -174,9 +180,9 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
         </Range>
         <Icon name="HORIZONTAL"/>
-        <Projectile name="Dodgeball" delay="0.0"
+        <Projectile name="WindSlash" delay="0.0"
                     offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
+                    hasTarget="true" timeToTarget="0.7"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -188,12 +194,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
         </Range>
         <Icon name="VERTICAL"/>
-        <Projectile name="Dodgeball" delay="0.0"
+        <Projectile name="WindSlash" delay="0.0"
                     offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-        <Projectile name="Dodgeball" delay="0.5"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
+                    hasTarget="true" timeToTarget="0.7"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -205,10 +208,7 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 1
         </Range>
         <Icon name="CORNERS"/>
-        <Projectile name="Dodgeball" delay="0.0"
-                    offsetX="20.0" offsetY="0.0"
-                    hasTarget="true" timeToTarget="1.0"/>
-        <Projectile name="Dodgeball" delay="1.0"
+        <Projectile name="NULL" delay="0.0"
                     offsetX="20.0" offsetY="0.0"
                     hasTarget="true" timeToTarget="1.0"/>
       </Attack>
@@ -318,6 +318,9 @@ target - will attack the targeted square, and dissapear afterwards.
           0 0 0
         </Range>
         <Icon name="HORIZONTAL"/>
+        <Projectile name="WindSlash" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="0.7"/>
       </Attack>
       <Attack name="PUNCH">
         <Cooldown>2</Cooldown>
@@ -329,6 +332,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 0
         </Range>
         <Icon name="VERTICAL"/>
+        <Projectile name="WindSlash" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="0.7"/>
       </Attack>
       <Attack name="FAST_ATTACK">
         <Cooldown>2</Cooldown>
@@ -340,6 +346,9 @@ target - will attack the targeted square, and dissapear afterwards.
           1 0 1
         </Range>
         <Icon name="CORNERS"/>
+        <Projectile name="NULL" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
       </Attack>
     </Attacks>
 
