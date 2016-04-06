@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MenuList>
+  <Menu name="MainMenu">
+    <Background name="Gym room.png" width="1280" height="720"/>
+    <Menu name="Main_Menu_shadow.png" frameWidth="1280" frameHeight="720"/>
+    <Highlight name="MainMenuAnim.png" frameWidth="340" frameHeight="105"/>
+    <HighlightAnimation name="MainMenuAnim.xml"/>
+  </Menu>
+</MenuList>
