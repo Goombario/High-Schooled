@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+// Tile functions
 namespace Board
 {
 	void Tile::changeState(TileState s, Side side)
@@ -44,7 +45,7 @@ namespace Board
 			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
 			tokenSprite->pushAnimation(Animation::AnimationEnum::TOKEN_COMPLETE);
 			break;
-			
+
 		case TileState::DESTROYING:
 			tokenSprite->changeAnimation(Animation::AnimationEnum::TOKEN_EMPTY);
 			tokenSprite->pushAnimation(Animation::AnimationEnum::TOKEN_DESTROY);
@@ -71,7 +72,11 @@ namespace Board
 			tokenSprite->changeAnimation(Animation::AnimationEnum::IDLE);
 		}
 	}
+}
 
+// Board functions
+namespace Board
+{
 	Board::Board()
 	{
 		playerLocation = { 0, 0 };
@@ -107,7 +112,7 @@ namespace Board
 
 		// Get tile data
 		// Set the tile sprite
-		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 150, 65);
+		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 150, 60);
 		Animation::AnimationData tileData(schooled::getResourcePath("img/Image_Data") + "TileGlows.xml");
 		Sprite::AnimatedSprite tileSprite(tileImage, tileData);
 

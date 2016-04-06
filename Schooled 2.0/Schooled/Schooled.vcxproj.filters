@@ -120,9 +120,6 @@
     <ClCompile Include="src\Particle.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="src\BattleObject.cpp">
-      <Filter>Battle\Battle Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Path.cpp">
       <Filter>Battle\Battle Classes</Filter>
     </ClCompile>
@@ -312,9 +309,6 @@
     <Xml Include="..\res\img\Image_data\Arrow.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
-    <Xml Include="Projectiles.xml">
-      <Filter>Battle\Battle Data\Feedback</Filter>
-    </Xml>
     <Xml Include="..\res\img\Image_Data\Token.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
     </Xml>
@@ -330,19 +324,7 @@
     <Xml Include="MenuData.xml">
       <Filter>Menu\Menu Data</Filter>
     </Xml>
-    <Xml Include="..\res\img\Image_Data\Nate(Mirrored).xml">
-      <Filter>Battle\Battle Data\Characters</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\Nega(Mirrored).xml">
-      <Filter>Battle\Battle Data\Characters</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\GymTeacher(Mirrored).xml">
-      <Filter>Battle\Battle Data\Characters</Filter>
-    </Xml>
     <Xml Include="..\res\img\Image_Data\Tive.xml">
-      <Filter>Battle\Battle Data\Characters</Filter>
-    </Xml>
-    <Xml Include="..\res\img\Image_Data\Tive(Mirrored).xml">
       <Filter>Battle\Battle Data\Characters</Filter>
     </Xml>
     <Xml Include="TokenPiece1.xml">
@@ -362,6 +344,9 @@
     </Xml>
     <Xml Include="Janitor.xml">
       <Filter>Battle\Battle Data\Characters</Filter>
+    </Xml>
+    <Xml Include="Projectiles.xml">
+      <Filter>Battle\Battle Data</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

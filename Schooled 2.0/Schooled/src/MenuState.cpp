@@ -11,6 +11,7 @@
 #include "Sprite.h"
 
 #include <iostream>
+#include <fstream>
 using std::string;
 
 namespace MenuState
@@ -343,6 +344,8 @@ namespace MenuState
 		else if (p1CharMenu->isFinished() && p2CharMenu->isFinished())
 		{
 			changeMenuState(State::STAGE_MENU);
+			p1CharMenu->setFinished(false);
+			p2CharMenu->setFinished(false);
 			timer = 0.0;
 		}
 		else
@@ -364,7 +367,7 @@ namespace MenuState
 			FzlSwapBuffers();
 
 			game->PushState(BattleState::BattleState::Instance());
-			game->PushState(TutorialState::TutorialState::Instance());
+			//game->PushState(TutorialState::TutorialState::Instance());
 		}
 		// FMOD updates automatically at end
 	}
@@ -391,6 +394,8 @@ namespace MenuState
 
 	void MenuState::changeMenuState(State s)
 	{
+		currentState = s;
+
 		switch (getCurrentState())
 		{
 		case State::MAIN_MENU:
@@ -406,13 +411,16 @@ namespace MenuState
 		default:
 			break;
 		}
-
-		currentState = s;
 	}
 
 	void MenuState::saveData()
 	{
-
+		std::ofstream fileStream("Save.txt");
+		fileStream << p1CharMenu->getChosenName() << std::endl;
+		fileStream << p2CharMenu->getChosenName() << std::endl;
+		fileStream << stageMenu->getStageName();
+		fileStream.flush();
+		fileStream.close();
 	}
 }
 

@@ -403,7 +403,8 @@ namespace Player
 
 		// Set up the sprite
 		XMLElement *spriteData;
-		spriteData = playerData->FirstChildElement("Sprite");
+		const char* spriteSide = (boardPtr->getSide() == Side::LEFT) ? "SpriteLeft" : "SpriteRight";
+		spriteData = playerData->FirstChildElement(spriteSide);
 		if (CheckIfNull(spriteData, "Player: Sprite")) exit(-2);
 		(*this).sprite = new Sprite::AnimatedSprite(spriteData, spriteData->NextSiblingElement("Animation"));
 
@@ -415,7 +416,7 @@ namespace Player
 		CheckXMLResult(statsData->FirstChildElement("MaxSP")->QueryIntText(&stats.maxSP));
 		CheckXMLResult(statsData->FirstChildElement("MaxAP")->QueryIntText(&stats.maxAP));
 		stats.currentHP = stats.maxHP;
-		stats.currentSP = 3;
+		stats.currentSP = 0;
 		stats.currentAP = 0;
 		stats.lockedAP = 0;
 		
@@ -1038,4 +1039,10 @@ namespace Player
 	}
 
 	Side Player::getSide() const { return boardPtr->getSide(); }
+
+	void Player::firstTurn()
+	{
+		attacks.at(attacks.size() - 1).currentCooldown = 2;
+		updateIconCooldown();
+	}
 }

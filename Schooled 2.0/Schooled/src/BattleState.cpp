@@ -10,6 +10,7 @@
 #include "Board.h"
 
 #include <iostream>
+#include <fstream>
 using std::string;
 
 namespace Rules
@@ -39,9 +40,7 @@ namespace BattleState
 
 		board1 = new Board::Board(Side::LEFT);
 		board2 = new Board::Board(Side::RIGHT);
-		player1 = new Player::Player("Nate", *board1);
-		player2 = new Player::Player("Gym Teacher", *board2);
-		stage = new Stage::Stage("Default", player1, player2);
+		loadData();
 
 		// Set the list of battle objects
 		battleObjects.push_back(board1);
@@ -53,7 +52,8 @@ namespace BattleState
 		pushState(State::POS_CHOOSE);
 		playerTurn = Side::LEFT;
 		stage->setActiveBoard(playerTurn);
-		player1->startTurn();
+		getCurrentPlayer()->startTurn();
+		getCurrentPlayer()->firstTurn();
 
 		isEnd = false;
 		choosingPos = 0;
@@ -254,7 +254,6 @@ namespace BattleState
 
 	void BattleState::Update(GameEngine* game)
 	{
-		if (isEnd || player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) game->Quit();
 		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
 		{
 			(**it).update();
@@ -297,6 +296,9 @@ namespace BattleState
 		{
 			swapCurrentPlayer();
 		}
+
+		if (isEnd || (player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) &&
+			!player1->isActing() && !player2->isActing()) game->Quit();
 		// FMOD updates automatically at end
 	}
 
@@ -397,6 +399,22 @@ namespace BattleState
 	void BattleState::popState()
 	{ 
 		states.pop_back();
+	}
+
+	void BattleState::loadData()
+	{
+		std::ifstream fileStream("Save.txt");
+
+		std::string player1Name, player2Name, stageName;
+		std::getline(fileStream, player1Name);
+		std::getline(fileStream, player2Name);
+		std::getline(fileStream, stageName);
+
+		player1 = new Player::Player(player1Name.c_str(), *board1);
+		player2 = new Player::Player(player2Name.c_str(), *board2);
+		stage = new Stage::Stage(stageName.c_str(), player1, player2);
+
+		fileStream.close();
 	}
 }
 
