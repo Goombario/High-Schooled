@@ -26,13 +26,18 @@ namespace BattleState
 	{
 		// Initialize the mapper context
 		// Tells the mapper to call the given function after the contexts have been mapped.
-		GameEngine::getMapper()->AddCallback(mainCallback, 0);
+		mapper = new InputMapping::InputMapper();
+
+		mapper->AddCallback(mainCallback, 0);
+
 
 		// Tells the mapper to map a specific set of keys to a specific set of actions
-		GameEngine::getMapper()->PushContext("globalContext");
-		GameEngine::getMapper()->PushContext("player1ChoosePos");
+		mapper->PushContext("globalContext");
+		mapper->PushContext("player1ChoosePos");
 
 		// Hold valid keys
+		validKeys.clear();
+		previouslyPressed.clear();
 		shared::initValidKeys(validKeys);
 
 		// Hold pressed keys
@@ -70,6 +75,7 @@ namespace BattleState
 		states.clear();
 
 		delete stage;
+		delete mapper;
 
 		player1 = nullptr;
 		player2 = nullptr;
@@ -80,15 +86,15 @@ namespace BattleState
 
 	void BattleState::Pause()
 	{
-		GameEngine::getMapper()->PopContext();
-		GameEngine::getMapper()->PopContext();
 		// Suspend sounds and potentially pop contexts
+		mapper->PopContext();
+		mapper->PopContext();
 	}
 
 	void BattleState::Resume()
 	{
 		// Resume sounds and push contexts
-		GameEngine::getMapper()->PushContext("globalContext");
+		mapper->PushContext("globalContext");
 		
 		// Find which context to push
 		if (getCurrentSide() == Side::RIGHT)
@@ -98,16 +104,16 @@ namespace BattleState
 			case State::EMPTY:
 				break;
 			case State::POS_CHOOSE:
-				GameEngine::getMapper()->PushContext("player2ChoosePos");
+				mapper->PushContext("player2ChoosePos");
 				break;
 			case State::ATTACK_CHOOSE:
-				GameEngine::getMapper()->PushContext("p2AttackMenu");
+				mapper->PushContext("p2AttackMenu");
 				break;
 			case State::MOVE:
-				GameEngine::getMapper()->PushContext("player2Action");
+				mapper->PushContext("player2Action");
 				break;
 			case State::ACTING:
-				GameEngine::getMapper()->PushContext("player2Action");
+				mapper->PushContext("player2Action");
 				break;
 			default:
 				break;
@@ -120,16 +126,16 @@ namespace BattleState
 			case State::EMPTY:
 				break;
 			case State::POS_CHOOSE:
-				GameEngine::getMapper()->PushContext("player1ChoosePos");
+				mapper->PushContext("player1ChoosePos");
 				break;
 			case State::ATTACK_CHOOSE:
-				GameEngine::getMapper()->PushContext("p1AttackMenu");
+				mapper->PushContext("p1AttackMenu");
 				break;
 			case State::MOVE:
-				GameEngine::getMapper()->PushContext("player1Action");
+				mapper->PushContext("player1Action");
 				break;
 			case State::ACTING:
-				GameEngine::getMapper()->PushContext("player1Action");
+				mapper->PushContext("player1Action");
 				break;
 			default:
 				break;
@@ -146,14 +152,19 @@ namespace BattleState
 			{
 				bool previouslyDown = previouslyPressed[key];
 				previouslyPressed[key] = true;
-				game->getMapper()->SetRawButtonState(key, true, previouslyDown);
+				mapper->SetRawButtonState(key, true, previouslyDown);
 			}
 			else
 			{
 				previouslyPressed[key] = false;
-				game->getMapper()->SetRawButtonState(key, false, true);
+				mapper->SetRawButtonState(key, false, true);
 			}
 		}
+
+
+		// push the handled inputs to the mapper
+		mapper->Dispatch();
+		mapper->Clear();
 		// Mapper dispatches automatically at end
 	}
 
@@ -164,7 +175,6 @@ namespace BattleState
 		if (inputs.Actions.find(InputMapping::Action::EXIT_GAME) != inputs.Actions.end())
 		{
 			self->isEnd = true;
-			inputs.EatAction(InputMapping::Action::EXIT_GAME);
 		}
 
 		// Do not let any commands through if attacking/moving
@@ -175,17 +185,21 @@ namespace BattleState
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_SELECT) != inputs.Actions.end())
 		{
-			if (self->getCurrentState() != State::ATTACK_CHOOSE)
+			if (self->getCurrentState() == State::GAME_OVER)
+			{
+				self->stage->setFinished();
+			}
+			else if (self->getCurrentState() != State::ATTACK_CHOOSE)
 			{
 				self->pushState(State::ATTACK_CHOOSE);
 				self->getCurrentPlayer()->initAttackMenu(*self->getOtherPlayer());
 				if (self->getCurrentSide() == Side::LEFT)
 				{
-					GameEngine::getMapper()->PushContext("p1AttackMenu");
+					self->mapper->PushContext("p1AttackMenu");
 				}
 				else
 				{
-					GameEngine::getMapper()->PushContext("p2AttackMenu");
+					self->mapper->PushContext("p2AttackMenu");
 				}
 			}
 			else
@@ -195,27 +209,36 @@ namespace BattleState
 				{
 					self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
 					self->popState();
-					GameEngine::getMapper()->PopContext();
+					self->mapper->PopContext();
 					self->stage->updateHPColour();
 				}
 			}
+		}
+
+		// If the game is over, don't allow other inputs
+		if (self->getCurrentState() == State::GAME_OVER)
+		{
+			return;
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_BACK) != inputs.Actions.end())
 		{
 			self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
 			self->popState();
-			GameEngine::getMapper()->PopContext();
+			self->mapper->PopContext();
+			inputs.EatAction(InputMapping::Action::MENU_BACK);
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_UP) != inputs.Actions.end())
 		{
 			self->getCurrentPlayer()->moveSelectedAttack(1, *self->getOtherPlayer());
+			inputs.EatAction(InputMapping::Action::MENU_UP);
 		}
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_DOWN) != inputs.Actions.end())
 		{
 			self->getCurrentPlayer()->moveSelectedAttack(-1, *self->getOtherPlayer());
+			inputs.EatAction(InputMapping::Action::MENU_DOWN);
 		}
 
 		// If choosing menu options, don't allow anything else
@@ -254,6 +277,14 @@ namespace BattleState
 
 	void BattleState::Update(GameEngine* game)
 	{
+		if (stage->isFinished())
+		{
+			game->PopState();
+			return;
+		}
+
+		if (isEnd) game->Quit();
+
 		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
 		{
 			(**it).update();
@@ -267,7 +298,14 @@ namespace BattleState
 			getCurrentPlayer()->update();
 		}
 
-		stage->setDark(getCurrentPlayer()->isUsingSpecial());
+		if ((player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) &&
+			!player1->isActing() && !player2->isActing() && getCurrentState() != State::GAME_OVER)
+		{
+			pushState(State::GAME_OVER);
+			stage->stopGame();
+		}
+
+		stage->setDark(getCurrentPlayer()->isUsingSpecial() || getCurrentState() == State::GAME_OVER);
 		stage->updateHPColour();
 		stage->update();
 
@@ -296,9 +334,6 @@ namespace BattleState
 		{
 			swapCurrentPlayer();
 		}
-
-		if (isEnd || (player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) &&
-			!player1->isActing() && !player2->isActing()) game->Quit();
 		// FMOD updates automatically at end
 	}
 
@@ -335,32 +370,32 @@ namespace BattleState
 		if (playerTurn == Side::LEFT)
 		{
 			playerTurn = Side::RIGHT;
-			GameEngine::getMapper()->PopContext();
+			mapper->PopContext();
 
 			// Choose the correct context
 			switch (getCurrentState())
 			{
 			case State::POS_CHOOSE:
-				GameEngine::getMapper()->PushContext("player2ChoosePos");
+				mapper->PushContext("player2ChoosePos");
 				break;
 			default:
-				GameEngine::getMapper()->PushContext("player2Action");
+				mapper->PushContext("player2Action");
 				break;
 			}
 		}
 		else
 		{
 			playerTurn = Side::LEFT;
-			GameEngine::getMapper()->PopContext();
+			mapper->PopContext();
 
 			// Choose the correct context
 			switch (getCurrentState())
 			{
 			case State::POS_CHOOSE:
-				GameEngine::getMapper()->PushContext("player1ChoosePos");
+				mapper->PushContext("player1ChoosePos");
 				break;
 			default:
-				GameEngine::getMapper()->PushContext("player1Action");
+				mapper->PushContext("player1Action");
 				break;
 			}
 		}

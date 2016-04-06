@@ -79,11 +79,19 @@ namespace Stage
 		// Make the DARKENESS
 		void setDark(bool darkness = true);
 
+		// When the game has determined a victor, put up the victory screen
+		void stopGame();
+
+		// Change if the game is finished
+		void setFinished(bool isFinished = true);
+		bool isFinished() const { return finished; }
+
 	private:
-		bool hasDarkness;
+		bool hasDarkness, finished, results;
 		Sprite::Sprite *background;
 		Sprite::Sprite *boardSprite, *darkness;
 		Sprite::AnimatedSprite *p1BoardHighlight, *p2BoardHighlight;
+		Sprite::AnimatedSprite *failSprite, *winSprite;
 		const Player::Player *player1, *player2;
 		HUD p1HUD, p2HUD;
 	};

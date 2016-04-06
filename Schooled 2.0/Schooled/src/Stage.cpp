@@ -253,7 +253,9 @@ namespace Stage
 	Stage::Stage(const char* stageName, 
 		Player::Player const* p1, Player::Player const* p2) :
 		player1(p1),
-		player2(p2)
+		player2(p2),
+		finished(false),
+		results(false)
 	{
 		// Load player data from player file
 		tinyxml2::XMLDocument data;
@@ -321,6 +323,14 @@ namespace Stage
 			stageData->FirstChildElement("Highlight"), stageData->FirstChildElement("HighlightAnimation"));
 		p2BoardHighlight->setPos(p2->getBoard()->getPos());
 
+		// Load the win and lose sprites
+		if (CheckIfNull(stageData->FirstChildElement("Win"), "Stage: Win")) exit(-2);
+		if (CheckIfNull(stageData->FirstChildElement("Fail"), "Stage: Fail")) exit(-2);
+		if (CheckIfNull(stageData->FirstChildElement("EndAnimation"), "Stage: EndAnimation")) exit(-2);
+
+		winSprite = new Sprite::AnimatedSprite(stageData->FirstChildElement("Win"), stageData->FirstChildElement("EndAnimation"));
+		failSprite = new Sprite::AnimatedSprite(stageData->FirstChildElement("Fail"), stageData->FirstChildElement("EndAnimation"));
+
 		// Load the DARKNESS
 		if (CheckIfNull(stageData->FirstChildElement("Darkness"), "Stage: Darkness")) exit(-2);
 		darkness = new Sprite::Sprite(stageData->FirstChildElement("Darkness"));
@@ -334,6 +344,8 @@ namespace Stage
 		delete boardSprite;
 		delete p1BoardHighlight;
 		delete p2BoardHighlight;
+		delete winSprite;
+		delete failSprite;
 
 		background = nullptr;
 		boardSprite = nullptr;
@@ -355,6 +367,13 @@ namespace Stage
 	{
 		p1HUD.draw();
 		p2HUD.draw();
+
+		if (results)
+		{
+			darkness->draw();
+			winSprite->draw();
+			failSprite->draw();
+		}
 	}
 
 	void Stage::setDark(bool hasDarkness)
@@ -366,6 +385,13 @@ namespace Stage
 	{
 		p1HUD.update();
 		p2HUD.update();
+
+		// If showing the results of the match
+		if (results)
+		{
+			winSprite->update();
+			failSprite->update();
+		}
 	}
 
 	void Stage::updateHPColour()
@@ -386,5 +412,31 @@ namespace Stage
 			p1BoardHighlight->changeAnimation(Animation::AnimationEnum::IDLE);
 			p2BoardHighlight->changeAnimation(Animation::AnimationEnum::RED_PULSE);
 		}
+	}
+
+	void Stage::stopGame()
+	{
+		results = true;
+
+		winSprite->changeAnimation(Animation::AnimationEnum::CREDITS);
+		failSprite->changeAnimation(Animation::AnimationEnum::CREDITS);
+		failSprite->addDelay(0.5);
+		winSprite->addDelay(2.0);
+
+		if (player1->getCurrentHP() <= 0)
+		{
+			winSprite->setPos(Vector::Vector2(3 * schooled::SCREEN_WIDTH_PX / 4.0, schooled::SCREEN_HEIGHT_PX / 2.0));
+			failSprite->setPos(Vector::Vector2(schooled::SCREEN_WIDTH_PX / 4.0, schooled::SCREEN_HEIGHT_PX / 2.0));
+		}
+		else
+		{
+			winSprite->setPos(Vector::Vector2(schooled::SCREEN_WIDTH_PX / 4.0, schooled::SCREEN_HEIGHT_PX / 2.0));
+			failSprite->setPos(Vector::Vector2(3 * schooled::SCREEN_WIDTH_PX / 4.0, schooled::SCREEN_HEIGHT_PX / 2.0));
+		}
+	}
+
+	void Stage::setFinished(bool isFinished)
+	{
+		finished = (results && isFinished && winSprite->getCurrentAnimation() == Animation::AnimationEnum::IDLE);
 	}
 }

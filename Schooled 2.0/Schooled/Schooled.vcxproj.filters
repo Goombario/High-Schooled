@@ -348,6 +348,9 @@
     <Xml Include="Projectiles.xml">
       <Filter>Battle\Battle Data</Filter>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\End.xml">
+      <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\include\Input\License.txt">

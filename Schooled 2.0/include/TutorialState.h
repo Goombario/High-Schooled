@@ -10,6 +10,7 @@
 namespace InputMapping
 {
 	struct MappedInput;
+	class InputMapper;
 }
 
 namespace Sprite
@@ -56,6 +57,7 @@ namespace TutorialState
 
 	private:
 		static TutorialState m_TutorialState;
+		InputMapping::InputMapper *mapper;
 		std::vector<FzlKey> validKeys;
 		std::map<FzlKey, bool> previouslyPressed;
 		

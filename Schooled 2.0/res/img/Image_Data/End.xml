@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AnimationList numCol="2">
+  <Animation name="IDLE" loop="true">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.0</Frame>
+  </Animation>
+  <Animation name="CREDITS" loop="false">
+    <FirstFrame>2</FirstFrame>
+    <Frame>0</Frame>
+    <Frame>0</Frame>
+  </Animation>
+</AnimationList>
