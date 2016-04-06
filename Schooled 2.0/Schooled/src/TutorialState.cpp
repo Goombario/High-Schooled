@@ -18,14 +18,17 @@ namespace TutorialState
 	{
 		// Initialize the mapper context
 		// Tells the mapper to map a specific set of keys to a specific set of actions
-		GameEngine::getMapper()->PushContext("globalContext");
-		GameEngine::getMapper()->PushContext("altTutorial");
-		//GameEngine::getMapper()->PushContext("tutorial");
+		mapper = new InputMapping::InputMapper();
+		mapper->PushContext("globalContext");
+		mapper->PushContext("altTutorial");
+		//mapper->PushContext("tutorial");
 
 		// Tells the mapper to call the given function after the contexts have been mapped.
-		GameEngine::getMapper()->AddCallback(mainCallback, -1);
+		mapper->AddCallback(mainCallback, -1);
 
 		// Hold valid keys
+		validKeys.clear();
+		previouslyPressed.clear();
 		shared::initValidKeys(validKeys);
 
 		// Hold pressed keys
@@ -43,24 +46,21 @@ namespace TutorialState
 		delete background;
 		delete p1Tut;
 		delete p2Tut;
-
-		// Pop the contexts
-		GameEngine::getMapper()->PopContext();
-		GameEngine::getMapper()->PopContext();
+		delete mapper;
 	}
 
 	void TutorialState::Pause()
 	{
 		// Suspend sounds and potentially pop contexts
-		GameEngine::getMapper()->PopContext();
-		GameEngine::getMapper()->PopContext();
+		mapper->PopContext();
+		mapper->PopContext();
 	}
 
 	void TutorialState::Resume()
 	{
 		// Resume sounds and push contexts
-		GameEngine::getMapper()->PushContext("globalContext");
-		GameEngine::getMapper()->PushContext("altTutorial");
+		mapper->PushContext("globalContext");
+		mapper->PushContext("altTutorial");
 	}
 
 	void TutorialState::HandleEvents(GameEngine* game)
@@ -72,12 +72,12 @@ namespace TutorialState
 			{
 				bool previouslyDown = previouslyPressed[key];
 				previouslyPressed[key] = true;
-				game->getMapper()->SetRawButtonState(key, true, previouslyDown);
+				mapper->SetRawButtonState(key, true, previouslyDown);
 			}
 			else
 			{
 				previouslyPressed[key] = false;
-				game->getMapper()->SetRawButtonState(key, false, true);
+				mapper->SetRawButtonState(key, false, true);
 			}
 		}
 		// Mapper dispatches automatically at end

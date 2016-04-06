@@ -10,6 +10,7 @@
 namespace InputMapping
 {
 	struct MappedInput;
+	class InputMapper;
 }
 
 namespace Menu
@@ -64,6 +65,7 @@ namespace MenuState
 
 	private:
 		static MenuState m_MenuState;
+		InputMapping::InputMapper *mapper;
 
 		// Change the current state of the menu
 		void changeMenuState(State);
