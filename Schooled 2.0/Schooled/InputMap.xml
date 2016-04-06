@@ -117,12 +117,12 @@
 
     <Action>
       <Input>P1_READY</Input>
-      <Raw>FzlKeyC</Raw>
+      <Raw>FzlKeyZ</Raw>
     </Action>
 
     <Action>
       <Input>P2_READY</Input>
-      <Raw>FzlKeyComma</Raw>
+      <Raw>FzlKeyN</Raw>
     </Action>
   </Context>
   

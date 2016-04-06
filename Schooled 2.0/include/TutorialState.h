@@ -56,6 +56,10 @@ namespace TutorialState
 		TutorialState() { }
 
 	private:
+
+		// Load the stage background
+		void loadData();
+
 		static TutorialState m_TutorialState;
 		InputMapping::InputMapper *mapper;
 		std::vector<FzlKey> validKeys;

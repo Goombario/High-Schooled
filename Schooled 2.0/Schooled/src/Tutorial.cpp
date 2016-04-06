@@ -74,7 +74,7 @@ namespace Tutorial
 
 	void Tutorial::setReady(bool isReady)
 	{
-		if (isReady/* && slideNum == slides.size() - 2*/)
+		if (isReady && slideNum == slides.size() - 2)
 		{
 			ready = true;
 			slideNum = slides.size() - 1;
@@ -105,7 +105,7 @@ namespace Tutorial
 		slideNum += change;
 
 		// Reset the animation
-		//slides.at(slideNum).changeAnimation(Animation::AnimationEnum::IDLE);
+		slides.at(slideNum).changeAnimation(Animation::AnimationEnum::IDLE);
 	}
 
 	void Tutorial::draw() const
@@ -115,6 +115,6 @@ namespace Tutorial
 
 	void Tutorial::update()
 	{
-
+		slides.at(slideNum).update();
 	}
 }

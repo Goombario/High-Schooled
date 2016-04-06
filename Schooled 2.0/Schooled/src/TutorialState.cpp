@@ -4,10 +4,16 @@
 #include "ShareState.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
+#include "tinyxml2.h"
 
 #include "Sprite.h"
 #include "Tutorial.h"
+#include "Sprite.h"
+#include "Image.h"
 
+#include <fstream>
+
+using namespace tinyxml2;
 using std::string;
 
 namespace TutorialState
@@ -24,7 +30,7 @@ namespace TutorialState
 		//mapper->PushContext("tutorial");
 
 		// Tells the mapper to call the given function after the contexts have been mapped.
-		mapper->AddCallback(mainCallback, -1);
+		mapper->AddCallback(mainCallback, 0);
 
 		// Hold valid keys
 		validKeys.clear();
@@ -35,7 +41,7 @@ namespace TutorialState
 		shared::initPreviouslyPressed(previouslyPressed, validKeys);
 
 		isEnd = false;
-		background = new Sprite::Sprite();
+		loadData();
 		p1Tut = new Tutorial::Tutorial("Nate", Side::LEFT);
 		p2Tut = new Tutorial::Tutorial("Gym Teacher", Side::RIGHT);
 	}
@@ -80,7 +86,9 @@ namespace TutorialState
 				mapper->SetRawButtonState(key, false, true);
 			}
 		}
-		// Mapper dispatches automatically at end
+		
+		mapper->Dispatch();
+		mapper->Clear();
 	}
 
 	void mainCallback(InputMapping::MappedInput& inputs)
@@ -150,10 +158,61 @@ namespace TutorialState
 
 	void TutorialState::Draw(GameEngine* game)
 	{
-		//background->draw();
+		background->draw();
 		p1Tut->draw();
 		p2Tut->draw();
 		// Fizzle swaps buffer automatically at end
+	}
+
+	void TutorialState::loadData()
+	{
+		std::ifstream fileStream("Save.txt");
+
+		std::string player1Name, player2Name, stageName;
+		std::getline(fileStream, player1Name);
+		std::getline(fileStream, player2Name);
+		std::getline(fileStream, stageName);
+
+		// Load player data from player file
+		tinyxml2::XMLDocument data;
+		CheckXMLResult(data.LoadFile("../Schooled/StageData.xml"));
+		XMLNode *pRoot = data.RootElement();
+		if (pRoot == nullptr)
+		{
+			std::cerr << "ERROR: Loading Stage data file: "
+				<< XML_ERROR_FILE_READ_ERROR << std::endl;
+			exit(-2);
+		}
+
+		XMLElement *stageData;
+		stageData = pRoot->FirstChildElement("Stage");
+
+		// Check if stage data loaded
+		std::string stageDataName = stageData->Attribute("name");
+		while (stageDataName != stageName)
+		{
+			stageData = stageData->NextSiblingElement();
+			if (stageData == nullptr)
+			{
+				std::cerr << "ERROR: Loading stageData: "
+					<< XML_ERROR_FILE_READ_ERROR << std::endl;
+				exit(-2);
+			}
+			stageDataName = stageData->Attribute("name");
+		}
+
+		XMLElement *stageElement = stageData->FirstChildElement("Background");
+		if (stageElement == nullptr)
+		{
+			std::cerr << "ERROR: Loading Stage data file: Background "
+				<< XML_ERROR_FILE_READ_ERROR << std::endl;
+			exit(-2);
+		}
+
+		background = new Sprite::Sprite(stageElement);
+		background->move(0, 0, false);
+
+		fileStream.close();
 	}
 }
 
