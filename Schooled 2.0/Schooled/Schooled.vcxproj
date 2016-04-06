@@ -85,7 +85,6 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\Animation.cpp" />
-    <ClCompile Include="src\BattleObject.cpp" />
     <ClCompile Include="src\Board.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameObject.cpp" />

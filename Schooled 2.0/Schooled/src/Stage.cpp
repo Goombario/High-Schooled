@@ -300,6 +300,10 @@ namespace Stage
 		background = new Sprite::Sprite(stageElement);
 		background->move(0, 0, false);
 
+		// Load all the shared data
+		if (CheckIfNull(pRoot->FirstChildElement("SharedData"), "Stage: Shared data")) exit(-2);
+		stageData = pRoot->FirstChildElement("SharedData");
+
 		XMLElement *boardElement = stageData->FirstChildElement("Board");
 		if (CheckIfNull(boardElement, "Stage: Board") != XML_SUCCESS) exit(-2);
 		boardSprite = new Sprite::Sprite(boardElement);

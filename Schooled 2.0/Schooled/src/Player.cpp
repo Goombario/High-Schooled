@@ -1039,4 +1039,10 @@ namespace Player
 	}
 
 	Side Player::getSide() const { return boardPtr->getSide(); }
+
+	void Player::firstTurn()
+	{
+		attacks.at(attacks.size() - 1).currentCooldown = 2;
+		updateIconCooldown();
+	}
 }

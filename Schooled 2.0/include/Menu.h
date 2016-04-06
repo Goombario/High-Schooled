@@ -106,7 +106,7 @@ namespace Menu
 		Sprite::Sprite *spotlight;
 
 		// Load all character and name sprites
-		void loadSprites(tinyxml2::XMLElement const*);
+		void loadSprites(tinyxml2::XMLElement const*, const char*);
 	};
 
 	// The stage changing menu

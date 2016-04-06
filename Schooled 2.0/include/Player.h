@@ -180,6 +180,9 @@ namespace Player
 		// Choose to end your turn.
 		void passTurn();
 
+		// Set cooldowns for the first player
+		void firstTurn();
+
 		// Resets cooldowns
 		void startTurn();
 

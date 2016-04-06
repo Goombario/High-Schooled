@@ -82,6 +82,9 @@ namespace BattleState
 	private:
 		static BattleState m_BattleState;
 
+		// Load the save data
+		void loadData();
+
 		// Change the turn to the other player
 		void swapCurrentPlayer();
 
