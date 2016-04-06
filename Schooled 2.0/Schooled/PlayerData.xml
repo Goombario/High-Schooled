@@ -296,7 +296,7 @@ target - will attack the targeted square, and dissapear afterwards.
   <Player name="Nega">
     <!--Sprite Data-->
     <SpriteLeft name="Nega.png" frameWidth="230" frameHeight="170"/>
-    <SpriteRight name="Nega.png(Mirrored)" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="Nega(Mirrored).png" frameWidth="230" frameHeight="170"/>
     <Animation name="Nega.xml"/>
 
     <!--Statistics-->

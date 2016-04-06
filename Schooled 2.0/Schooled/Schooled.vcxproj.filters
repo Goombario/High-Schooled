@@ -120,9 +120,6 @@
     <ClCompile Include="src\Particle.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="src\BattleObject.cpp">
-      <Filter>Battle\Battle Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Path.cpp">
       <Filter>Battle\Battle Classes</Filter>
     </ClCompile>
