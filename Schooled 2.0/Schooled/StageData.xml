@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StageList>
+  <HUD>
+    <HUDLeft name="HUDLeft.png" frameWidth="200" frameHeight="200"/>
+    <HUDRight name="HUDRight.png" frameWidth="200" frameHeight="200"/>
+    <HPBarLeft name="HPBarLeft.png" frameWidth="40" frameHeight="60"/>
+    <HPBarRight name="HPBarRight.png" frameWidth="40" frameHeight="60"/>
+    <HPAnimation name="HPBar.xml"/>
+    <SPBarLeft name="SPBarLeft.png" frameWidth="40" frameHeight="60"/>
+    <SPBarRight name="SPBarRight.png" frameWidth="40" frameHeight="60"/>
+    <APBar name="APBar.png" frameWidth="60" frameHeight="40"/>
+    <SideBarLeft name="SideBarLeft.png" frameWidth="40" frameHeight="60"/>
+    <SideBarRight name="SideBarRight.png" frameWidth="40" frameHeight="60"/>
+    <DownBar name="DownBar.png" frameWidth="60" frameHeight="40"/>
+  </HUD>
+
+  <SharedData>
+    <Board name="Board.png" frameWidth="1280" frameHeight="720"/>
+    <Highlight name="Board Glow Spritesheet.png" frameWidth="640" frameHeight="325"/>
+    <Darkness name="Dark Layer.png" frameWidth="1280" frameHeight="720"/>
+    <HighlightAnimation name="BoardGlows.xml"/>
+    <Win name="Win.png" frameWidth="500" frameHeight="400"/>
+    <Fail name="Fail.png" frameWidth="500" frameHeight="400"/>
+    <EndAnimation name="End.xml"/>
+  </SharedData>
+
+  <Stage name="Gym">
+    <Background name="Gym room.png" frameWidth="1280" frameHeight="720"/>
+  </Stage>
+
+  <Stage name="Library">
+    <Background name="library room.png" frameWidth="1280" frameHeight="720"/>
+  </Stage>
+
+  <Stage name="Science Room">
+    <Background name="science room.png" frameWidth="1280" frameHeight="720"/>
+  </Stage>
+
+  <Stage name="Bathroom">
+    <Background name="bathroom.png" frameWidth="1280" frameHeight="720"/>
+  </Stage>
+</StageList>
