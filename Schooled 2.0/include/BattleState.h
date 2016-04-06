@@ -11,6 +11,7 @@
 namespace InputMapping
 {
 	struct MappedInput;
+	class InputMapper;
 }
 
 namespace Board
@@ -42,6 +43,7 @@ namespace BattleState
 		ATTACK_CHOOSE,
 		MOVE,
 		ACTING,
+		GAME_OVER,
 	};
 
 	class BattleState : public GameState
@@ -81,6 +83,7 @@ namespace BattleState
 
 	private:
 		static BattleState m_BattleState;
+		InputMapping::InputMapper *mapper;
 
 		// Load the save data
 		void loadData();

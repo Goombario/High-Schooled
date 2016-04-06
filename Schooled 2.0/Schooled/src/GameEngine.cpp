@@ -1,9 +1,7 @@
 #include "GameEngine.h"
 #include "GameState.h"
 #include "Schooled.h"
-#include "Input\InputMapper.h"
 #include "Image.h"
-
 #include "fmod_studio.hpp"
 #include "fmod.hpp"
 #include "Sound.h"
@@ -15,7 +13,6 @@
 using namespace FMOD_util;
 
 FMOD::Studio::System *GameEngine::system = nullptr;
-InputMapping::InputMapper *GameEngine::mapper = nullptr;
 Image::ImageManager *GameEngine::imageManager = nullptr;
 
 int GameEngine::Init()
@@ -38,7 +35,6 @@ int GameEngine::Init()
 	FzlSwapBuffers();
 
 	// Initialize classes
-	mapper = new InputMapping::InputMapper();
 	imageManager = new Image::ImageManager();
 
 	return 0;
@@ -96,8 +92,6 @@ void GameEngine::Cleanup()
 	system = nullptr;
 
 	// Delete classes
-	delete mapper;
-	mapper = nullptr;
 	delete imageManager;
 	imageManager = nullptr;
 
@@ -152,10 +146,6 @@ void GameEngine::HandleEvents()
 {
 	// let the state handle events
 	states.back()->HandleEvents(this);
-
-	// push the handled inputs to the mapper
-	mapper->Dispatch();
-	mapper->Clear();
 }
 
 void GameEngine::Update()

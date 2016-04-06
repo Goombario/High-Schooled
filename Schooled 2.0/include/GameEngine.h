@@ -13,11 +13,6 @@ namespace FMOD
 	}
 }
 
-namespace InputMapping
-{
-	class InputMapper;
-}
-
 namespace Image
 {
 	class ImageManager;
@@ -50,7 +45,6 @@ public:
 	void Quit() { m_running = false; }
 
 	// Return the input mapper for input mapping
-	inline static InputMapping::InputMapper* getMapper() { return mapper; }
 	inline static Image::ImageManager* getImageManager() { return imageManager; }
 	inline static FMOD::Studio::System* getSoundSystem() { return system; }
 private:
@@ -71,7 +65,6 @@ private:
 	FMOD::Studio::Bank *tracksBank = nullptr;
 
 	// Input Mapper
-	static InputMapping::InputMapper *mapper;
 	static Image::ImageManager *imageManager;
 };
 

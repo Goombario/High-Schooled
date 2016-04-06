@@ -104,7 +104,7 @@ namespace Board
 	Board::Board(Side s) : Board()
 	{
 		side = s;
-		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET) : (OFFSET_X + CENTER_X);
+		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET + 5) : (OFFSET_X + CENTER_X);
 		int wPos;
 
 		// Set the board position
@@ -112,7 +112,7 @@ namespace Board
 
 		// Get tile data
 		// Set the tile sprite
-		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 150, 65);
+		Image::Image tileImage = GameEngine::getImageManager()->loadImage(schooled::getResourcePath("img") + "GlowyTiles.png", 150, 60);
 		Animation::AnimationData tileData(schooled::getResourcePath("img/Image_Data") + "TileGlows.xml");
 		Sprite::AnimatedSprite tileSprite(tileImage, tileData);
 

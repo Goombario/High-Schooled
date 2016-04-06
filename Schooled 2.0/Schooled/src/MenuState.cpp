@@ -22,13 +22,16 @@ namespace MenuState
 	{
 		// Initialize the mapper context
 		// Tells the mapper to map a specific set of keys to a specific set of actions
-		GameEngine::getMapper()->PushContext("globalContext");
-		GameEngine::getMapper()->PushContext("mainMenuContext");
+		mapper = new InputMapping::InputMapper();
+		mapper->PushContext("globalContext");
+		mapper->PushContext("mainMenuContext");
 
 		// Tells the mapper to call the given function after the contexts have been mapped.
-		GameEngine::getMapper()->AddCallback(mainCallback, -2);
+		mapper->AddCallback(mainCallback, 1);
 
 		// Hold valid keys
+		validKeys.clear();
+		previouslyPressed.clear();
 		shared::initValidKeys(validKeys);
 
 		// Hold pressed keys
@@ -50,6 +53,7 @@ namespace MenuState
 		delete p1CharMenu;
 		delete p2CharMenu;
 		delete stageMenu;
+		delete mapper;
 
 		mainMenu = nullptr;
 		p1CharMenu = nullptr;
@@ -69,6 +73,13 @@ namespace MenuState
 	void MenuState::Resume()
 	{
 		// Resume sounds and push contexts
+		currentState = State::MAIN_MENU;
+		timer = 0.0;
+		isEnd = false;
+
+		stageMenu->setFinished(false);
+		p1CharMenu->setFinished(false);
+		p2CharMenu->setFinished(false);
 	}
 
 	void MenuState::HandleEvents(GameEngine* game)
@@ -80,21 +91,23 @@ namespace MenuState
 			{
 				bool previouslyDown = previouslyPressed[key];
 				previouslyPressed[key] = true;
-				game->getMapper()->SetRawButtonState(key, true, previouslyDown);
+				mapper->SetRawButtonState(key, true, previouslyDown);
 			}
 			else
 			{
 				previouslyPressed[key] = false;
-				game->getMapper()->SetRawButtonState(key, false, true);
+				mapper->SetRawButtonState(key, false, true);
 			}
 		}
-		// Mapper dispatches automatically at end
+
+		mapper->Dispatch();
+		mapper->Clear();
 	}
 
 	void mainCallback(InputMapping::MappedInput& inputs)
 	{
 		MenuState *self = MenuState::Instance();
-
+		
 		if (inputs.Actions.find(InputMapping::Action::EXIT_GAME) != inputs.Actions.end())
 		{
 			self->isEnd = true;

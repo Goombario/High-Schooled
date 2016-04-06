@@ -19,6 +19,9 @@
     <Highlight name="Board Glow Spritesheet.png" frameWidth="640" frameHeight="325"/>
     <Darkness name="Dark Layer.png" frameWidth="1280" frameHeight="720"/>
     <HighlightAnimation name="BoardGlows.xml"/>
+    <Win name="Win.png" frameWidth="500" frameHeight="400"/>
+    <Fail name="Fail.png" frameWidth="500" frameHeight="400"/>
+    <EndAnimation name="End.xml"/>
   </SharedData>
 
   <Stage name="Gym">
