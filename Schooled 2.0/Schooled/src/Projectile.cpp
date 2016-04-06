@@ -83,16 +83,16 @@ namespace Projectile
 		CheckXMLResult(projData->FirstChildElement("Properties")->QueryBoolAttribute("hasGravity", &hasGravity));
 		CheckXMLResult(projData->FirstChildElement("Mass")->QueryDoubleText(&mass));
 
-		// Impulse
-		double x, y;
-		CheckXMLResult(projData->FirstChildElement("Impulse")->QueryDoubleAttribute("X", &x));
-		CheckXMLResult(projData->FirstChildElement("Impulse")->QueryDoubleAttribute("Y", &y));
-		impulse(Vector::Vector2(x, y));
-
 		// Initial Velocity
+		double x, y;
 		CheckXMLResult(projData->FirstChildElement("Velocity")->QueryDoubleAttribute("X", &x));
 		CheckXMLResult(projData->FirstChildElement("Velocity")->QueryDoubleAttribute("Y", &y));
 		setVelocity(Vector::Vector2(x, y));
+
+		// Impulse
+		CheckXMLResult(projData->FirstChildElement("Impulse")->QueryDoubleAttribute("X", &x));
+		CheckXMLResult(projData->FirstChildElement("Impulse")->QueryDoubleAttribute("Y", &y));
+		impulse(Vector::Vector2(x, y));
 	}
 
 	void Projectile::init(Player::Player const& player, Vector::Vector2 const& tilePos)
@@ -115,7 +115,7 @@ namespace Projectile
 			Vector::Vector2 velocity;
 			if (hasGravity)
 			{
-				velocity = Vector::Vector2((distance.getX() * -1.0) / timeToTarget, 0.0);
+				velocity = Vector::Vector2((distance.getX() * -1.0) / timeToTarget, getVelocity().getY());
 			}
 			else
 			{
@@ -152,7 +152,7 @@ namespace Projectile
 
 		if (hasGravity)
 		{
-			setAcceleration(Vector2(getAcceleration().getX(), getAcceleration().getY() - (9.81)));
+			setAcceleration(Vector2(getAcceleration().getX(), getAcceleration().getY() - (schooled::GRAVITY)));
 		}
 
 		euler();

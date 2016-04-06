@@ -168,14 +168,16 @@ namespace Menu
 	{
 		finished = false;
 		Vector::Vector2 spotPos;
-
+		const char* orientation;
 		const char* sideName;
+
 		if (s == Side::LEFT)
 		{
 			setPos(Vector::Vector2(
 				schooled::SCREEN_WIDTH_PX / 4,
 				schooled::SCREEN_HEIGHT_PX / 2));
 			sideName = "MenuLeft";
+			orientation = "SpriteLeft";
 			spotPos = Vector::Vector2(-12, 57);
 		}
 		else
@@ -184,6 +186,7 @@ namespace Menu
 				(schooled::SCREEN_WIDTH_PX / 4) * 3,
 				schooled::SCREEN_HEIGHT_PX / 2));
 			sideName = "MenuRight";
+			orientation = "SpriteRight";
 			spotPos = Vector::Vector2(13, 57);
 		}
 
@@ -224,7 +227,7 @@ namespace Menu
 		spotlight->setPos(getPos() + spotPos);
 
 		if (CheckIfNull(menuData->FirstChildElement("Characters"), "Char Menu: Characters")) exit(-2);
-		loadSprites(menuData->FirstChildElement("Characters")->FirstChildElement("Character"));
+		loadSprites(menuData->FirstChildElement("Characters")->FirstChildElement("Character"), orientation);
 
 
 	}
@@ -234,7 +237,7 @@ namespace Menu
 		delete spotlight;
 	}
 
-	void CharMenu::loadSprites(XMLElement const* characterData)
+	void CharMenu::loadSprites(XMLElement const* characterData, const char* orientation)
 	{
 		// Get all player names and spritesheets
 		while (characterData != nullptr)
@@ -243,9 +246,9 @@ namespace Menu
 			std::string name = characterData->Attribute("name");
 
 			// Load character sprite
-			if (CheckIfNull(characterData->FirstChildElement("Sprite"), "Char Menu: Character: Sprite")) exit(-2);
+			if (CheckIfNull(characterData->FirstChildElement(orientation), "Char Menu: Character: Sprite")) exit(-2);
 			if (CheckIfNull(characterData->FirstChildElement("Animation"), "Char Menu: Character: Animation")) exit(-2);
-			Sprite::AnimatedSprite charSprite(characterData->FirstChildElement("Sprite"), characterData->FirstChildElement("Animation"));
+			Sprite::AnimatedSprite charSprite(characterData->FirstChildElement(orientation), characterData->FirstChildElement("Animation"));
 
 			// Load the text sprite
 			if (CheckIfNull(characterData->FirstChildElement("Name"), "Char Menu: Character: Name Sprite")) exit(-2);

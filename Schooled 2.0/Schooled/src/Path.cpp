@@ -108,7 +108,7 @@ namespace Path
 			maxHeight = 0.0;	// PLACEHOLDER
 		}
 
-		gravity = 9.81;
+		gravity = schooled::GRAVITY;
 	}
 
 	ProjectilePath::ProjectilePath(Path const& p, double max)
@@ -120,7 +120,7 @@ namespace Path
 		Quadratic formula(origTarget.getY(), dest.getY(), maxHeight, timeToTarget);
 		setVelocity(Vector::Vector2(getVelocity().getX(), formula.solve(timeToTarget)));
 
-		gravity = 9.81;
+		gravity = schooled::GRAVITY;
 	}
 
 	void ProjectilePath::update(GameObject& target)

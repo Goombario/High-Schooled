@@ -181,11 +181,14 @@ namespace Stage
 		// Draw all the SP bars
 		for (int i = 0; i < player->getCurrentSP(); i++)
 		{
-			Vector::Vector2 tempVec(
-				SPBar->getPos() +
-				(*this).getPos() +
-				Vector::Vector2(i * (SPBar->getFrameWidth() - 20) * side, 0));
-			SPBar->drawAt(tempVec);
+			if (i < player->getMaxSP())
+			{
+				Vector::Vector2 tempVec(
+					SPBar->getPos() +
+					(*this).getPos() +
+					Vector::Vector2(i * (SPBar->getFrameWidth() - 20) * side, 0));
+				SPBar->drawAt(tempVec);
+			}
 		}
 
 		// Draw all the AP background bars
@@ -229,11 +232,11 @@ namespace Stage
 
 	void HUD::updateHPColour()
 	{
-		if (player->getCurrentHP() < player->getMaxHP() / 4)
+		if (player->getCurrentHP() < player->getMaxHP() / 4.0)
 		{
 			HPBar->changeAnimation(Animation::AnimationEnum::HP_LOW);
 		}
-		else if (player->getCurrentHP() < player->getMaxHP() / 2)
+		else if (player->getCurrentHP() < player->getMaxHP() / 2.0)
 		{
 			HPBar->changeAnimation(Animation::AnimationEnum::HP_MED);
 		}
@@ -296,6 +299,10 @@ namespace Stage
 
 		background = new Sprite::Sprite(stageElement);
 		background->move(0, 0, false);
+
+		// Load all the shared data
+		if (CheckIfNull(pRoot->FirstChildElement("SharedData"), "Stage: Shared data")) exit(-2);
+		stageData = pRoot->FirstChildElement("SharedData");
 
 		XMLElement *boardElement = stageData->FirstChildElement("Board");
 		if (CheckIfNull(boardElement, "Stage: Board") != XML_SUCCESS) exit(-2);
