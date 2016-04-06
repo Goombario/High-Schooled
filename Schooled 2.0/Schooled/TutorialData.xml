@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TutorialSlides>
   <Slide>
+    <Left name="Tutorial/controls(left).png" frameWidth="620" frameHeight="610"/>
+    <Right name="Tutorial/controls(right).png" frameWidth="620" frameHeight="610"/>
+    <Default name="Tutorial/controls(left).png" frameWidth="120" frameHeight="120"/>
+    <Animation name="Slide0.xml"/>
+  </Slide>
+  <Slide>
     <Left name="Tutorial/Slide1_Spritesheet(left).png" frameWidth="620" frameHeight="610"/>
     <Right name="Tutorial/Slide1_Spritesheet(right).png" frameWidth="620" frameHeight="610"/>
     <Default name="Tutorial/Slide_1.png" frameWidth="120" frameHeight="120"/>
@@ -34,10 +40,25 @@
     <Default name="Tutorial/Slide_5.png" frameWidth="120" frameHeight="120"/>
     <Animation name="Slide5.xml"/>
   </Slide>
+  
   <Slide>
     <Left name="Tutorial/Slide6_Spritesheet(left).png" frameWidth="620" frameHeight="610"/>
     <Right name="Tutorial/Slide6_Spritesheet(right).png" frameWidth="620" frameHeight="610"/>
     <Default name="Tutorial/Slide_6.png" frameWidth="120" frameHeight="120"/>
     <Animation name="Slide6.xml"/>
+  </Slide>
+
+  <Slide>
+    <Left name="Tutorial/Ready1(left).png" frameWidth="620" frameHeight="610"/>
+    <Right name="Tutorial/Ready1(right).png" frameWidth="620" frameHeight="610"/>
+    <Default name="Tutorial/Ready1(right).png" frameWidth="120" frameHeight="120"/>
+    <Animation name="Slide7.xml"/>
+  </Slide>
+
+  <Slide>
+    <Left name="Tutorial/Ready2(left).png" frameWidth="620" frameHeight="610"/>
+    <Right name="Tutorial/Ready2(right).png" frameWidth="620" frameHeight="610"/>
+    <Default name="Tutorial/Ready2.png" frameWidth="120" frameHeight="120"/>
+    <Animation name="Slide8.xml"/>
   </Slide>
 </TutorialSlides>
