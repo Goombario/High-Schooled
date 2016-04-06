@@ -8,6 +8,7 @@
 namespace Sprite
 {
 	class Sprite;
+	class AnimatedSprite;
 }
 
 namespace Tutorial
@@ -32,7 +33,7 @@ namespace Tutorial
 	private:
 		bool ready;
 		unsigned int slideNum;
-		std::vector<Sprite::Sprite> slides;
+		std::vector<Sprite::AnimatedSprite> slides;
 	};
 }
 

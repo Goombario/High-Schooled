@@ -11,13 +11,14 @@ namespace Tutorial
 	{
 		ready = false;
 		slideNum = 0;
-		slides.push_back(Sprite::Sprite());
+		slides.push_back(Sprite::AnimatedSprite());
 	}
 
 	Tutorial::Tutorial(const char* playerName, Side s)
 	{
 		ready = false;
 		slideNum = 0;
+		const char* sideName;
 
 		// Get the position of the slides based on the side
 		if (s == Side::LEFT)
@@ -25,12 +26,14 @@ namespace Tutorial
 			setPos(Vector::Vector2(
 				schooled::SCREEN_WIDTH_PX / 4, 
 				schooled::SCREEN_HEIGHT_PX / 2));
+			sideName = "Left";
 		}
 		else
 		{
 			setPos(Vector::Vector2(
 				(schooled::SCREEN_WIDTH_PX / 4) * 3,
 				schooled::SCREEN_HEIGHT_PX / 2));
+			sideName = "Right";
 		}
 
 		// Load tutorial data from XML file
@@ -47,17 +50,22 @@ namespace Tutorial
 		if (CheckIfNull(slideElement, "No slide exists")) exit(-2);
 
 		// Go through all the slides and add them to the vector
-		Sprite::Sprite tempSprite;
+		
 		while (slideElement != nullptr)
 		{	
+			Sprite::AnimatedSprite tempSprite;
+			XMLElement *spriteElement;
+
 			if (slideElement->FirstChildElement(playerName) != nullptr)
 			{
-				tempSprite = Sprite::Sprite(slideElement->FirstChildElement(playerName));
+				spriteElement = slideElement->FirstChildElement(playerName);
 			}
 			else
 			{
-				tempSprite = Sprite::Sprite(slideElement->FirstChildElement("Default"));
+				spriteElement = slideElement->FirstChildElement(sideName);
 			}
+
+			tempSprite = Sprite::AnimatedSprite(spriteElement, slideElement->FirstChildElement("Animation"));
 			tempSprite.setPos(getPos());
 			slides.push_back(tempSprite);
 			slideElement = slideElement->NextSiblingElement("Slide");
