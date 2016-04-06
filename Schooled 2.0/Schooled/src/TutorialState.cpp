@@ -37,7 +37,7 @@ namespace TutorialState
 		isEnd = false;
 		background = new Sprite::Sprite();
 		p1Tut = new Tutorial::Tutorial("Nate", Side::LEFT);
-		p2Tut = new Tutorial::Tutorial("Nega", Side::RIGHT);
+		p2Tut = new Tutorial::Tutorial("Gym Teacher", Side::RIGHT);
 	}
 
 	void TutorialState::Cleanup()

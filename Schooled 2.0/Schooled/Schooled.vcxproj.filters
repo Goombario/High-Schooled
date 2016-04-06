@@ -67,6 +67,9 @@
     <Filter Include="Tutorial">
       <UniqueIdentifier>{fa76ae9e-0723-421f-a6a1-f9852976232d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tutorial\Animations">
+      <UniqueIdentifier>{b168ae46-a81f-494c-912f-024c65d6a908}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -350,6 +353,24 @@
     </Xml>
     <Xml Include="..\res\img\Image_Data\End.xml">
       <Filter>Battle\Battle Data\Feedback</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Slide1.xml">
+      <Filter>Tutorial\Animations</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Slide2.xml">
+      <Filter>Tutorial\Animations</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Slide3.xml">
+      <Filter>Tutorial\Animations</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Slide4.xml">
+      <Filter>Tutorial\Animations</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Slide5.xml">
+      <Filter>Tutorial\Animations</Filter>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Slide6.xml">
+      <Filter>Tutorial\Animations</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

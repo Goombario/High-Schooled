@@ -317,11 +317,11 @@ namespace Stage
 
 		p1BoardHighlight = new Sprite::AnimatedSprite(
 			stageData->FirstChildElement("Highlight"), stageData->FirstChildElement("HighlightAnimation"));
-		p1BoardHighlight->setPos(p1->getBoard()->getPos());
+		p1BoardHighlight->setPos(p1->getBoard()->getPos() + Vector::Vector2(-10, -3));
 
 		p2BoardHighlight = new Sprite::AnimatedSprite(
 			stageData->FirstChildElement("Highlight"), stageData->FirstChildElement("HighlightAnimation"));
-		p2BoardHighlight->setPos(p2->getBoard()->getPos());
+		p2BoardHighlight->setPos(p2->getBoard()->getPos() + Vector::Vector2(-10, -3));
 
 		// Load the win and lose sprites
 		if (CheckIfNull(stageData->FirstChildElement("Win"), "Stage: Win")) exit(-2);

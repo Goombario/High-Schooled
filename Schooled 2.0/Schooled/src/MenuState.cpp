@@ -380,7 +380,7 @@ namespace MenuState
 			FzlSwapBuffers();
 
 			game->PushState(BattleState::BattleState::Instance());
-			//game->PushState(TutorialState::TutorialState::Instance());
+			game->PushState(TutorialState::TutorialState::Instance());
 		}
 		// FMOD updates automatically at end
 	}

@@ -174,6 +174,12 @@
     <Xml Include="..\res\img\Image_Data\Nega.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="..\res\img\Image_Data\Slide1.xml" />
+    <Xml Include="..\res\img\Image_Data\Slide2.xml" />
+    <Xml Include="..\res\img\Image_Data\Slide3.xml" />
+    <Xml Include="..\res\img\Image_Data\Slide4.xml" />
+    <Xml Include="..\res\img\Image_Data\Slide5.xml" />
+    <Xml Include="..\res\img\Image_Data\Slide6.xml" />
     <Xml Include="..\res\img\Image_Data\TileGlows.xml" />
     <Xml Include="..\res\img\Image_Data\Tive.xml">
       <SubType>Designer</SubType>
