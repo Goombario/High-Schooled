@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AnimationList numcol="20">
+  <Animation name="TOKEN_PIECE3" loop="false">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.15</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.0</Frame>
+    <Frame>0.15</Frame>
+  </Animation>
+</AnimationList>

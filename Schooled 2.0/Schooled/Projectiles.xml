@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ProjectileList>
+  <Projectile name="Dodgeball_Gravity">
+    <Sprite name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
+    <Properties hasGravity="true"/>
+    <Mass>1</Mass>
+    <Impulse X="0" Y="800"/>
+    <Velocity X="000" Y="000"/>
+  </Projectile>
+
+  <Projectile name="Dodgeball">
+    <Sprite name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
+    <Properties hasGravity="false"/>
+    <Mass>1</Mass>
+    <Impulse X="0" Y="000"/>
+    <Velocity X="000" Y="000"/>
+  </Projectile>
+
+  <Projectile name="WindSlash">
+    <Sprite name="NateProjectile.png" frameWidth="160" frameHeight="160"/>
+    <Properties hasGravity="false"/>
+    <Mass>1</Mass>
+    <Impulse X="0" Y="0"/>
+    <Velocity X="0" Y="0"/>
+  </Projectile>
+
+  <Projectile name="NULL">
+    <Sprite name="NULL.png" frameWidth="1" frameHeight="1"/>
+    <Properties hasGravity="false"/>
+    <Mass>1</Mass>
+    <Impulse X="0" Y="0"/>
+    <Velocity X="0" Y="0"/>
+  </Projectile>
+</ProjectileList>
