@@ -80,6 +80,7 @@ namespace MenuState
 		stageMenu->setFinished(false);
 		p1CharMenu->setFinished(false);
 		p2CharMenu->setFinished(false);
+		shared::fillPreviouslyPressed(previouslyPressed, validKeys);
 	}
 
 	void MenuState::HandleEvents(GameEngine* game)
@@ -380,7 +381,7 @@ namespace MenuState
 			FzlSwapBuffers();
 
 			game->PushState(BattleState::BattleState::Instance());
-			game->PushState(TutorialState::TutorialState::Instance());
+			//game->PushState(TutorialState::TutorialState::Instance());
 		}
 		// FMOD updates automatically at end
 	}

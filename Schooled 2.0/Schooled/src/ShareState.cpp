@@ -48,4 +48,12 @@ namespace shared
 			previouslyPressed[key] = false;
 		}
 	}
+
+	void fillPreviouslyPressed(std::map<FzlKey, bool>& previouslyPressed, std::vector<FzlKey> const& validKeys)
+	{
+		for (FzlKey key : validKeys)
+		{
+			previouslyPressed.at(key) = true;
+		}
+	}
 }

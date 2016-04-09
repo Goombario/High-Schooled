@@ -94,6 +94,7 @@ namespace BattleState
 	void BattleState::Resume()
 	{
 		// Resume sounds and push contexts
+		shared::fillPreviouslyPressed(previouslyPressed, validKeys);
 		mapper->PushContext("globalContext");
 		
 		// Find which context to push
@@ -298,7 +299,7 @@ namespace BattleState
 			getCurrentPlayer()->update();
 		}
 
-		if ((player1->getCurrentHP() == 0 || player2->getCurrentHP() == 0) &&
+		if ((player1->getCurrentHP() <= 0 || player2->getCurrentHP() <= 0) &&
 			!player1->isActing() && !player2->isActing() && getCurrentState() != State::GAME_OVER)
 		{
 			pushState(State::GAME_OVER);
