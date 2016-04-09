@@ -25,7 +25,7 @@ target - will attack the targeted square, and dissapear afterwards.
 
     <!--Statistics-->
     <Stats>
-      <MaxHP>6</MaxHP>
+      <MaxHP>1</MaxHP>
       <MaxSP>5</MaxSP>
       <MaxAP>2</MaxAP>
     </Stats>

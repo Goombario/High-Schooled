@@ -17,6 +17,9 @@ namespace shared
 
 	// Initializes a map of available keys for hold checking
 	void initPreviouslyPressed(std::map<FzlKey, bool>& previouslyPressed, const std::vector<FzlKey>& validKeys);
+
+	// Fill previously pressed when changing states
+	void fillPreviouslyPressed(std::map<FzlKey, bool>& previouslyPressed, std::vector<FzlKey> const& validKeys);
 }
 
 

@@ -705,7 +705,7 @@ namespace Player
 	void Player::move(Direction d)
 	{
 		// If out of AP, don't move (Failsafe)
-		if ((*this).stats.currentAP <= 0) return;
+		if ((*this).stats.currentAP <= 0 || !(*this).paths.empty()) return;
 
 		// If choosing position, don't use this function.
 		if (BattleState::BattleState::Instance()->getCurrentState() == BattleState::State::POS_CHOOSE)
