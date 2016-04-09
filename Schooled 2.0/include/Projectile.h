@@ -2,6 +2,7 @@
 #define PROJECTILE_H
 
 #include "BattleObject.h"
+#include "BattleConstants.h"
 #include "tinyxml2.h"
 #include "Sprite.h"
 
@@ -23,7 +24,7 @@ namespace Projectile
 	{
 	public:
 		Projectile();
-		Projectile(tinyxml2::XMLElement const*);
+		Projectile(tinyxml2::XMLElement const*, Side);
 
 		// Initializes the projectile values for throwing
 		void init(Player::Player const& player, Vector::Vector2 const& target);
@@ -39,7 +40,7 @@ namespace Projectile
 
 	private:
 		// Load projectile data from projectile name
-		void loadData(const char*);
+		void loadData(const char*, Side);
 
 		Sprite::Sprite sprite;
 		bool hasGravity;

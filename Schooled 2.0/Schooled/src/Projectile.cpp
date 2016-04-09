@@ -16,7 +16,7 @@ namespace Projectile
 		setActing(true);
 	}
 
-	Projectile::Projectile(tinyxml2::XMLElement const* projElement)
+	Projectile::Projectile(tinyxml2::XMLElement const* projElement, Side s)
 	{
 		timeElapsed = 0.0;
 
@@ -27,7 +27,7 @@ namespace Projectile
 			exit(-2);
 		}
 
-		loadData(projName);
+		loadData(projName, s);
 
 		CheckXMLResult(projElement->QueryDoubleAttribute("delay", &delay));
 		offset.setX(projElement->DoubleAttribute("offsetX"));
@@ -46,7 +46,7 @@ namespace Projectile
 		setActing(true);
 	}
 
-	void Projectile::loadData(const char* projName)
+	void Projectile::loadData(const char* projName, Side s)
 	{
 		// Load the projectile data file
 		tinyxml2::XMLDocument data;
@@ -77,8 +77,9 @@ namespace Projectile
 		}
 
 		// Load sprite data
-		if (CheckIfNull(projData->FirstChildElement("Sprite"), "Projectile: Sprite")) exit(-2);
-		sprite = Sprite::Sprite(projData->FirstChildElement("Sprite"));
+		const char* spriteSide = (s == Side::LEFT) ? "SpriteLeft" : "SpriteRight";
+		if (CheckIfNull(projData->FirstChildElement(spriteSide), "Projectile: Sprite")) exit(-2);
+		sprite = Sprite::Sprite(projData->FirstChildElement(spriteSide));
 
 		CheckXMLResult(projData->FirstChildElement("Properties")->QueryBoolAttribute("hasGravity", &hasGravity));
 		CheckXMLResult(projData->FirstChildElement("Mass")->QueryDoubleText(&mass));

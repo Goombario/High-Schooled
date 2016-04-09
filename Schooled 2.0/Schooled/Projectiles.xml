@@ -2,7 +2,8 @@
 
 <ProjectileList>
   <Projectile name="Dodgeball_Gravity">
-    <Sprite name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
+    <SpriteLeft name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
+    <SpriteRight name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
     <Properties hasGravity="true"/>
     <Mass>1</Mass>
     <Impulse X="0" Y="800"/>
@@ -10,7 +11,8 @@
   </Projectile>
 
   <Projectile name="Dodgeball">
-    <Sprite name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
+    <SpriteLeft name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
+    <SpriteRight name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
     <Properties hasGravity="false"/>
     <Mass>1</Mass>
     <Impulse X="0" Y="000"/>
@@ -18,7 +20,8 @@
   </Projectile>
 
   <Projectile name="WindSlash">
-    <Sprite name="NateProjectile.png" frameWidth="160" frameHeight="160"/>
+    <SpriteLeft name="NateProjectile.png" frameWidth="160" frameHeight="160"/>
+    <SpriteRight name="NateProjectile(Mirrored).png" frameWidth="160" frameHeight="160"/>
     <Properties hasGravity="false"/>
     <Mass>1</Mass>
     <Impulse X="0" Y="0"/>
@@ -26,7 +29,8 @@
   </Projectile>
 
   <Projectile name="NULL">
-    <Sprite name="NULL.png" frameWidth="1" frameHeight="1"/>
+    <SpriteLeft name="NULL.png" frameWidth="1" frameHeight="1"/>
+    <SpriteRight name="NULL.png" frameWidth="1" frameHeight="1"/>
     <Properties hasGravity="false"/>
     <Mass>1</Mass>
     <Impulse X="0" Y="0"/>

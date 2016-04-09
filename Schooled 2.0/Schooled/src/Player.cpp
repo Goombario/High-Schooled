@@ -467,7 +467,7 @@ namespace Player
 				XMLElement *projData = attackData->FirstChildElement("Projectile");
 				while (projData != nullptr)
 				{
-					tempAttack.projectiles.push_back(Projectile::Projectile(projData));
+					tempAttack.projectiles.push_back(Projectile::Projectile(projData, getSide()));
 					projData = projData->NextSiblingElement("Projectile");
 				}
 			}
@@ -1018,12 +1018,6 @@ namespace Player
 		}
 
 		sprite->drawAt(getPos());
-
-		// Draw all active projectiles
-		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
-		{
-			(*it).draw();
-		}
 	}
 
 	void Player::drawAttackWindow() const
@@ -1032,6 +1026,15 @@ namespace Player
 			BattleState::BattleState::Instance()->getCurrentState() == BattleState::State::ATTACK_CHOOSE)
 		{
 			window.drawAtPlayer(getPos());
+		}
+	}
+
+	void Player::drawProjectiles() const
+	{
+		// Draw all active projectiles
+		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
+		{
+			(*it).draw();
 		}
 	}
 

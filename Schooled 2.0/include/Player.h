@@ -195,6 +195,7 @@ namespace Player
 		// Draw the player to the screen
 		void draw() const;
 		void drawAttackWindow() const;
+		void drawProjectiles() const;
 
 		// Modify the attack menu
 		void initAttackMenu(Player&);

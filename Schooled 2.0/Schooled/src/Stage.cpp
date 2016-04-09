@@ -371,6 +371,9 @@ namespace Stage
 		player1->drawAttackWindow();
 		player2->drawAttackWindow();
 
+		player1->drawProjectiles();
+		player2->drawProjectiles();
+
 		if (results)
 		{
 			darkness->draw();
