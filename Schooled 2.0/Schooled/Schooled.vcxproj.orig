@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{96ED577E-DC12-4F0A-B873-B8B85FA702C3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Schooled</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\include\Input;C:\Hg\schooled-2.0\Schooled 2.0\Fizzle\include;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\inc;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Hg\schooled-2.0\Schooled 2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>winmm.lib;fmodstudio_vc.lib;fmod_vc.lib;Fizzle\$(Platform)\$(Configuration)\Fizzle.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcd.lib</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>C:\Hg\schooled-2.0\Schooled 2.0\Fizzle\lib;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Hg\schooled-2.0\Schooled 2.0\include\Input;C:\Hg\schooled-2.0\Schooled 2.0\Fizzle\include;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\inc;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Hg\schooled-2.0\Schooled 2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Hg\schooled-2.0\Schooled 2.0\Fizzle\lib;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;fmodstudio_vc.lib;fmod_vc.lib;Fizzle\$(Platform)\$(Configuration)\Fizzle.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="src\Animation.cpp" />
+    <ClCompile Include="src\BattleObject.cpp" />
+    <ClCompile Include="src\Board.cpp" />
+    <ClCompile Include="src\GameEngine.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Image.cpp" />
+    <ClCompile Include="src\input\InputContext.cpp" />
+    <ClCompile Include="src\input\InputMapper.cpp" />
+    <ClCompile Include="src\input\pch.cpp" />
+    <ClCompile Include="src\input\RangeConverter.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\MenuState.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\Path.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Projectile.cpp" />
+    <ClCompile Include="src\Schooled.cpp" />
+    <ClCompile Include="src\ShareState.cpp" />
+    <ClCompile Include="src\sound.cpp" />
+    <ClCompile Include="src\Sprite.cpp" />
+    <ClCompile Include="src\BattleState.cpp" />
+    <ClCompile Include="src\Stage.cpp" />
+    <ClCompile Include="src\tinyxml2.cpp" />
+    <ClCompile Include="src\Tutorial.cpp" />
+    <ClCompile Include="src\TutorialState.cpp" />
+    <ClCompile Include="src\Vector2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Animation.h" />
+    <ClInclude Include="..\include\AnimationConstants.h" />
+    <ClInclude Include="..\include\BattleConstants.h" />
+    <ClInclude Include="..\include\BattleObject.h" />
+    <ClInclude Include="..\include\Board.h" />
+    <ClInclude Include="..\include\Collision.h" />
+    <ClInclude Include="..\include\GameEngine.h" />
+    <ClInclude Include="..\include\GameObject.h" />
+    <ClInclude Include="..\include\GameState.h" />
+    <ClInclude Include="..\include\Menu.h" />
+    <ClInclude Include="..\include\MenuState.h" />
+    <ClInclude Include="..\include\Tutorial.h" />
+    <ClInclude Include="..\include\Image.h" />
+    <ClInclude Include="..\include\Input\FileIO.h" />
+    <ClInclude Include="..\include\Input\InputConstants.h" />
+    <ClInclude Include="..\include\Input\InputContext.h" />
+    <ClInclude Include="..\include\Input\InputMapper.h" />
+    <ClInclude Include="..\include\Input\pch.h" />
+    <ClInclude Include="..\include\Input\RangeConverter.h" />
+    <ClInclude Include="..\include\Input\RawInputConstants.h" />
+    <ClInclude Include="..\include\Particle.h" />
+    <ClInclude Include="..\include\Path.h" />
+    <ClInclude Include="..\include\Player.h" />
+    <ClInclude Include="..\include\Projectile.h" />
+    <ClInclude Include="..\include\Schooled.h" />
+    <ClInclude Include="..\include\ShareState.h" />
+    <ClInclude Include="..\include\Sound.h" />
+    <ClInclude Include="..\include\Sprite.h" />
+    <ClInclude Include="..\include\BattleState.h" />
+    <ClInclude Include="..\include\Stage.h" />
+    <ClInclude Include="..\include\tinyxml2.h" />
+    <ClInclude Include="..\include\TutorialState.h" />
+    <ClInclude Include="..\include\Vector2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\include\Board.inl" />
+    <None Include="..\include\Vector2.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\include\Input\License.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\res\img\Image_data\Arrow.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\BarGlows.xml" />
+    <Xml Include="..\res\img\Image_Data\BoardGlows.xml" />
+    <Xml Include="..\res\img\Image_Data\GlowyNate.xml" />
+    <Xml Include="..\res\img\Image_Data\GlowyNega.xml" />
+    <Xml Include="..\res\img\Image_Data\GymTeacher(Mirrored).xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\GymTeacher.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Cooldown.xml" />
+    <Xml Include="..\res\img\Image_Data\HPBar.xml" />
+    <Xml Include="..\res\img\Image_Data\IconGlows.xml" />
+    <Xml Include="..\res\img\Image_Data\Nate(Mirrored).xml" />
+    <Xml Include="..\res\img\Image_Data\MainMenuAnim.xml" />
+    <Xml Include="..\res\img\Image_Data\Nate.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Nega(Mirrored).xml" />
+    <Xml Include="..\res\img\Image_Data\Nega.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\TileGlows.xml" />
+    <Xml Include="..\res\img\Image_Data\Tive(Mirrored).xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Tive.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\res\img\Image_Data\Token.xml" />
+    <Xml Include="..\res\img\Image_Data\TokenBreak.xml" />
+    <Xml Include="..\res\img\Image_Data\TokenPiece2.xml" />
+    <Xml Include="..\res\img\Image_Data\TokenPiece3.xml" />
+    <Xml Include="..\res\img\Image_Data\TokenPiece4.xml" />
+    <Xml Include="Contexts.xml" />
+    <Xml Include="IconData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="InputMap.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="InputRanges.xml" />
+    <Xml Include="MenuData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="PlayerData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="Projectiles.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="StageData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="TokenPiece1.xml" />
+    <Xml Include="TutorialData.xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

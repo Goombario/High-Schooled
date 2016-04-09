@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AnimationList numCol="10">
+  <Animation name="FORWARDS" loop="true">
+    <FirstFrame>0</FirstFrame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+  </Animation>
+  <Animation name="BACKWARDS" loop="true">
+    <FirstFrame>10</FirstFrame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+    <Frame>0.1</Frame>
+  </Animation>
+</AnimationList>

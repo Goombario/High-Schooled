@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Contexts>
+
+  <Context name="mainMenuContext">
+    <Action>
+      <Input>MENU_P1_UP</Input>
+      <Raw>FzlKeyW</Raw>
+    </Action>
+    <Action>
+      <Input>MENU_P2_UP</Input>
+      <Raw>FzlKeyI</Raw>
+    </Action>
+    <Action>
+      <Input>MENU_P1_DOWN</Input>
+      <Raw>FzlKeyS</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P2_DOWN</Input>
+      <Raw>FzlKeyK</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P1_LEFT</Input>
+      <Raw>FzlKeyA</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P2_LEFT</Input>
+      <Raw>FzlKeyJ</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P1_RIGHT</Input>
+      <Raw>FzlKeyD</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P2_RIGHT</Input>
+      <Raw>FzlKeyL</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P1_SELECT</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P2_SELECT</Input>
+      <Raw>FzlKeyN</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P1_BACK</Input>
+      <Raw>FzlKeyX</Raw>
+    </Action>
+    
+    <Action>
+      <Input>MENU_P2_BACK</Input>
+      <Raw>FzlKeyM</Raw>
+    </Action>
+</Context>
+
+  <Context name="tutorial">
+    <Action>
+      <Input>P1_ADVANCE</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+    
+    <Action>
+      <Input>P2_ADVANCE</Input>
+      <Raw>FzlKeyN</Raw>
+    </Action>
+
+    <Action>
+      <Input>P1_BACK</Input>
+      <Raw>FzlKeyX</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_BACK</Input>
+      <Raw>FzlKeyM</Raw>
+    </Action>
+
+    <Action>
+      <Input>P1_READY</Input>
+      <Raw>FzlKeyC</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_READY</Input>
+      <Raw>FzlKeyComma</Raw>
+    </Action>
+  </Context>
+
+  <Context name="altTutorial">
+    <Action>
+      <Input>P1_ADVANCE</Input>
+      <Raw>FzlKeyD</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_ADVANCE</Input>
+      <Raw>FzlKeyL</Raw>
+    </Action>
+
+    <Action>
+      <Input>P1_BACK</Input>
+      <Raw>FzlKeyA</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_BACK</Input>
+      <Raw>FzlKeyJ</Raw>
+    </Action>
+
+    <Action>
+      <Input>P1_READY</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+
+    <Action>
+      <Input>P2_READY</Input>
+      <Raw>FzlKeyN</Raw>
+    </Action>
+  </Context>
+  
+  <Context name="player1Action">
+    <!-- All Actions -->
+    <Action>
+      <Input>BOARD_UP</Input>
+      <Raw>FzlKeyW</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_DOWN</Input>
+      <Raw>FzlKeyS</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_FORWARD</Input>
+      <Raw>FzlKeyD</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_BACKWARD</Input>
+      <Raw>FzlKeyA</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_SELECT</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+  </Context>
+
+  <Context name="player1ChoosePos">
+    <!-- All Actions -->
+    <Action>
+      <Input>BOARD_UP</Input>
+      <Raw>FzlKeyW</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_DOWN</Input>
+      <Raw>FzlKeyS</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_FORWARD</Input>
+      <Raw>FzlKeyD</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_BACKWARD</Input>
+      <Raw>FzlKeyA</Raw>
+    </Action>
+    
+    <Action>
+      <Input>SELECT_POS</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+  </Context>
+
+  <Context name="player2Action">
+    <!-- All Actions -->
+    <Action>
+      <Input>BOARD_UP</Input>
+      <Raw>FzlKeyI</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_DOWN</Input>
+      <Raw>FzlKeyK</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_FORWARD</Input>
+      <Raw>FzlKeyJ</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_BACKWARD</Input>
+      <Raw>FzlKeyL</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_SELECT</Input>
+      <Raw>FzlKeyN</Raw>
+    </Action>
+  </Context>
+
+  <Context name="player2ChoosePos">
+    <!-- All Actions -->
+    <Action>
+      <Input>BOARD_UP</Input>
+      <Raw>FzlKeyI</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_DOWN</Input>
+      <Raw>FzlKeyK</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_FORWARD</Input>
+      <Raw>FzlKeyJ</Raw>
+    </Action>
+
+    <Action>
+      <Input>BOARD_BACKWARD</Input>
+      <Raw>FzlKeyL</Raw>
+    </Action>
+
+    <Action>
+      <Input>SELECT_POS</Input>
+      <Raw>FzlKeyN</Raw>
+    </Action>
+  </Context>
+
+  <Context name="p1AttackMenu">
+    <Action>
+      <Input>MENU_UP</Input>
+      <Raw>FzlKeyD</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_DOWN</Input>
+      <Raw>FzlKeyA</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_SELECT</Input>
+      <Raw>FzlKeyZ</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_BACK</Input>
+      <Raw>FzlKeyX</Raw>
+    </Action>
+  </Context>
+
+  <Context name="p2AttackMenu">
+    <Action>
+      <Input>MENU_UP</Input>
+      <Raw>FzlKeyL</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_DOWN</Input>
+      <Raw>FzlKeyJ</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_SELECT</Input>
+      <Raw>FzlKeyN</Raw>
+    </Action>
+
+    <Action>
+      <Input>MENU_BACK</Input>
+      <Raw>FzlKeyM</Raw>
+    </Action>
+  </Context>
+
+    <Context name="globalContext">
+    <!-- All Actions -->
+    <Action>
+      <Input>EXIT_GAME</Input>
+      <Raw>FzlKeyEscape</Raw>
+    </Action>
+  </Context>
+
+
+  <Context name="template">
+    <!-- All Actions -->
+    <Action>
+      <Input></Input>
+      <Raw></Raw>
+    </Action>
+
+    <!-- All States -->
+    <State>
+      <Input></Input>
+      <Raw></Raw>
+    </State>
+
+    <!-- All Ranges -->
+    <Range>
+      <Input></Input>
+      <Raw></Raw>
+      <Sensitivity></Sensitivity>
+    </Range>
+  </Context>
+</Contexts>

@@ -1,0 +1,18 @@
+syntax: glob
+*.obj
+*/Debug
+*/Release
+*.sdf
+*.suo
+*.user
+*/Schooled 2.0/Debug
+*.tlog
+*.idb
+*.pdb
+*.opensdf
+*.sav
+*.log
+Schooled 2.0/Schooled/FzlLog.log.orig
+Schooled 2.0/Schooled/Schooled.vcxproj.filters.orig
+Schooled 2.0/FMOD_Schooled/.cache
+Schooled 2.0/Schooled/Schooled.exe
