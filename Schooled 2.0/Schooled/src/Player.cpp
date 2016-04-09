@@ -1008,10 +1008,6 @@ namespace Player
 		{
 			switch (BattleState::BattleState::Instance()->getCurrentState())
 			{
-			case BattleState::State::ATTACK_CHOOSE:
-				window.drawAtPlayer(getPos());
-				break;
-
 			case BattleState::State::POS_CHOOSE:
 				arrowSprite->drawAt(arrowSprite->getPos() + Vector::Vector2(-5, 40));
 				break;
@@ -1027,6 +1023,15 @@ namespace Player
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
 		{
 			(*it).draw();
+		}
+	}
+
+	void Player::drawAttackWindow() const
+	{
+		if (BattleState::BattleState::Instance()->getCurrentSide() == boardPtr->getSide() &&
+			BattleState::BattleState::Instance()->getCurrentState() == BattleState::State::ATTACK_CHOOSE)
+		{
+			window.drawAtPlayer(getPos());
 		}
 	}
 

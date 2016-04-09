@@ -368,6 +368,9 @@ namespace Stage
 		p1HUD.draw();
 		p2HUD.draw();
 
+		player1->drawAttackWindow();
+		player2->drawAttackWindow();
+
 		if (results)
 		{
 			darkness->draw();
