@@ -409,7 +409,7 @@ namespace Player
 		(*this).sprite = new Sprite::AnimatedSprite(spriteData, spriteData->NextSiblingElement("Animation"));
 
 		// Set up the bounding box
-		boundingBox = Collision::AABB(getPos(), sprite->getFrameWidth(), sprite->getFrameHeight());
+		boundingBox = Collision::AABB(getPos(), sprite->getFrameWidth() / 4.0, sprite->getFrameHeight());
 
 		// Load statistics
 		XMLElement *statsData = playerData->FirstChildElement("Stats");
@@ -995,7 +995,7 @@ namespace Player
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
 		{
 			(*it).update();
-			//(*it).checkCollision(enemy.boundingBox);
+			(*it).checkCollision(enemy.boundingBox);
 
 			if ((*it).isActing())
 			{

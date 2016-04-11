@@ -5,25 +5,21 @@
 #include "Vector2.h"
 #include "GameObject.h"
 #include "Sprite.h"
+#include "Collision.h"
 
 namespace Particle
 {
 
 	// Particle structure that emitters generate
-	struct Particle
+	struct Particle : public GameObject::GameObject
 	{
 		Sprite::Sprite sprite;
+		Collision::AABB	boundingBox;
 		float mass;
 		float life;
-	};
 
-	// Range structure that holds the distance 
-	// the particle can be generated from the origin, 
-	// and the degrees of rotation it can have.
-	struct Range
-	{
-		Vector::Vector2 maxDisplacement;
-		int minAngle, maxAngle;
+		void update();
+		void draw() const;
 	};
 
 	// Base emitter class for particles
@@ -31,7 +27,7 @@ namespace Particle
 	{
 	public:
 		Emitter();
-		Emitter(Range const&);
+		Emitter(const char* emitterName);
 
 		// Generate particles based on given parameters
 		void generate(int numParticles);
@@ -39,11 +35,16 @@ namespace Particle
 		void draw() const;
 		void update();
 
+		// Test the collision of all active particles against the given box
+		void testCollision(Collision::AABB const&);
+
 	private:
 		std::vector<Particle> particleList;
 		double maxLife, minLife;
-		double mass;
-		Range range;
+		double maxAngle, minAngle;
+		double minSpeed, maxSpeed;
+		double particleMass;
+		bool hasGravity;
 
 		// The list of available sprites for the particles to choose from
 		std::vector<Sprite::Sprite> spriteList;

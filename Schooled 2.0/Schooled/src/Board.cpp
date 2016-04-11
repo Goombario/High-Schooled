@@ -141,6 +141,10 @@ namespace Board
 				// Set the tile state
 				boardTiles[h][wPos].changeState(TileState::IDLE, getSide());
 
+				// Make the emitter
+				boardTiles[h][wPos].tokenDestroyEmitter = Particle::Emitter("BROKEN_TOKEN");
+				boardTiles[h][wPos].tokenDestroyEmitter.setPos(boardTiles[h][wPos].pos);
+
 				// Set the completed check board to false
 				completedTiles[h][w] = false;
 			}
@@ -199,6 +203,7 @@ namespace Board
 		{
 			boardTiles[h][w].hasToken = false;
 			boardTiles[h][w].changeState(TileState::DESTROYING, getSide());
+			boardTiles[h][w].tokenDestroyEmitter.generate(50);
 		}
 	}
 
@@ -330,6 +335,7 @@ namespace Board
 			{
 				boardTiles[h][w].tileSprite->draw();
 				boardTiles[h][w].tokenSprite->draw();
+				boardTiles[h][w].tokenDestroyEmitter.draw();
 
 			}
 		}
@@ -355,6 +361,7 @@ namespace Board
 
 				boardTiles[h][w].tileSprite->update();
 				boardTiles[h][w].tokenSprite->update();
+				boardTiles[h][w].tokenDestroyEmitter.update();
 
 				// Check if there is the ability to complete tiles
 				if (completedTiles[h][w])

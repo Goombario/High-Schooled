@@ -23,6 +23,8 @@ namespace Vector
 
 		return *this;
 	}
+
+
 }
 
 // Vector3
