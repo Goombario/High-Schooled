@@ -175,6 +175,8 @@ namespace Projectile
 
 	void Projectile::checkCollision(Collision::AABB const& box1)
 	{
+		if (!collides) return;
+
 		// Test if it hits the object
 		Collision::Collision result = boundingBox.testAABB(box1);
 

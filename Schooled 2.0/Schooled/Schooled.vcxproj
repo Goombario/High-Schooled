@@ -190,10 +190,8 @@
     </Xml>
     <Xml Include="..\res\img\Image_Data\Token.xml" />
     <Xml Include="..\res\img\Image_Data\TokenBreak.xml" />
-    <Xml Include="..\res\img\Image_Data\TokenPiece2.xml" />
-    <Xml Include="..\res\img\Image_Data\TokenPiece3.xml" />
-    <Xml Include="..\res\img\Image_Data\TokenPiece4.xml" />
     <Xml Include="Contexts.xml" />
+    <Xml Include="EmitterData.xml" />
     <Xml Include="IconData.xml">
       <SubType>Designer</SubType>
     </Xml>
@@ -214,7 +212,7 @@
     <Xml Include="StageData.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="TokenPiece1.xml">
+    <Xml Include="TokenPiece.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="TutorialData.xml" />

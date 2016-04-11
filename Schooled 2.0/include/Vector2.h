@@ -1,7 +1,10 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#define _USE_MATH_DEFINES
+
 #include <iostream>
+#include <math.h>
 
 namespace Vector
 {
@@ -18,7 +21,7 @@ namespace Vector
 		inline double const getMagnitude() const;
 		inline Vector2 const getNormalizedVector() const;
 		inline Vector2 const getProjection(Vector2 const& b) const;
-		inline Vector2 const rotate(Vector2 const& rotationVector) const;	// INCOMPLETE
+		inline Vector2 const getRotation(double angle) const;	// INCOMPLETE
 
 		// Setters
 		inline void setX(const double& newX) { x = newX; }

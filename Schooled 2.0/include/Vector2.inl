@@ -140,6 +140,17 @@ namespace Vector
 		return Vector2((numerator / denominator) * b);
 	}
 
+	inline Vector2 const Vector2::getRotation(double angle) const
+	{
+		Vector::Vector2 newVector;
+		double radians = angle * M_PI / 180.0;
+
+		newVector.setX(getX() * cos(radians) - getY() * sin(radians));
+		newVector.setY(getX() * sin(radians) + getY() * cos(radians));
+
+		return newVector;
+	}
+
 	inline bool const Vector2::operator ==(Vector2 const& b) const
 	{
 		return (this->x == b.x && this->y == b.y);
