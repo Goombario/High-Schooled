@@ -183,7 +183,9 @@
     <Xml Include="..\res\img\Image_Data\Slide6.xml" />
     <Xml Include="..\res\img\Image_Data\Slide7.xml" />
     <Xml Include="..\res\img\Image_Data\Slide8.xml" />
-    <Xml Include="..\res\img\Image_Data\TileGlows.xml" />
+    <Xml Include="..\res\img\Image_Data\TileGlows.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="..\res\img\Image_Data\Tive.xml">
       <SubType>Designer</SubType>
     </Xml>
