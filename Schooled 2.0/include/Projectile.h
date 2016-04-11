@@ -5,6 +5,7 @@
 #include "BattleConstants.h"
 #include "tinyxml2.h"
 #include "Sprite.h"
+#include "Collision.h"
 
 namespace Vector
 {
@@ -35,6 +36,7 @@ namespace Projectile
 
 		void draw() const;
 		void update();
+		void checkCollision(Collision::AABB const&);
 
 		//bool collidesWith(BattleObject const*);
 
@@ -50,6 +52,7 @@ namespace Projectile
 		double timeElapsed;
 		double timeToTarget;
 		Vector::Vector2 offset;
+		Collision::AABB boundingBox;
 	};
 }
 

@@ -291,6 +291,9 @@ namespace BattleState
 			(**it).update();
 		}
 
+		player1->updateProjectiles(*player2);
+		player2->updateProjectiles(*player1);
+
 		if (getCurrentPlayer()->canUseSpecial() && 
 			!getCurrentPlayer()->isActing() &&
 			!getOtherPlayer()->getBoard()->isActing())

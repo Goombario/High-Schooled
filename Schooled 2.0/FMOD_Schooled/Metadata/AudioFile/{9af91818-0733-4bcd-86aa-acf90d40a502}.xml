@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.07.00">
-    <object class="AudioFile" id="{67ac4910-0888-40a2-bfcf-eedb0feed53a}">
+    <object class="AudioFile" id="{9af91818-0733-4bcd-86aa-acf90d40a502}">
         <property name="frequencyInKHz">
             <value>44.0999985</value>
         </property>
@@ -8,10 +8,10 @@
             <value>2</value>
         </property>
         <property name="length">
-            <value>2.0052154195011336</value>
+            <value>1.8509523809523809</value>
         </property>
         <property name="audioFilePath">
-            <value>$(AUDIO_BIN_DIR)/back {50bdaf09-d3aa-4684-8d64-c89dcaf031fe}.wav</value>
+            <value>$(AUDIO_BIN_DIR)/menu_back {780a9b9c-36c7-453f-8058-6657242a6ecb}.wav</value>
         </property>
         <relationship name="container">
             <destination>{c90dbc6e-0732-465f-8f11-334dcdf3e701}</destination>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.07.00">
-    <object class="AudioFile" id="{3bb97707-b701-4143-a9dd-ee41aa4f967b}">
+    <object class="AudioFile" id="{a4c19637-bc9e-41b2-a9a0-6ec591057859}">
         <property name="frequencyInKHz">
             <value>44.0999985</value>
         </property>
@@ -8,10 +8,10 @@
             <value>2</value>
         </property>
         <property name="length">
-            <value>0.29374149659863946</value>
+            <value>1.8509523809523809</value>
         </property>
         <property name="audioFilePath">
-            <value>$(AUDIO_BIN_DIR)/girl_ow {7404ef6c-50cf-4d05-bd16-debd04e5fc2c}.wav</value>
+            <value>$(AUDIO_BIN_DIR)/pause {2402b266-6cc6-4a1b-811d-e6468385e0bb}.wav</value>
         </property>
         <relationship name="container">
             <destination>{c90dbc6e-0732-465f-8f11-334dcdf3e701}</destination>

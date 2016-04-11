@@ -150,6 +150,9 @@
     <ClCompile Include="src\MenuState.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
+    <ClCompile Include="src\Collision.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\ShareState.h">

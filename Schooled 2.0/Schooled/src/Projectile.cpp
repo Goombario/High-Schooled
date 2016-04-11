@@ -43,6 +43,7 @@ namespace Projectile
 			timeToTarget = 1;
 		}
 
+		boundingBox = Collision::AABB(getPos(), sprite.getFrameWidth(), sprite.getFrameHeight());
 		setActing(true);
 	}
 
@@ -81,7 +82,10 @@ namespace Projectile
 		if (CheckIfNull(projData->FirstChildElement(spriteSide), "Projectile: Sprite")) exit(-2);
 		sprite = Sprite::Sprite(projData->FirstChildElement(spriteSide));
 
+		// Properties
 		CheckXMLResult(projData->FirstChildElement("Properties")->QueryBoolAttribute("hasGravity", &hasGravity));
+		if (projData->FirstChildElement("Properties")->Attribute("hasCollision"))
+			CheckXMLResult(projData->FirstChildElement("Properties")->QueryBoolAttribute("hasCollision", &collides));
 		CheckXMLResult(projData->FirstChildElement("Mass")->QueryDoubleText(&mass));
 
 		// Initial Velocity
@@ -157,6 +161,7 @@ namespace Projectile
 		}
 
 		euler();
+		boundingBox.setPos(getPos());
 
 		// If massively out of bounds
 		if (getPos().getX() < 0 - schooled::SCREEN_WIDTH_PX ||
@@ -166,5 +171,27 @@ namespace Projectile
 		{
 			setActing(false);
 		}
+	}
+
+	void Projectile::checkCollision(Collision::AABB const& box1)
+	{
+		// Test if it hits the object
+		Collision::Collision result = boundingBox.testAABB(box1);
+
+		// If the object is colliding and overlapping
+		if (result.status && (result.overlap.getX() != 0.0 || result.overlap.getY() != 0.0))
+		{
+			Vector::Vector2 correction = -1 * result.overlap.getProjection(getVelocity());
+			setPos(getPos() - correction);
+			setVelocity(-1 * getVelocity());
+		}
+
+		// If the projectile is colliding without overlapping
+		if (result.status && result.overlap.getX() == 0.0 && result.overlap.getY() == 0.0)
+		{
+			
+		}
+		
+		
 	}
 }

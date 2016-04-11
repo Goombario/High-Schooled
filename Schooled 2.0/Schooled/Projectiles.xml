@@ -4,7 +4,7 @@
   <Projectile name="Dodgeball_Gravity">
     <SpriteLeft name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
     <SpriteRight name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
-    <Properties hasGravity="true"/>
+    <Properties hasGravity="true" hasCollision="true"/>
     <Mass>1</Mass>
     <Impulse X="0" Y="800"/>
     <Velocity X="000" Y="000"/>
@@ -13,7 +13,7 @@
   <Projectile name="Dodgeball">
     <SpriteLeft name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
     <SpriteRight name="Dodgeball.png" frameWidth="32" frameHeight="32"/>
-    <Properties hasGravity="false"/>
+    <Properties hasGravity="false" hasCollision="true"/>
     <Mass>1</Mass>
     <Impulse X="0" Y="000"/>
     <Velocity X="000" Y="000"/>
