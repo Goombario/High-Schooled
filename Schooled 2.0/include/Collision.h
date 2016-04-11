@@ -5,11 +5,7 @@
 
 namespace Collision
 {
-	struct Box
-	{
-		double width;
-		double length;
-	};
+	const bool DEBUG_DRAW = true;
 
 	struct Collision
 	{
@@ -19,7 +15,19 @@ namespace Collision
 
 	class AABB
 	{
+	public:
+		AABB();
+		AABB(Vector::Vector2 const& pos, double width, double height);
 
+		// Get and set the position of the box
+		void setPos(Vector::Vector2 const& newPos);
+		Vector::Vector2 const& getPos() { return pos; }
+
+		// Test the collision of this box against another box
+		Collision testAABB(AABB const& box1);
+
+	private:
+		Vector::Vector2 max, min, pos;
 	};
 }
 

@@ -9,6 +9,7 @@
 #include "Schooled.h"
 #include "Board.h"
 #include "Vector2.h"
+#include "Collision.h"
 
 // Forward Declaration
 
@@ -191,6 +192,7 @@ namespace Player
 
 		// Update the player's animations
 		void update();
+		void updateProjectiles(Player const&);
 
 		// Draw the player to the screen
 		void draw() const;
@@ -230,6 +232,7 @@ namespace Player
 		Sprite::AnimatedSprite *sprite;
 		Sprite::AnimatedSprite *arrowSprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
+		Collision::AABB boundingBox;
 	};
 	
 }

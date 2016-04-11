@@ -53,17 +53,17 @@ int GameEngine::Init_FMOD()
 
 	// Load the banks
 	std::string bankPath = schooled::getResourcePath() + "../FMOD_Schooled/Build/Desktop/";
-	FMOD::Studio::Bank *masterBank = nullptr;
+	masterBank = nullptr;
 	FMODErrorCheck(system->loadBankFile((bankPath + "Master Bank.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &masterBank));
 
-	FMOD::Studio::Bank *stringsBank = nullptr;
+	stringsBank = nullptr;
 	FMODErrorCheck(system->loadBankFile((bankPath + "Master Bank.strings.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &stringsBank));
 
 	// Load additional banks
-	FMOD::Studio::Bank *SFXBank = nullptr;
+	SFXBank = nullptr;
 	FMODErrorCheck(system->loadBankFile((bankPath + "SFX.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &SFXBank));
 
-	FMOD::Studio::Bank *tracksBank = nullptr;
+	tracksBank = nullptr;
 	FMODErrorCheck(system->loadBankFile((bankPath + "Tracks.bank").c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &tracksBank));
 	return 0;
 }

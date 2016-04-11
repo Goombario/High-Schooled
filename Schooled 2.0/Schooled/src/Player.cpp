@@ -408,6 +408,9 @@ namespace Player
 		if (CheckIfNull(spriteData, "Player: Sprite")) exit(-2);
 		(*this).sprite = new Sprite::AnimatedSprite(spriteData, spriteData->NextSiblingElement("Animation"));
 
+		// Set up the bounding box
+		boundingBox = Collision::AABB(getPos(), sprite->getFrameWidth(), sprite->getFrameHeight());
+
 		// Load statistics
 		XMLElement *statsData = playerData->FirstChildElement("Stats");
 		if (CheckIfNull(statsData, "Player: Stats")) exit(-2);
@@ -974,6 +977,7 @@ namespace Player
 		sprite->update();
 		arrowSprite->update();
 		window.update();
+		boundingBox.setPos(getPos());
 
 		// Check if the player is still acting
 		setActing(
@@ -981,24 +985,27 @@ namespace Player
 			!paths.empty());
 
 		// Check if the player is using their special
-		usingSpecial = (sprite->getCurrentAnimation() == Animation::AnimationEnum::ATTACK_SPECIAL);
+		usingSpecial = (sprite->getCurrentAnimation() == Animation::AnimationEnum::ATTACK_SPECIAL);	
+	}
 
+	void Player::updateProjectiles(Player const& enemy)
+	{
 		// Update all active projectiles
 		std::vector<Projectile::Projectile> tempProj;
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)
 		{
 			(*it).update();
+			//(*it).checkCollision(enemy.boundingBox);
 
 			if ((*it).isActing())
 			{
 				tempProj.push_back((*it));
 			}
 		}
-		if (tempProj.size() != activeProjectiles.size()) 
-		{ 
-			activeProjectiles = tempProj; 
+		if (tempProj.size() != activeProjectiles.size())
+		{
+			activeProjectiles = tempProj;
 		}
-		
 	}
 
 	void Player::draw() const
