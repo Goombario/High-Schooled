@@ -2,10 +2,10 @@
 <AnimationList numCol="5">
   <Animation name="IDLE" loop="true">
     <FirstFrame>0</FirstFrame>
-    <Frame>1</Frame>
-    <Frame>1</Frame>
-    <Frame>1</Frame>
-    <Frame>1</Frame>
-    <Frame>1</Frame>
+    <Frame>0.5</Frame>
+    <Frame>0.5</Frame>
+    <Frame>0.5</Frame>
+    <Frame>0.5</Frame>
+    <Frame>0.5</Frame>
   </Animation>
 </AnimationList>
