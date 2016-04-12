@@ -3,6 +3,7 @@
 
 #include "BattleConstants.h"
 #include "BattleObject.h"
+#include "Particle.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -94,8 +95,12 @@ namespace Player
 		bool removesAllTokens;	
 		bool removesEnemyTokens;	// Both options for testing purposes
 		bool resetCooldowns;
+		bool continuous; // If the emitter constantly emits particles
+		double delay;	// How long between special particles
+		double currentDelay;
 		int heal;	// How much the player is healed
 		int damage;	// How much the enemy player is damaged
+		Particle::Emitter emitter;
 	};
 
 	// Helper stuct that holds the attack window
@@ -229,6 +234,7 @@ namespace Player
 		std::vector<COORD> boardPath;
 		SpecialAbility ability;
 		AttackWindow window;
+		Sprite::Sprite *shadow;
 		Sprite::AnimatedSprite *sprite;
 		Sprite::AnimatedSprite *arrowSprite;
 		Board::Board *boardPtr;	// Pointer to the player's board
