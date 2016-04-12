@@ -191,7 +191,9 @@
     <Xml Include="..\res\img\Image_Data\Token.xml" />
     <Xml Include="..\res\img\Image_Data\TokenBreak.xml" />
     <Xml Include="Contexts.xml" />
-    <Xml Include="EmitterData.xml" />
+    <Xml Include="EmitterData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="IconData.xml">
       <SubType>Designer</SubType>
     </Xml>

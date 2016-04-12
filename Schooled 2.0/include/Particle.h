@@ -9,6 +9,12 @@
 
 namespace Particle
 {
+	enum class CollideType
+	{
+		NONE,
+		BOUNCE,
+		ERASE,
+	};
 
 	// Particle structure that emitters generate
 	struct Particle : public GameObject::GameObject
@@ -45,6 +51,7 @@ namespace Particle
 		double minSpeed, maxSpeed;
 		double particleMass;
 		bool hasGravity;
+		CollideType colType;
 
 		// The list of available sprites for the particles to choose from
 		std::vector<Sprite::Sprite> spriteList;

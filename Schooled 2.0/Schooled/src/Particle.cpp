@@ -2,6 +2,8 @@
 #include "tinyxml2.h"
 #include "Schooled.h"
 
+#include <string>
+
 using namespace tinyxml2;
 
 // Particle struct
@@ -78,6 +80,13 @@ namespace Particle
 		if (CheckIfNull(emitterData->FirstChildElement("Properties"), "Emitter: Properties")) exit(-2);
 		CheckXMLResult(emitterData->FirstChildElement("Properties")->QueryBoolAttribute("hasGravity", &hasGravity));
 
+		// Choose the collision type
+		std::string collideTypeString = emitterData->FirstChildElement("Properties")->Attribute("collideType");
+		if (collideTypeString == "BOUNCE") colType = CollideType::BOUNCE;
+		else if (collideTypeString == "ERASE") colType = CollideType::ERASE;
+		else colType = CollideType::NONE;
+		
+
 		// Load all sprites
 		XMLElement *spriteData = emitterData->FirstChildElement("Sprite");
 		while (spriteData != nullptr)
@@ -141,6 +150,50 @@ namespace Particle
 				tempParticle.setPos(getPos());
 
 				particleList.push_back(tempParticle);
+			}
+		}
+	}
+
+	void Emitter::testCollision(Collision::AABB const& box1)
+	{
+		if (colType == CollideType::NONE) return;
+
+		// Test all particles to see if they hit the object
+		Collision::Collision result;
+
+		for (auto it = particleList.begin(); it != particleList.end(); it++)
+		{
+			result = (*it).boundingBox.testAABB(box1);
+
+			// If the object is colliding and overlapping
+			if (result.status && (result.overlap.getX() != 0.0 || result.overlap.getY() != 0.0))
+			{
+				// Correct the position
+				result = (*it).boundingBox.testAABB(box1);
+				Vector::Vector2 correction = -1 * result.overlap.getProjection((*it).getVelocity());
+				//Vector::Vector2 correction = -1 * (*it).getVelocity().getProjection(result.overlap);
+
+				//(*it).setPos((*it).getPos() + correction);
+				(*it).setPos((*it).getPos() - correction);
+				//(*it).setPos((*it).getPos() + Vector::Vector2(0, result.overlap.getY()));
+				//(*it).setPos((*it).getPos() + Vector::Vector2(0.0, correction.getY()));
+				//(*it).setVelocity((*it).getVelocity() + correction);
+				//(*it).setVelocity((*it).getVelocity() - correction);
+				//(*it).firstOrder();
+
+				if (result.overlap.getX() == 0.0 && result.overlap.getY() == 0.0)
+				{
+					return;
+				}
+
+				switch (colType)
+				{
+				case CollideType::BOUNCE:
+					(*it).setVelocity(Vector::Vector2((*it).getVelocity().getX(), -(*it).getVelocity().getY()));
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}

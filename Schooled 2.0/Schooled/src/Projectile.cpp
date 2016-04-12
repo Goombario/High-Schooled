@@ -187,13 +187,10 @@ namespace Projectile
 			setPos(getPos() - correction);
 			setVelocity(-1 * getVelocity());
 		}
-
-		// If the projectile is colliding without overlapping
-		if (result.status && result.overlap.getX() == 0.0 && result.overlap.getY() == 0.0)
+		// If the object is just colliding
+		else if (result.status)
 		{
-			
+			setVelocity(-1 * getVelocity());
 		}
-		
-		
 	}
 }
