@@ -189,17 +189,20 @@ namespace Board
 		placeToken(c.Y, c.X, delay);
 	}
 
-	void Board::removeToken(unsigned int h, unsigned int w, double delay)
+	void Board::removeToken(unsigned int h, unsigned int w, double delay, bool emit)
 	{
 		boardTiles[h][w].hasToken = false;
 		boardTiles[h][w].changeState(TileState::IDLE, getSide());
 		boardTiles[h][w].tokenSprite->addDelay(delay);
-		boardTiles[h][w].SPEmitter.generate(1);
+		if (emit)
+		{
+			boardTiles[h][w].SPEmitter.generate(1);
+		}
 	}
 
-	void Board::removeToken(COORD c, double delay)
+	void Board::removeToken(COORD c, double delay, bool emit)
 	{
-		removeToken(c.Y, c.X, delay);
+		removeToken(c.Y, c.X, delay, emit);
 	}
 	
 	void Board::destroyToken(COORD c)
@@ -257,7 +260,7 @@ namespace Board
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				removeToken(h, w);
+				removeToken(h, w, 0.0, false);
 			}
 		}
 	}

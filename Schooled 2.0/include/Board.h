@@ -83,8 +83,8 @@ namespace Board
 		void placeToken(COORD c, double delay = 0.0);
 
 		// Remove a token from given location
-		void removeToken(unsigned int h, unsigned int w, double delay = 0.0);
-		void removeToken(COORD c, double delay=0.0);
+		void removeToken(unsigned int h, unsigned int w, double delay = 0.0, bool emit = true);
+		void removeToken(COORD c, double delay = 0.0, bool emit = true);
 
 		// Destroys the token underfoot
 		void destroyToken(unsigned int h, unsigned int w);
