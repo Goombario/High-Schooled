@@ -138,6 +138,9 @@ namespace Board
 		// Get the tile state
 		TileState getTileState(COORD location) const { return boardTiles[location.Y][location.X].state; }
 
+		// Get the tile bounding box
+		Collision::AABB getTileBoundingBox(COORD location) const { return boardTiles[location.Y][location.X].boundingBox; }
+
 	private:
 		// Helper function returns tile at number position
 		inline Tile& getTile(int i)

@@ -22,7 +22,7 @@
   <Projectile name="WindSlash">
     <SpriteLeft name="NateProjectile.png" frameWidth="160" frameHeight="160"/>
     <SpriteRight name="NateProjectile(Mirrored).png" frameWidth="160" frameHeight="160"/>
-    <Properties hasGravity="false"/>
+    <Properties hasGravity="false" hasCollision="false"/>
     <Mass>1</Mass>
     <Impulse X="0" Y="0"/>
     <Velocity X="0" Y="0"/>
@@ -31,7 +31,7 @@
   <Projectile name="NULL">
     <SpriteLeft name="NULL.png" frameWidth="1" frameHeight="1"/>
     <SpriteRight name="NULL.png" frameWidth="1" frameHeight="1"/>
-    <Properties hasGravity="false"/>
+    <Properties hasGravity="false" hasCollision="false"/>
     <Mass>1</Mass>
     <Impulse X="0" Y="0"/>
     <Velocity X="0" Y="0"/>

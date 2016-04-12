@@ -37,6 +37,13 @@ namespace Path
 
 namespace Player
 {
+	enum class CollideWith
+	{
+		NONE,
+		ENEMY_PLAYER,
+		ENEMY_CENTER
+	};
+
 	// Helper class that holds icon data
 	class Icon : public GameObject::GameObject
 	{
@@ -100,7 +107,9 @@ namespace Player
 		double currentDelay;
 		int heal;	// How much the player is healed
 		int damage;	// How much the enemy player is damaged
-		Particle::Emitter emitter;
+		Particle::Emitter stage1;
+		Particle::Emitter stage2;
+		CollideWith collideType;
 	};
 
 	// Helper stuct that holds the attack window

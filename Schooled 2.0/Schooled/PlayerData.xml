@@ -84,6 +84,7 @@ target - will attack the targeted square, and dissapear afterwards.
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
+      <Stage2 name="NONE"/>
       <Properties continuous="true" delay="0.2"/>
     </Special>
   </Player>
@@ -154,6 +155,7 @@ target - will attack the targeted square, and dissapear afterwards.
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
+      <Stage2 name="NONE"/>
       <Properties continuous="true" delay="0.2"/>
     </Special>
   </Player>
@@ -218,13 +220,14 @@ target - will attack the targeted square, and dissapear afterwards.
     </Attacks>
 
     <!--Special ability properties-->
-    <Special name = "BREAK_GROUND">
+    <Special name="BREAK_GROUND">
       <RemoveAllTokens>0</RemoveAllTokens>
       <RemoveEnemyTokens>1</RemoveEnemyTokens>
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
-      <Properties continuous="false" delay="0.0"/>
+      <Stage2 name="ERUPT"/>
+      <Properties continuous="false" collideWith="ENEMY_CENTER" delay="0.0"/>
     </Special>
   </Player>
 
@@ -363,7 +366,8 @@ target - will attack the targeted square, and dissapear afterwards.
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
-      <Properties continuous="false" delay="0.0"/>
+      <Stage2 name="ERUPT"/>
+      <Properties continuous="false" collideWith="ENEMY_CENTER" delay="0.0"/>
     </Special>
   </Player>
 

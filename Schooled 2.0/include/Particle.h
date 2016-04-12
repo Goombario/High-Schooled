@@ -44,6 +44,9 @@ namespace Particle
 		// Test the collision of all active particles against the given box
 		void testCollision(Collision::AABB const&);
 
+		// Return if there are any particles being controlled
+		bool isEmpty() { return particleList.empty(); }
+
 	private:
 		std::vector<Particle> particleList;
 		double maxLife, minLife;

@@ -510,13 +510,38 @@ namespace Player
 			->QueryBoolAttribute("continuous", &ability.continuous));
 		CheckXMLResult(specialData->FirstChildElement("Properties")
 			->QueryDoubleAttribute("delay", &ability.delay));
+		std::string collideName = specialData->FirstChildElement("Properties")->Attribute("collideWith");
+		std::string stage2Name = specialData->FirstChildElement("Stage2")->Attribute("name");
 
+		if (collideName == "ENEMY_PLAYER")
+		{
+			ability.collideType = CollideWith::ENEMY_PLAYER;
+		}
+		else if (collideName == "ENEMY_CENTER")
+		{
+			ability.collideType = CollideWith::ENEMY_CENTER;
+		}
+		else
+		{
+			ability.collideType = CollideWith::NONE;
+		}
+
+		// Set the emitters
 		ability.currentDelay = 0.0;
-		ability.emitter = Particle::Emitter(ability.name.c_str());
+		ability.stage1 = Particle::Emitter(ability.name.c_str());
 		Vector::Vector2 emitterPos = (getBoard()->getSide() == Side::RIGHT)
 			? Vector::Vector2((schooled::SCREEN_WIDTH_PX / 4) + 0, 1000)
 			: Vector::Vector2((3 * schooled::SCREEN_WIDTH_PX / 4) - 50, 1000);
-		ability.emitter.setPos(emitterPos);
+		ability.stage1.setPos(emitterPos);
+
+		if (stage2Name != "NONE")
+		{
+			ability.stage2 = Particle::Emitter(stage2Name.c_str());
+			emitterPos = (getBoard()->getSide() == Side::RIGHT)
+				? Vector::Vector2((schooled::SCREEN_WIDTH_PX / 4) + 0, 300)
+				: Vector::Vector2((3 * schooled::SCREEN_WIDTH_PX / 4) - 50, 300);
+			ability.stage2.setPos(emitterPos);
+		}
 
 
 		// Set the player position
@@ -676,6 +701,7 @@ namespace Player
 		sprite->changeAnimation(Animation::AnimationEnum::ATTACK_SPECIAL);
 		enemy.sprite->changeAnimation(Animation::AnimationEnum::HURT);
 		enemy.sprite->addDelay(1.0);
+		ability.stage1.generate(1);
 
 		// Clear tokens from one or more players
 		if (ability.removesAllTokens)
@@ -990,7 +1016,8 @@ namespace Player
 		sprite->update();
 		arrowSprite->update();
 		window.update();
-		ability.emitter.update();
+		ability.stage1.update();
+		ability.stage2.update();
 		boundingBox.setPos(getPos());
 
 		// Check if the player is still acting
@@ -1007,7 +1034,7 @@ namespace Player
 			if (ability.currentDelay <= 0.0 && ability.continuous)
 			{
 				ability.currentDelay = ability.delay;
-				ability.emitter.generate(1);
+				ability.stage1.generate(1);
 			}
 		}
 		else
@@ -1033,6 +1060,24 @@ namespace Player
 		if (tempProj.size() != activeProjectiles.size())
 		{
 			activeProjectiles = tempProj;
+		}
+
+		if (usingSpecial)
+		{
+			if (ability.collideType == CollideWith::ENEMY_CENTER)
+			{
+				ability.stage1.testCollision(enemy.getBoard()->getTileBoundingBox(COORD{ 1, 1 }));
+			}
+			else if (ability.collideType == CollideWith::ENEMY_PLAYER)
+			{
+				ability.stage1.testCollision(enemy.boundingBox);
+			}
+
+			// If stage 1 is finished, move onto stage 2.
+			if (ability.stage1.isEmpty() && !ability.continuous && ability.stage2.isEmpty())
+			{
+				ability.stage2.generate(30);
+			}
 		}
 	}
 
@@ -1072,7 +1117,8 @@ namespace Player
 		{
 			(*it).draw();
 		}
-		ability.emitter.draw();
+		ability.stage1.draw();
+		ability.stage2.draw();
 	}
 
 	void Player::updateIconCooldown()
