@@ -50,6 +50,7 @@ namespace Board
 		Sprite::AnimatedSprite *tokenSprite;
 		TileState state;
 		Particle::Emitter tokenDestroyEmitter;
+		Particle::TargetEmitter SPEmitter;
 		Collision::AABB boundingBox;
 
 		// Change the state of the tile

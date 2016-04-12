@@ -47,7 +47,7 @@ namespace Particle
 		// Return if there are any particles being controlled
 		bool isEmpty() { return particleList.empty(); }
 
-	private:
+	protected:
 		std::vector<Particle> particleList;
 		double maxLife, minLife;
 		double maxAngle, minAngle;
