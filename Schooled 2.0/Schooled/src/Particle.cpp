@@ -203,3 +203,41 @@ namespace Particle
 		}
 	}
 }
+
+// Targeted Emitter
+namespace Particle
+{
+	TargetEmitter::TargetEmitter() : Emitter()
+	{
+
+	}
+
+	TargetEmitter::TargetEmitter(const char* emitterName, Vector::Vector2 const& t)
+		: Emitter(emitterName), target(t)
+	{
+
+	}
+
+	void TargetEmitter::generate(int numParticles)
+	{
+		for (int i = 0; i < numParticles; i++)
+		{
+			for (auto it = spriteList.begin(); it != spriteList.end(); it++)
+			{
+				Particle tempParticle;
+				tempParticle.sprite = (*it);
+				tempParticle.boundingBox = Collision::AABB(tempParticle.getPos(),
+					tempParticle.sprite.getFrameWidth(),
+					tempParticle.sprite.getFrameHeight());
+				tempParticle.life = static_cast<float>((rand() % static_cast<int>(maxLife - minLife)) + minLife) / 10.0f;
+				tempParticle.mass = static_cast<float>(mass);
+				tempParticle.setPos(getPos());
+
+				// Set the particle so that it will reach the target by the end of its life
+				Vector::Vector2 distance = target - getPos();
+				tempParticle.setVelocity(distance * (1.0f / tempParticle.life));
+				particleList.push_back(tempParticle);
+			}
+		}
+	}
+}

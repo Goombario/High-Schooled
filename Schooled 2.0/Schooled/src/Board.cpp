@@ -120,6 +120,7 @@ namespace Board
 		Animation::AnimationData tokenData(schooled::getResourcePath("img/Image_Data") + "Token.xml");
 		Sprite::AnimatedSprite tokenSprite(tokenImage, tokenData);
 
+		Vector::Vector2 SPPos = (side == Side::LEFT) ? Vector::Vector2(1000, 600) : Vector::Vector2(260, 600);
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
@@ -141,9 +142,13 @@ namespace Board
 				// Set the tile state
 				boardTiles[h][wPos].changeState(TileState::IDLE, getSide());
 
-				// Make the emitter
+				// Make the destroy emitter
 				boardTiles[h][wPos].tokenDestroyEmitter = Particle::Emitter("BROKEN_TOKEN");
 				boardTiles[h][wPos].tokenDestroyEmitter.setPos(boardTiles[h][wPos].pos);
+
+				// Make the SPEmitter
+				boardTiles[h][wPos].SPEmitter = Particle::TargetEmitter("SP_TOKEN", SPPos);
+				boardTiles[h][wPos].SPEmitter.setPos(boardTiles[h][wPos].pos);
 
 				// Set the bounding box
 				boardTiles[h][wPos].boundingBox = Collision::AABB(boardTiles[h][wPos].pos - Vector::Vector2(0, ROW_HEIGHT + 15), ROW_WIDTH*4.0, 15);
@@ -189,6 +194,7 @@ namespace Board
 		boardTiles[h][w].hasToken = false;
 		boardTiles[h][w].changeState(TileState::IDLE, getSide());
 		boardTiles[h][w].tokenSprite->addDelay(delay);
+		boardTiles[h][w].SPEmitter.generate(1);
 	}
 
 	void Board::removeToken(COORD c, double delay)
@@ -338,6 +344,7 @@ namespace Board
 				boardTiles[h][w].tileSprite->draw();
 				boardTiles[h][w].tokenSprite->draw();
 				boardTiles[h][w].tokenDestroyEmitter.draw();
+				boardTiles[h][w].SPEmitter.draw();
 
 			}
 		}
@@ -363,6 +370,7 @@ namespace Board
 
 				boardTiles[h][w].tileSprite->update();
 				boardTiles[h][w].tokenSprite->update();
+				boardTiles[h][w].SPEmitter.update();
 				boardTiles[h][w].tokenDestroyEmitter.update();
 				boardTiles[h][w].tokenDestroyEmitter.testCollision(boardTiles[h][w].boundingBox);
 
