@@ -423,7 +423,7 @@ namespace Player
 		CheckXMLResult(statsData->FirstChildElement("MaxSP")->QueryIntText(&stats.maxSP));
 		CheckXMLResult(statsData->FirstChildElement("MaxAP")->QueryIntText(&stats.maxAP));
 		stats.currentHP = stats.maxHP;
-		stats.currentSP = 4;
+		stats.currentSP = 0;
 		stats.currentAP = 0;
 		stats.lockedAP = 0;
 		
