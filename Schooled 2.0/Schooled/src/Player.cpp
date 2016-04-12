@@ -1062,7 +1062,7 @@ namespace Player
 			activeProjectiles = tempProj;
 		}
 
-		if (usingSpecial)
+		if (usingSpecial || !ability.stage1.isEmpty())
 		{
 			if (ability.collideType == CollideWith::ENEMY_CENTER)
 			{

@@ -187,7 +187,10 @@ namespace Particle
 				switch (colType)
 				{
 				case CollideType::BOUNCE:
-					(*it).setVelocity(Vector::Vector2((*it).getVelocity().getX(), -(*it).getVelocity().getY() / 2.0));
+					if ((*it).getVelocity().getY() < 0.0)
+					{
+						(*it).setVelocity(Vector::Vector2((*it).getVelocity().getX(), -(*it).getVelocity().getY() / 2.0));
+					}
 					break;
 				case CollideType::ERASE:
 					tempList.pop_back();
