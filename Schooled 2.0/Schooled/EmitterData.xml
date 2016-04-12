@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EmitterList>
+  <Emitter name="BROKEN_TOKEN">
+    <Particle mass="1" minLife="20" maxLife="30" minSpeed="150" maxSpeed="250"/>
+    <Angle min="90" max="91"/>
+    <Properties hasGravity="true" collideType="BOUNCE"/>
+    <Sprite name="TokenChunk1.png" frameWidth="40" frameHeight="40"/>
+    <Sprite name="TokenChunk2.png" frameWidth="40" frameHeight="40"/>
+    <Sprite name="TokenChunk3.png" frameWidth="40" frameHeight="40"/>
+    <Sprite name="TokenChunk4.png" frameWidth="40" frameHeight="40"/>
+  </Emitter>
+
+  <Emitter name="DODGEBALL_RAIN">
+    <Particle mass="5" minLife="40" maxLife="41" minSpeed="350" maxSpeed="450"/>
+    <Angle min="240" max="300"/>
+    <Properties hasGravity="true" collideType="NONE"/>
+    <Sprite name="Dodgeball_Big.png" frameWidth="170" frameHeight="170"/>
+  </Emitter>
+</EmitterList>

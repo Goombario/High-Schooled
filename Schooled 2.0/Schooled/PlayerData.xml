@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Documentation
+
+Projectile types:
+target - will attack the targeted square, and dissapear afterwards.
+
+-->
+
+<Players>
+  <!--Data shared across all players-->
+  <SharedData>
+    <Arrow name="Arrow.png" frameWidth="160" frameHeight="320"/>
+    <ArrowAnimation name="Arrow.xml"/>
+    <Glow name="Glow.png" frameWidth="64" frameHeight="64"/>
+    <IconAnimation name="Icon.xml"/>
+    <Shadow name="Shadow.png" frameWidth="120" frameHeight="50"/>
+  </SharedData>
+
+  <Player name="Gym Teacher">
+    <!--Sprite Data-->
+    <SpriteLeft name="GymTeacher.png" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="GymTeacher(mirrored).png" frameWidth="230" frameHeight="170"/>
+    <Animation name="GymTeacher.xml"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>6</MaxHP>
+      <MaxSP>5</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attack names-->
+    <Attacks>
+      <Attack name="DODGEBALL_A">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="HORIZONTAL"/>
+        <Projectile name="Dodgeball_Gravity" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+      <Attack name="DODGEBALL_B">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="VERTICAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="0.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+      <Attack name="DODGEBALL_C">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="CORNERS"/>
+        <Projectile name="NULL" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability name (Data loaded from seperate file)-->
+    <Special name="DODGEBALL_RAIN">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+      <Properties continuous="true" delay="0.2"/>
+    </Special>
+  </Player>
+
+  <Player name="Tive">
+    <!--Sprite Data-->
+    <SpriteLeft name="Tive.png" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="Tive(Mirrored).png" frameWidth="230" frameHeight="170"/>
+    <Animation name="Tive.xml"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attack names-->
+    <Attacks>
+      <Attack name="DODGEBALL_A">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="HORIZONTAL"/>
+        <Projectile name="Dodgeball_Gravity" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+      <Attack name="DODGEBALL_B">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="VERTICAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+      <Attack name="DODGEBALL_C">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="CORNERS"/>
+        <Projectile name="NULL" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability name (Data loaded from seperate file)-->
+    <Special name="DODGEBALL_RAIN">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+      <Properties continuous="true" delay="0.2"/>
+    </Special>
+  </Player>
+
+  <Player name="Nate">
+    <!--Sprite Data-->
+    <SpriteLeft name="Nate.png" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="Nate(Mirrored).png" frameWidth="230" frameHeight="170"/>
+    <Animation name="Nate.xml"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>6</MaxHP>
+      <MaxSP>5</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="KICK">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="HORIZONTAL"/>
+        <Projectile name="WindSlash" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="0.7"/>
+      </Attack>
+      <Attack name="PUNCH">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="VERTICAL"/>
+        <Projectile name="WindSlash" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="0.7"/>
+      </Attack>
+      <Attack name="FAST_ATTACK">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="CORNERS"/>
+        <Projectile name="NULL" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special name = "BREAK_GROUND">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+      <Properties continuous="false" delay="0.0"/>
+    </Special>
+  </Player>
+
+  <Player name="GlowyNate">
+    <!--Sprite Data-->
+    <SpriteLeft name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
+    <SpriteRight name="GlowyNate.png" frameWidth="225" frameHeight="160"/>
+    <Animation name="GlowyNate.xml"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="KICK">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="HORIZONTAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+      <Attack name="PUNCH">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="VERTICAL"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+      <Attack name="FAST_ATTACK">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="CORNERS"/>
+        <Projectile name="Dodgeball" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special name = "BREAK_GROUND">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+    </Special>
+  </Player>
+
+  <Player name="Nega">
+    <!--Sprite Data-->
+    <SpriteLeft name="Nega.png" frameWidth="230" frameHeight="170"/>
+    <SpriteRight name="Nega(Mirrored).png" frameWidth="230" frameHeight="170"/>
+    <Animation name="Nega.xml"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="KICK">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="HORIZONTAL"/>
+        <Projectile name="WindSlash" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="0.7"/>
+      </Attack>
+      <Attack name="PUNCH">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="VERTICAL"/>
+        <Projectile name="WindSlash" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="0.7"/>
+      </Attack>
+      <Attack name="FAST_ATTACK">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="CORNERS"/>
+        <Projectile name="NULL" delay="0.0"
+                    offsetX="20.0" offsetY="0.0"
+                    hasTarget="true" timeToTarget="1.0"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special name = "BREAK_GROUND">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+      <Properties continuous="false" delay="0.0"/>
+    </Special>
+  </Player>
+
+  <Player name="GlowyNega">
+    <!--Sprite Data-->
+    <Sprite name="GlowyNega.png" frameWidth="225" frameHeight="160"/>
+    <Animation name="GlowyNega.xml"/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP>5</MaxHP>
+      <MaxSP>4</MaxSP>
+      <MaxAP>2</MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="KICK">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 1 1
+          0 0 0
+          0 0 0
+        </Range>
+        <Icon name="HORIZONTAL"/>
+      </Attack>
+      <Attack name="PUNCH">
+        <Cooldown>2</Cooldown>
+        <Static>0</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 0
+          1 0 0
+          1 0 0
+        </Range>
+        <Icon name="VERTICAL"/>
+      </Attack>
+      <Attack name="FAST_ATTACK">
+        <Cooldown>2</Cooldown>
+        <Static>1</Static>
+        <Damage>1</Damage>
+        <Range>
+          1 0 1
+          0 0 0
+          1 0 1
+        </Range>
+        <Icon name="CORNERS"/>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special name = "BREAK_GROUND">
+      <RemoveAllTokens>0</RemoveAllTokens>
+      <RemoveEnemyTokens>1</RemoveEnemyTokens>
+      <ResetCooldowns>1</ResetCooldowns>
+      <Heal>1</Heal>
+      <Damage>2</Damage>
+    </Special>
+  </Player>
+
+  <Player name="Template">
+    <!--Sprite Data-->
+    <Sprite name="" frameWidth="" frameHeight=""/>
+    <Animation name="" numCol=""/>
+
+    <!--Statistics-->
+    <Stats>
+      <MaxHP></MaxHP>
+      <MaxSP></MaxSP>
+      <MaxAP></MaxAP>
+    </Stats>
+
+    <!--List of attacks and attack properties-->
+    <Attacks>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+
+        </Range>
+      </Attack>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+
+        </Range>
+      </Attack>
+      <Attack name="">
+        <Cooldown></Cooldown>
+        <Static></Static>
+        <Damage></Damage>
+        <Range>
+
+        </Range>
+      </Attack>
+    </Attacks>
+
+    <!--Special ability properties-->
+    <Special>
+      <RemoveAllTokens></RemoveAllTokens>
+      <RemoveEnemyTokens></RemoveEnemyTokens>
+      <ResetCooldowns></ResetCooldowns>
+      <Heal></Heal>
+      <Damage></Damage>
+    </Special>
+  </Player>
+</Players>
