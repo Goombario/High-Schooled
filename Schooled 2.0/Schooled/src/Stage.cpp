@@ -427,7 +427,7 @@ namespace Stage
 		winSprite->changeAnimation(Animation::AnimationEnum::CREDITS);
 		failSprite->changeAnimation(Animation::AnimationEnum::CREDITS);
 		failSprite->addDelay(0.5);
-		winSprite->addDelay(2.0);
+		winSprite->addDelay(1.5);
 
 		if (player1->getCurrentHP() <= 0)
 		{
