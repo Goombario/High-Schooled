@@ -149,7 +149,7 @@ target - will attack the targeted square, and dissapear afterwards.
     </Attacks>
 
     <!--Special ability name (Data loaded from seperate file)-->
-    <Special name="DODGEBALL_RAIN">
+    <Special name="DODGEBALL_RAIN_INVERT">
       <RemoveAllTokens>0</RemoveAllTokens>
       <RemoveEnemyTokens>1</RemoveEnemyTokens>
       <ResetCooldowns>1</ResetCooldowns>
@@ -360,13 +360,13 @@ target - will attack the targeted square, and dissapear afterwards.
     </Attacks>
 
     <!--Special ability properties-->
-    <Special name = "BREAK_GROUND">
+    <Special name = "BREAK_GROUND_INVERT">
       <RemoveAllTokens>0</RemoveAllTokens>
       <RemoveEnemyTokens>1</RemoveEnemyTokens>
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
-      <Stage2 name="ERUPT"/>
+      <Stage2 name="ERUPT_INVERT"/>
       <Properties continuous="false" collideWith="ENEMY_CENTER" delay="0.0"/>
     </Special>
   </Player>
