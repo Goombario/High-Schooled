@@ -59,6 +59,18 @@ namespace Particle
 		// The list of available sprites for the particles to choose from
 		std::vector<Sprite::Sprite> spriteList;
 	};
+
+	class TargetEmitter : public Emitter
+	{
+	public:
+		TargetEmitter();
+		TargetEmitter(const char* emitterName, Vector::Vector2 const& target);
+
+		void generate(int numParticles);
+
+	private:
+		Vector::Vector2 target;
+	};
 }
 
 #endif

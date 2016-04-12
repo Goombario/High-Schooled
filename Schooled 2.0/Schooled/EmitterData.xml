@@ -2,7 +2,7 @@
 <EmitterList>
   <Emitter name="BROKEN_TOKEN">
     <Particle mass="1" minLife="20" maxLife="30" minSpeed="150" maxSpeed="250"/>
-    <Angle min="90" max="91"/>
+    <Angle min="65" max="115"/>
     <Properties hasGravity="true" collideType="BOUNCE"/>
     <Sprite name="TokenChunk1.png" frameWidth="40" frameHeight="40"/>
     <Sprite name="TokenChunk2.png" frameWidth="40" frameHeight="40"/>
