@@ -384,6 +384,10 @@ namespace Player
 		if (CheckIfNull(sharedData->FirstChildElement("Arrow"), "Player: Shared: Arrow")) exit(-2);
 		arrowSprite = new Sprite::AnimatedSprite(sharedData->FirstChildElement("Arrow"), sharedData->FirstChildElement("ArrowAnimation"));
 
+		// Load the arrow sprite
+		if (CheckIfNull(sharedData->FirstChildElement("Shadow"), "Player: Shared: Shadow")) exit(-2);
+		shadow = new Sprite::Sprite(sharedData->FirstChildElement("Shadow"));
+
 		// Choose the first Player data
 		XMLElement *playerData;
 		playerData = pRoot->FirstChildElement("Player");
@@ -419,7 +423,7 @@ namespace Player
 		CheckXMLResult(statsData->FirstChildElement("MaxSP")->QueryIntText(&stats.maxSP));
 		CheckXMLResult(statsData->FirstChildElement("MaxAP")->QueryIntText(&stats.maxAP));
 		stats.currentHP = stats.maxHP;
-		stats.currentSP = 0;
+		stats.currentSP = 4;
 		stats.currentAP = 0;
 		stats.lockedAP = 0;
 		
@@ -502,6 +506,18 @@ namespace Player
 			->QueryIntText(&ability.heal));
 		CheckXMLResult(specialData->FirstChildElement("Damage")
 			->QueryIntText(&ability.damage));
+		CheckXMLResult(specialData->FirstChildElement("Properties")
+			->QueryBoolAttribute("continuous", &ability.continuous));
+		CheckXMLResult(specialData->FirstChildElement("Properties")
+			->QueryDoubleAttribute("delay", &ability.delay));
+
+		ability.currentDelay = 0.0;
+		ability.emitter = Particle::Emitter(ability.name.c_str());
+		Vector::Vector2 emitterPos = (getBoard()->getSide() == Side::RIGHT)
+			? Vector::Vector2((schooled::SCREEN_WIDTH_PX / 4) + 0, 1000)
+			: Vector::Vector2((3 * schooled::SCREEN_WIDTH_PX / 4) - 50, 1000);
+		ability.emitter.setPos(emitterPos);
+
 
 		// Set the player position
 		if (boardPtr->getSide() == Side::LEFT)
@@ -557,6 +573,7 @@ namespace Player
 	{
 		delete sprite;
 		delete arrowSprite;
+		delete shadow;
 
 		//delete all remaining paths
 		for (auto it = paths.begin(); it != paths.end(); it++)
@@ -738,9 +755,6 @@ namespace Player
 		case Direction::BACKWARD:
 			change.X--;
 			newAnim = Animation::AnimationEnum::BACKWARDS;
-			/*newAnim = (getBoard()->getSide() == Side::LEFT) ?
-				Animation::AnimationEnum:: WALK_LEFT:
-				Animation::AnimationEnum::WALK_RIGHT;*/
 			break;
 		}
 
@@ -966,7 +980,6 @@ namespace Player
 				paths.pop_back();
 				sprite->popAnimation();
 			}
-
 		}
 		else
 		{
@@ -977,6 +990,7 @@ namespace Player
 		sprite->update();
 		arrowSprite->update();
 		window.update();
+		ability.emitter.update();
 		boundingBox.setPos(getPos());
 
 		// Check if the player is still acting
@@ -986,6 +1000,20 @@ namespace Player
 
 		// Check if the player is using their special
 		usingSpecial = (sprite->getCurrentAnimation() == Animation::AnimationEnum::ATTACK_SPECIAL);	
+		if (usingSpecial)
+		{
+			ability.currentDelay -= 1.0 / schooled::FRAMERATE;
+			// If enough time elapsed, fire projectile
+			if (ability.currentDelay <= 0.0 && ability.continuous)
+			{
+				ability.currentDelay = ability.delay;
+				ability.emitter.generate(1);
+			}
+		}
+		else
+		{
+			ability.currentDelay = 0.0;
+		}
 	}
 
 	void Player::updateProjectiles(Player const& enemy)
@@ -1024,6 +1052,7 @@ namespace Player
 			}
 		}
 
+		shadow->drawAt(getPos() + Vector::Vector2(0, 5 - sprite->getFrameHeight() / 2.0));
 		sprite->drawAt(getPos());
 	}
 
@@ -1043,6 +1072,7 @@ namespace Player
 		{
 			(*it).draw();
 		}
+		ability.emitter.draw();
 	}
 
 	void Player::updateIconCooldown()

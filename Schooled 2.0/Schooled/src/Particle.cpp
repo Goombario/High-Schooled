@@ -189,7 +189,10 @@ namespace Particle
 				switch (colType)
 				{
 				case CollideType::BOUNCE:
-					(*it).setVelocity(Vector::Vector2((*it).getVelocity().getX(), -(*it).getVelocity().getY()));
+					(*it).setVelocity(Vector::Vector2((*it).getVelocity().getX(), -(*it).getVelocity().getY() / 2.0));
+					//(*it).setAcceleration(Vector::Vector2(0, 0));
+					//(*it).setAcceleration(Vector::Vector2((*it).getAcceleration().getX(), -(*it).getAcceleration().getY()));
+					//(*it).setVelocity
 					break;
 				default:
 					break;

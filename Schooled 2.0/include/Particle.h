@@ -56,16 +56,6 @@ namespace Particle
 		// The list of available sprites for the particles to choose from
 		std::vector<Sprite::Sprite> spriteList;
 	};
-
-	// Emitter that generates projectiles that have a target
-	class TargetEmitter : public Emitter
-	{
-	public:
-		TargetEmitter();
-
-	private:
-		
-	};
 }
 
 #endif

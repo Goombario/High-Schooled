@@ -146,7 +146,7 @@ namespace Board
 				boardTiles[h][wPos].tokenDestroyEmitter.setPos(boardTiles[h][wPos].pos);
 
 				// Set the bounding box
-				boardTiles[h][wPos].boundingBox = Collision::AABB(boardTiles[h][wPos].pos - Vector::Vector2(0, ROW_HEIGHT - 20), ROW_WIDTH*4.0, 15);
+				boardTiles[h][wPos].boundingBox = Collision::AABB(boardTiles[h][wPos].pos - Vector::Vector2(0, ROW_HEIGHT + 15), ROW_WIDTH*4.0, 15);
 
 
 				// Set the completed check board to false
@@ -331,8 +331,6 @@ namespace Board
 
 	void Board::draw() const
 	{
-		float initX = (side == Side::LEFT) ? OFFSET_X + ROW_OFFSET : CENTER_X + OFFSET_X;
-
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)

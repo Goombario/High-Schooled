@@ -15,6 +15,7 @@ target - will attack the targeted square, and dissapear afterwards.
     <ArrowAnimation name="Arrow.xml"/>
     <Glow name="Glow.png" frameWidth="64" frameHeight="64"/>
     <IconAnimation name="Icon.xml"/>
+    <Shadow name="Shadow.png" frameWidth="120" frameHeight="50"/>
   </SharedData>
 
   <Player name="Gym Teacher">
@@ -83,6 +84,7 @@ target - will attack the targeted square, and dissapear afterwards.
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
+      <Properties continuous="true" delay="0.2"/>
     </Special>
   </Player>
 
@@ -152,6 +154,7 @@ target - will attack the targeted square, and dissapear afterwards.
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
+      <Properties continuous="true" delay="0.2"/>
     </Special>
   </Player>
 
@@ -221,6 +224,7 @@ target - will attack the targeted square, and dissapear afterwards.
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
+      <Properties continuous="false" delay="0.0"/>
     </Special>
   </Player>
 
@@ -359,6 +363,7 @@ target - will attack the targeted square, and dissapear afterwards.
       <ResetCooldowns>1</ResetCooldowns>
       <Heal>1</Heal>
       <Damage>2</Damage>
+      <Properties continuous="false" delay="0.0"/>
     </Special>
   </Player>
 
