@@ -31,7 +31,11 @@ namespace Particle
 		minLife = 0;
 		maxAngle = 0;
 		minAngle = 0;
+		minSpeed = 0;
+		maxSpeed = 0;
 		particleMass = 0;
+		hasGravity = false;
+		colType = CollideType::NONE;
 	}
 
 	Emitter::Emitter(const char* emitterName)
@@ -160,44 +164,42 @@ namespace Particle
 
 		// Test all particles to see if they hit the object
 		Collision::Collision result;
-
+		std::vector<Particle> tempList;
 		for (auto it = particleList.begin(); it != particleList.end(); it++)
 		{
 			result = (*it).boundingBox.testAABB(box1);
-
+			tempList.push_back((*it));
 			// If the object is colliding and overlapping
 			if (result.status && (result.overlap.getX() != 0.0 || result.overlap.getY() != 0.0))
 			{
 				// Correct the position
 				result = (*it).boundingBox.testAABB(box1);
 				Vector::Vector2 correction = -1 * result.overlap.getProjection((*it).getVelocity());
-				//Vector::Vector2 correction = -1 * (*it).getVelocity().getProjection(result.overlap);
 
-				//(*it).setPos((*it).getPos() + correction);
 				(*it).setPos((*it).getPos() - correction);
-				//(*it).setPos((*it).getPos() + Vector::Vector2(0, result.overlap.getY()));
-				//(*it).setPos((*it).getPos() + Vector::Vector2(0.0, correction.getY()));
-				//(*it).setVelocity((*it).getVelocity() + correction);
-				//(*it).setVelocity((*it).getVelocity() - correction);
-				//(*it).firstOrder();
 
 				if (result.overlap.getX() == 0.0 && result.overlap.getY() == 0.0)
 				{
 					return;
 				}
+				
 
 				switch (colType)
 				{
 				case CollideType::BOUNCE:
 					(*it).setVelocity(Vector::Vector2((*it).getVelocity().getX(), -(*it).getVelocity().getY() / 2.0));
-					//(*it).setAcceleration(Vector::Vector2(0, 0));
-					//(*it).setAcceleration(Vector::Vector2((*it).getAcceleration().getX(), -(*it).getAcceleration().getY()));
-					//(*it).setVelocity
+					break;
+				case CollideType::ERASE:
+					tempList.pop_back();
 					break;
 				default:
 					break;
 				}
 			}
+		}
+		if (tempList.size() != particleList.size())
+		{
+			particleList = tempList;
 		}
 	}
 }
