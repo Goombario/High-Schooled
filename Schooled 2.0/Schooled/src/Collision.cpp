@@ -24,20 +24,23 @@ namespace Collision
 		Collision testCollision;
 
 		// Set the overlap
-		testCollision.overlap.setX(
-			((*this).pos.getX() + (*this).max.getX()) -
-			(box1.pos.getX() + box1.min.getX()));
+		double x_max0 = (*this).pos.getX() + (*this).max.getX();
+		double x_min0 = (*this).pos.getX() + (*this).min.getX();
+		double y_max0 = (*this).pos.getY() + (*this).max.getY();
+		double y_min0 = (*this).pos.getY() + (*this).min.getY();
 
-		testCollision.overlap.setY(
-			((*this).pos.getY() + (*this).max.getY()) -
-			(box1.pos.getY() + box1.min.getY()));
+		double x_max1 = box1.pos.getX() + box1.max.getX();
+		double x_min1 = box1.pos.getX() + box1.min.getX();
+		double y_max1 = box1.pos.getY() + box1.max.getY();
+		double y_min1 = box1.pos.getY() + box1.min.getY();
+
+		testCollision.overlap.setX(x_max0 - x_min1);
+		testCollision.overlap.setY(y_max0 - y_min1);
 
 		// Check if the algorithm passes
-		testCollision.status = 
-			(testCollision.overlap.getX() >= 0.0
-			&&
-			(box1.pos.getY() + box1.max.getY()) -
-			((*this).pos.getY() + (*this).min.getY()) >= 0.0);
+		testCollision.status = (
+			testCollision.overlap.getX() >= 0.0 && x_max1 - x_min0 >= 0.0 &&
+			testCollision.overlap.getY() >= 0.0 && y_max1 - y_min0 >= 0.0);
 
 		return testCollision;
 	}

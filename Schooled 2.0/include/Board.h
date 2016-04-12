@@ -4,6 +4,7 @@
 #include "BattleConstants.h"
 #include "BattleObject.h"
 #include "Particle.h"
+#include "Collision.h"
 #include "Schooled.h"
 #include <vector>
 #include <Windows.h>
@@ -49,6 +50,7 @@ namespace Board
 		Sprite::AnimatedSprite *tokenSprite;
 		TileState state;
 		Particle::Emitter tokenDestroyEmitter;
+		Collision::AABB boundingBox;
 
 		// Change the state of the tile
 		void changeState(TileState, Side);
