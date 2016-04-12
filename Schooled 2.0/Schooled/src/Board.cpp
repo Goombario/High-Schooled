@@ -104,7 +104,7 @@ namespace Board
 	Board::Board(Side s) : Board()
 	{
 		side = s;
-		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET + 5) : (OFFSET_X + CENTER_X + 15);
+		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET + 5) : (OFFSET_X + CENTER_X);
 		int wPos;
 
 		// Set the board position
