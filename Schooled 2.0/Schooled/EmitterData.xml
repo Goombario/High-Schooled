@@ -18,9 +18,9 @@
   </Emitter>
 
   <Emitter name="DODGEBALL_RAIN">
-    <Particle mass="5" minLife="40" maxLife="41" minSpeed="350" maxSpeed="450"/>
+    <Particle mass="5" minLife="20" maxLife="21" minSpeed="350" maxSpeed="450"/>
     <Angle min="240" max="300"/>
-    <Properties hasGravity="true" collideType="NONE"/>
+    <Properties hasGravity="true" collideType="BOUNCE"/>
     <Sprite name="Dodgeball_Big.png" frameWidth="170" frameHeight="170"/>
     <Sprite name="Dodgeball_Medium_Large.png" frameWidth="110" frameHeight="110"/>
     <Sprite name="Dodgeball_Big_Yellow.png" frameWidth="170" frameHeight="170"/>

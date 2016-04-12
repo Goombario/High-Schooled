@@ -104,7 +104,7 @@ namespace Board
 	Board::Board(Side s) : Board()
 	{
 		side = s;
-		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET + 5) : (15 + OFFSET_X + CENTER_X);
+		float initX = (side == Side::LEFT) ? (OFFSET_X + ROW_OFFSET + 5) : (OFFSET_X + CENTER_X);
 		int wPos;
 
 		// Set the board position
@@ -142,6 +142,7 @@ namespace Board
 				// Set the tile state
 				boardTiles[h][wPos].changeState(TileState::IDLE, getSide());
 
+<<<<<<< local
 				// Make the destroy emitter
 				boardTiles[h][wPos].tokenDestroyEmitter = Particle::Emitter("BROKEN_TOKEN");
 				boardTiles[h][wPos].tokenDestroyEmitter.setPos(boardTiles[h][wPos].pos);
@@ -154,6 +155,16 @@ namespace Board
 				boardTiles[h][wPos].boundingBox = Collision::AABB(boardTiles[h][wPos].pos - Vector::Vector2(0, ROW_HEIGHT + 15), ROW_WIDTH*4.0, 15);
 
 
+=======
+				// Make the emitter
+				boardTiles[h][wPos].tokenDestroyEmitter = Particle::Emitter("BROKEN_TOKEN");
+				boardTiles[h][wPos].tokenDestroyEmitter.setPos(boardTiles[h][wPos].pos);
+
+				// Set the bounding box
+				boardTiles[h][wPos].boundingBox = Collision::AABB(boardTiles[h][wPos].pos - Vector::Vector2(0, ROW_HEIGHT + 15), ROW_WIDTH*4.0, 15);
+
+
+>>>>>>> other
 				// Set the completed check board to false
 				completedTiles[h][w] = false;
 			}
@@ -346,8 +357,12 @@ namespace Board
 			{
 				boardTiles[h][w].tileSprite->draw();
 				boardTiles[h][w].tokenSprite->draw();
+<<<<<<< local
 				boardTiles[h][w].tokenDestroyEmitter.draw();
 				boardTiles[h][w].SPEmitter.draw();
+=======
+				boardTiles[h][w].tokenDestroyEmitter.draw();
+>>>>>>> other
 
 			}
 		}
@@ -373,9 +388,14 @@ namespace Board
 
 				boardTiles[h][w].tileSprite->update();
 				boardTiles[h][w].tokenSprite->update();
+<<<<<<< local
 				boardTiles[h][w].SPEmitter.update();
 				boardTiles[h][w].tokenDestroyEmitter.update();
 				boardTiles[h][w].tokenDestroyEmitter.testCollision(boardTiles[h][w].boundingBox);
+=======
+				boardTiles[h][w].tokenDestroyEmitter.update();
+				boardTiles[h][w].tokenDestroyEmitter.testCollision(boardTiles[h][w].boundingBox);
+>>>>>>> other
 
 				// Check if there is the ability to complete tiles
 				if (completedTiles[h][w])

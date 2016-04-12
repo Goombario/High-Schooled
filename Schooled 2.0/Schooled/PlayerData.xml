@@ -85,7 +85,7 @@ target - will attack the targeted square, and dissapear afterwards.
       <Heal>1</Heal>
       <Damage>2</Damage>
       <Stage2 name="NONE"/>
-      <Properties continuous="true" collideWith="NONE" delay="0.2"/>
+      <Properties continuous="true" collideWith="ENEMY_PLAYER" delay="0.2"/>
     </Special>
   </Player>
 
@@ -156,7 +156,7 @@ target - will attack the targeted square, and dissapear afterwards.
       <Heal>1</Heal>
       <Damage>2</Damage>
       <Stage2 name="NONE"/>
-      <Properties continuous="true" collideWith="NONE" delay="0.2"/>
+      <Properties continuous="true" collideWith="ENEMY_PLAYER" delay="0.2"/>
     </Special>
   </Player>
 
