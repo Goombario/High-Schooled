@@ -19,3 +19,13 @@ N to confirm/bring up attack menu
 M to go back
 
 (C) 2016 Fissure Studios
+
+Graham Watson: 100522240
+ 
+ Rebecca Joly: 100584147
+ 
+ Robert Savaglio: 100591436
+ 
+ Samuelle Bouffard: 100582562
+ 
+ Pavlo Salimon: 100562122
