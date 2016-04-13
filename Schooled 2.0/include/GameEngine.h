@@ -4,15 +4,6 @@
 #include <vector>
 
 // Forward Declarations
-namespace FMOD
-{
-	namespace Studio
-	{
-		class System;
-		class Bank;
-	}
-}
-
 namespace Image
 {
 	class ImageManager;
@@ -46,23 +37,12 @@ public:
 
 	// Return the input mapper for input mapping
 	inline static Image::ImageManager* getImageManager() { return imageManager; }
-	inline static FMOD::Studio::System* getSoundSystem() { return system; }
 private:
-	// Private function that initializes FMOD
-	int Init_FMOD();
-
 	// The stack of states
 	std::vector <GameState*> states;
 
 	// Represents if the program is running or not
 	bool m_running;
-
-	// FMOD variables
-	static FMOD::Studio::System *system;
-	FMOD::Studio::Bank *masterBank = nullptr;
-	FMOD::Studio::Bank *stringsBank = nullptr;
-	FMOD::Studio::Bank *SFXBank = nullptr;
-	FMOD::Studio::Bank *tracksBank = nullptr;
 
 	// Input Mapper
 	static Image::ImageManager *imageManager;

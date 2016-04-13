@@ -81,7 +81,7 @@
     <Frame>0.05</Frame>
     <Frame>0.15</Frame>
   </Animation>
-  <Animation name="FORWARDS" loop="false">
+  <Animation name="FORWARDS" loop="true">
     <FirstFrame>114</FirstFrame>
     <Frame>0.15</Frame>
     <Frame>0.05</Frame>

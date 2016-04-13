@@ -102,7 +102,6 @@
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Schooled.cpp" />
     <ClCompile Include="src\ShareState.cpp" />
-    <ClCompile Include="src\sound.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\BattleState.cpp" />
     <ClCompile Include="src\Stage.cpp" />
@@ -138,7 +137,6 @@
     <ClInclude Include="..\include\Projectile.h" />
     <ClInclude Include="..\include\Schooled.h" />
     <ClInclude Include="..\include\ShareState.h" />
-    <ClInclude Include="..\include\Sound.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\BattleState.h" />
     <ClInclude Include="..\include\Stage.h" />

@@ -338,7 +338,6 @@ namespace BattleState
 		{
 			swapCurrentPlayer();
 		}
-		// FMOD updates automatically at end
 	}
 
 	void BattleState::Draw(GameEngine* game)
