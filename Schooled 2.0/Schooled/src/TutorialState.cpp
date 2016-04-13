@@ -153,7 +153,6 @@ namespace TutorialState
 		{
 			game->PopState();
 		}
-		// FMOD updates automatically at end
 	}
 
 	void TutorialState::Draw(GameEngine* game)

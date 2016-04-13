@@ -37,9 +37,6 @@
     <Filter Include="Engine\Input\Data">
       <UniqueIdentifier>{bdb61fcd-2f45-48c3-a556-bab6222dbbe9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Sound">
-      <UniqueIdentifier>{61e542c2-f546-4835-865c-b60761b0e469}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Vector">
       <UniqueIdentifier>{ab4e0f8d-5ec3-405c-9145-279859c3c8dc}</UniqueIdentifier>
     </Filter>
@@ -77,9 +74,6 @@
     </ClCompile>
     <ClCompile Include="src\tinyxml2.cpp">
       <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sound.cpp">
-      <Filter>Engine\Sound</Filter>
     </ClCompile>
     <ClCompile Include="src\ShareState.cpp">
       <Filter>States</Filter>
@@ -157,9 +151,6 @@
   <ItemGroup>
     <ClInclude Include="..\include\ShareState.h">
       <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Sound.h">
-      <Filter>Engine\Sound</Filter>
     </ClInclude>
     <ClInclude Include="..\include\tinyxml2.h">
       <Filter>Header Files</Filter>

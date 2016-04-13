@@ -383,7 +383,6 @@ namespace MenuState
 			game->PushState(BattleState::BattleState::Instance());
 			game->PushState(TutorialState::TutorialState::Instance());
 		}
-		// FMOD updates automatically at end
 	}
 
 	void MenuState::Draw(GameEngine* game)
