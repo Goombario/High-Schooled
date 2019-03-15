@@ -959,7 +959,7 @@ namespace Player
 					if (!currentAttack.isStatic)
 					{
 						pos = boardPtr->getPlayerlocation()
-							+ COORD{ h, w };
+							+ COORD{ (short)h, (short)w };
 
 						// If the modified value is greater 
 						// than the size of the board, wrap
@@ -975,7 +975,7 @@ namespace Player
 					}
 					else
 					{	// The attack pattern doesn't change
-						pos = COORD{ h, w };
+						pos = COORD{ (short)h, (short)w };
 					}
 
 					points.push_back(pos);

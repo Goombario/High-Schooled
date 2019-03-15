@@ -7,10 +7,10 @@
 //
 // Modified by Graham Watson
 
-#include "pch.h"
-#include "InputContext.h"
+#include "input/pch.h"
+#include "input/InputContext.h"
 #include "tinyxml2.h"
-#include "FileIO.h"
+#include "input/FileIO.h"
 
 #include <fstream>
 

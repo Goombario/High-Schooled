@@ -248,7 +248,7 @@ namespace Board
 			{
 				if (boardTiles[h][w].state == TileState::CRACKED)
 				{
-					destroyToken(COORD{ w, h });
+					destroyToken(h, w);
 				}
 			}
 		}
@@ -565,7 +565,7 @@ namespace Board
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
 				// If at the target, set foundTarget to true
-				if (getPlayerlocation() == COORD{w, h} && waveMap.wMap[h][w] >= 0)		// CHECK
+				if (getPlayerlocation() == COORD{(short)w, (short)h} && waveMap.wMap[h][w] >= 0)		// CHECK
 				{
 					waveMap.foundTarget = true;
 					return waveMap.wMap[h][w];

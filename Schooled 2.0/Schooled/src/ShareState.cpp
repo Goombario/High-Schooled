@@ -1,7 +1,7 @@
 #include "ShareState.h"
 #include <fstream>
 #include "Schooled.h"
-#include "RawInputConstants.h"
+#include "input/RawInputConstants.h"
 
 using std::ifstream;
 using std::to_string;
