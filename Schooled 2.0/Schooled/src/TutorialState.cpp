@@ -103,39 +103,22 @@ namespace TutorialState
 		if (inputs.Actions.find(InputMapping::Action::P1_ADVANCE) != inputs.Actions.end())
 		{
 			self->p1Tut->moveSlide(1);
+			self->p2Tut->moveSlide(1);
 			inputs.EatAction(InputMapping::Action::P1_ADVANCE);
 		}
-
-		if (inputs.Actions.find(InputMapping::Action::P2_ADVANCE) != inputs.Actions.end())
-		{
-			self->p2Tut->moveSlide(1);
-			inputs.EatAction(InputMapping::Action::P2_ADVANCE);
-		}
-
 		if (inputs.Actions.find(InputMapping::Action::P1_BACK) != inputs.Actions.end())
 		{
 			self->p1Tut->moveSlide(-1);
+			self->p2Tut->moveSlide(-1);
 			self->p1Tut->setReady(false);
+			self->p2Tut->setReady(false);
 			inputs.EatAction(InputMapping::Action::P1_BACK);
 		}
-
-		if (inputs.Actions.find(InputMapping::Action::P2_BACK) != inputs.Actions.end())
-		{
-			self->p2Tut->moveSlide(-1);
-			self->p2Tut->setReady(false);
-			inputs.EatAction(InputMapping::Action::P2_BACK);
-		}
-
 		if (inputs.Actions.find(InputMapping::Action::P1_READY) != inputs.Actions.end())
 		{
 			self->p1Tut->setReady();
-			inputs.EatAction(InputMapping::Action::P1_READY);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::P2_READY) != inputs.Actions.end())
-		{
 			self->p2Tut->setReady();
-			inputs.EatAction(InputMapping::Action::P2_READY);
+			inputs.EatAction(InputMapping::Action::P1_READY);
 		}
 	}
 

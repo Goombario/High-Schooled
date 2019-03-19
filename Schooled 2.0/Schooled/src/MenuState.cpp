@@ -114,8 +114,7 @@ namespace MenuState
 			self->isEnd = true;
 		}
 
-		if (inputs.Actions.find(InputMapping::Action::MENU_P1_UP) != inputs.Actions.end() ||
-			inputs.Actions.find(InputMapping::Action::MENU_P2_UP) != inputs.Actions.end())
+		if (inputs.Actions.find(InputMapping::Action::MENU_P1_UP) != inputs.Actions.end())
 		{
 			switch (self->getCurrentState())
 			{
@@ -127,8 +126,7 @@ namespace MenuState
 			}
 		}
 
-		if (inputs.Actions.find(InputMapping::Action::MENU_P1_DOWN) != inputs.Actions.end() ||
-			inputs.Actions.find(InputMapping::Action::MENU_P2_DOWN) != inputs.Actions.end())
+		if (inputs.Actions.find(InputMapping::Action::MENU_P1_DOWN) != inputs.Actions.end())
 		{
 			switch (self->getCurrentState())
 			{
@@ -165,38 +163,7 @@ namespace MenuState
 				// If the character select menu, do this
 			case State::CHAR_MENU:
 				self->p1CharMenu->setFinished();
-				break;
-			case State::STAGE_MENU:
-				self->stageMenu->setFinished();
-				break;
-			default:
-				break;
-			}
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::MENU_P2_SELECT) != inputs.Actions.end())
-		{
-			switch (self->getCurrentState())
-			{
-			case State::MAIN_MENU:
-				switch (self->mainMenu->getSelectionNum())
-				{
-				case 0:
-					// Change to the character select and stop taking input
-					self->changeMenuState(State::CHAR_MENU);
-					return;
-					break;
-				case 1:
-					break;
-				case 2:
-					self->isEnd = true;
-					return;
-					break;
-				default:
-					break;
-				}
-				break;
-			case State::CHAR_MENU:
+				self->p2CharMenu->moveSelectionNum(rand() % 4);
 				self->p2CharMenu->setFinished();
 				break;
 			case State::STAGE_MENU:
@@ -206,6 +173,7 @@ namespace MenuState
 				break;
 			}
 		}
+
 
 		if (inputs.Actions.find(InputMapping::Action::MENU_P1_BACK) != inputs.Actions.end())
 		{
@@ -218,33 +186,6 @@ namespace MenuState
 				if (self->p1CharMenu->isFinished())
 				{
 					self->p1CharMenu->setFinished(false);
-				}
-				else
-				{
-					self->changeMenuState(State::MAIN_MENU);
-					return;
-				}
-				break;
-			case State::STAGE_MENU:
-				// Change to the character menu and stop taking input
-				self->changeMenuState(State::CHAR_MENU);
-				return;
-				break;
-			default:
-				break;
-			}
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::MENU_P2_BACK) != inputs.Actions.end())
-		{
-			switch (self->getCurrentState())
-			{
-			case State::MAIN_MENU:
-				break;
-			case State::CHAR_MENU:
-				if (self->p2CharMenu->isFinished())
-				{
-					self->p2CharMenu->setFinished(false);
 				}
 				else
 				{
@@ -279,23 +220,6 @@ namespace MenuState
 			}			
 		}
 
-		if (inputs.Actions.find(InputMapping::Action::MENU_P2_RIGHT) != inputs.Actions.end())
-		{
-			switch (self->getCurrentState())
-			{
-			case State::MAIN_MENU:
-				break;
-			case State::CHAR_MENU:
-				self->p2CharMenu->moveSelectionNum(1);
-				break;
-			case State::STAGE_MENU:
-				self->stageMenu->moveSelectionNum(1);
-				break;
-			default:
-				break;
-			}
-		}
-
 		if (inputs.Actions.find(InputMapping::Action::MENU_P1_LEFT) != inputs.Actions.end())
 		{
 			switch (self->getCurrentState())
@@ -304,23 +228,6 @@ namespace MenuState
 				break;
 			case State::CHAR_MENU:
 				self->p1CharMenu->moveSelectionNum(-1);
-				break;
-			case State::STAGE_MENU:
-				self->stageMenu->moveSelectionNum(-1);
-				break;
-			default:
-				break;
-			}
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::MENU_P2_LEFT) != inputs.Actions.end())
-		{
-			switch (self->getCurrentState())
-			{
-			case State::MAIN_MENU:
-				break;
-			case State::CHAR_MENU:
-				self->p2CharMenu->moveSelectionNum(-1);
 				break;
 			case State::STAGE_MENU:
 				self->stageMenu->moveSelectionNum(-1);

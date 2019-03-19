@@ -265,7 +265,7 @@ namespace Player
 		for (auto it = icons.begin(); it != icons.end(); it++)
 		{
 			// Draw icons in order
-			(*it)->drawAt(iconOffset + 
+			(*it)->drawAt(iconOffset +
 				Vector::Vector2(counter * 80, 0));
 			counter++;
 		}
@@ -370,7 +370,7 @@ namespace Player
 		XMLNode *pRoot = data.RootElement();
 		if (pRoot == nullptr)
 		{
-			std::cerr << "ERROR: Loading Player data file: " 
+			std::cerr << "ERROR: Loading Player data file: "
 				<< playerName << std::endl;
 			exit(-2);
 		}
@@ -426,7 +426,7 @@ namespace Player
 		stats.currentSP = 0;
 		stats.currentAP = 0;
 		stats.lockedAP = 0;
-		
+
 		// Load all attacks
 		XMLElement *allAttackData = playerData->FirstChildElement("Attacks");
 		if (CheckIfNull(allAttackData, "Player: Attacks")) exit(-2);
@@ -465,7 +465,7 @@ namespace Player
 			// Icon loading
 			if (CheckIfNull(attackData->FirstChildElement("Icon"), "Player: Attack: Icon")) exit(-2);
 			tempAttack.icon = Icon(
-				attackData->FirstChildElement("Icon")->Attribute("name"), 
+				attackData->FirstChildElement("Icon")->Attribute("name"),
 				boardPtr->getSide());
 
 			// Projectile loading
@@ -553,7 +553,7 @@ namespace Player
 		{
 			setPos(Vector::Vector2(schooled::SCREEN_WIDTH_PX + 200, 0));
 		}
-		
+
 
 		arrowSprite->setPos(boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0));
@@ -610,7 +610,7 @@ namespace Player
 	bool Player::attack(Player& enemy)
 	{
 		Attack *currentAttack = &attacks.at(window.getActiveIconIndex());
-		
+
 		// Don't attack if the cooldown is still in effect
 		if (currentAttack->currentCooldown != 0)
 		{
@@ -652,17 +652,17 @@ namespace Player
 			{
 				enemy.changeHealth(-currentAttack->damage);
 				enemy.sprite->pushAnimation(Animation::AnimationEnum::HURT);
-				
+
 				enemy.sprite->addDelay(delay);
 			}
 			else
-			{	
+			{
 				enemy.boardPtr->placeToken((*it), delay);
 			}
-			
+
 			std::cout << std::endl;
 		}
-		
+
 		// Update player stats
 		currentAttack->currentCooldown = currentAttack->cooldown;
 		(*this).sprite->changeAnimation(static_cast<Animation::AnimationEnum>(window.getActiveIconIndex()));
@@ -695,6 +695,7 @@ namespace Player
 		boardPath.clear();
 		stats.currentAP = 0;
 	}
+
 
 	void Player::useSpecial(Player& enemy)
 	{
@@ -735,7 +736,7 @@ namespace Player
 		// Reset all cooldowns
 		if (ability.resetCooldowns)
 		{
-			for (auto it = (*this).attacks.begin(); 
+			for (auto it = (*this).attacks.begin();
 				it != (*this).attacks.end(); it++)
 			{
 				(*it).currentCooldown = 0;
@@ -811,12 +812,12 @@ namespace Player
 		stats.currentAP = stats.maxAP - stats.lockedAP - boardPtr->updatePath();
 
 		boardPtr->crackToken(boardPtr->getPlayerlocation());
-		
+
 
 		// Add a path
 		Path::Path *tempPath = new Path::Path(
 			(*this).getPos(),
-			boardPtr->getTilePos(boardPtr->getPlayerlocation()) + 
+			boardPtr->getTilePos(boardPtr->getPlayerlocation()) +
 			Vector::Vector2(0, sprite->getFrameHeight() / 2.0),
 			0.25);
 
@@ -882,6 +883,51 @@ namespace Player
 
 		paths.push_back(tempPath);
 		sprite->pushAnimation(Animation::AnimationEnum::FORWARDS);
+	}
+
+	bool Player::hasMovesAvailable()
+	{
+		for each (Attack attack in attacks)
+		{
+			if (attack.currentCooldown <= 0) return true;
+		}
+		return false;
+	}
+
+	std::vector<bool> Player::getMovesAvailable()
+	{
+		std::vector<bool> moveStatuses;
+
+		for each (Attack attack in attacks)
+		{
+			moveStatuses.push_back(attack.currentCooldown <= 0);
+		}
+
+		return moveStatuses;
+	}
+
+	bool Player::canHitOtherPlayer(Player const& other)
+	{
+		COORD otherPos = other.getBoard()->getPlayerlocation();
+
+		for each (Attack attack in attacks)
+		{
+			auto pattern = getAttackPattern(attack);
+			for each (COORD coord in pattern)
+			{
+				if (coord == otherPos)
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	bool Player::canUseAttack(int index)
+	{
+		//if (index >= attacks.size()) return false;
+		if (index < 0) index = attacks.size() + index;
+		return (attacks[index].currentCooldown <= 0);
 	}
 
 	void Player::moveToSide()
@@ -1026,7 +1072,7 @@ namespace Player
 			!paths.empty());
 
 		// Check if the player is using their special
-		usingSpecial = (sprite->getCurrentAnimation() == Animation::AnimationEnum::ATTACK_SPECIAL);	
+		usingSpecial = (sprite->getCurrentAnimation() == Animation::AnimationEnum::ATTACK_SPECIAL);
 		if (usingSpecial)
 		{
 			ability.currentDelay -= 1.0 / schooled::FRAMERATE;

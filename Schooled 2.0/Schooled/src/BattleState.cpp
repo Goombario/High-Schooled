@@ -27,7 +27,7 @@ namespace BattleState
 		// Initialize the mapper context
 		// Tells the mapper to call the given function after the contexts have been mapped.
 		mapper = new InputMapping::InputMapper();
-
+		 
 		mapper->AddCallback(mainCallback, 0);
 
 
@@ -178,101 +178,199 @@ namespace BattleState
 			self->isEnd = true;
 		}
 
+		// If the game is over, don't allow other inputs
+		/*if (self->getCurrentState() == State::GAME_OVER)
+		{
+			return;
+		}*/
+
 		// Do not let any commands through if attacking/moving
 		if (self->getCurrentState() == State::ACTING)
 		{
 			return;
 		}
 
-		if (inputs.Actions.find(InputMapping::Action::MENU_SELECT) != inputs.Actions.end())
+		if (self->getCurrentSide() == Side::LEFT)
 		{
-			if (self->getCurrentState() == State::GAME_OVER)
+			if (inputs.Actions.find(InputMapping::Action::MENU_SELECT) != inputs.Actions.end())
 			{
-				self->stage->setFinished();
-			}
-			else if (self->getCurrentState() != State::ATTACK_CHOOSE)
-			{
-				self->pushState(State::ATTACK_CHOOSE);
-				self->getCurrentPlayer()->initAttackMenu(*self->getOtherPlayer());
-				if (self->getCurrentSide() == Side::LEFT)
+				if (self->getCurrentState() == State::GAME_OVER)
 				{
-					self->mapper->PushContext("p1AttackMenu");
+					self->stage->setFinished();
+				}
+				else if (self->getCurrentState() != State::ATTACK_CHOOSE)
+				{
+					self->pushState(State::ATTACK_CHOOSE);
+					self->getCurrentPlayer()->initAttackMenu(*self->getOtherPlayer());
+					if (self->getCurrentSide() == Side::LEFT)
+					{
+						self->mapper->PushContext("p1AttackMenu");
+					}
+					else
+					{
+						self->mapper->PushContext("p2AttackMenu");
+					}
 				}
 				else
 				{
-					self->mapper->PushContext("p2AttackMenu");
+					bool success = self->getCurrentPlayer()->attack(*self->getOtherPlayer());
+					if (success)
+					{
+						self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
+						self->popState();
+						self->mapper->PopContext();
+						self->stage->updateHPColour();
+					}
+				}
+			}
+
+			if (inputs.Actions.find(InputMapping::Action::MENU_BACK) != inputs.Actions.end())
+			{
+				self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
+				self->popState();
+				self->mapper->PopContext();
+				inputs.EatAction(InputMapping::Action::MENU_BACK);
+			}
+
+			if (inputs.Actions.find(InputMapping::Action::MENU_UP) != inputs.Actions.end())
+			{
+				self->getCurrentPlayer()->moveSelectedAttack(1, *self->getOtherPlayer());
+				inputs.EatAction(InputMapping::Action::MENU_UP);
+			}
+
+			if (inputs.Actions.find(InputMapping::Action::MENU_DOWN) != inputs.Actions.end())
+			{
+				self->getCurrentPlayer()->moveSelectedAttack(-1, *self->getOtherPlayer());
+				inputs.EatAction(InputMapping::Action::MENU_DOWN);
+			}
+
+			// If choosing menu options, don't allow anything else7
+			if (self->getCurrentState() == State::ATTACK_CHOOSE) return;
+
+			if (inputs.Actions.find(InputMapping::Action::BOARD_UP) != inputs.Actions.end())
+			{
+				self->getCurrentPlayer()->move(Direction::UP);
+				inputs.EatAction(InputMapping::Action::BOARD_UP);
+			}
+
+			if (inputs.Actions.find(InputMapping::Action::BOARD_DOWN) != inputs.Actions.end())
+			{
+				self->getCurrentPlayer()->move(Direction::DOWN);
+				inputs.EatAction(InputMapping::Action::BOARD_DOWN);
+			}
+
+			if (inputs.Actions.find(InputMapping::Action::BOARD_FORWARD) != inputs.Actions.end())
+			{
+				self->getCurrentPlayer()->move(Direction::FORWARD);
+				inputs.EatAction(InputMapping::Action::BOARD_FORWARD);
+			}
+
+			if (inputs.Actions.find(InputMapping::Action::BOARD_BACKWARD) != inputs.Actions.end())
+			{
+				self->getCurrentPlayer()->move(Direction::BACKWARD);
+				inputs.EatAction(InputMapping::Action::BOARD_BACKWARD);
+			}
+
+			if (inputs.Actions.find(InputMapping::Action::SELECT_POS) != inputs.Actions.end())
+			{
+				self->swapCurrentPlayer();
+				int randomX = (rand() % 3) + 1;
+				int randomY = (rand() % 3) + 1;
+				for (int i = 0; i < randomX; i++)
+				{
+					self->getCurrentPlayer()->move(Direction::DOWN);
+				}
+				for (int i = 0; i < randomY; i++)
+				{
+					self->getCurrentPlayer()->move(Direction::FORWARD);
+				}
+				self->swapCurrentPlayer();
+				inputs.EatAction(InputMapping::Action::SELECT_POS);
+			}
+		}
+		else
+		{
+			// Cooldown on actions 
+			static float aiMoveCooldown = 0.f;
+
+			if (aiMoveCooldown > 0.f)
+			{
+				printf("ai cooldown: %f \n", aiMoveCooldown);
+				aiMoveCooldown -= (1.0 / schooled::FRAMERATE);	// Locked framerate
+				if (aiMoveCooldown < 0.f) aiMoveCooldown = 0.f;
+				return;
+			}
+
+			if (self->getCurrentState() == State::GAME_OVER)
+			{
+				self->swapCurrentPlayer();
+				self->stage->setFinished();
+			}
+			if (self->getCurrentPlayer()->getCurrentAP() > 0)
+			{
+				int action = 0;
+				if (self->getCurrentState() != State::ATTACK_CHOOSE && self->getCurrentPlayer()->getCurrentAP() == 2)
+				{
+					action = rand() % 2;
+					self->getCurrentPlayer()->setLastMove(1);
+				}
+
+				if (action == 0 && self->getCurrentPlayer()->getLastMove() < 2 && self->getCurrentPlayer()->hasMovesAvailable())
+				{
+					if (self->getCurrentState() != State::ATTACK_CHOOSE)
+					{
+						self->pushState(State::ATTACK_CHOOSE);
+						self->getCurrentPlayer()->initAttackMenu(*self->getOtherPlayer());
+						self->mapper->PushContext("p2AttackMenu");
+
+						aiMoveCooldown += 1.f;
+					}
+					else
+					{
+						int option = (rand() % 3) -1;
+						while (!self->getCurrentPlayer()->canUseAttack(option)) option = (rand() % 3) - 1;
+						self->getCurrentPlayer()->moveSelectedAttack(option, *self->getOtherPlayer());
+
+						self->getCurrentPlayer()->attack(*self->getOtherPlayer());
+						self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
+						self->popState();
+						self->mapper->PopContext();
+						self->stage->updateHPColour();
+						self->getCurrentPlayer()->setLastMove(3);
+
+						aiMoveCooldown += 1.f;
+						//if (self->getCurrentPlayer()->getCurrentAP() == 0) aiMoveCooldown = 0.f;
+					}
+				}
+				else /*if (self->getCurrentPlayer()->getLastMove() > 0)*/
+				{
+					int randMove = (rand() % 4) + 1;
+					switch (randMove)
+					{
+					case 1:
+						self->getCurrentPlayer()->move(Direction::DOWN);
+						break;
+					case 2:
+						self->getCurrentPlayer()->move(Direction::FORWARD);
+						break;
+					case 3:
+						self->getCurrentPlayer()->move(Direction::UP);
+						break;
+					case 4:
+						self->getCurrentPlayer()->move(Direction::BACKWARD);
+						break;
+					default:
+						break;
+					}
+					self->getCurrentPlayer()->setLastMove(0);
+
+					aiMoveCooldown += 1.f;
 				}
 			}
 			else
 			{
-				bool success = self->getCurrentPlayer()->attack(*self->getOtherPlayer());
-				if (success)
-				{
-					self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
-					self->popState();
-					self->mapper->PopContext();
-					self->stage->updateHPColour();
-				}
+				self->swapCurrentPlayer();
 			}
-		}
-
-		// If the game is over, don't allow other inputs
-		if (self->getCurrentState() == State::GAME_OVER)
-		{
-			return;
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::MENU_BACK) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->clearAttackMenu(*self->getOtherPlayer());
-			self->popState();
-			self->mapper->PopContext();
-			inputs.EatAction(InputMapping::Action::MENU_BACK);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::MENU_UP) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->moveSelectedAttack(1, *self->getOtherPlayer());
-			inputs.EatAction(InputMapping::Action::MENU_UP);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::MENU_DOWN) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->moveSelectedAttack(-1, *self->getOtherPlayer());
-			inputs.EatAction(InputMapping::Action::MENU_DOWN);
-		}
-
-		// If choosing menu options, don't allow anything else
-		if (self->getCurrentState() == State::ATTACK_CHOOSE) return;
-
-		if (inputs.Actions.find(InputMapping::Action::BOARD_UP) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->move(Direction::UP);
-			inputs.EatAction(InputMapping::Action::BOARD_UP);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::BOARD_DOWN) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->move(Direction::DOWN);
-			inputs.EatAction(InputMapping::Action::BOARD_DOWN);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::BOARD_FORWARD) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->move(Direction::FORWARD);
-			inputs.EatAction(InputMapping::Action::BOARD_FORWARD);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::BOARD_BACKWARD) != inputs.Actions.end())
-		{
-			self->getCurrentPlayer()->move(Direction::BACKWARD);
-			inputs.EatAction(InputMapping::Action::BOARD_BACKWARD);
-		}
-
-		if (inputs.Actions.find(InputMapping::Action::SELECT_POS) != inputs.Actions.end())
-		{
-			self->swapCurrentPlayer();
-			inputs.EatAction(InputMapping::Action::SELECT_POS);
 		}
 	}
 
@@ -315,6 +413,8 @@ namespace BattleState
 
 		// If a player is acting (moving, attacking) set the state to ACTING
 		bool isActing = false;
+		//if (getCurrentPlayer()->isActing() || getOtherPlayer()->isActing())
+		//	isActing = true;
 		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
 		{
 			if ((**it).isActing())
@@ -330,6 +430,10 @@ namespace BattleState
 		{
 			popState();
 		}
+
+		int currentPlayerAP = getCurrentPlayer()->getCurrentAP();
+		bool currentPlayerIsActing = getCurrentPlayer()->isActing();
+		bool otherBoardIsActing = getOtherPlayer()->getBoard()->isActing();
 
 		// If the player is out of action points
 		if (getCurrentPlayer()->getCurrentAP() == 0 && 

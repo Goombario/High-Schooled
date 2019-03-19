@@ -80,6 +80,7 @@ namespace Player
 		int maxAP;	// Action points
 		int currentAP;
 		int lockedAP;	// The AP unable to be taken back
+		int lastMove;
 	};
 
 	// Helper struct holds attack data
@@ -99,7 +100,7 @@ namespace Player
 	struct SpecialAbility
 	{
 		std::string name;
-		bool removesAllTokens;	
+		bool removesAllTokens;
 		bool removesEnemyTokens;	// Both options for testing purposes
 		bool resetCooldowns;
 		bool continuous; // If the emitter constantly emits particles
@@ -170,10 +171,14 @@ namespace Player
 		inline int getCurrentHP() const { return stats.currentHP; }
 		inline int getCurrentAP() const { return stats.currentAP; }
 		inline int getCurrentSP() const { return stats.currentSP; }
+		inline int getLastMove() const { return stats.lastMove; }
 		inline int getMaxHP() const { return stats.maxHP; }
 		inline int getMaxSP() const { return stats.maxSP; }
 		inline int getMaxAP() const { return stats.maxAP; }
 		Side getSide() const;
+
+		// Sets last move
+		void setLastMove(int newLastMove) { stats.lastMove = newLastMove; };
 
 		// Changes health of enemy player, tokens on enemy board
 		// And changes your cooldown and current AP
@@ -226,6 +231,12 @@ namespace Player
 		// Get the board
 		Board::Board const* getBoard() const { return boardPtr; }
 
+		// Neural Network functions
+		bool hasMovesAvailable();
+		std::vector<bool> getMovesAvailable();
+		bool canHitOtherPlayer(Player const&);
+		bool canUseAttack(int index);
+
 	private:
 		// Move sprite to relative postion
 		//void moveSpriteToSide(Sprite::Sprite&);
@@ -249,7 +260,7 @@ namespace Player
 		Board::Board *boardPtr;	// Pointer to the player's board
 		Collision::AABB boundingBox;
 	};
-	
+
 }
 
 #endif

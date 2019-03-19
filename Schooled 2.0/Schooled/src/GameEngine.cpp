@@ -12,11 +12,11 @@ Image::ImageManager *GameEngine::imageManager = nullptr;
 int GameEngine::Init()
 {
 	// Set the seed
-	srand((unsigned int)time(0));
+	srand(0);
 
 	// Initialize Fizzle
 	FzlInit("High Schooled", static_cast<int>(schooled::SCREEN_WIDTH_PX * schooled::SCALE),
-		static_cast<int>(schooled::SCREEN_HEIGHT_PX * schooled::SCALE), 1);
+		static_cast<int>(schooled::SCREEN_HEIGHT_PX * schooled::SCALE), 0);
 	FzlSetFrameRate(schooled::FRAMERATE);
 
 	// Swaps buffers to set delta time between frames

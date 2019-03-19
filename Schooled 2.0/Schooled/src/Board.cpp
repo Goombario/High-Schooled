@@ -204,7 +204,7 @@ namespace Board
 	{
 		removeToken(c.Y, c.X, delay, emit);
 	}
-	
+
 	void Board::destroyToken(COORD c)
 	{
 		destroyToken(c.Y, c.X);
@@ -252,6 +252,16 @@ namespace Board
 				}
 			}
 		}
+	}
+
+	bool Board::hasToken(unsigned int h, unsigned int w)
+	{
+		return boardTiles[h][w].hasToken;
+	}
+
+	bool Board::hasToken(COORD c)
+	{
+		return boardTiles[c.Y][c.X].hasToken;
 	}
 
 	void Board::clearTokens()
@@ -384,7 +394,7 @@ namespace Board
 				}
 
 				// If any tile is finished its action, make it idle
-				if (boardTiles[h][w].state == TileState::PLACING && 
+				if (boardTiles[h][w].state == TileState::PLACING &&
 					boardTiles[h][w].tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::IDLE ||
 					boardTiles[h][w].state == TileState::COMPLETING &&
 					boardTiles[h][w].tokenSprite->getCurrentAnimation() == Animation::AnimationEnum::TOKEN_EMPTY ||
@@ -565,7 +575,7 @@ namespace Board
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
 				// If at the target, set foundTarget to true
-				if (getPlayerlocation() == COORD{(short)w, (short)h} && waveMap.wMap[h][w] >= 0)		// CHECK
+				if (getPlayerlocation() == COORD{ (short)w, (short)h } && waveMap.wMap[h][w] >= 0)		// CHECK
 				{
 					waveMap.foundTarget = true;
 					return waveMap.wMap[h][w];

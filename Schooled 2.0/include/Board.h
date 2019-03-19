@@ -97,6 +97,9 @@ namespace Board
 		// Clear all cracked tokens
 		void destroyCrackedTokens();
 
+		bool hasToken(unsigned int h, unsigned int w);
+		bool hasToken(COORD c);
+
 		// Adds tokens onto the board
 		inline Board& operator+=(Board const&);
 		inline Board const operator+(Board const&) const;
