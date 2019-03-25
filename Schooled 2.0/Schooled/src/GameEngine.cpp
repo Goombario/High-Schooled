@@ -12,7 +12,7 @@ Image::ImageManager *GameEngine::imageManager = nullptr;
 int GameEngine::Init()
 {
 	// Set the seed
-	srand(0);
+	srand(time(NULL));
 
 	// Initialize Fizzle
 	FzlInit("High Schooled", static_cast<int>(schooled::SCREEN_WIDTH_PX * schooled::SCALE),

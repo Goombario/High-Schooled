@@ -111,8 +111,10 @@
     <ClCompile Include="src\input\RangeConverter.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\MenuState.cpp" />
+    <ClCompile Include="src\network.cpp" />
     <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\Path.cpp" />
+    <ClCompile Include="src\Perceptron.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Schooled.cpp" />
@@ -137,6 +139,8 @@
     <ClInclude Include="..\include\GameState.h" />
     <ClInclude Include="..\include\Menu.h" />
     <ClInclude Include="..\include\MenuState.h" />
+    <ClInclude Include="..\include\network.h" />
+    <ClInclude Include="..\include\Perceptron.h" />
     <ClInclude Include="..\include\Tutorial.h" />
     <ClInclude Include="..\include\Image.h" />
     <ClInclude Include="..\include\Input\FileIO.h" />

@@ -67,6 +67,9 @@
     <Filter Include="Tutorial\Animations">
       <UniqueIdentifier>{b168ae46-a81f-494c-912f-024c65d6a908}</UniqueIdentifier>
     </Filter>
+    <Filter Include="network">
+      <UniqueIdentifier>{6d896025-3e4d-400c-a628-a4c8fb20daff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -146,6 +149,12 @@
     </ClCompile>
     <ClCompile Include="src\Collision.cpp">
       <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Perceptron.cpp">
+      <Filter>network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +253,12 @@
     </ClInclude>
     <ClInclude Include="..\include\MenuState.h">
       <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\network.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Perceptron.h">
+      <Filter>network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

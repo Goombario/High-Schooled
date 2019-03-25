@@ -6,8 +6,12 @@
 #include "Fizzle\DataTypes\FizzleDataTypes.h"
 #include <map>
 #include <vector>
+#include "network.h"
 
 // Forward Declaration
+
+static bool drawGame = false;
+
 namespace InputMapping
 {
 	struct MappedInput;
@@ -52,6 +56,8 @@ namespace BattleState
 		// Initialize the state
 		void Init();
 
+		void reset();
+
 		// Cleanup the state before exiting
 		void Cleanup();
 
@@ -76,6 +82,13 @@ namespace BattleState
 		State getCurrentState();
 		inline Side getCurrentSide() const { return playerTurn; }
 
+		void updateNetwork();
+		bool randomize = true;
+		double data[33];
+		Network network;
+		double esum = 0;
+		double lastEsum = 100000;
+		float actions = 0;
 
 	protected:
 		// Create an empty object

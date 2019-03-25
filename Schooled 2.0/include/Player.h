@@ -160,6 +160,8 @@ namespace Player
 		// Constructor that takes in a player name and loads the data
 		Player(const char* playerName, Board::Board&);
 
+		void Reset();
+
 		// Rule of three
 		Player(Player const&);		// NEED UPDATE
 		Player& operator=(Player const&);		// NEED UPDATE
@@ -168,6 +170,7 @@ namespace Player
 		friend class Stage::HUD;
 
 		// Getters
+		inline void decrementAP() { if (stats.currentAP >= 1) stats.currentAP--; }
 		inline int getCurrentHP() const { return stats.currentHP; }
 		inline int getCurrentAP() const { return stats.currentAP; }
 		inline int getCurrentSP() const { return stats.currentSP; }

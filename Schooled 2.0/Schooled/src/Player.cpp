@@ -607,6 +607,13 @@ namespace Player
 		}
 	}
 
+	void Player::Reset()
+	{
+		stats.currentAP = 2;
+		stats.currentHP = stats.maxHP;
+		stats.currentSP = 0;
+	}
+
 	bool Player::attack(Player& enemy)
 	{
 		Attack *currentAttack = &attacks.at(window.getActiveIconIndex());
@@ -660,7 +667,6 @@ namespace Player
 				enemy.boardPtr->placeToken((*it), delay);
 			}
 
-			std::cout << std::endl;
 		}
 
 		// Update player stats
@@ -677,7 +683,6 @@ namespace Player
 		(*this).boardPtr->updatePath();
 		(*this).boardPtr->destroyCrackedTokens();
 		currentAttack = nullptr;
-		std::cout << "Current AP: " << stats.currentAP << std::endl;
 
 		updateIconCooldown();
 
@@ -826,7 +831,6 @@ namespace Player
 		paths.push_back(tempPath);
 		sprite->pushAnimation(newAnim);
 
-		std::cout << "Current AP: " << stats.currentAP << std::endl;
 	}
 
 	void Player::moveArrow(Direction d)
@@ -1066,6 +1070,11 @@ namespace Player
 		ability.stage2.update();
 		boundingBox.setPos(getPos());
 
+		if (isActing())
+		{
+			sprite->changeAnimation(Animation::AnimationEnum::IDLE);
+		}
+
 		// Check if the player is still acting
 		setActing(
 			sprite->getCurrentAnimation() != Animation::AnimationEnum::IDLE ||
@@ -1091,6 +1100,7 @@ namespace Player
 
 	void Player::updateProjectiles(Player const& enemy)
 	{
+		activeProjectiles.clear();
 		// Update all active projectiles
 		std::vector<Projectile::Projectile> tempProj;
 		for (auto it = activeProjectiles.begin(); it != activeProjectiles.end(); it++)

@@ -110,6 +110,7 @@ namespace Particle
 
 	void Emitter::update()
 	{
+		particleList.clear();
 		std::vector<Particle> tempParticles;
 		for (auto it = particleList.begin(); it != particleList.end(); it++)
 		{

@@ -49,15 +49,20 @@ namespace Path
 
 	void Path::update(GameObject& target)
 	{
-		moveTime();
+
+		//moveTime();
+		target.setPos(dest);
+		delay = 0.0;
+		timeToTarget = 0.0;
+
 		if (!isActive())
 		{
 			setVelocity(Vector::Vector2(0, 0));
 		}
 		firstOrder();
 
-		target.setVelocity(getVelocity());
-		target.setPos(getPos());
+		//target.setVelocity(getVelocity());
+		//target.setPos(getPos());
 	}
 
 	bool Path::isActive() const

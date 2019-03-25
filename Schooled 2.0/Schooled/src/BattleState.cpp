@@ -4,6 +4,8 @@
 #include "BattleObject.h"
 #include "Fizzle\Fizzle.h"
 #include "Input\InputMapper.h"
+#include <ctime>
+
 
 #include "Player.h"
 #include "Stage.h"
@@ -22,14 +24,52 @@ namespace BattleState
 {
 	BattleState BattleState::m_BattleState;
 
+	void BattleState::reset()
+	{
+
+		states.clear();
+
+		board1->clearTokens();
+		board2->clearTokens();
+		player1->Reset();
+		player2->Reset();
+
+		pushState(State::POS_CHOOSE);
+		playerTurn = Side::LEFT;
+		stage->setActiveBoard(playerTurn);
+		getCurrentPlayer()->startTurn();
+		getCurrentPlayer()->firstTurn();
+
+		isEnd = false;
+		choosingPos = 0;
+
+		swapCurrentPlayer();
+		int randomX = (rand() % 3) + 1;
+		int randomY = (rand() % 3) + 1;
+		for (int i = 0; i < randomX; i++)
+		{
+			getCurrentPlayer()->move(Direction::DOWN);
+		}
+		for (int i = 0; i < randomY; i++)
+		{
+			getCurrentPlayer()->move(Direction::FORWARD);
+		}
+		swapCurrentPlayer();
+	}
+
 	void BattleState::Init()
 	{
 		// Initialize the mapper context
 		// Tells the mapper to call the given function after the contexts have been mapped.
 		mapper = new InputMapping::InputMapper();
-		 
 		mapper->AddCallback(mainCallback, 0);
 
+		network = Network(33, 80, 7, 6);
+		//network = Network("neuralnet.txt");
+
+		network.randomizeInputWeights(-0.1f, 0.1f);
+		network.randomizeHiddenWeights(-0.005f, 0.005f);
+		network.randomizeOutputWeights(-0.1f, .1f);
 
 		// Tells the mapper to map a specific set of keys to a specific set of actions
 		mapper->PushContext("globalContext");
@@ -62,6 +102,19 @@ namespace BattleState
 
 		isEnd = false;
 		choosingPos = 0;
+
+		swapCurrentPlayer();
+		int randomX = (rand() % 3) + 1;
+		int randomY = (rand() % 3) + 1;
+		for (int i = 0; i < randomX; i++)
+		{
+			getCurrentPlayer()->move(Direction::DOWN);
+		}
+		for (int i = 0; i < randomY; i++)
+		{
+			getCurrentPlayer()->move(Direction::FORWARD);
+		}
+		swapCurrentPlayer();
 	}
 
 	void BattleState::Cleanup()
@@ -96,7 +149,7 @@ namespace BattleState
 		// Resume sounds and push contexts
 		shared::fillPreviouslyPressed(previouslyPressed, validKeys);
 		mapper->PushContext("globalContext");
-		
+
 		// Find which context to push
 		if (getCurrentSide() == Side::RIGHT)
 		{
@@ -147,20 +200,20 @@ namespace BattleState
 	void BattleState::HandleEvents(GameEngine* game)
 	{
 		// Go through all valid keys and set if they are down or not, and if they have been previously down.
-		for (FzlKey key : validKeys)
-		{
-			if (FzlGetKey(key))
-			{
-				bool previouslyDown = previouslyPressed[key];
-				previouslyPressed[key] = true;
-				mapper->SetRawButtonState(key, true, previouslyDown);
-			}
-			else
-			{
-				previouslyPressed[key] = false;
-				mapper->SetRawButtonState(key, false, true);
-			}
-		}
+		//for (FzlKey key : validKeys)
+		//{
+		//	if (FzlGetKey(key))
+		//	{
+		//		bool previouslyDown = previouslyPressed[key];
+		//		previouslyPressed[key] = true;
+		//		mapper->SetRawButtonState(key, true, previouslyDown);
+		//	}
+		//	else
+		//	{
+		//		previouslyPressed[key] = false;
+		//		mapper->SetRawButtonState(key, false, true);
+		//	}
+		//}
 
 
 		// push the handled inputs to the mapper
@@ -192,6 +245,15 @@ namespace BattleState
 
 		if (self->getCurrentSide() == Side::LEFT)
 		{
+			if (self->getCurrentPlayer()->isActing())
+			{
+
+			}
+			else
+			{
+				self->updateNetwork();
+			}
+
 			if (inputs.Actions.find(InputMapping::Action::MENU_SELECT) != inputs.Actions.end())
 			{
 				if (self->getCurrentState() == State::GAME_OVER)
@@ -295,7 +357,6 @@ namespace BattleState
 
 			if (aiMoveCooldown > 0.f)
 			{
-				printf("ai cooldown: %f \n", aiMoveCooldown);
 				aiMoveCooldown -= (1.0 / schooled::FRAMERATE);	// Locked framerate
 				if (aiMoveCooldown < 0.f) aiMoveCooldown = 0.f;
 				return;
@@ -323,11 +384,11 @@ namespace BattleState
 						self->getCurrentPlayer()->initAttackMenu(*self->getOtherPlayer());
 						self->mapper->PushContext("p2AttackMenu");
 
-						aiMoveCooldown += 1.f;
+						aiMoveCooldown += 0.1f;
 					}
 					else
 					{
-						int option = (rand() % 3) -1;
+						int option = (rand() % 3) - 1;
 						while (!self->getCurrentPlayer()->canUseAttack(option)) option = (rand() % 3) - 1;
 						self->getCurrentPlayer()->moveSelectedAttack(option, *self->getOtherPlayer());
 
@@ -338,7 +399,7 @@ namespace BattleState
 						self->stage->updateHPColour();
 						self->getCurrentPlayer()->setLastMove(3);
 
-						aiMoveCooldown += 1.f;
+						aiMoveCooldown += 0.1f;
 						//if (self->getCurrentPlayer()->getCurrentAP() == 0) aiMoveCooldown = 0.f;
 					}
 				}
@@ -364,7 +425,7 @@ namespace BattleState
 					}
 					self->getCurrentPlayer()->setLastMove(0);
 
-					aiMoveCooldown += 1.f;
+					aiMoveCooldown += 0.1f;
 				}
 			}
 			else
@@ -374,15 +435,86 @@ namespace BattleState
 		}
 	}
 
+
 	void BattleState::Update(GameEngine* game)
 	{
-		if (stage->isFinished())
+		if (stage->isFinished() || player1->getCurrentHP() <= 0 || player2->getCurrentHP() <= 0 || actions > 2000)
 		{
-			game->PopState();
-			return;
+			if (actions > 2000)
+			{
+				printf("actions overload");
+				esum += INFINITY;
+			}
+			bool isActing = false;
+			//if (getCurrentPlayer()->isActing() || getOtherPlayer()->isActing())
+			//	isActing = true;
+			for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
+			{
+				if ((**it).isActing())
+				{
+					isActing = true;
+				}
+			}
+
+			if (isActing)
+			{
+
+			}
+			else
+			{
+
+				reset();
+
+				static int roundCounter = 0;
+				static int iterations = 0;
+				roundCounter++;
+
+				if (roundCounter > 5 && iterations < 100)
+				{
+					iterations++;
+
+					esum = esum / (double)actions;
+					roundCounter = 0;
+					actions = 0;
+					printf("%f %f", esum, lastEsum);
+
+					if (lastEsum < esum)
+					{
+						printf("uh oh it got worse");
+						network.revertWeights();
+					}
+					else
+					{
+						lastEsum = esum;
+						network.saveToFile("neuralNet", false);
+					}
+					esum = 0;
+
+					printf("\n");
+					if (randomize == true)
+					{
+						srand(time(NULL));
+						network.IncrementRandomizeInputWeights(-0.05f, 0.05f);
+						network.IncrementRandomizeHiddenWeights(-0.001f, 0.001f);
+						network.IncrementRandomizeOutputWeights(-0.01f, 0.01f);
+					}
+				}
+				//we have found the best one at the current moment
+				else
+				{
+					drawGame = true;
+					return;
+				}
+
+				srand(roundCounter);
+				return;
+			}
 		}
 
-		if (isEnd) game->Quit();
+		if (isEnd)
+		{
+			game->Quit();
+		}
 
 		for (auto it = battleObjects.begin(); it != battleObjects.end(); it++)
 		{
@@ -392,7 +524,7 @@ namespace BattleState
 		player1->updateProjectiles(*player2);
 		player2->updateProjectiles(*player1);
 
-		if (getCurrentPlayer()->canUseSpecial() && 
+		if (getCurrentPlayer()->canUseSpecial() &&
 			!getCurrentPlayer()->isActing() &&
 			!getOtherPlayer()->getBoard()->isActing())
 		{
@@ -404,10 +536,10 @@ namespace BattleState
 			!player1->isActing() && !player2->isActing() && getCurrentState() != State::GAME_OVER)
 		{
 			pushState(State::GAME_OVER);
-			stage->stopGame();
+			//stage->stopGame();
 		}
 
-		stage->setDark(getCurrentPlayer()->isUsingSpecial() || getCurrentState() == State::GAME_OVER);
+		//stage->setDark(getCurrentPlayer()->isUsingSpecial() || getCurrentState() == State::GAME_OVER);
 		stage->updateHPColour();
 		stage->update();
 
@@ -436,7 +568,7 @@ namespace BattleState
 		bool otherBoardIsActing = getOtherPlayer()->getBoard()->isActing();
 
 		// If the player is out of action points
-		if (getCurrentPlayer()->getCurrentAP() == 0 && 
+		if (getCurrentPlayer()->getCurrentAP() == 0 &&
 			!getCurrentPlayer()->isActing() &&
 			!getOtherPlayer()->getBoard()->isActing())
 		{
@@ -526,11 +658,11 @@ namespace BattleState
 		return player1;
 	}
 
-	State BattleState::getCurrentState() 
+	State BattleState::getCurrentState()
 	{
 		if (states.empty())
 			return State::EMPTY;
-		return states.back(); 
+		return states.back();
 	}
 
 	void BattleState::pushState(State newState)
@@ -539,7 +671,7 @@ namespace BattleState
 	}
 
 	void BattleState::popState()
-	{ 
+	{
 		states.pop_back();
 	}
 
@@ -558,5 +690,172 @@ namespace BattleState
 
 		fileStream.close();
 	}
-}
 
+	static int lastAP = 2;
+	void BattleState::updateNetwork()
+	{
+		actions++;
+		int counter = 0;
+
+		//get the board states
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				data[counter] = board1->hasToken(i, j);
+				counter++;
+				data[counter] = board2->hasToken(i, j);
+				counter++;
+			}
+		}
+
+		//where we are
+		//where the enemy is
+		//moves we can make
+		//hp, sp
+		//enemy hp, sp
+		data[counter++] = player1->getBoard()->getPlayerlocation().Y;
+		data[counter++] = player1->getBoard()->getPlayerlocation().X;
+		data[counter++] = player1->getMovesAvailable()[0];
+		data[counter++] = player1->getMovesAvailable()[1];
+		data[counter++] = player1->getMovesAvailable()[2];
+		data[counter++] = player1->getCurrentHP();
+		data[counter++] = player1->getCurrentSP();
+		data[counter++] = player1->getCurrentAP();
+
+		data[counter++] = player2->getBoard()->getPlayerlocation().Y;
+		data[counter++] = player2->getBoard()->getPlayerlocation().X;
+		data[counter++] = player2->getMovesAvailable()[0];
+		data[counter++] = player2->getMovesAvailable()[1];
+		data[counter++] = player2->getMovesAvailable()[2];
+		data[counter++] = player2->getCurrentHP();
+		data[counter++] = player2->getCurrentSP();
+		data[counter++] = player2->getCurrentAP();
+
+		float error = 0;
+		//if the ap hasn't changed we failed to make a move therefore we 
+
+
+		int index = 0;
+		double max = 0;
+
+		for (int i = 0; i < network.getOutputSize(); i++)
+		{
+			if (max < network.getFinalResult(i))
+			{
+				max = network.getFinalResult(i);
+				index = i;
+			}
+		}
+
+		int enemyHealth = player2->getCurrentHP();
+		int ourSP = player1->getCurrentSP();
+
+
+		// creating the stats we want to track
+		while (lastAP == player1->getCurrentAP())
+		{
+
+			int index = 0;
+			double max = 0;
+			network.input(data);
+
+			for (int i = 0; i < network.getOutputSize(); i++)
+			{
+				if (max < network.getFinalResult(i))
+				{
+					max = network.getFinalResult(i);
+					index = i;
+				}
+			}
+
+			switch (index)
+			{
+			case 0:
+				player1->move(Direction::UP);
+				break;
+			case 1:
+				player1->move(Direction::FORWARD);
+				break;
+			case 2:
+				player1->move(Direction::DOWN);
+				break;
+			case 3:
+				player1->move(Direction::BACKWARD);
+				break;
+			case 4:
+				player1->initAttackMenu(*player2);
+				player1->moveSelectedAttack(0, *player2);
+				player1->attack(*player2);
+				player1->clearAttackMenu(*player2);
+				stage->updateHPColour();
+				break;
+			case 5:
+				player1->initAttackMenu(*player2);
+				player1->moveSelectedAttack(1, *player2);
+				player1->attack(*player2);
+				player1->clearAttackMenu(*player2);
+				stage->updateHPColour();
+				break;
+			case 6:
+				player1->initAttackMenu(*player2);
+				player1->moveSelectedAttack(-1, *player2);
+				player1->attack(*player2);
+				player1->clearAttackMenu(*player2);
+				stage->updateHPColour();
+				break;
+
+			}
+
+			network.randomizeInputWeights(-0.1f, 0.1f);
+			network.randomizeHiddenWeights(-0.005f, 0.005f);
+			network.randomizeOutputWeights(-0.1f, .1f);
+		}
+
+		//if we are on a token at the end of the turn
+		COORD pos = player1->getBoard()->getPlayerlocation();
+		if (board1->hasToken(pos) && player1->getCurrentAP() == 0)
+		{
+			error -= 3;
+		}
+		//
+		if (enemyHealth > player2->getCurrentHP())
+		{
+			error -= 5;
+			error -= player2->getMaxHP() - player2->getCurrentHP();
+		}
+		if (ourSP > player1->getCurrentSP())
+		{
+			error -= player1->getCurrentSP();
+		}
+		if (player1->getCurrentSP() == player1->getMaxAP())
+		{
+			error -= 5;
+		}
+		if (index >= 4)
+		{
+			error -= 3;
+		}
+		else
+		{
+			error -= 2;
+		}
+
+		if (player1->getCurrentHP() == 0)
+		{
+			error += 10 * player2->getCurrentHP();
+		}
+		else if (player2->getCurrentHP() == 0)
+		{
+			esum -= 20 * player1->getCurrentHP();
+		}
+
+
+		esum += error;
+
+		lastAP = player1->getCurrentAP();
+
+
+	}
+
+}

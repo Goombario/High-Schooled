@@ -329,14 +329,11 @@ namespace Board
 
 	void Board::print()
 	{
-		std::cout << "Tokens:" << std::endl;
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				std::cout << boardTiles[h][w].hasToken;
 			}
-			std::cout << std::endl;
 		}
 	}
 
@@ -378,7 +375,7 @@ namespace Board
 					boardTiles[h][w].state == TileState::PLACING ||
 					boardTiles[h][w].state == TileState::DESTROYING)
 				{
-					setActing(true);
+					//setActing(true);
 				}
 
 				boardTiles[h][w].tileSprite->update();
@@ -487,27 +484,19 @@ namespace Board
 
 		tracePath(getPlayerlocation().Y, getPlayerlocation().X);
 
-		std::cout << "Distance:" << distance << std::endl;
-		std::cout << "Wave Map:" << std::endl;
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				std::cout << waveMap.wMap[h][w];
 			}
-			std::cout << std::endl;
 		}
 
-		std::cout << "Board Path" << std::endl;
 		for (int h = 0; h < Stage::BOARD_HEIGHT; h++)
 		{
 			for (int w = 0; w < Stage::BOARD_WIDTH; w++)
 			{
-				std::cout << boardTiles[h][w].isPath;
 			}
-			std::cout << std::endl;
 		}
-		std::cout << std::endl;
 		return distance;
 	}
 
